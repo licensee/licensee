@@ -73,3 +73,7 @@ Clearly checking the actual text into version control is definitive. Looking to 
 ## Strict mode
 
 When no license file is found, Licensee will also look to Readmes for references to a license, a common shorthand convention. To disable this behavior, simply set `Licensee::STRICT = true`.
+
+## Roadmap
+
+See [proposed enhancements](https://github.com/benbalter/licensee/labels/enhancement).
