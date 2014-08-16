@@ -74,6 +74,10 @@ Clearly checking the actual text into version control is definitive. Looking to 
 
 When no license file is found, Licensee will also look to Readmes for references to a license, a common shorthand convention. To disable this behavior, simply set `Licensee::STRICT = true`.
 
+## Updating the licenses
+
+License data is pulled from `choosealicense.com`. To update the license data, simple run `bower update`.
+
 ## Roadmap
 
 See [proposed enhancements](https://github.com/benbalter/licensee/labels/enhancement).
