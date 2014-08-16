@@ -89,7 +89,7 @@ You could make an argument that, when linked or sufficiently identified, the ter
 
 Because that's silly in the context of how software is developed today. You wouldn't put a copyright notice on each page of a book. Besides, it's a lot of work, as there's no standardized, cross-platform way to describe a project's license within a comment.
 
-Checking the actual text into version control is definitive, so that's what this project does.
+Checking the actual text into version control is definitive, so that's what this project looks at.
 
 ## Updating the licenses
 
