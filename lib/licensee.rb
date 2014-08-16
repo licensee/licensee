@@ -12,4 +12,8 @@ class Licensee
   def self.licenses
     Licensee::Licenses.list
   end
+
+  def self.license(path)
+    Licensee::Project.new(path).license
+  end
 end

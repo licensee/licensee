@@ -19,7 +19,7 @@ class TestLicenseeLicenseFile < Minitest::Test
 
   should "sort licenses by length delta" do
     assert_equal "MIT", @file.licenses_sorted.first.name
-    assert_equal "GPL-3.0", @file.licenses_sorted.last.name
+    assert_equal "no-license", @file.licenses_sorted.last.name
   end
 
   should "calculate percent changed" do

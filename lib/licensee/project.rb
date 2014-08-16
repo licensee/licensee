@@ -16,5 +16,11 @@ class Licensee
       @readme_file ||= Licensee::Readme.find(base_path)
     end
 
+    def license
+      license = license_file.match if license_file
+      license = readme_file.match if readme_file && license.nil?
+      license
+    end
+
   end
 end
