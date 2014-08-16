@@ -14,6 +14,8 @@ Licensee automates the process of reading `LICENSE` files (and optionally readme
 
 By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
 
+Licensee will even diff the distributed license with the original, so you can see exactly what, if anything's been changed.
+
 ## Usage
 
 ```ruby
