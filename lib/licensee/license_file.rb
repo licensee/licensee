@@ -39,5 +39,9 @@ class Licensee
       (Levenshtein.distance(content, license.body).to_f / content.length.to_f).abs
     end
 
+    def diff(options=nil)
+      Diffy::Diff.new(match.body, content).to_s(options)
+    end
+
   end
 end

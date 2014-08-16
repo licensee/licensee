@@ -1,5 +1,6 @@
 require 'levenshtein-ffi'
 require 'yaml'
+require 'diffy'
 
 require_relative "licensee/file_finder"
 require_relative "licensee/license"
@@ -22,5 +23,9 @@ class Licensee
 
   def self.matches(path)
     Licensee::Project.new(path).matches
+  end
+
+  def self.diff(path, options=nil)
+    Licensee::Project.new(path).license_file.diff(options)
   end
 end

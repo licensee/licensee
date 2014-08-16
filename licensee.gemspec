@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.homepage = 'http://github.com/benbalter/licensee'
 
   gem.add_dependency('levenshtein-ffi', '~> 1.1')
+  gem.add_dependency('diffy', '~> 3.0')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('shoulda', '~> 3.5')
   gem.add_development_dependency('rake', '~> 10.3')

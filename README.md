@@ -40,6 +40,18 @@ Licensee.matches "/path/to/a/project"
  #<Licensee::License name="no-license" match=0.0232126276694522>]
 ```
 
+## Diffing
+
+You can also generate a diff of the known license to the distributed license.
+
+```ruby
+puts Licensee.diff "/path/to/a/project"
+-Copyright (c) [year] [fullname]
++Copyright (c) 2014 Ben Balter
+```
+
+For a full list of diff options (HTML output, color output, etc.) see [Diffy](https://github.com/samg/diffy).
+
 ## What it looks at
 
 * `LICENSE`, `LICENSE.txt`, etc. files in the root of the project, comparing the body to known licenses
