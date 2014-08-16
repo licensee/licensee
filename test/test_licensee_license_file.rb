@@ -40,4 +40,9 @@ class TestLicenseeLicenseFile < Minitest::Test
     file = Licensee::LicenseFile.find fixture_path("md")
     assert_equal "MIT", file.match.name
   end
+
+  should "diff the file" do
+    expected = "-Copyright (c) [year] [fullname]\n+Copyright (c) 2014 Ben Balter"
+    assert @file.diff.include?(expected)
+  end
 end
