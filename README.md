@@ -30,11 +30,7 @@ p.meta["description"]
 => "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
 
 p.meta["permitted"]
-=> ["commercial-use",
-   "modifications",
-   "distribution",
-   "sublicense",
-   "private-use"]
+=> ["commercial-use","modifications","distribution","sublicense","private-use"]
 ```
 
 ## What it looks at
