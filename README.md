@@ -31,6 +31,13 @@ license.meta["description"]
 
 license.meta["permitted"]
 => ["commercial-use","modifications","distribution","sublicense","private-use"]
+
+# Getting all matches
+Licensee.matches "/path/to/a/project"
+=> [#<Licensee::License name="MIT" match=0.9842154131847726>,
+ #<Licensee::License name="unlicense" match=0.4326833797585887>,
+ ...
+ #<Licensee::License name="no-license" match=0.0232126276694522>]
 ```
 
 ## What it looks at
