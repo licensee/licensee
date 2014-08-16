@@ -20,16 +20,16 @@ By calculating the percent changed from the known license, you can tell, e.g., t
 license = Licensee.license "/path/to/a/project"
 => #<Licensee::License name="MIT" match=0.9842154131847726>
 
-p.meta["title"]
+license.meta["title"]
 => "MIT License"
 
-p.meta["source"]
+license.meta["source"]
 => "http://opensource.org/licenses/MIT"
 
-p.meta["description"]
+license.meta["description"]
 => "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
 
-p.meta["permitted"]
+license.meta["permitted"]
 => ["commercial-use","modifications","distribution","sublicense","private-use"]
 ```
 
