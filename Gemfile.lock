@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    licensee (0.0.1)
+      levenshtein-ffi (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -35,7 +41,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  levenshtein-ffi
-  pry
-  rake
-  shoulda
+  licensee!
+  pry (~> 0.9)
+  rake (~> 10.3)
+  shoulda (~> 3.5)
