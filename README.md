@@ -16,6 +16,10 @@ By calculating the percent changed from the known license, you can tell, e.g., t
 
 Licensee will even diff the distributed license with the original, so you can see exactly what, if anything's been changed.
 
+## Installation
+
+`gem install licensee` or add `gem 'licensee'` to your project's `Gemfile`.
+
 ## Usage
 
 ```ruby
@@ -90,6 +94,14 @@ You could make an argument that, when linked or sufficiently identified, the ter
 Because that's silly in the context of how software is developed today. You wouldn't put a copyright notice on each page of a book. Besides, it's a lot of work, as there's no standardized, cross-platform way to describe a project's license within a comment.
 
 Checking the actual text into version control is definitive, so that's what this project looks at.
+
+## Bootstrapping a local development environment
+
+`script/bootstrap`
+
+## Running tests
+
+`script/cibuild`
 
 ## Updating the licenses
 
