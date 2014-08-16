@@ -9,7 +9,7 @@ class Licensee
     end
 
     def path
-      @path ||= File.expand_path "#{@name}.txt", Licensee.license_base
+      @path ||= File.expand_path "#{@name}.txt", Licensee::Licenses.base
     end
 
     def content
