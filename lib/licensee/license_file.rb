@@ -27,7 +27,7 @@ class Licensee
     end
 
     def length
-      content.length
+      @length ||= content.length
     end
 
     def length_delta(license)
@@ -35,11 +35,11 @@ class Licensee
     end
 
     def potential_licenses
-      Licensee::Licenses.list.clone.select { |l| length_delta(l) < length }
+      @potential_licenses ||= Licensee::Licenses.list.clone.select { |l| length_delta(l) < length }
     end
 
     def licenses_sorted
-      potential_licenses.sort_by { |l| length_delta(l) }
+      @licenses_sorted ||= potential_licenses.sort_by { |l| length_delta(l) }
     end
 
     def matches
@@ -50,7 +50,7 @@ class Licensee
     end
 
     def match
-      matches.first if matches
+      @match ||= matches.first if matches
     end
 
     def percent_changed(license)

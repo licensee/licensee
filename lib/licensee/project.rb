@@ -13,11 +13,11 @@ class Licensee
     end
 
     def matches
-      license_file.matches if license_file
+      @matches ||= license_file.matches if license_file
     end
 
     def license
-      matches.first if matches
+      @license ||= matches.first if matches
     end
   end
 end

@@ -27,7 +27,7 @@ class Licensee
     end
 
     def length
-      body.length
+      @length ||= body.length
     end
 
     def body
