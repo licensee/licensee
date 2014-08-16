@@ -9,6 +9,9 @@ require_relative "licensee/readme"
 require_relative "licensee/project"
 
 class Licensee
+
+  STRICT = false
+  
   def self.licenses
     Licensee::Licenses.list
   end

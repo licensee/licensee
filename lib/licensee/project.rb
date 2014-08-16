@@ -18,7 +18,7 @@ class Licensee
 
     def license
       license = license_file.match if license_file
-      license = readme_file.match if readme_file && license.nil?
+      license = readme_file.match if !Licensee::STRICT && readme_file && license.nil?
       license
     end
 
