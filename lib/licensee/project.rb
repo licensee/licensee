@@ -12,19 +12,12 @@ class Licensee
       @license_file ||= Licensee::LicenseFile.find(base_path)
     end
 
-    def readme_file
-      @readme_file ||= Licensee::Readme.find(base_path)
-    end
-
     def matches
       license_file.matches if license_file
     end
 
     def license
-      license = license_file.match if license_file
-      license = readme_file.match if !Licensee::STRICT && readme_file && license.nil?
-      license
+      matches.first if matches
     end
-
   end
 end

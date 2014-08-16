@@ -55,12 +55,12 @@ For a full list of diff options (HTML output, color output, etc.) see [Diffy](ht
 ## What it looks at
 
 * `LICENSE`, `LICENSE.txt`, etc. files in the root of the project, comparing the body to known licenses
-* `README`, `README.md`, etc. files in the root of the project, comparing links to known license sources
 * Crowdsourced license content and metadata from [`choosealicense.com`](http://choosealicense.com)
 
 ## What it doesn't look at
 
 * Dependency licensing
+* References to licenses in `README`, `README.md`, etc.
 * Structured license data in package manager configuration files (like Gemfiles)
 * Every single possible license (just the most popular ones)
 * Compliance (e.g., whitelisting certain licenses)
@@ -87,11 +87,7 @@ You could make an argument that, when linked or sufficiently identified, the ter
 
 Because that's silly in the context of how software is developed today. You wouldn't put a copyright notice on each page of a book. Besides, it's a lot of work, as there's no standardized, cross-platform way to describe a project's license within a comment.
 
-Clearly checking the actual text into version control is definitive. Looking to a readme isn't great, but it's a popular convention, and easy enough to check if you want, so that's what this project does.
-
-## Strict mode
-
-When no license file is found, Licensee will also look to Readmes for references to a license, a common shorthand convention. To disable this behavior, simply set `Licensee::STRICT = true`.
+Checking the actual text into version control is definitive, so that's what this project does.
 
 ## Updating the licenses
 

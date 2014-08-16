@@ -8,6 +8,10 @@ class TestLicenseeLicenseFile < Minitest::Test
     @mit = Licensee::Licenses.find "MIT"
   end
 
+  should "read the file" do
+    assert @file.contents =~ /MIT/
+  end
+
   should "known the file length" do
     assert_equal 1077, @file.length
   end

@@ -10,10 +10,6 @@ class TestLicenseeProject < Minitest::Test
     assert_equal Licensee::LicenseFile, @project.license_file.class
   end
 
-  should "detect the readme file" do
-    assert_equal Licensee::Readme, @project.readme_file.class
-  end
-
   should "detect the license" do
     assert_equal "MIT", @project.license.name
   end
