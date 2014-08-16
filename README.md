@@ -10,7 +10,7 @@
 
 ## The solution
 
-Licensee automates the process of reading `LICENSE` files (and optionally readme files too) and compares their contents to known licenses using a fancy math thing called the [Levenshtein Distance](http://en.wikipedia.org/wiki/Levenshtein_distance).
+Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a fancy math thing called the [Levenshtein Distance](http://en.wikipedia.org/wiki/Levenshtein_distance).
 
 By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
 
