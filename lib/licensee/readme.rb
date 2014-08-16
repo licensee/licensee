@@ -5,10 +5,11 @@ class Licensee
       README
       README.txt
       README.md
+      readme.html
     ]
 
     def match
-      Licensee::Licenses.list.find { |l| content.include? l.meta["source"] } 
+      Licensee::Licenses.list.find { |l| l.meta["source"] && content.include?(l.meta["source"]) }
     end
 
   end
