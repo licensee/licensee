@@ -1,0 +1,14 @@
+vendor/html5shiv
+vendor/jquery
+vendor/normalize-css
+vendor/qtip2
+vendor/selectivizr
+vendor/zeroclipboard
+vendor/choosealicense.com/_includes
+vendor/choosealicense.com/_layouts
+vendor/choosealicense.com/assets
+vendor/choosealicense.com/script
+vendor/choosealicense.com/*.*
+vendor/choosealicense.com/CNAME
+vendor/choosealicense.com/Gemfile
+vendor/choosealicense.com/Rakefile
