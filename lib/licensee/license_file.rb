@@ -16,8 +16,12 @@ class Licensee
       (length - license.length).abs
     end
 
+    def potential_licenses
+      Licensee::Licenses.list.clone.select { |l| length_delta(l) < length }
+    end
+
     def licenses_sorted
-      Licensee::Licenses.list.clone.sort_by { |l| length_delta(l) }
+      potential_licenses.sort_by { |l| length_delta(l) }
     end
 
     def matches
