@@ -5,12 +5,15 @@ Gem::Specification.new do |gem|
   gem.version = Licensee::VERSION
   gem.date    = Date.today.to_s
 
-  gem.summary = "A Ruby Gem to detect under what license a project is distributed"
+  gem.summary     = "A Ruby Gem to detect under what license a project is distributed"
   gem.description = "Licensee automates the process of reading LICENSE files and compares their contents to known licenses using a fancy math thing called the Levenshtein Distance."
 
   gem.authors  = ['Ben Balter']
   gem.email    = 'ben.balter@github.com'
   gem.homepage = 'http://github.com/benbalter/licensee'
+
+  gem.bindir = 'bin'
+  gem.executables << 'licensee'
 
   gem.add_dependency('levenshtein-ffi', '~> 1.1')
   gem.add_dependency('diffy', '~> 3.0')

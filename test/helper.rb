@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 require 'minitest/autorun'
 require 'shoulda'
+require 'open3'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 

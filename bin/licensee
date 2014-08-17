@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/licensee"
+license = Licensee.license(Dir.pwd)
+
+if license
+  puts "License: #{license.name}"
+  puts "Match: #{(license.match * 100).round(2)}%"
+else
+  puts "Unknown"
+end
