@@ -2,7 +2,7 @@
 
 *A Ruby Gem to detect under what license a project is distributed.*
 
-[![Build Status](https://travis-ci.org/benbalter/licensee.svg)](https://travis-ci.org/benbalter/licensee)
+[![Build Status](https://travis-ci.org/benbalter/licensee.svg)](https://travis-ci.org/benbalter/licensee) [![Gem Version](https://badge.fury.io/rb/licensee.svg)](http://badge.fury.io/rb/licensee)
 
 ## The problem
 
