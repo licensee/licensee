@@ -2,6 +2,8 @@
 
 *A Ruby Gem to detect under what license a project is distributed.*
 
+[![Build Status](https://travis-ci.org/benbalter/licensee.svg)](https://travis-ci.org/benbalter/licensee)
+
 ## The problem
 
 * You've got an open source project. How do you know what you can and can't do with the software?
