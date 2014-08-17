@@ -58,6 +58,18 @@ puts Licensee.diff "/path/to/a/project"
 
 For a full list of diff options (HTML output, color output, etc.) see [Diffy](https://github.com/samg/diffy).
 
+## Command line usage
+
+1. `cd` into a project directory
+2. execute the `licensee` command
+
+You'll get an output that looks like:
+
+```
+License: MIT
+Match: 98.42%
+```
+
 ## What it looks at
 
 * `LICENSE`, `LICENSE.txt`, etc. files in the root of the project, comparing the body to known licenses
