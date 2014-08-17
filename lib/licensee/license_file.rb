@@ -50,7 +50,11 @@ class Licensee
     end
 
     def match
-      @match ||= matches.first if matches
+      @match ||= licenses_sorted.find do |license|
+        confidence = 1 - percent_changed(license)
+        next unless confidence >= Licensee::CONFIDENCE_THRESHOLD
+        license.match = confidence
+      end
     end
 
     def percent_changed(license)

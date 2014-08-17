@@ -17,7 +17,7 @@ class Licensee
     end
 
     def license
-      @license ||= matches.first if matches
+      @license ||= license_file.match if license_file
     end
   end
 end
