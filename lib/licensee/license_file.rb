@@ -9,8 +9,9 @@ class Licensee
     ]
 
     attr_reader :path
+    attr_accessor :contents
 
-    def initialize(path)
+    def initialize(path=nil)
       @path = File.expand_path(path)
     end
 
