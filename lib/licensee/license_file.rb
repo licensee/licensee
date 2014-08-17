@@ -21,9 +21,17 @@ class Licensee
     alias_method :content, :contents
 
     def self.find(base_path)
-      raise "Invalid directory" unless File.directory?(base_path)
-      file = self::FILENAMES.find { |file| File.exists? File.expand_path(file, base_path) }
+      raise "Invalid directory" unless directory_exists? base_path
+      file = self::FILENAMES.find { |file| file_exists?(file, base_path) }
       new(File.expand_path(file, base_path)) if file
+    end
+
+    def self.directory_exists?(base_path)
+      File.directory?(base_path)
+    end
+
+    def self.file_exists?(file, base_path)
+      File.exists? File.expand_path(file, base_path)
     end
 
     def length
