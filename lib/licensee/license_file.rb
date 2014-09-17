@@ -12,7 +12,7 @@ class Licensee
     attr_accessor :contents
 
     def initialize(path=nil)
-      @path = File.expand_path(path)
+      @path = File.expand_path(path) unless path.nil?
     end
 
     def contents
