@@ -11,6 +11,6 @@ class TestLicenseeProject < Minitest::Test
   end
 
   should "detect the license" do
-    assert_equal "MIT", @project.license.name
+    assert_equal "mit", @project.license.name
   end
 end

@@ -22,7 +22,7 @@ class TestLicenseeLicenseFile < Minitest::Test
   end
 
   should "sort licenses by length delta" do
-    assert_equal "MIT", @file.licenses_sorted.first.name
+    assert_equal "mit", @file.licenses_sorted.first.name
     assert_equal "no-license", @file.licenses_sorted.last.name
   end
 
@@ -32,17 +32,17 @@ class TestLicenseeLicenseFile < Minitest::Test
   end
 
   should "match the license" do
-    assert_equal "MIT", @file.match.name
+    assert_equal "mit", @file.match.name
   end
 
   should "match a txt license" do
     file = Licensee::LicenseFile.find fixture_path("txt")
-    assert_equal "MIT", file.match.name
+    assert_equal "mit", file.match.name
   end
 
   should "match a md license" do
     file = Licensee::LicenseFile.find fixture_path("md")
-    assert_equal "MIT", file.match.name
+    assert_equal "mit", file.match.name
   end
 
   should "diff the file" do

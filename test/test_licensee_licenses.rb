@@ -14,7 +14,8 @@ class TestLicenseeLicenses < Minitest::Test
   end
 
   should "find a license" do
-    assert_equal "MIT", Licensee::Licenses.find("MIT").name
+    assert_equal "mit", Licensee::Licenses.find("mit").name
+    assert_equal "mit", Licensee::Licenses.find("MIT").name
   end
 
 end

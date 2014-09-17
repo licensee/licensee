@@ -23,7 +23,8 @@ class Licensee
       end
 
       def find(name)
-        list.find { |l| l.name == name }
+        name = name.downcase
+        list.find { |l| l.name.downcase == name }
       end
     end
   end
