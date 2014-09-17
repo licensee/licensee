@@ -3,7 +3,6 @@ require File.expand_path("../lib/licensee/version", __FILE__)
 Gem::Specification.new do |gem|
   gem.name    = 'licensee'
   gem.version = Licensee::VERSION
-  gem.date    = Date.today.to_s
 
   gem.summary     = "A Ruby Gem to detect under what license a project is distributed"
   gem.description = "Licensee automates the process of reading LICENSE files and compares their contents to known licenses using a fancy math thing called the Levenshtein Distance."
