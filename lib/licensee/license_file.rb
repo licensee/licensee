@@ -6,6 +6,7 @@ class Licensee
       LICENSE.txt
       LICENSE.md
       UNLICENSE
+      COPYING
     ]
 
     attr_reader :path
