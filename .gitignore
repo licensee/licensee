@@ -1,4 +1,5 @@
 Gemfile.lock
+/*.gem
 vendor/html5shiv
 vendor/jquery
 vendor/normalize-css
