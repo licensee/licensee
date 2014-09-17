@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    licensee (0.0.2)
+    licensee (0.0.3)
       diffy (~> 3.0)
       levenshtein-ffi (~> 1.0)
 
