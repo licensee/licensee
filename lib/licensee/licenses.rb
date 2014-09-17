@@ -19,7 +19,7 @@ class Licensee
       end
 
       def base
-        @base ||= File.expand_path "../../vendor/choosealicense.com/licenses", File.dirname(__FILE__)
+        @base ||= File.expand_path "../../vendor/choosealicense.com/_licenses", File.dirname(__FILE__)
       end
 
       def find(name)
