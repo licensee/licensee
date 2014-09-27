@@ -4,7 +4,7 @@ class Licensee
       def names
         @names ||= begin
           names = Dir.entries(base)
-          names.map! { |l| File.basename(l, ".txt") }
+          names.map! { |l| File.basename(l, ".txt").downcase }
           names.reject! { |l| l =~ /^\./ || l.nil? }
           names
         end
