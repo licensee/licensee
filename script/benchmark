@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/licensee"
+require 'benchmark'
+require 'securerandom'
+
+def license_from_path(path)
+  license = File.open(path).read.split("---").last
+  license.sub! "[fullname]", "Ben Balter"
+  license.sub! "[year]", "2014"
+  license.sub! "[email]", "ben@github.invalid"
+  license
+end
+
+def chaos_monkey(string)
+  Random.rand(25).times do
+    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
+  end
+  string
+end
+
+puts "Begining benchmark...\n"
+
+# Warm up the license list
+Benchmark.bm(12) do |benchmark|
+  benchmark.report("Load:") { Licensee::Licenses.list }
+end
+
+puts "\n#{Licensee::Licenses.list.count} licenses loaded\n"
+
+licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
+
+puts "\nBenchmarking vendored licenses...\n"
+
+Benchmark.bm(12, "sum:", "average:") do |benchmark|
+  times = []
+  licenses.each do |path|
+    license_name = File.basename(path, ".txt")
+    license_contents = license_from_path(path)
+    time = benchmark.report(license_name) do
+      license_file = Licensee::LicenseFile.new
+      license_file.contents= license_contents
+      license_file.match
+    end
+    times.push time
+  end
+  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
+  avg = sum / times.size
+  [sum, avg]
+end
+
+puts "\nBenchmarking fixtures...\n"
+
+Benchmark.bm(12, "sum:", "average:") do |benchmark|
+  times = []
+  Dir["test/fixtures/*"].each do |dir|
+   times.push benchmark.report(dir.split("/")[-1]) { Licensee.license(dir) }
+  end
+  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
+  avg = sum / times.size
+  [sum, avg]
+end
+
+puts "\nBenchmarking bad licenses..."
+
+Benchmark.bm(12, "sum:", "average:") do |benchmark|
+  times = []
+  licenses.each do |path|
+    license_name = File.basename(path, ".txt")
+    license_contents = license_from_path(path)
+    license_contents = chaos_monkey(license_contents)
+    time = benchmark.report(license_name) do
+      license_file = Licensee::LicenseFile.new
+      license_file.contents = license_contents
+      license_file.match
+    end
+    times.push time
+  end
+  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
+  avg = sum / times.size
+  [sum, avg]
+end
