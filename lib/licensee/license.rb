@@ -17,7 +17,7 @@ class Licensee
     end
 
     def parts
-      @parts ||= content.match /^(---\n.*\n---)?(.*)/m
+      @parts ||= content.match(/^(---\n.*\n---)?(.*)/m).to_a
     end
 
     def meta

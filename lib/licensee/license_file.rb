@@ -45,7 +45,9 @@ class Licensee
     end
 
     def potential_licenses
-      @potential_licenses ||= Licensee::Licenses.list.clone.select { |l| length_delta(l) < length }
+      @potential_licenses ||= Licensee::Licenses.list.clone.select do
+         |license| length_delta(license) < length * (1 - Licensee::CONFIDENCE_THRESHOLD)
+      end
     end
 
     def licenses_sorted
@@ -61,9 +63,8 @@ class Licensee
 
     def match
       @match ||= licenses_sorted.find do |license|
-        confidence = 1 - percent_changed(license)
-        next unless confidence >= Licensee::CONFIDENCE_THRESHOLD
-        license.match = confidence
+        license.match = 1 - percent_changed(license)
+        license.match >= Licensee::CONFIDENCE_THRESHOLD
       end
     end
 

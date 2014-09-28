@@ -22,6 +22,7 @@ class TestLicenseeLicenseFile < Minitest::Test
   end
 
   should "sort licenses by length delta" do
+    Licensee::CONFIDENCE_THRESHOLD = "0".to_f
     assert_equal "mit", @file.licenses_sorted.first.name
     assert_equal "no-license", @file.licenses_sorted.last.name
   end
