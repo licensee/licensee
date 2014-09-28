@@ -10,7 +10,7 @@ require_relative "licensee/project"
 
 class Licensee
 
-  CONFIDENCE_THRESHOLD = ".80".to_f
+  CONFIDENCE_THRESHOLD = ".8".to_f
 
   def self.licenses
     Licensee::Licenses.list
