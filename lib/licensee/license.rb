@@ -31,9 +31,13 @@ class Licensee
     end
 
     def body
-      @body ||= parts[2]
+      @body ||= raw_body.downcase.gsub(/\s+/, "")
     end
     alias_method :to_s, :body
+
+    def raw_body
+      @raw_body ||= parts[2]
+    end
 
     def inspect
       s = "#<Licensee::License name=\"#{name}\""

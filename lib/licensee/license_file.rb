@@ -37,7 +37,7 @@ class Licensee
     end
 
     def length
-      @length ||= content.length
+      @length ||= content_normalized.length
     end
 
     def length_delta(license)
@@ -45,8 +45,11 @@ class Licensee
     end
 
     def potential_licenses
-      @potential_licenses ||= Licensee::Licenses.list.clone.select do
-         |license| length_delta(license) < length * (1 - Licensee::CONFIDENCE_THRESHOLD)
+      @potential_licenses ||= begin
+        max_delta = length * (1 - Licensee::CONFIDENCE_THRESHOLD)
+        Licensee::Licenses.list.clone.select do
+          |license| length_delta(license) <= max_delta
+        end
       end
     end
 
@@ -69,12 +72,17 @@ class Licensee
     end
 
     def percent_changed(license)
-      (Levenshtein.distance(content, license.body).to_f / content.length.to_f).abs
+      (Levenshtein.distance(content_normalized, license.body).to_f / content_normalized.length.to_f).abs
     end
 
     def diff(options=nil)
-      Diffy::Diff.new(match.body, content).to_s(options)
+      Diffy::Diff.new(match.raw_body, content).to_s(options)
     end
 
+    private
+
+    def content_normalized
+      contents.downcase.gsub(/\s+/, "")
+    end
   end
 end

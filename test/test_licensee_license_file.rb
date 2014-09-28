@@ -13,12 +13,12 @@ class TestLicenseeLicenseFile < Minitest::Test
   end
 
   should "known the file length" do
-    assert_equal 1077, @file.length
+    assert_equal 902, @file.length
   end
 
   should "calcualte length deltas" do
-    assert_equal 4, @file.length_delta(@mit)
-    assert_equal 34065, @file.length_delta(@gpl)
+    assert_equal 3, @file.length_delta(@mit)
+    assert_equal 27732, @file.length_delta(@gpl)
   end
 
   should "sort licenses by length delta" do

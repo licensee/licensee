@@ -9,7 +9,8 @@ class TestLicenseeLicense < Minitest::Test
   should "read the license body" do
     assert @license.body
     assert @license.length > 0
-    assert @license.body =~ /MIT/
+    assert @license.raw_body =~ /MIT/
+    assert @license.body =~ /mit/
   end
 
   should "read the license meta" do
