@@ -59,20 +59,20 @@ class Licensee
 
     def matches
       @matches ||= begin
-        licenses_sorted.each { |l| l.match = 1 - percent_changed(l) }
+        licenses_sorted.each { |l| l.match = distance(l) }
         licenses_sorted.sort_by { |l| l.match }.select { |l| l.match > 0}.reverse
       end
     end
 
     def match
       @match ||= licenses_sorted.find do |license|
-        license.match = 1 - percent_changed(license)
+        license.match = distance(license)
         license.match >= Licensee::CONFIDENCE_THRESHOLD
       end
     end
 
-    def percent_changed(license)
-      (Levenshtein.distance(content_normalized, license.body).to_f / content_normalized.length.to_f).abs
+    def distance(license)
+      JaroWinkler.distance content_normalized, license.body
     end
 
     def diff(options=nil)

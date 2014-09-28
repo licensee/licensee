@@ -27,9 +27,11 @@ class TestLicenseeLicenseFile < Minitest::Test
     assert_equal "no-license", @file.licenses_sorted.last.name
   end
 
-  should "calculate percent changed" do
-    assert @file.percent_changed(@mit) < ".02".to_f
-    assert @file.percent_changed(@gpl) > 30
+  should "calculate distance" do
+    actual = @file.distance(@mit)
+    assert actual > ".2".to_f, "expected #{actual} to be > .2 for MIT"
+    actual = @file.distance(@gpl)
+    assert actual < ".5".to_f, "expected #{actual} to be < .5 for GPL"
   end
 
   should "match the license" do

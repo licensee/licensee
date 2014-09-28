@@ -1,4 +1,4 @@
-require 'levenshtein-ffi'
+require 'jaro_winkler'
 require 'yaml'
 require 'diffy'
 
@@ -9,7 +9,7 @@ require_relative "licensee/project"
 
 class Licensee
 
-  CONFIDENCE_THRESHOLD = ".90".to_f
+  CONFIDENCE_THRESHOLD = ".80".to_f
 
   def self.licenses
     Licensee::Licenses.list
