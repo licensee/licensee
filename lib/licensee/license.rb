@@ -5,7 +5,7 @@ class Licensee
     attr_accessor :match
 
     def initialize(name)
-      @name=name
+      @name=name.downcase
     end
 
     def path
