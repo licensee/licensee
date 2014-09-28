@@ -59,9 +59,9 @@ class Licensee
 
     def matches
       @matches ||= begin
-        results = Parallel.map_with_index(potential_licenses) { |l,index| [distance(l), index] }
-        results.each { |distance,index| potential_licenses[index].match = distance }
-        potential_licenses.sort_by { |l| l.match }.reverse
+        results = Parallel.map_with_index(licenses_sorted) { |l,index| [distance(l), index] }
+        results.each { |distance,index| licenses_sorted[index].match = distance }
+        licenses_sorted.sort_by { |l| l.match }.reverse
       end
     end
 
