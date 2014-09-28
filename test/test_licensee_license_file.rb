@@ -31,7 +31,7 @@ class TestLicenseeLicenseFile < Minitest::Test
     actual = @file.distance(@mit)
     assert actual > ".2".to_f, "expected #{actual} to be > .2 for MIT"
     actual = @file.distance(@gpl)
-    assert actual < ".5".to_f, "expected #{actual} to be < .5 for GPL"
+    assert actual < ".53".to_f, "expected #{actual} to be < .53 for GPL"
   end
 
   should "match the license" do

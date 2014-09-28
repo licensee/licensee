@@ -72,7 +72,7 @@ class Licensee
     end
 
     def distance(license)
-      JaroWinkler.distance content_normalized, license.body
+      Licensee.matcher.getDistance content_normalized, license.body
     end
 
     def diff(options=nil)

@@ -1,4 +1,4 @@
-require 'jaro_winkler'
+require 'fuzzystringmatch'
 require 'yaml'
 require 'diffy'
 
@@ -25,5 +25,9 @@ class Licensee
 
   def self.diff(path, options=nil)
     Licensee::Project.new(path).license_file.diff(options)
+  end
+
+  def self.matcher
+    @matcher ||= FuzzyStringMatch::JaroWinkler.create( :native )
   end
 end
