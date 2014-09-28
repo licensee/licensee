@@ -40,6 +40,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     time = benchmark.report(license_name) do
       license_file = Licensee::LicenseFile.new
       license_file.contents= license_contents
+      license_file.matches
       license_file.match
     end
     times.push time
@@ -54,7 +55,10 @@ puts "\nBenchmarking fixtures...\n"
 Benchmark.bm(12, "sum:", "average:") do |benchmark|
   times = []
   Dir["test/fixtures/*"].each do |dir|
-   times.push benchmark.report(dir.split("/")[-1]) { Licensee.license(dir) }
+   times.push benchmark.report(dir.split("/")[-1]) {
+     Licensee.matches(dir)
+     Licensee.license(dir)
+   }
   end
   sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
   avg = sum / times.size
@@ -72,6 +76,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     time = benchmark.report(license_name) do
       license_file = Licensee::LicenseFile.new
       license_file.contents = license_contents
+      license_file.matches
       license_file.match
     end
     times.push time
