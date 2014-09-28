@@ -1,6 +1,7 @@
 require 'fuzzystringmatch'
 require 'yaml'
 require 'diffy'
+require 'parallel'
 
 require_relative "licensee/license"
 require_relative "licensee/licenses"
