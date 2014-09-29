@@ -37,7 +37,7 @@ def verify_license_file(license, chaos_monkey = false)
 
   actual = license_file.matches.first
   assert actual, "No match for #{expected}."
-  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .matches.first"
+  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .matches.first. Confidence: #{actual.match}"
 
   actual = license_file.match
   assert actual, "No match for #{expected}."
