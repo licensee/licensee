@@ -1,23 +1,8 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/licensee"
+require_relative "../test/functions"
 require 'benchmark'
-require 'securerandom'
-
-def license_from_path(path)
-  license = File.open(path).read.split("---").last
-  license.sub! "[fullname]", "Ben Balter"
-  license.sub! "[year]", "2014"
-  license.sub! "[email]", "ben@github.invalid"
-  license
-end
-
-def chaos_monkey(string)
-  Random.rand(25).times do
-    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
-  end
-  string
-end
 
 puts "Begining benchmark...\n"
 

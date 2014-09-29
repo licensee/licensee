@@ -4,14 +4,14 @@ class TestLicenseeVendor < Minitest::Test
   should "detect each vendored license" do
     licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
     licenses.each do |license|
-      expected = File.basename(license, ".txt")
+      verify_license_file(license)
+    end
+  end
 
-      license_file = Licensee::LicenseFile.new
-      license_file.contents = File.open(license).read.split("---").last
-      actual = license_file.match
-
-      assert actual, "No match for #{expected}."
-      assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name}"
+  should "detect each vendored license" do
+    licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
+    licenses.each do |license|
+      verify_license_file(license, true)
     end
   end
 end
