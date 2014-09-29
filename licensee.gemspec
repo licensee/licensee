@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.version = Licensee::VERSION
 
   gem.summary     = "A Ruby Gem to detect under what license a project is distributed"
-  gem.description = "Licensee automates the process of reading LICENSE files and compares their contents to known licenses using a fancy math thing called the Levenshtein Distance."
+  gem.description = "Licensee automates the process of reading LICENSE files and compares their contents to known licenses using a fancy math thing called the Jaro-Winkler Distance."
 
   gem.authors  = ['Ben Balter']
   gem.email    = 'ben.balter@github.com'
