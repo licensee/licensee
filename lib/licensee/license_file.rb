@@ -1,87 +1,63 @@
 class Licensee
   class LicenseFile
+    attr_reader :blob
+    attr_accessor :max_delta
 
-    FILENAMES = %w[
-      LICENSE
-      LICENSE.txt
-      LICENSE.md
-      UNLICENSE
-      COPYING
-    ]
-
-    attr_reader :path
-    attr_accessor :contents
-
-    def initialize(path=nil)
-      @path = File.expand_path(path) unless path.nil?
+    def initialize(blob)
+      @blob = blob
+      blob.hashsig(Rugged::Blob::HashSignature::WHITESPACE_SMART)
     end
 
     def contents
-      @contents ||= File.open(path).read
+      @contents ||= blob.content
     end
     alias_method :to_s, :contents
     alias_method :content, :contents
 
-    def self.find(base_path)
-      raise "Invalid directory" unless directory_exists? base_path
-      file = self::FILENAMES.find { |file| file_exists?(file, base_path) }
-      new(File.expand_path(file, base_path)) if file
-    end
-
-    def self.directory_exists?(base_path)
-      File.directory?(base_path)
-    end
-
-    def self.file_exists?(file, base_path)
-      File.exists? File.expand_path(file, base_path)
-    end
-
     def length
-      @length ||= content_normalized.length
+      @length ||= blob.size
     end
 
     def length_delta(license)
       (length - license.length).abs
     end
 
-    def potential_licenses
-      @potential_licenses ||= begin
-        max_delta = length * (1 - Licensee::CONFIDENCE_THRESHOLD)
-        Licensee::Licenses.list.clone.select do
-          |license| length_delta(license) <= max_delta
-        end
-      end
+    def max_delta
+      @max_delta ||= (length / 2)
     end
 
-    def licenses_sorted
-      @licenses_sorted ||= potential_licenses.sort_by { |l| length_delta(l) }
+    def potential_licenses
+      @potential_licenses ||= begin
+        list = Licensee::Licenses.list
+        max_delta ? list.select { |l| length_delta(l) <= max_delta } : list
+      end
     end
 
     def matches
-      @matches ||= begin
-        results = Parallel.map_with_index(licenses_sorted) { |l,index| [distance(l), index] }
-        results.each { |distance,index| licenses_sorted[index].match = distance }
-        licenses_sorted.sort_by { |l| l.match }.reverse
-      end
+      @matches ||= potential_licenses.map { |l| [l, blob.similarity(l.hashsig)] }.to_h
     end
 
+    def match_info
+      @match_info ||= matches.max_by { |l, sim| sim }
+    end
+    
     def match
-      @match ||= licenses_sorted.find do |license|
-        license.match = distance(license)
-        license.match >= Licensee::CONFIDENCE_THRESHOLD
-      end
+      match_info ? match_info[0] : nil
     end
 
-    def distance(license)
-      Licensee.matcher.getDistance content_normalized, license.body
+    def confidence
+      match_info ? match_info[1] : nil
+    end
+
+    def distance(other)
+      blob.similarity(other.hashsig)
     end
 
     def diff(options=nil)
-      Diffy::Diff.new(match.raw_body, content).to_s(options)
+      # TODO
     end
 
     private
-
     def content_normalized
       contents.downcase.gsub(/\s+/, "")
     end

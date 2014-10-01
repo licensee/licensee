@@ -18,28 +18,44 @@ def license_from_path(path)
   license
 end
 
-def chaos_monkey(string)
-  Random.rand(25).times do
-    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
+class FakeBlob
+  attr_reader :content
+
+  def initialize(content)
+    @content = content
   end
-  string
+
+  def size
+    content.size
+  end
+
+  def similarity(other)
+    Rugged::Blob::HashSignature.compare(self.hashsig, other)
+  end
+
+  def hashsig(options = 0)
+    @hashsig ||= Rugged::Blob::HashSignature.new(content, options)
+  end
 end
 
-def verify_license_file(license, chaos_monkey = false)
+def chaos_monkey(string)
+  lines = string.each_line.to_a
+
+  Random.rand(5).times do
+    lines[Random.rand(lines.size)] = SecureRandom.base64(Random.rand(80)) + "\n"
+  end
+
+  lines.join('')
+end
+
+def verify_license_file(license, chaos = false)
   expected = File.basename(license, ".txt")
 
-  return if chaos_monkey && expected == "no-license"
-
-  license_file = Licensee::LicenseFile.new
-  license_file.contents = license_from_path(license)
-
-  license_file.contents = chaos_monkey(license_file.contents) if chaos_monkey
-
-  actual = license_file.matches.first
-  assert actual, "No match for #{expected}."
-  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .matches.first. Confidence: #{actual.match}"
+  text = license_from_path(license)
+  blob = FakeBlob.new(chaos ? chaos_monkey(text) : text)
+  license_file = Licensee::LicenseFile.new(blob)
 
   actual = license_file.match
   assert actual, "No match for #{expected}."
-  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Confidence: #{actual.match}"
+  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Matches: #{license_file.matches}"
 end

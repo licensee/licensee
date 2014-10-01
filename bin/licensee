@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/licensee"
-license = Licensee.license(Dir.pwd)
+license = Licensee::Project.new(Dir.pwd).license_file
 
 if license
-  puts "License: #{license.meta["title"]}"
-  puts "Match: #{(license.match * 100).round(2)}%"
+  puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
+  puts "Confidence: #{license.confidence}"
 else
   puts "Unknown"
 end

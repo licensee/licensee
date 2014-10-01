@@ -15,9 +15,7 @@ Gem::Specification.new do |gem|
   gem.bindir = 'bin'
   gem.executables << 'licensee'
 
-  gem.add_dependency('fuzzy-string-match', '~> 0.9')
-  gem.add_dependency('diffy', '~> 3.0')
-  gem.add_dependency('parallel', '~> 1.3')
+  gem.add_dependency('rugged', '~> 0.21.1b2')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('shoulda', '~> 3.5')
   gem.add_development_dependency('rake', '~> 10.3')
