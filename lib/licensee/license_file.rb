@@ -18,7 +18,7 @@ class Licensee
     end
 
     def matches
-      @matches ||= Licensee::Licenses.list.map { |l| [l, calculate_similarity(l)] }
+      @matches ||= Licensee::Licenses.list.map { |l| [l, calculate_similarity(l)] }.select { |l,sim| sim > 0 }
     end
 
     def match_info

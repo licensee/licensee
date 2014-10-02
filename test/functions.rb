@@ -48,14 +48,26 @@ def chaos_monkey(string)
   lines.join('')
 end
 
-def verify_license_file(license, chaos = false)
+def verify_license_file(license, chaos = false, wrap=false)
   expected = File.basename(license, ".txt")
 
   text = license_from_path(license)
-  blob = FakeBlob.new(chaos ? chaos_monkey(text) : text)
+  text = chaos_monkey(text) if chaos
+  text = wrap(text, wrap) if wrap
+
+  blob = FakeBlob.new(text)
   license_file = Licensee::LicenseFile.new(blob)
 
   actual = license_file.match
   assert actual, "No match for #{expected}."
   assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Matches: #{license_file.matches}"
+end
+
+def wrap(text, line_width=80)
+  text = text.clone
+  text.gsub! /([^\n])\n([^\n])/, '\1 \2'
+  text = text.split("\n").collect do |line|
+    line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip : line
+  end * "\n"
+  text.strip
 end
