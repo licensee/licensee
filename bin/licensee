@@ -5,7 +5,7 @@ license = Licensee::Project.new(Dir.pwd).license_file
 
 if license
   puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
-  puts "Confidence: #{license.confidence}"
+  puts "Confidence: #{license.confidence}%"
 else
   puts "Unknown"
 end
