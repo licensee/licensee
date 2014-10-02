@@ -18,16 +18,11 @@ class TestLicenseeLicenseFile < Minitest::Test
     assert_equal 1077, @file.length
   end
 
-  should "calcualte length deltas" do
-    assert_equal 172, @file.length_delta(@mit)
-    assert_equal 27557, @file.length_delta(@gpl)
-  end
-
-  should "calculate distance" do
-    actual = @file.distance(@mit)
-    assert actual > 2, "expected #{actual} to be > 2% for MIT"
-    actual = @file.distance(@gpl)
-    assert actual < 50, "expected #{actual} to be < 50% for GPL"
+  should "calculate similiarty" do
+    actual = @file.send(:calculate_similarity, @mit)
+    assert actual > Licensee::CONFIDENCE_THRESHOLD, "expected #{actual} to be > 90% for MIT"
+    actual = @file.send(:calculate_similarity, @gpl)
+    assert actual < 1, "expected #{actual} to be < 1% for GPL"
   end
 
   should "match the license" do

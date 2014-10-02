@@ -29,17 +29,14 @@ class Licensee
     end
 
     def body
-      @body ||= raw_body.downcase.gsub(/\s+/, "")
+      @body ||= parts[2]
     end
     alias_method :to_s, :body
-
-    def raw_body
-      @raw_body ||= parts[2]
-    end
+    alias_method :text, :body
 
     def hashsig
       @hashsig ||= Rugged::Blob::HashSignature.new(
-        raw_body, Rugged::Blob::HashSignature::WHITESPACE_SMART)
+        body, Rugged::Blob::HashSignature::WHITESPACE_SMART)
     end
 
     def inspect

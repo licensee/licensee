@@ -1,7 +1,6 @@
 class Licensee
   class LicenseFile
     attr_reader :blob
-    attr_accessor :max_delta
 
     def initialize(blob)
       @blob = blob
@@ -18,27 +17,12 @@ class Licensee
       @length ||= blob.size
     end
 
-    def length_delta(license)
-      (length - license.length).abs
-    end
-
-    def max_delta
-      @max_delta ||= (length / 2)
-    end
-
-    def potential_licenses
-      @potential_licenses ||= begin
-        list = Licensee::Licenses.list
-        max_delta ? list.select { |l| length_delta(l) <= max_delta } : list
-      end
-    end
-
     def matches
-      @matches ||= potential_licenses.map { |l| [l, blob.similarity(l.hashsig)] }
+      @matches ||= Licensee::Licenses.list.map { |l| [l, calculate_similarity(l)] }
     end
 
     def match_info
-      @match_info ||= matches.max_by { |l, sim| sim }
+      @match_info ||= matches.max_by { |license, similarity| similarity }
     end
 
     def match
@@ -48,21 +32,18 @@ class Licensee
     def confidence
       match_info ? match_info[1] : nil
     end
-
-    def distance(other)
-      blob.similarity(other.hashsig)
-    end
+    alias_method :similarity, :confidence
 
     def diff(options={})
-      if match
-        options = options.merge(:reverse => true)
-        blob.diff(match.raw_body, options).to_s
-      end
+      options = options.merge(:reverse => true)
+      blob.diff(match.body, options).to_s if match
     end
 
     private
-    def content_normalized
-      contents.downcase.gsub(/\s+/, "")
+
+    # Pulled out for easier testing
+    def calculate_similarity(other)
+      blob.similarity(other.hashsig)
     end
   end
 end
