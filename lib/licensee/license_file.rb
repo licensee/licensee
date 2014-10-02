@@ -34,13 +34,13 @@ class Licensee
     end
 
     def matches
-      @matches ||= potential_licenses.map { |l| [l, blob.similarity(l.hashsig)] }.to_h
+      @matches ||= potential_licenses.map { |l| [l, blob.similarity(l.hashsig)] }
     end
 
     def match_info
       @match_info ||= matches.max_by { |l, sim| sim }
     end
-    
+
     def match
       match_info ? match_info[0] : nil
     end
