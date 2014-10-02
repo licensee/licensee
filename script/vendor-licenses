@@ -1,1 +1,3 @@
+rm -Rf vendor/choosealicense.com
 bower install github/choosealicense.com#gh-pages
+rm -f vendor/choosealicense.com/_licenses/no-license.txt
