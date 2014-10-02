@@ -18,6 +18,8 @@ By calculating the percent changed from the known license, you can tell, e.g., t
 
 Licensee will even diff the distributed license with the original, so you can see exactly what, if anything's been changed.
 
+*Special thanks to [@vmg](https://github.com/vmg) for his Git prowess.*
+
 ## Installation
 
 `gem install licensee` or add `gem 'licensee'` to your project's `Gemfile`.
