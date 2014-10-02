@@ -11,7 +11,7 @@ class Licensee
     ]
 
     def initialize(path_or_repo, revision = nil)
-      if path_or_repo === Rugged::Repository
+      if path_or_repo.kind_of? Rugged::Repository
         @repository = path_or_repo
       else
         @repository = Rugged::Repository.new(path_or_repo)
