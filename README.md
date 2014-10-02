@@ -12,7 +12,7 @@
 
 ## The solution
 
-Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a fancy math thing called the [Jaro-Winkler distance](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance).
+Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a fancy math thing called the [Rabin-Karp rolling-hashes](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm), the same mechanism Git itself uses to compute changes between files. In fact, Licensee just uses Git.
 
 By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
 
@@ -69,7 +69,7 @@ You'll get an output that looks like:
 
 ```
 License: MIT
-Match: 98.42%
+Confidence: 98.42%
 ```
 
 ## What it looks at
