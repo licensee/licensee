@@ -1,8 +1,6 @@
 class Licensee
   class License
-
     attr_reader :name
-    attr_accessor :match
 
     def initialize(name)
       @name=name.downcase
@@ -39,11 +37,13 @@ class Licensee
       @raw_body ||= parts[2]
     end
 
+    def hashsig
+      @hashsig ||= Rugged::Blob::HashSignature.new(
+        raw_body, Rugged::Blob::HashSignature::WHITESPACE_SMART)
+    end
+
     def inspect
-      s = "#<Licensee::License name=\"#{name}\""
-      s += " match=#{match}" if match
-      s += ">"
-      s
+      "#<Licensee::License name=\"#{name}\">"
     end
   end
 end

@@ -3,7 +3,7 @@ require 'helper'
 class TestLicenseeProject < Minitest::Test
 
   def setup
-    @project = Licensee::Project.new fixture_path("simple")
+    @project = Licensee::Project.new fixture_path("licenses.git")
   end
 
   should "detect the license file" do
