@@ -34,10 +34,8 @@ class TestLicenseeLicenseFile < Minitest::Test
     assert_equal "mit", @file.match.name
   end
 
-  if false
-    should "diff the file" do
-      expected = "-Copyright (c) [year] [fullname]\n+Copyright (c) 2014 Ben Balter"
-      assert @file.diff.include?(expected)
-    end
+  should "diff the file" do
+    expected = "-Copyright (c) [year] [fullname]\n+Copyright (c) 2014 Ben Balter"
+    assert @file.diff.include?(expected)
   end
 end

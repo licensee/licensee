@@ -53,8 +53,11 @@ class Licensee
       blob.similarity(other.hashsig)
     end
 
-    def diff(options=nil)
-      # TODO
+    def diff(options={})
+      if match
+        options = options.merge(:reverse => true)
+        blob.diff(match.raw_body, options).to_s
+      end
     end
 
     private
