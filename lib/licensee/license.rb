@@ -24,15 +24,15 @@ class Licensee
       nil
     end
 
-    def length
-      @length ||= body.length
-    end
-
     def body
       @body ||= parts[2]
     end
     alias_method :to_s, :body
     alias_method :text, :body
+
+    def body_normalized
+      @content_normalized ||= body.downcase.gsub("\n", " ").strip
+    end
 
     def hashsig
       @hashsig ||= Rugged::Blob::HashSignature.new(

@@ -60,7 +60,7 @@ def verify_license_file(license, chaos = false, wrap=false)
 
   actual = license_file.match
   assert actual, "No match for #{expected}."
-  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Matches: #{license_file.matches}"
+  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Confidence: #{license_file.confidence}. Method: #{license_file.matcher.class}"
 end
 
 def wrap(text, line_width=80)

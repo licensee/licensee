@@ -7,43 +7,40 @@ class Licensee
       blob.hashsig(Rugged::Blob::HashSignature::WHITESPACE_SMART)
     end
 
-    def contents
-      @contents ||= blob.content
+    def content
+      @contents ||= begin
+        blob.content
+      end
     end
-    alias_method :to_s, :contents
-    alias_method :content, :contents
+    alias_method :to_s, :content
+    alias_method :contents, :content
 
-    def length
-      @length ||= blob.size
-    end
+    def content_wrapped
 
-    def matches
-      @matches ||= Licensee::Licenses.list.map { |l| [l, calculate_similarity(l)] }.select { |l,sim| sim > 0 }
     end
 
-    def match_info
-      @match_info ||= matches.max_by { |license, similarity| similarity }
+    def content_normalized
+      @content_normalized ||= content.downcase.gsub("\n", " ").strip
     end
-
-    def match
-      match_info ? match_info[0] : nil
-    end
-
-    def confidence
-      match_info ? match_info[1] : nil
-    end
-    alias_method :similarity, :confidence
 
     def diff(options={})
       options = options.merge(:reverse => true)
       blob.diff(match.body, options).to_s if match
     end
 
-    private
+    def matcher
+      @matcher ||= Licensee.matchers.each do |matcher|
+        matcher = matcher.new(self)
+        break matcher if matcher.match
+      end
+    end
 
-    # Pulled out for easier testing
-    def calculate_similarity(other)
-      blob.similarity(other.hashsig)
+    def match
+      @match ||= matcher.match if matcher
+    end
+
+    def confidence
+      @condience ||= matcher.confidence
     end
   end
 end

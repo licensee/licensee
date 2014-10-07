@@ -1,0 +1,22 @@
+require 'helper'
+
+class TestLicenseeGitMatcher < Minitest::Test
+
+  def setup
+    text = license_from_path( Licensee::Licenses.find("mit").path )
+    blob = FakeBlob.new(text)
+    @mit = Licensee::LicenseFile.new(blob)
+  end
+
+  should "match the license" do
+    assert_equal "mit", Licensee::GitMatcher.match(@mit).name
+  end
+
+  should "know the match confidence" do
+    assert_equal 94, Licensee::GitMatcher.new(@mit).confidence
+  end
+
+  should "know the matches" do
+    assert_equal 1, Licensee::GitMatcher.new(@mit).matches.size
+  end
+end
