@@ -12,9 +12,13 @@
 
 ## The solution
 
-Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a fancy math thing called the [Rabin-Karp rolling-hashes](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm), the same mechanism Git itself uses to compute changes between files. In fact, Licensee just uses Git.
+Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a several strategies (which we call "Matchers":
 
-By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
+First, we look to see if the license is an exact match. Licenses like GPL don't have a copyright notice that needs to be changed in the license itself, so if we strip away whitespace, we might get lucky, and direct string comparison is cheap.
+
+Next, we look to Git's internal change calculation method, which is fast, but is done on a line-by-line basis, so if the license is wrapped differently, or has extra words inserted, it's not going to match the license.
+
+Finally, if we still can't match the license, we use a fancy math thing called the [Levenshtein distance algorthm](https://en.wikipedia.org/wiki/Levenshtein_distance), which while slow, is really good at calculating the similarity between two a known license and an unknown license. By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
 
 Licensee will even diff the distributed license with the original, so you can see exactly what, if anything's been changed.
 
@@ -41,13 +45,6 @@ license.meta["description"]
 
 license.meta["permitted"]
 => ["commercial-use","modifications","distribution","sublicense","private-use"]
-
-# Getting all matches
-Licensee.matches "/path/to/a/project"
-=> [#<Licensee::License name="MIT" match=0.9842154131847726>,
- #<Licensee::License name="unlicense" match=0.4326833797585887>,
- ...
- #<Licensee::License name="no-license" match=0.0232126276694522>]
 ```
 
 ## Diffing
@@ -72,6 +69,7 @@ You'll get an output that looks like:
 ```
 License: MIT
 Confidence: 98.42%
+Matcher: Licensee::GitMatcher
 ```
 
 ## What it looks at
