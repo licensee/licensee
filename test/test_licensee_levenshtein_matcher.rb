@@ -18,13 +18,13 @@ class TestLicenseeLevenshteinMatcher < Minitest::Test
   end
 
   should "calculate max delta" do
-    assert_equal 968.4, Licensee::LevenshteinMatcher.new(@mit).max_delta
+    assert_equal 964.8000000000001, Licensee::LevenshteinMatcher.new(@mit).max_delta
   end
 
   should "calculate length delta" do
     isc = Licensee::Licenses.find("isc")
     assert_equal 2, Licensee::LevenshteinMatcher.new(@mit).length_delta(Licensee::Licenses.find("mit"))
-    assert_equal 336, Licensee::LevenshteinMatcher.new(@mit).length_delta(isc)
+    assert_equal 334, Licensee::LevenshteinMatcher.new(@mit).length_delta(isc)
   end
 
   should "round up potential licenses" do

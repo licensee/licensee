@@ -6,11 +6,11 @@ class Licensee
     end
 
     def match
-      match_info ? match_info[0] : nil
+      match_info[0] unless match_info.nil?
     end
 
     def confidence
-      match_info ? match_info[1] : nil
+      match_info[1] unless match_info.nil?
     end
 
     private
@@ -23,7 +23,7 @@ class Licensee
     def match_info
       @match_info ||= begin
         match = matches.max_by { |license, similarity| similarity }
-        match if match[1] > Licensee::CONFIDENCE_THRESHOLD
+        match if match && match[1] > Licensee::CONFIDENCE_THRESHOLD
       end
     end
   end

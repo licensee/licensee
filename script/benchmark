@@ -24,7 +24,6 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     blob = FakeBlob.new license_from_path(path)
     time = benchmark.report(license_name) do
       license_file = Licensee::LicenseFile.new(blob)
-      license_file.matches
       license_file.match
     end
     times.push time
@@ -59,7 +58,26 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
       license_file = Licensee::LicenseFile.new(blob)
-      license_file.matches
+      license_file.match
+    end
+    times.push time
+  end
+  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
+  avg = sum / times.size
+  [sum, avg]
+end
+
+puts "\nBenchmarking rewrapped licenses..."
+
+Benchmark.bm(12, "sum:", "average:") do |benchmark|
+  times = []
+  licenses.each do |path|
+    license_name = File.basename(path, ".txt")
+    license_contents = license_from_path(path)
+    license_contents = wrap(license_contents, 70)
+    blob = FakeBlob.new license_contents
+    time = benchmark.report(license_name) do
+      license_file = Licensee::LicenseFile.new(blob)
       license_file.match
     end
     times.push time

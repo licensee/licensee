@@ -2,7 +2,7 @@ class Licensee
   class LevenshteinMatcher < Matcher
 
     def match
-      potential_licenses.find do |license|
+      @match ||= potential_licenses.find do |license|
         similarity(license) >= Licensee::CONFIDENCE_THRESHOLD
       end
     end
@@ -14,11 +14,11 @@ class Licensee
     end
 
     def length_delta(license)
-      (file.content_normalized.length - license.body_normalized.length).abs
+      (file_length - license.body_normalized.length).abs
     end
 
     def max_delta
-      @max_delta ||= (file.content_normalized.length * (Licensee::CONFIDENCE_THRESHOLD.to_f / 100.to_f ))
+      @max_delta ||= (file_length * (Licensee::CONFIDENCE_THRESHOLD.to_f / 100.to_f ))
     end
 
     def confidence
@@ -27,16 +27,16 @@ class Licensee
 
     private
 
-    def length
-      file.content_normalized.length.to_f
+    def file_length
+      @file_length ||= file.content_normalized.length
     end
 
     def similarity(license)
-      100 * (length - distance(license)) / length
+      100 * (file_length - distance(license)) / file_length
     end
 
     def distance(license)
-      Levenshtein.distance(file.content_normalized, license.body_normalized).to_f
+      Levenshtein.distance(license.body_normalized, file.content_normalized).to_f
     end
   end
 end

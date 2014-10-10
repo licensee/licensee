@@ -31,7 +31,7 @@ class Licensee
     alias_method :text, :body
 
     def body_normalized
-      @content_normalized ||= body.downcase.gsub("\n", " ").strip
+      @content_normalized ||= body.downcase.gsub(/\s+/, " ").strip
     end
 
     def hashsig

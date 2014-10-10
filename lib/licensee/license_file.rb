@@ -15,12 +15,8 @@ class Licensee
     alias_method :to_s, :content
     alias_method :contents, :content
 
-    def content_wrapped
-
-    end
-
     def content_normalized
-      @content_normalized ||= content.downcase.gsub("\n", " ").strip
+      @content_normalized ||= content.downcase.gsub(/\s+/, " ").strip
     end
 
     def diff(options={})
@@ -29,10 +25,7 @@ class Licensee
     end
 
     def matcher
-      @matcher ||= Licensee.matchers.each do |matcher|
-        matcher = matcher.new(self)
-        break matcher if matcher.match
-      end
+      @matcher ||= Licensee.matchers.map { |m| m.new(self) }.find { |m| m.match }
     end
 
     def match
@@ -40,7 +33,7 @@ class Licensee
     end
 
     def confidence
-      @condience ||= matcher.confidence
+      @condience ||= matcher.confidence if matcher
     end
   end
 end
