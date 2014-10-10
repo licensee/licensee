@@ -39,23 +39,32 @@ class FakeBlob
 end
 
 def chaos_monkey(string)
-  lines = string.each_line.to_a
-
-  Random.rand(5).times do
-    lines[Random.rand(lines.size)] = SecureRandom.base64(Random.rand(80)) + "\n"
+  Random.rand(10).times do
+    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
   end
-
-  lines.join('')
+  string
 end
 
-def verify_license_file(license, chaos = false)
+def verify_license_file(license, chaos = false, wrap=false)
   expected = File.basename(license, ".txt")
 
   text = license_from_path(license)
-  blob = FakeBlob.new(chaos ? chaos_monkey(text) : text)
+  text = chaos_monkey(text) if chaos
+  text = wrap(text, wrap) if wrap
+
+  blob = FakeBlob.new(text)
   license_file = Licensee::LicenseFile.new(blob)
 
   actual = license_file.match
   assert actual, "No match for #{expected}."
-  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Matches: #{license_file.matches}"
+  assert_equal expected, actual.name, "expeceted #{expected} but got #{actual.name} for .match. Confidence: #{license_file.confidence}. Method: #{license_file.matcher.class}"
+end
+
+def wrap(text, line_width=80)
+  text = text.clone
+  text.gsub! /([^\n])\n([^\n])/, '\1 \2'
+  text = text.split("\n").collect do |line|
+    line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip : line
+  end * "\n"
+  text.strip
 end

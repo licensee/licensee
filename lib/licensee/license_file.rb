@@ -7,43 +7,39 @@ class Licensee
       blob.hashsig(Rugged::Blob::HashSignature::WHITESPACE_SMART)
     end
 
-    def contents
-      @contents ||= blob.content
+    # Raw file contents
+    def content
+      @contents ||= begin
+        blob.content
+      end
     end
-    alias_method :to_s, :contents
-    alias_method :content, :contents
+    alias_method :to_s, :content
+    alias_method :contents, :content
 
-    def length
-      @length ||= blob.size
-    end
-
-    def matches
-      @matches ||= Licensee::Licenses.list.map { |l| [l, calculate_similarity(l)] }
-    end
-
-    def match_info
-      @match_info ||= matches.max_by { |license, similarity| similarity }
+    # File content with all whitespace replaced with a single space
+    def content_normalized
+      @content_normalized ||= content.downcase.gsub(/\s+/, " ").strip
     end
 
-    def match
-      match_info ? match_info[0] : nil
-    end
-
-    def confidence
-      match_info ? match_info[1] : nil
-    end
-    alias_method :similarity, :confidence
-
+    # Comptutes a diff between known license and project license
     def diff(options={})
       options = options.merge(:reverse => true)
       blob.diff(match.body, options).to_s if match
     end
 
-    private
+    # Determines which matching strategy to use, returns an instane of that matcher
+    def matcher
+      @matcher ||= Licensee.matchers.map { |m| m.new(self) }.find { |m| m.match }
+    end
 
-    # Pulled out for easier testing
-    def calculate_similarity(other)
-      blob.similarity(other.hashsig)
+    # Returns an Licensee::License instance of the matches license
+    def match
+      @match ||= matcher.match if matcher
+    end
+
+    # Returns the percent confident with the match
+    def confidence
+      @condience ||= matcher.confidence if matcher
     end
   end
 end

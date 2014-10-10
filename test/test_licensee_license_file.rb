@@ -14,17 +14,6 @@ class TestLicenseeLicenseFile < Minitest::Test
     assert @file.contents =~ /MIT/
   end
 
-  should "known the file length" do
-    assert_equal 1077, @file.length
-  end
-
-  should "calculate similiarty" do
-    actual = @file.send(:calculate_similarity, @mit)
-    assert actual > Licensee::CONFIDENCE_THRESHOLD, "expected #{actual} to be > 90% for MIT"
-    actual = @file.send(:calculate_similarity, @gpl)
-    assert actual < 1, "expected #{actual} to be < 1% for GPL"
-  end
-
   should "match the license" do
     assert_equal "mit", @file.match.name
   end
@@ -32,5 +21,9 @@ class TestLicenseeLicenseFile < Minitest::Test
   should "diff the file" do
     expected = "-Copyright (c) [year] [fullname]\n+Copyright (c) 2014 Ben Balter"
     assert @file.diff.include?(expected)
+  end
+
+  should "calculate confidence" do
+    assert_equal 94, @file.confidence
   end
 end
