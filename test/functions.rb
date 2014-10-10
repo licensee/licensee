@@ -39,13 +39,10 @@ class FakeBlob
 end
 
 def chaos_monkey(string)
-  lines = string.each_line.to_a
-
-  Random.rand(5).times do
-    lines[Random.rand(lines.size)] = SecureRandom.base64(Random.rand(80)) + "\n"
+  Random.rand(10).times do
+    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
   end
-
-  lines.join('')
+  string
 end
 
 def verify_license_file(license, chaos = false, wrap=false)

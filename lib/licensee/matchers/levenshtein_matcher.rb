@@ -28,7 +28,7 @@ class Licensee
     private
 
     def file_length
-      @file_length ||= file.content_normalized.length
+      @file_length ||= file.content_normalized.length.to_f
     end
 
     def similarity(license)
