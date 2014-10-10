@@ -39,7 +39,7 @@ class FakeBlob
 end
 
 def chaos_monkey(string)
-  Random.rand(10).times do
+  Random.rand(7).times do
     string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
   end
   string
