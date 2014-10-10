@@ -1,10 +1,6 @@
 class Licensee
   class GitMatcher < Matcher
 
-    def matches
-      @matches ||= Licensee::Licenses.list.map { |l| [l, similarity(l)] }.select { |l,sim| sim > 0 }
-    end
-
     def match
       match_info[0] unless match_info.nil?
     end
@@ -14,6 +10,10 @@ class Licensee
     end
 
     private
+
+    def matches
+      @matches ||= Licensee.licenses.map { |l| [l, similarity(l)] }.select { |l,sim| sim > 0 }
+    end
 
     def similarity(other)
       file.blob.similarity(other.hashsig)

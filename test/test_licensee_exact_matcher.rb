@@ -15,8 +15,4 @@ class TestLicenseeExactMatcher < Minitest::Test
   should "know the match confidence" do
     assert_equal 100, Licensee::ExactMatcher.new(@mit).confidence
   end
-
-  should "know the matches" do
-    assert_equal 1, Licensee::ExactMatcher.new(@mit).matches.size
-  end
 end

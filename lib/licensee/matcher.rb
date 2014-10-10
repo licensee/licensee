@@ -1,3 +1,9 @@
+# Abstract class to describe different matching strategies
+# Must respond to:
+#   - match
+#   - confidence
+#
+# Can assume file will be a Licensee::LicenseFile instance
 class Licensee
   class Matcher
     attr_reader :file
@@ -10,10 +16,6 @@ class Licensee
       @file = file
     end
 
-    def matches
-      []
-    end
-
     def match
       nil
     end
@@ -22,6 +24,5 @@ class Licensee
       0
     end
     alias_method :similarity, :confidence
-
   end
 end

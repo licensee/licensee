@@ -15,8 +15,4 @@ class TestLicenseeGitMatcher < Minitest::Test
   should "know the match confidence" do
     assert_equal 94, Licensee::GitMatcher.new(@mit).confidence
   end
-
-  should "know the matches" do
-    assert_equal 1, Licensee::GitMatcher.new(@mit).matches.size
-  end
 end

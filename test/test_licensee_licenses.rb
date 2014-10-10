@@ -3,8 +3,8 @@ require 'helper'
 class TestLicenseeLicenses < Minitest::Test
 
   should "know license names" do
-    assert_equal Array, Licensee::Licenses.names.class
-    assert_equal 15, Licensee::Licenses.names.size
+    assert_equal Array, Licensee::Licenses.send(:names).class
+    assert_equal 15, Licensee::Licenses.send(:names).size
   end
 
   should "load the licenses" do

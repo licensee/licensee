@@ -12,14 +12,18 @@ require_relative "licensee/matchers/git_matcher"
 require_relative "licensee/matchers/levenshtein_matcher"
 
 class Licensee
+
+  # Over watch percent is a match considered a match
   CONFIDENCE_THRESHOLD = 90
 
   class << self
 
+    # Returns an array of Licensee::License instances
     def licenses
-      Licensee::Licenses.list
+      @licenses ||= Licensee::Licenses.list
     end
 
+    # Returns the license for a given git repo
     def license(path)
       Licensee::Project.new(path).license
     end
