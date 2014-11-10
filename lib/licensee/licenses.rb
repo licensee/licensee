@@ -11,12 +11,6 @@ class Licensee
         end
       end
 
-      def sorted_list
-        list.sort { |a,b| a.name <=> b.name }.
-        partition { |license| license.featured? }.
-        flatten
-      end
-
       # Given a license key, attempt to return a matching Licensee::License instance
       def find(key)
         list.find { |l| l.key.downcase == key.downcase }
@@ -28,8 +22,6 @@ class Licensee
         @base ||= File.expand_path "../../vendor/choosealicense.com/_licenses", File.dirname(__FILE__)
       end
 
-      private
-
       # Returns a list of potential license keys, as vendored
       def keys
         @keys ||= begin
@@ -39,7 +31,6 @@ class Licensee
           keyes
         end
       end
-
     end
   end
 end
