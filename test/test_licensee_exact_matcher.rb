@@ -9,7 +9,7 @@ class TestLicenseeExactMatcher < Minitest::Test
   end
 
   should "match the license" do
-    assert_equal "mit", Licensee::ExactMatcher.match(@mit).name
+    assert_equal "mit", Licensee::ExactMatcher.match(@mit).key
   end
 
   should "know the match confidence" do

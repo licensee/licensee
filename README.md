@@ -34,7 +34,10 @@ Licensee will even diff the distributed license with the original, so you can se
 license = Licensee.license "/path/to/a/project"
 => #<Licensee::License name="MIT" match=0.9842154131847726>
 
-license.meta["title"]
+license.key
+=> "mit"
+
+license.name
 => "MIT License"
 
 license.meta["source"]

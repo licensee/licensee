@@ -8,7 +8,7 @@ class TestLicensee < Minitest::Test
   end
 
   should "detect a project's license" do
-    assert_equal "mit", Licensee.license(fixture_path("licenses.git")).name
+    assert_equal "mit", Licensee.license(fixture_path("licenses.git")).key
   end
 
   should "diff a license" do

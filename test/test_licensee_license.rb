@@ -15,4 +15,24 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal "MIT License", @license.meta["title"]
   end
 
+  should "know the license path" do
+    assert_equal File.expand_path("./vendor/choosealicense.com/_licenses/mit.txt"), @license.path
+  end
+
+  should "know the license name" do
+    assert_equal "MIT License", @license.name
+  end
+
+  should "know the license ID" do
+    assert_equal "mit", @license.key
+  end
+
+  should "know if the license is featured" do
+    assert @license.featured?
+    refute Licensee::License.new("cc0").featured?
+  end
+
+  should "parse the license parts" do
+    assert_equal 3, @license.send(:parts).size
+  end
 end

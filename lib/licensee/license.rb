@@ -1,14 +1,14 @@
 class Licensee
   class License
-    attr_reader :name
+    attr_reader :key
 
-    def initialize(name)
-      @name=name.downcase
+    def initialize(key)
+      @key=key.downcase
     end
 
     # Path to vendored license file on disk
     def path
-      @path ||= File.expand_path "#{@name}.txt", Licensee::Licenses.base
+      @path ||= File.expand_path "#{@key}.txt", Licensee::Licenses.base
     end
 
     # Raw content of license file, including YAML front matter
@@ -18,10 +18,19 @@ class Licensee
 
     # License metadata from YAML front matter
     def meta
-      @meta ||= front_matter = YAML.load(parts[1]) if parts[1]
+      @meta ||= YAML.load(parts[1]) if parts[1]
     rescue
       nil
     end
+
+    def name
+      meta["title"] if meta
+    end
+
+    def featured?
+      meta["featured"] if meta
+    end
+    alias_method :featured, :featured?
 
     # The license body (e.g., contents - frontmatter)
     def body
@@ -42,7 +51,7 @@ class Licensee
     end
 
     def inspect
-      "#<Licensee::License name=\"#{name}\">"
+      "#<Licensee::License key= \"#{key}\" name=\"#{name}\">"
     end
 
     private

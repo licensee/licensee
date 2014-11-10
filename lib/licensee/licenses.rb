@@ -6,14 +6,14 @@ class Licensee
       def list
         @licenses ||= begin
           licenses = []
-          names.each { |name| licenses.push License.new(name) }
+          keys.each { |key| licenses.push License.new(key) }
           licenses
         end
       end
 
-      # Given a license name, attempt to return a matching Licensee::License instance
-      def find(name)
-        list.find { |l| l.name.downcase == name.downcase }
+      # Given a license key, attempt to return a matching Licensee::License instance
+      def find(key)
+        list.find { |l| l.key.downcase == key.downcase }
       end
 
       # Path to vendored licenses
@@ -23,13 +23,13 @@ class Licensee
 
       private
 
-      # Returns a list of potential license names, as vendored
-      def names
-        @names ||= begin
-          names = Dir.entries(base)
-          names.map! { |l| File.basename(l, ".txt").downcase }
-          names.reject! { |l| l =~ /^\./ || l.nil? }
-          names
+      # Returns a list of potential license keys, as vendored
+      def keys
+        @keys ||= begin
+          keyes = Dir.entries(base)
+          keyes.map! { |l| File.basename(l, ".txt").downcase }
+          keyes.reject! { |l| l =~ /^\./ || l.nil? }
+          keyes
         end
       end
 

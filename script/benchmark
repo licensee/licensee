@@ -87,7 +87,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
   [sum, avg]
 end
 
-puts "\nBenchmarking rewapped and modified licenses..."
+puts "\nBenchmarking rewrapped and modified licenses..."
 
 Benchmark.bm(12, "sum:", "average:") do |benchmark|
   times = []

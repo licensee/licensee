@@ -15,7 +15,7 @@ class TestLicenseeLicenseFile < Minitest::Test
   end
 
   should "match the license" do
-    assert_equal "mit", @file.match.name
+    assert_equal "mit", @file.match.key
   end
 
   should "diff the file" do
