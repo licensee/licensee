@@ -1,5 +1,10 @@
 class Licensee
   class License
+
+    def self.all
+      Licensee::licenses.list
+    end
+
     attr_reader :key
 
     def initialize(key)
@@ -51,7 +56,7 @@ class Licensee
     end
 
     def inspect
-      "#<Licensee::License key= \"#{key}\" name=\"#{name}\">"
+      "#<Licensee::License key=\"#{key}\" name=\"#{name}\">"
     end
 
     private

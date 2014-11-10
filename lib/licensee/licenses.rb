@@ -11,10 +11,17 @@ class Licensee
         end
       end
 
+      def sorted_list
+        list.sort { |a,b| a.name <=> b.name }.
+        partition { |license| license.featured? }.
+        flatten
+      end
+
       # Given a license key, attempt to return a matching Licensee::License instance
       def find(key)
         list.find { |l| l.key.downcase == key.downcase }
       end
+      alias_method :[], :find
 
       # Path to vendored licenses
       def base
