@@ -18,7 +18,7 @@ First, we look to see if the license is an exact match. Licenses like GPL don't 
 
 Next, we look to Git's internal change calculation method, which is fast, but is done on a line-by-line basis, so if the license is wrapped differently, or has extra words inserted, it's not going to match the license.
 
-Finally, if we still can't match the license, we use a fancy math thing called the [Levenshtein distance algorthm](https://en.wikipedia.org/wiki/Levenshtein_distance), which while slow, is really good at calculating the similarity between two a known license and an unknown license. By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
+Finally, if we still can't match the license, we use a fancy math thing called the [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), which while slow, is really good at calculating the similarity between two a known license and an unknown license. By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
 
 Licensee will even diff the distributed license with the original, so you can see exactly what, if anything's been changed.
 
