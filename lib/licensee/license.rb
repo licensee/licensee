@@ -19,6 +19,8 @@ class Licensee
     # Raw content of license file, including YAML front matter
     def content
       @content ||= File.open(path).read
+    rescue
+      ""
     end
 
     # License metadata from YAML front matter
@@ -39,14 +41,14 @@ class Licensee
 
     # The license body (e.g., contents - frontmatter)
     def body
-      @body ||= parts[2]
+      @body ||= parts[2] if parts[2]
     end
     alias_method :to_s, :body
     alias_method :text, :body
 
     # License body with all whitespace replaced with a single space
     def body_normalized
-      @content_normalized ||= body.downcase.gsub(/\s+/, " ").strip
+      @content_normalized ||= body.to_s.downcase.gsub(/\s+/, " ").strip
     end
 
     # Git-computed hash signature for the license file
