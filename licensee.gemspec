@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.bindir = 'bin'
   gem.executables << 'licensee'
 
-  gem.add_dependency('rugged', '~> 0.21.1b2')
+  gem.add_dependency('rugged', '~> 0.22.0b1')
   gem.add_dependency('levenshtein-ffi', '~> 1.1')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('shoulda', '~> 3.5')
