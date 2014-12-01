@@ -39,4 +39,9 @@ class TestLicenseeLicense < Minitest::Test
   should "build the license URL" do
     assert_equal "http://choosealicense.com/licenses/mit/", @license.url
   end
+
+  should "return all licenses" do
+    assert_equal Array, Licensee::License.all.class
+    assert Licensee::License.all.size > 3
+  end
 end

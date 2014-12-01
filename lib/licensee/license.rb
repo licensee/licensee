@@ -2,7 +2,7 @@ class Licensee
   class License
 
     def self.all
-      Licensee::licenses.list
+      Licensee::licenses
     end
 
     attr_reader :key
