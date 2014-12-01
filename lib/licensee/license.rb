@@ -61,6 +61,10 @@ class Licensee
       "#<Licensee::License key=\"#{key}\" name=\"#{name}\">"
     end
 
+    def url
+      URI.join(Licensee::DOMAIN, meta["permalink"]).to_s
+    end
+
     private
 
     def parts

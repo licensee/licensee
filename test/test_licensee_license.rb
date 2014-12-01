@@ -35,4 +35,8 @@ class TestLicenseeLicense < Minitest::Test
   should "parse the license parts" do
     assert_equal 3, @license.send(:parts).size
   end
+
+  should "build the license URL" do
+    assert_equal "http://choosealicense.com/licenses/mit/", @license.url
+  end
 end

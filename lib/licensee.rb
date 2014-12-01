@@ -1,3 +1,4 @@
+require 'uri'
 require 'yaml'
 require 'rugged'
 require 'levenshtein'
@@ -15,6 +16,9 @@ class Licensee
 
   # Over watch percent is a match considered a match
   CONFIDENCE_THRESHOLD = 90
+
+  # Base domain from which to build license URLs
+  DOMAIN = "http://choosealicense.com"
 
   class << self
 
