@@ -4,4 +4,6 @@ set -e
 
 bundle exec rake test
 
-script/benchmark
+bundle exec script/benchmark
+
+gem build licensee.gemspec
