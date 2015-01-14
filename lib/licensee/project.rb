@@ -3,12 +3,13 @@ class Licensee
     attr_reader :repository
 
     # Array of file names to look for potential license files, in order
+    # Filenames should be lower case as candidates are downcased before comparison
     LICENSE_FILENAMES = %w[
-      LICENSE
-      LICENSE.txt
-      LICENSE.md
-      UNLICENSE
-      COPYING
+      license
+      license.txt
+      license.md
+      unlicense
+      copying
     ]
 
     # Initializes a new project
@@ -31,7 +32,7 @@ class Licensee
       return @license_file if defined? @license_file
 
       commit = @revision ? @repository.lookup(@revision) : @repository.last_commit
-      license_blob = commit.tree.each_blob { |blob| break blob if LICENSE_FILENAMES.include? blob[:name] }
+      license_blob = commit.tree.each_blob { |blob| break blob if LICENSE_FILENAMES.include? blob[:name].downcase }
 
       @license_file = if license_blob
         LicenseFile.new(@repository.lookup(license_blob[:oid]))

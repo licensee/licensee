@@ -17,6 +17,5 @@ class TestLicenseeProject < Minitest::Test
   should "detect a atypically cased license fild" do
     project = Licensee::Project.new fixture_path("case-sensitive.git")
     assert_equal Licensee::LicenseFile, project.license_file.class
-    assert_equal "Foo", project.license_file
   end
 end
