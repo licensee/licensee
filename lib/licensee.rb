@@ -3,6 +3,7 @@ require 'yaml'
 require 'rugged'
 require 'levenshtein'
 
+require_relative "licensee/version"
 require_relative "licensee/license"
 require_relative "licensee/licenses"
 require_relative "licensee/license_file"
