@@ -35,7 +35,7 @@ class Licensee
     end
 
     def featured?
-      meta["featured"] if meta
+      !!(meta["featured"] if meta)
     end
     alias_method :featured, :featured?
 
