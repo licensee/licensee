@@ -32,12 +32,13 @@ class Licensee
       return @license_file if defined? @license_file
 
       commit = @revision ? @repository.lookup(@revision) : @repository.last_commit
+      tree = commit.tree.select { |blob| blob[:type] == :blob }
 
       # Prefer an exact match to one of our known file names
-      license_blob = commit.tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
+      license_blob = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
 
       # Fall back to the first file in the project root that has the word license in it
-      license_blob = commit.tree.find { |blob| blob[:name] =~ /license/i } unless license_blob
+      license_blob = tree.find { |blob| blob[:name] =~ /license/i } unless license_blob
 
       @license_file = LicenseFile.new(@repository.lookup(license_blob[:oid])) if license_blob
     end

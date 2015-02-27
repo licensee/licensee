@@ -28,4 +28,9 @@ class TestLicenseeProject < Minitest::Test
     project = Licensee::Project.new fixture_path("named-license-file-suffix.git")
     assert_equal "mit", project.license.key
   end
+
+  should "not error out on repos with folders names license" do
+    project = Licensee::Project.new fixture_path("license-folder.git")
+    assert_equal nil, project.license
+  end
 end
