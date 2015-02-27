@@ -14,6 +14,22 @@ class TestLicenseeProject < Minitest::Test
     assert_equal "mit", @project.license.key
   end
 
+  should "know the last commit" do
+    commit = @project.send(:commit)
+    assert_equal Rugged::Commit, commit.class
+    assert_equal "b02cbad9d254c41d16d56ed9d6d2cf07c1d837fd", commit.oid
+  end
+
+  should "retrieve the tree" do
+    tree = @project.send(:tree)
+    assert_equal 1, tree.count
+    assert_equal "bcb552d06d9cf1cd4c048a6d3bf716849c2216cc", tree.first[:oid]
+  end
+
+  should "return the license blob" do
+    assert_equal "LICENSE", @project.send(:license_blob)[:name]
+  end
+
   should "detect an atypically cased license file" do
     project = Licensee::Project.new fixture_path("case-sensitive.git")
     assert_equal Licensee::LicenseFile, project.license_file.class

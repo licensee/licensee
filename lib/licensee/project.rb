@@ -26,26 +26,34 @@ class Licensee
       @revision = revision
     end
 
-    # Detects the license file, if any
-    # Returns a Licensee::LicenseFile instance
+    # Returns an instance of Licensee::LicenseFile if there's a license file detected
     def license_file
-      return @license_file if defined? @license_file
-
-      commit = @revision ? @repository.lookup(@revision) : @repository.last_commit
-      tree = commit.tree.select { |blob| blob[:type] == :blob }
-
-      # Prefer an exact match to one of our known file names
-      license_blob = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
-
-      # Fall back to the first file in the project root that has the word license in it
-      license_blob = tree.find { |blob| blob[:name] =~ /license/i } unless license_blob
-
-      @license_file = LicenseFile.new(@repository.lookup(license_blob[:oid])) if license_blob
+      @license_file ||= LicenseFile.new(@repository.lookup(license_blob[:oid])) if license_blob
     end
 
     # Returns the matching Licensee::License instance if a license can be detected
     def license
       @license ||= license_file.match if license_file
+    end
+
+    private
+
+    def commit
+      @revision ? @repository.lookup(@revision) : @repository.last_commit
+    end
+
+    def tree
+      commit.tree.select { |blob| blob[:type] == :blob }
+    end
+
+    # Detects the license file, if any
+    # Returns the blob hash as detected in the tree
+    def license_blob
+      # Prefer an exact match to one of our known file names
+      license_blob = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
+
+      # Fall back to the first file in the project root that has the word license in it
+      license_blob || tree.find { |blob| blob[:name] =~ /license/i }
     end
   end
 end
