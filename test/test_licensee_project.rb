@@ -18,4 +18,14 @@ class TestLicenseeProject < Minitest::Test
     project = Licensee::Project.new fixture_path("case-sensitive.git")
     assert_equal Licensee::LicenseFile, project.license_file.class
   end
+
+  should "detect MIT-LICENSE licensed projects" do
+    project = Licensee::Project.new fixture_path("named-license-file-prefix.git")
+    assert_equal "mit", project.license.key
+  end
+
+  should "detect LICENSE-MIT licensed projects" do
+    project = Licensee::Project.new fixture_path("named-license-file-suffix.git")
+    assert_equal "mit", project.license.key
+  end
 end
