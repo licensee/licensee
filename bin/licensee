@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/licensee"
-license = Licensee::Project.new(Dir.pwd).license_file
+project = Licensee::Project.new(Dir.pwd)
+license = project.license_file
 
 if license
+  puts "License file: #{project.send(:license_blob)[:name]}"
   puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
   puts "Confidence: #{license.confidence}%"
   puts "Method: #{license.matcher.class}"
