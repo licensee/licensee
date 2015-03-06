@@ -53,7 +53,7 @@ class Licensee
       license_blob = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
 
       # Fall back to the first file in the project root that has the word license in it
-      license_blob || tree.find { |blob| blob[:name] =~ /license/i }
+      license_blob || tree.find { |blob| blob[:name] =~ /licen(s|c)e/i }
     end
   end
 end
