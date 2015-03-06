@@ -122,7 +122,7 @@ Checking the actual text into version control is definitive, so that's what this
 
 ## Updating the licenses
 
-License data is pulled from `choosealicense.com`. To update the license data, simple run `bower update`.
+License data is pulled from `choosealicense.com`. To update the license data, simple run `script/vendor-licenses`.
 
 ## Roadmap
 
