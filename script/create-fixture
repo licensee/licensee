@@ -1,0 +1,9 @@
+#!/bin/sh
+#/ Usage: create-fixture name
+#/
+#/ Create a new example repository for testing
+
+set -e
+
+git init --bare --template='' test/fixtures/$1.git
+git clone test/fixtures/$1.git tmp/$1

@@ -49,4 +49,9 @@ class TestLicenseeProject < Minitest::Test
     project = Licensee::Project.new fixture_path("license-folder.git")
     assert_equal nil, project.license
   end
+
+  should "detect licence files" do
+    project = Licensee::Project.new fixture_path("licence.git")
+    assert_equal "mit", project.license.key
+  end
 end
