@@ -4,7 +4,13 @@ class Licensee
 
     def initialize(blob)
       @blob = blob
+    end
+
+    def similarity(other)
       blob.hashsig(Rugged::Blob::HashSignature::WHITESPACE_SMART)
+      other.hashsig ? blob.similarity(other.hashsig) : 0
+    rescue Rugged::InvalidError
+      0
     end
 
     # Raw file contents

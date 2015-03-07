@@ -12,11 +12,11 @@ class Licensee
     private
 
     def matches
-      @matches ||= Licensee.licenses.map { |l| [l, similarity(l)] }.select { |l,sim| sim > 0 }
+      @matches ||= Licensee.licenses.map { |l| [l, file.similarity(l)] }.select { |l,sim| sim > 0 }
     end
 
     def similarity(other)
-      other.hashsig ? file.blob.similarity(other.hashsig) : 0
+      file.similarity(other)
     end
 
     # Pulled out for easier testing

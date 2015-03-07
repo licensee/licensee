@@ -1,11 +1,7 @@
 class Licensee
   class CopyrightMatcher < Matcher
 
-    REGEX = /^(©|\(c\)|Copyright) \d{4}(.*)\n?$/i
-
-    def no_license
-      @no_license ||= Licensee::Licenses.find("no-license")
-    end
+    REGEX = /\A(Copyright )?(©|\(c\)) \d{4}(.*)\n?\z/i
 
     def match
       no_license if file.content_normalized =~ REGEX
@@ -13,6 +9,12 @@ class Licensee
 
     def confidence
       100
+    end
+
+    private
+
+    def no_license
+      @no_license ||= Licensee::Licenses.find("no-license")
     end
   end
 end
