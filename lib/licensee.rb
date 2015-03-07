@@ -42,7 +42,7 @@ class Licensee
     # Array of matchers to use, in order of preference
     # The order should be decending order of anticipated speed to match
     def matchers
-      [Licensee::ExactMatcher, Licensee::CopyrightMatcher, Licensee::GitMatcher, Licensee::LevenshteinMatcher]
+      [Licensee::CopyrightMatcher, Licensee::ExactMatcher, Licensee::GitMatcher, Licensee::LevenshteinMatcher]
     end
   end
 end
