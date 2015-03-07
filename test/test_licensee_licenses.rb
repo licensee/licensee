@@ -4,12 +4,12 @@ class TestLicenseeLicenses < Minitest::Test
 
   should "know license names" do
     assert_equal Array, Licensee::Licenses.keys.class
-    assert_equal 15, Licensee::Licenses.keys.size
+    assert_equal 16, Licensee::Licenses.keys.size
   end
 
   should "load the licenses" do
     assert_equal Array, Licensee::Licenses.list.class
-    assert_equal 15, Licensee::Licenses.list.size
+    assert_equal 16, Licensee::Licenses.list.size
     assert_equal Licensee::License, Licensee::Licenses.list.first.class
   end
 

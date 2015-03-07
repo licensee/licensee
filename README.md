@@ -12,13 +12,15 @@
 
 ## The solution
 
-Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a several strategies (which we call "Matchers"):
+Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a several strategies (which we call "Matchers"). It attempts to determine a project's license in the following order:
 
-First, we look to see if the license is an exact match. Licenses like GPL don't have a copyright notice that needs to be changed in the license itself, so if we strip away whitespace, we might get lucky, and direct string comparison is cheap.
+1. If the license file has an explicit copyright notice, and nothing more (e.g., `Copyright (c) 2015 Ben Balter`), we'll assume the author intends to retain all rights, and thus the project isn't licensed.
 
-Next, we look to Git's internal change calculation method, which is fast, but is done on a line-by-line basis, so if the license is wrapped differently, or has extra words inserted, it's not going to match the license.
+2. If the license is an exact match to a known license. Licenses like GPL don't have a copyright notice that needs to be changed in the license itself, so if we strip away whitespace, we might get lucky, and direct string comparison in Ruby is cheap.
 
-Finally, if we still can't match the license, we use a fancy math thing called the [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), which while slow, is really good at calculating the similarity between a known license and an unknown license. By calculating the percent changed from the known license, you can tell, e.g., that a given license is 98% similar to the MIT license, that 2% likely representing the copyright line being properly adapted to the project.
+3. If 90% of the lines match a known license. We use Git's internal change calculation method. To calcualte diffs, Git hashes each line of both files, and compares the hashes to tell the percent changed. This method is fast, but is done on a line-by-line basis, so if the license is wrapped differently, or has extra words inserted, it's not going to match the license.
+
+4. If we still can't match the license, we use a fancy math thing called the [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), which while very slow, is really good at calculating the similarity between two strings. By calculating the percent changed from the known license to the license file, you can tell, e.g., that a given license is 90% similar to the MIT license, that 10% likely representing the copyright line being properly adapted to the project.
 
 Licensee will even diff the distributed license with the original, so you can see exactly what, if anything's been changed.
 
