@@ -16,15 +16,15 @@ class TestLicenseeCopyrightMatcher < Minitest::Test
     assert_equal 100, Licensee::CopyrightMatcher.new(@file).confidence
   end
 
-  should "match (C) copyright notices" do
-    text = "(C) 2015 Ben Balter"
+  should "match Copyright (C) copyright notices" do
+    text = "Copyright (C) 2015 Ben Balter"
     blob = FakeBlob.new(text)
     file = Licensee::LicenseFile.new(blob)
     assert_equal "no-license", Licensee::CopyrightMatcher.match(file).key
   end
 
-  should "match © copyright notices" do
-    text = "© 2015 Ben Balter"
+  should "match Copyright © copyright notices" do
+    text = "copyright © 2015 Ben Balter"
     blob = FakeBlob.new(text)
     file = Licensee::LicenseFile.new(blob)
     assert_equal "no-license", Licensee::CopyrightMatcher.match(file).key
