@@ -15,10 +15,6 @@ class Licensee
       @matches ||= Licensee.licenses.map { |l| [l, file.similarity(l)] }.select { |l,sim| sim > 0 }
     end
 
-    def similarity(other)
-      file.similarity(other)
-    end
-
     # Pulled out for easier testing
     def match_info
       @match_info ||= begin

@@ -18,7 +18,7 @@ class TestLicenseeVendor < Minitest::Test
   should "detect each vendored license with different line lengths" do
     licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
     licenses.each do |license|
-      verify_license_file(license, false, 50) unless license =~ /no-license\.txt$/
+      verify_license_file(license, false, 50)
     end
   end
 
