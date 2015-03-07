@@ -20,3 +20,4 @@ vendor/choosealicense.com/*.*
 vendor/choosealicense.com/CNAME
 vendor/choosealicense.com/Gemfile
 vendor/choosealicense.com/Rakefile
+vendor/choosealicense.com/spec
