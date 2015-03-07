@@ -1,7 +1,7 @@
 class Licensee
   class CopyrightMatcher < Matcher
 
-    REGEX = /^(©|\(c\)|Copyright) \d{4}(.*)$/i
+    REGEX = /^(©|\(c\)|Copyright) \d{4}(.*)\n?$/i
 
     def no_license
       @no_license ||= Licensee::Licenses.find("no-license")
