@@ -16,7 +16,7 @@ class Licensee
     end
 
     def similarity(other)
-      file.blob.similarity(other.hashsig)
+      other.hashsig ? file.blob.similarity(other.hashsig) : 0
     end
 
     # Pulled out for easier testing

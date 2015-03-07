@@ -10,6 +10,7 @@ require_relative "licensee/license_file"
 require_relative "licensee/project"
 require_relative "licensee/matcher"
 require_relative "licensee/matchers/exact_matcher"
+require_relative "licensee/matchers/copyright_matcher"
 require_relative "licensee/matchers/git_matcher"
 require_relative "licensee/matchers/levenshtein_matcher"
 
@@ -41,7 +42,7 @@ class Licensee
     # Array of matchers to use, in order of preference
     # The order should be decending order of anticipated speed to match
     def matchers
-      [Licensee::ExactMatcher, Licensee::GitMatcher, Licensee::LevenshteinMatcher]
+      [Licensee::ExactMatcher, Licensee::CopyrightMatcher, Licensee::GitMatcher, Licensee::LevenshteinMatcher]
     end
   end
 end

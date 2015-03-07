@@ -55,6 +55,8 @@ class Licensee
     def hashsig
       @hashsig ||= Rugged::Blob::HashSignature.new(
         body, Rugged::Blob::HashSignature::WHITESPACE_SMART)
+    rescue Rugged::InvalidError
+      nil
     end
 
     def inspect

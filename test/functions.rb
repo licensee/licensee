@@ -30,11 +30,13 @@ class FakeBlob
   end
 
   def similarity(other)
-    Rugged::Blob::HashSignature.compare(self.hashsig, other)
+    self.hashsig ? Rugged::Blob::HashSignature.compare(self.hashsig, other) : 0
   end
 
   def hashsig(options = 0)
     @hashsig ||= Rugged::Blob::HashSignature.new(content, options)
+  rescue Rugged::InvalidError
+    nil
   end
 end
 
