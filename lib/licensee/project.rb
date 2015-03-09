@@ -10,6 +10,7 @@ class Licensee
       license.md
       unlicense
       copying
+      copyright
     ]
 
     # Initializes a new project
