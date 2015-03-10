@@ -79,7 +79,7 @@ Matcher: Licensee::GitMatcher
 
 ## What it looks at
 
-* `LICENSE`, `LICENSE.txt`, etc. files in the root of the project, comparing the body to known licenses
+* `LICENSE`, `LICENSE.txt`, `COPYING`, etc. files in the root of the project, comparing the body to known licenses
 * Crowdsourced license content and metadata from [`choosealicense.com`](http://choosealicense.com)
 
 ## What it doesn't look at
