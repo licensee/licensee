@@ -46,4 +46,8 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal Array, Licensee::License.all.class
     assert Licensee::License.all.size > 3
   end
+
+  should "strip leading newlines from the license" do
+    assert_equal "T", @license.body[0]
+  end
 end
