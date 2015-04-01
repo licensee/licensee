@@ -70,7 +70,7 @@ class Licensee
     private
 
     def parts
-      @parts ||= content.match(/^(---\n.*\n---\n+)?(.*)/m).to_a
+      @parts ||= content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
     end
   end
 end
