@@ -18,7 +18,7 @@ Licensee automates the process of reading `LICENSE` files and compares their con
 
 2. If the license is an exact match to a known license. Licenses like GPL don't have a copyright notice that needs to be changed in the license itself, so if we strip away whitespace, we might get lucky, and direct string comparison in Ruby is cheap.
 
-3. If 90% of the lines match a known license. We use Git's internal change calculation method. To calcualte diffs, Git hashes each line of both files, and compares the hashes to tell the percent changed. This method is fast, but is done on a line-by-line basis, so if the license is wrapped differently, or has extra words inserted, it's not going to match the license.
+3. If 90% of the lines match a known license. We use Git's internal change calculation method. To calculate diffs, Git hashes each line of both files, and compares the hashes to tell the percent changed. This method is fast, but is done on a line-by-line basis, so if the license is wrapped differently, or has extra words inserted, it's not going to match the license.
 
 4. If we still can't match the license, we use a fancy math thing called the [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance), which while very slow, is really good at calculating the similarity between two strings. By calculating the percent changed from the known license to the license file, you can tell, e.g., that a given license is 90% similar to the MIT license, that 10% likely representing the copyright line being properly adapted to the project.
 
