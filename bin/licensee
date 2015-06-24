@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
-
 require_relative "../lib/licensee"
-project = Licensee::Project.new(Dir.pwd)
+
+path = ARGV[0] || Dir.pwd
+
+project = Licensee::Project.new(path)
 license = project.license_file
 
 if license
