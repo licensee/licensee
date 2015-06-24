@@ -21,7 +21,15 @@ class Licensee
       if path_or_repo.kind_of? Rugged::Repository
         @repository = path_or_repo
       else
-        @repository = Rugged::Repository.new(path_or_repo)
+        begin
+          @repository = Rugged::Repository.new(path_or_repo)
+        rescue Rugged::RepositoryError
+          if revision
+            raise
+          else
+            @repository = FilesystemRepository.new(path_or_repo)
+          end
+        end
       end
 
       @revision = revision

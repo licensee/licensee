@@ -1,6 +1,7 @@
 # Pulled from helper.rb because something in the test suite monkey patches benchmarking
 
 require 'securerandom'
+require 'licensee/filesystem_repository'
 
 def fixtures_base
   File.expand_path "fixtures", File.dirname( __FILE__ )
@@ -18,27 +19,7 @@ def license_from_path(path)
   license
 end
 
-class FakeBlob
-  attr_reader :content
-
-  def initialize(content)
-    @content = content
-  end
-
-  def size
-    content.size
-  end
-
-  def similarity(other)
-    self.hashsig ? Rugged::Blob::HashSignature.compare(self.hashsig, other) : 0
-  end
-
-  def hashsig(options = 0)
-    @hashsig ||= Rugged::Blob::HashSignature.new(content, options)
-  rescue Rugged::InvalidError
-    nil
-  end
-end
+FakeBlob = Licensee::FilesystemRepository::Blob
 
 def chaos_monkey(string)
   Random.rand(5).times do
