@@ -1,9 +1,10 @@
 class Licensee
   class LicenseFile
-    attr_reader :blob
+    attr_reader :blob, :path
 
-    def initialize(blob)
+    def initialize(blob, options={})
       @blob = blob
+      @path = options[:path]
     end
 
     def similarity(other)
