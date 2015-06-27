@@ -36,9 +36,19 @@ class TestLicenseeProject < Minitest::Test
         assert_equal "mit", project.license.key
       end
 
+      should "return the license hash" do
+        project = make_project "licenses.git", as_git
+        assert_equal "LICENSE", project.send(:license_hash)[:name]
+      end
+
       should "return the license blob" do
         project = make_project "licenses.git", as_git
-        assert_equal "LICENSE", project.send(:license_blob)[:name]
+        assert_equal 1077, project.send(:license_blob).size
+      end
+
+      should "return the license path" do
+        project = make_project "licenses.git", as_git
+        assert_equal "LICENSE", project.send(:license_path)
       end
 
       should "detect an atypically cased license file" do

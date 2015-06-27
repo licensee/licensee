@@ -37,7 +37,7 @@ class Licensee
 
     # Returns an instance of Licensee::LicenseFile if there's a license file detected
     def license_file
-      @license_file ||= LicenseFile.new(@repository.lookup(license_blob[:oid])) if license_blob
+      @license_file ||= LicenseFile.new(license_blob, :path => license_path) if license_blob
     end
 
     # Returns the matching Licensee::License instance if a license can be detected
@@ -57,12 +57,20 @@ class Licensee
 
     # Detects the license file, if any
     # Returns the blob hash as detected in the tree
-    def license_blob
+    def license_hash
       # Prefer an exact match to one of our known file names
-      license_blob = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
+      license_hash = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
 
       # Fall back to the first file in the project root that has the word license in it
-      license_blob || tree.find { |blob| blob[:name] =~ /licen(s|c)e/i }
+      license_hash || tree.find { |blob| blob[:name] =~ /licen(s|c)e/i }
+    end
+
+    def license_blob
+      @repository.lookup(license_hash[:oid]) if license_hash
+    end
+
+    def license_path
+      license_hash[:name] if license_hash
     end
   end
 end

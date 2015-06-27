@@ -7,7 +7,7 @@ project = Licensee::Project.new(path)
 license = project.license_file
 
 if license
-  puts "License file: #{project.send(:license_blob)[:name]}"
+  puts "License file: #{license.path}"
   puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
   puts "Confidence: #{license.confidence}%"
   puts "Method: #{license.matcher.class}"
