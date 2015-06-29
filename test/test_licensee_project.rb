@@ -79,4 +79,36 @@ class TestLicenseeProject < Minitest::Test
     end
   end
 
+  context "license filename matching" do
+    # Standard license names
+    ["license",
+      "LICENSE",
+      "LICENCE",
+      "license.md",
+      "unlicense",
+      "unlicence",
+      "copying",
+      "copyRIGHT",
+      "license.txt"
+    ].each do |license|
+      should "match #{license}" do
+        assert Licensee::Project.license_file?(license)
+      end
+    end
+
+    should "not match MIT-LICENSE" do
+      refute Licensee::Project.license_file?("MIT-LICENSE")
+    end
+
+    # Abnormal license names
+    [
+      "LICENSE-MIT",
+      "MIT-LICENSE.txt",
+      "mit-license-foo.md"
+    ].each do |license|
+      should "match #{license}" do
+        assert Licensee::Project.maybe_license_file?(license)
+      end
+    end
+  end
 end
