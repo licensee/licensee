@@ -50,4 +50,8 @@ class TestLicenseeLicense < Minitest::Test
   should "strip leading newlines from the license" do
     assert_equal "T", @license.body[0]
   end
+
+  should "fail loudly for invalid licenses" do
+    assert_raises(Licensee::InvalidLicense) { Licensee::License.new("foo").name }
+  end
 end

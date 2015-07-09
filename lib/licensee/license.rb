@@ -1,4 +1,5 @@
 class Licensee
+  class InvalidLicense < ArgumentError; end
   class License
 
     def self.all
@@ -18,7 +19,11 @@ class Licensee
 
     # Raw content of license file, including YAML front matter
     def content
-      @content ||= File.open(path).read
+      @content ||= if File.exists?(path)
+        File.open(path).read
+      else
+        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
+      end
     end
 
     # License metadata from YAML front matter
