@@ -34,25 +34,10 @@ class Licensee
       @license ||= license_file.match if license_file
     end
 
-    # Regex to detect license files
-    #
-    # Examples it should match:
-    # - LICENSE.md
-    # - licence.txt
-    # - unlicense
-    # - copying
-    # - copyright
-    def self.license_file?(filename)
-      !!(filename =~ /\A(un)?licen[sc]e|copy(ing|right)(\.[^.]+)?\z/i)
-    end
-
-    # Regex to detect things that look like license files
-    #
-    # Examples it should match:
-    # - license-MIT.txt
-    # - MIT-LICENSE
-    def self.maybe_license_file?(filename)
-      !!(filename =~ /licen[sc]e/i)
+    def self.match_license_file(filename)
+      return 1 if self.license_file?(filename)
+      return 0.5 if self.maybe_license_file?(filename)
+      return 0
     end
 
     private
@@ -78,6 +63,27 @@ class Licensee
 
     def license_path
       license_hash[:name] if license_hash
+    end
+
+    # Regex to detect license files
+    #
+    # Examples it should match:
+    # - LICENSE.md
+    # - licence.txt
+    # - unlicense
+    # - copying
+    # - copyright
+    def self.license_file?(filename)
+      !!(filename =~ /\A(un)?licen[sc]e|copy(ing|right)(\.[^.]+)?\z/i)
+    end
+
+    # Regex to detect things that look like license files
+    #
+    # Examples it should match:
+    # - license-MIT.txt
+    # - MIT-LICENSE
+    def self.maybe_license_file?(filename)
+      !!(filename =~ /licen[sc]e/i)
     end
   end
 end

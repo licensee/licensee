@@ -110,5 +110,11 @@ class TestLicenseeProject < Minitest::Test
         assert Licensee::Project.maybe_license_file?(license)
       end
     end
+
+    should "return the proper license files scores" do
+      assert_equal 1,   Licensee::Project.match_license_file("LICENSE.md")
+      assert_equal 0.5, Licensee::Project.match_license_file("MIT-LICENSE")
+      assert_equal 0,   Licensee::Project.match_license_file("README.txt")
+    end
   end
 end

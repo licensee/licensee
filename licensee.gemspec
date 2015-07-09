@@ -17,6 +17,8 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('rugged', '~> 0.23.0b1')
   gem.add_dependency('levenshtein-ffi', '~> 1.1')
+  gem.add_dependency('stanford-core-nlp')
+
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('shoulda', '~> 3.5')
   gem.add_development_dependency('rake', '~> 10.3')
