@@ -30,8 +30,8 @@ class TestLicenseeLicense < Minitest::Test
   should "know if the license is featured" do
     assert @license.featured?
     assert_equal TrueClass, @license.featured?.class
-    refute Licensee::License.new("cc0").featured?
-    assert_equal FalseClass, Licensee::License.new("cc0").featured?.class
+    refute Licensee::License.new("cc0-1.0").featured?
+    assert_equal FalseClass, Licensee::License.new("cc0-1.0").featured?.class
   end
 
   should "parse the license parts" do

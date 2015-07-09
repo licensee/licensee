@@ -19,15 +19,11 @@ class Licensee
     # Raw content of license file, including YAML front matter
     def content
       @content ||= File.open(path).read
-    rescue
-      ""
     end
 
     # License metadata from YAML front matter
     def meta
       @meta ||= YAML.load(parts[1]) if parts[1]
-    rescue
-      nil
     end
 
     def name
