@@ -42,7 +42,7 @@ class Licensee
     # Return 0.5 if the file is likely a license file
     # Returns 0 if the file is definately not a license file
     def self.match_license_file(filename)
-      return 1 if self.license_file?(filename)
+      return 1   if self.license_file?(filename)
       return 0.5 if self.maybe_license_file?(filename)
       return 0
     end
