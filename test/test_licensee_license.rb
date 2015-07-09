@@ -54,4 +54,11 @@ class TestLicenseeLicense < Minitest::Test
   should "fail loudly for invalid licenses" do
     assert_raises(Licensee::InvalidLicense) { Licensee::License.new("foo").name }
   end
+
+  should "support 'other' licenses" do
+    license = Licensee::License.new("other")
+    assert_equal nil, license.content
+    assert_equal "Other", license.name
+    refute license.featured?
+  end
 end
