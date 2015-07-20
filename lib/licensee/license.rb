@@ -1,4 +1,5 @@
 class Licensee
+  class InvalidLicense < ArgumentError; end
   class License
 
     def self.all
@@ -18,20 +19,23 @@ class Licensee
 
     # Raw content of license file, including YAML front matter
     def content
-      @content ||= File.open(path).read
-    rescue
-      ""
+      @content ||= if File.exists?(path)
+        File.open(path).read
+      elsif key == "other" # A pseudo-license with no content
+        nil
+      else
+        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
+      end
     end
 
     # License metadata from YAML front matter
     def meta
-      @meta ||= YAML.load(parts[1]) if parts[1]
-    rescue
-      nil
+      @meta ||= YAML.load(parts[1]) if parts && parts[1]
     end
 
+    # Returns the human-readable license name
     def name
-      meta["title"] if meta
+      meta.nil? ? key.capitalize : meta["title"]
     end
 
     def featured?
@@ -41,7 +45,7 @@ class Licensee
 
     # The license body (e.g., contents - frontmatter)
     def body
-      @body ||= parts[2] if parts[2]
+      @body ||= parts[2] if parts && parts[2]
     end
     alias_method :to_s, :body
     alias_method :text, :body
@@ -70,7 +74,7 @@ class Licensee
     private
 
     def parts
-      @parts ||= content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
+      @parts ||= content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if content
     end
   end
 end

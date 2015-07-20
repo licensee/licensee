@@ -30,8 +30,8 @@ class TestLicenseeLicense < Minitest::Test
   should "know if the license is featured" do
     assert @license.featured?
     assert_equal TrueClass, @license.featured?.class
-    refute Licensee::License.new("cc0").featured?
-    assert_equal FalseClass, Licensee::License.new("cc0").featured?.class
+    refute Licensee::License.new("cc0-1.0").featured?
+    assert_equal FalseClass, Licensee::License.new("cc0-1.0").featured?.class
   end
 
   should "parse the license parts" do
@@ -49,5 +49,16 @@ class TestLicenseeLicense < Minitest::Test
 
   should "strip leading newlines from the license" do
     assert_equal "T", @license.body[0]
+  end
+
+  should "fail loudly for invalid licenses" do
+    assert_raises(Licensee::InvalidLicense) { Licensee::License.new("foo").name }
+  end
+
+  should "support 'other' licenses" do
+    license = Licensee::License.new("other")
+    assert_equal nil, license.content
+    assert_equal "Other", license.name
+    refute license.featured?
   end
 end

@@ -2,17 +2,6 @@ class Licensee
   class Project
     attr_reader :repository
 
-    # Array of file names to look for potential license files, in order
-    # Filenames should be lower case as candidates are downcased before comparison
-    LICENSE_FILENAMES = %w[
-      license
-      license.txt
-      license.md
-      unlicense
-      copying
-      copyright
-    ]
-
     # Initializes a new project
     #
     # path_or_repo path to git repo or Rugged::Repository instance
@@ -45,6 +34,19 @@ class Licensee
       @license ||= license_file.match if license_file
     end
 
+    # Scores a given file as a potential license
+    #
+    # filename - (string) the name of the file to score
+    #
+    # Returns 1 if the file is definately a license file
+    # Return 0.5 if the file is likely a license file
+    # Returns 0 if the file is definately not a license file
+    def self.match_license_file(filename)
+      return 1   if self.license_file?(filename)
+      return 0.5 if self.maybe_license_file?(filename)
+      return 0
+    end
+
     private
 
     def commit
@@ -58,11 +60,8 @@ class Licensee
     # Detects the license file, if any
     # Returns the blob hash as detected in the tree
     def license_hash
-      # Prefer an exact match to one of our known file names
-      license_hash = tree.find { |blob| LICENSE_FILENAMES.include? blob[:name].downcase }
-
-      # Fall back to the first file in the project root that has the word license in it
-      license_hash || tree.find { |blob| blob[:name] =~ /licen(s|c)e/i }
+      license_hash = tree.find { |blob| self.class.license_file?(blob[:name]) }
+      license_hash ||= tree.find { |blob| self.class.maybe_license_file?(blob[:name]) }
     end
 
     def license_blob
@@ -71,6 +70,27 @@ class Licensee
 
     def license_path
       license_hash[:name] if license_hash
+    end
+
+    # Regex to detect license files
+    #
+    # Examples it should match:
+    # - LICENSE.md
+    # - licence.txt
+    # - unlicense
+    # - copying
+    # - copyright
+    def self.license_file?(filename)
+      !!(filename =~ /\A(un)?licen[sc]e|copy(ing|right)(\.[^.]+)?\z/i)
+    end
+
+    # Regex to detect things that look like license files
+    #
+    # Examples it should match:
+    # - license-MIT.txt
+    # - MIT-LICENSE
+    def self.maybe_license_file?(filename)
+      !!(filename =~ /licen[sc]e/i)
     end
   end
 end
