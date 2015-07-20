@@ -1,31 +1,28 @@
 require 'helper'
 
 class TestLicenseeVendor < Minitest::Test
-  should "detect each vendored license" do
-    licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
-    licenses.each do |license|
+  Dir["#{Licensee::Licenses.base}/*"].shuffle.each do |license|
+
+    should "detect the #{license} license" do
       verify_license_file(license)
     end
-  end
 
-  should "detect each vendored license when modified" do
-    licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
-    licenses.each do |license|
-      verify_license_file(license, true) unless license =~ /no-license\.txt$/
+    context "when modified" do
+      should "detect the #{license} license" do
+        verify_license_file(license, true) unless license =~ /no-license\.txt$/
+      end
     end
-  end
 
-  should "detect each vendored license with different line lengths" do
-    licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
-    licenses.each do |license|
-      verify_license_file(license, false, 50)
-    end
-  end
+    context "different line lengths" do
+      should "detect the #{license} license" do
+        verify_license_file(license, false, 50)
+      end
 
-  should "detect each vendored license with different line lengths when modified" do
-    licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
-    licenses.each do |license|
-      verify_license_file(license, true, 50) unless license =~ /no-license\.txt$/
+      context "when modified" do
+        should "detect the #{license} license" do
+          verify_license_file(license, true, 50) unless license =~ /no-license\.txt$/
+        end
+      end
     end
   end
 end
