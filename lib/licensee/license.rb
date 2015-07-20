@@ -30,7 +30,13 @@ class Licensee
 
     # License metadata from YAML front matter
     def meta
-      @meta ||= YAML.safe_load(parts[1]) if parts && parts[1]
+      @meta ||= if parts && parts[1]
+        if YAML.respond_to? :safe_yaml
+          YAML.safe_load(parts[1])
+        else
+          YAML.load(parts[1])
+        end
+      end
     end
 
     # Returns the human-readable license name
