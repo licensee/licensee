@@ -79,42 +79,29 @@ class TestLicenseeProject < Minitest::Test
     end
   end
 
-  context "license filename matching" do
-    # Standard license names
-    ["license",
-      "LICENSE",
-      "LICENCE",
-      "license.md",
-      "unlicense",
-      "unlicence",
-      "copying",
-      "copyRIGHT",
-      "license.txt"
-    ].each do |license|
-      should "match #{license}" do
-        assert Licensee::Project.license_file?(license)
+  context "license filename scoring" do
+
+    EXPECTATIONS = {
+      "license"            => 1.0,
+      "LICENCE"            => 1.0,
+      "license.md"         => 1.0,
+      "LICENSE.md"         => 1.0,
+      "license.txt"        => 1.0,
+      "unLICENSE"          => 1.0,
+      "unlicence"          => 1.0,
+      "COPYING"            => 0.75,
+      "copyRIGHT"          => 0.75,
+      "COPYRIGHT.txt"      => 0.75,
+      "LICENSE-MIT"        => 0.5,
+      "MIT-LICENSE.txt"    => 0.5,
+      "mit-license-foo.md" => 0.5,
+      "README.txt"         => 0.0
+    }
+
+    EXPECTATIONS.each do |filename, expected|
+      should "score a license named `#{filename}` as `#{expected}`" do
+        assert_equal expected, Licensee::Project.match_license_file(filename)
       end
-    end
-
-    should "not match MIT-LICENSE" do
-      refute Licensee::Project.license_file?("MIT-LICENSE")
-    end
-
-    # Abnormal license names
-    [
-      "LICENSE-MIT",
-      "MIT-LICENSE.txt",
-      "mit-license-foo.md"
-    ].each do |license|
-      should "match #{license}" do
-        assert Licensee::Project.maybe_license_file?(license)
-      end
-    end
-
-    should "return the proper license files scores" do
-      assert_equal 1,   Licensee::Project.match_license_file("LICENSE.md")
-      assert_equal 0.5, Licensee::Project.match_license_file("MIT-LICENSE")
-      assert_equal 0,   Licensee::Project.match_license_file("README.txt")
     end
   end
 end

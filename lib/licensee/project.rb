@@ -38,13 +38,15 @@ class Licensee
     #
     # filename - (string) the name of the file to score
     #
-    # Returns 1 if the file is definately a license file
-    # Return 0.5 if the file is likely a license file
-    # Returns 0 if the file is definately not a license file
+    # Returns 1.0  if the file is definately a license file
+    # Returns 0.75 if the file is probably a license file
+    # Returns 0.5  if the file is likely a license file
+    # Returns 0.0  if the file is definately not a license file
     def self.match_license_file(filename)
-      return 1   if self.license_file?(filename)
-      return 0.5 if self.maybe_license_file?(filename)
-      return 0
+      return 1.0  if filename =~ /\A(un)?licen[sc]e(\.[^.]+)?\z/i
+      return 0.75 if filename =~ /\Acopy(ing|right)(\.[^.]+)?\z/i
+      return 0.5  if filename =~ /licen[sc]e/i
+      return 0.0
     end
 
     private
@@ -60,8 +62,7 @@ class Licensee
     # Detects the license file, if any
     # Returns the blob hash as detected in the tree
     def license_hash
-      license_hash = tree.find { |blob| self.class.license_file?(blob[:name]) }
-      license_hash ||= tree.find { |blob| self.class.maybe_license_file?(blob[:name]) }
+      tree.sort_by { |blob| self.class.match_license_file(blob[:name]) }.last
     end
 
     def license_blob
@@ -70,27 +71,6 @@ class Licensee
 
     def license_path
       license_hash[:name] if license_hash
-    end
-
-    # Regex to detect license files
-    #
-    # Examples it should match:
-    # - LICENSE.md
-    # - licence.txt
-    # - unlicense
-    # - copying
-    # - copyright
-    def self.license_file?(filename)
-      !!(filename =~ /\A(un)?licen[sc]e|copy(ing|right)(\.[^.]+)?\z/i)
-    end
-
-    # Regex to detect things that look like license files
-    #
-    # Examples it should match:
-    # - license-MIT.txt
-    # - MIT-LICENSE
-    def self.maybe_license_file?(filename)
-      !!(filename =~ /licen[sc]e/i)
     end
   end
 end
