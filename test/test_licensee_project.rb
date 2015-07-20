@@ -76,6 +76,10 @@ class TestLicenseeProject < Minitest::Test
         assert_equal "mit", project.license.key
       end
 
+      should "detect an unlicensed project" do
+        project = make_project "no-license.git", as_git
+        assert_equal nil, project.license
+      end
     end
   end
 
