@@ -31,7 +31,7 @@ class Licensee
     # License metadata from YAML front matter
     def meta
       @meta ||= if parts && parts[1]
-        if YAML.respond_to? :safe_yaml
+        if YAML.respond_to? :safe_load
           YAML.safe_load(parts[1])
         else
           YAML.load(parts[1])
