@@ -62,7 +62,9 @@ class Licensee
     # Detects the license file, if any
     # Returns the blob hash as detected in the tree
     def license_hash
-      tree.sort_by { |blob| self.class.match_license_file(blob[:name]) }.last
+      hashes = tree.map { |blob| [self.class.match_license_file(blob[:name]), blob] }
+      hash = hashes.select { |hash| hash[0] > 0 }.sort_by { |hash| hash[0] }.last
+      hash[1] if hash
     end
 
     def license_blob
