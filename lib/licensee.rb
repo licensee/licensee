@@ -17,7 +17,7 @@ require_relative "licensee/matchers/levenshtein_matcher"
 
 class Licensee
 
-  # Over watch percent is a match considered a match
+  # Over which percent is a match considered a match
   CONFIDENCE_THRESHOLD = 90
 
   # Base domain from which to build license URLs
