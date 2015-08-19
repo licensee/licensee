@@ -1,3 +1,4 @@
+# encoding=utf-8
 class Licensee
   class CopyrightMatcher < Matcher
 
