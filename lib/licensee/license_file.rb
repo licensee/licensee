@@ -17,7 +17,7 @@ class Licensee
     # Raw file contents
     def content
       @contents ||= begin
-        blob.content
+        blob.content.force_encoding("UTF-8")
       end
     end
     alias_method :to_s, :content
