@@ -8,7 +8,14 @@ class TestLicenseeLicense < Minitest::Test
 
   should "read the license body" do
     assert @license.body
-    assert @license.text =~ /MIT/
+    assert @license.text =~ /MIT/, "Expected the following license body to contain MIT:\n#{@license.body}"
+  end
+
+  should "read the license body if it contains `---`" do
+    license = Licensee::License.new "MIT"
+    content = "---\nfoo: bar\n---\nSome license\n---------\nsome text\n"
+    license.instance_variable_set(:@content, content)
+    assert_equal "Some license\n---------\nsome text\n", license.body
   end
 
   should "read the license meta" do

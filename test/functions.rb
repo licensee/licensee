@@ -12,7 +12,7 @@ def fixture_path(fixture)
 end
 
 def license_from_path(path)
-  license = File.open(path).read.split("---").last
+  license = File.open(path).read.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a[2]
   license.sub! "[fullname]", "Ben Balter"
   license.sub! "[year]", "2014"
   license.sub! "[email]", "ben@github.invalid"
@@ -23,7 +23,7 @@ FakeBlob = Licensee::FilesystemRepository::Blob
 
 def chaos_monkey(string)
   Random.rand(5).times do
-    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(10))
+    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(5))
   end
   string
 end
@@ -39,7 +39,7 @@ def verify_license_file(license, chaos = false, wrap=false)
   license_file = Licensee::LicenseFile.new(blob)
 
   actual = license_file.match
-  assert actual, "No match for #{expected}."
+  assert actual, "No match for #{expected}. Here's the test text:\n#{text}"
   assert_equal expected, actual.key, "expeceted #{expected} but got #{actual.key} for .match. Confidence: #{license_file.confidence}. Method: #{license_file.matcher.class}"
 end
 
