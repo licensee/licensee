@@ -43,4 +43,11 @@ class TestLicenseeCopyrightMatcher < Minitest::Test
     file = Licensee::LicenseFile.new(blob)
     assert_equal "no-license", Licensee::CopyrightMatcher.match(file).key
   end
-end
+
+  should "handle ASCII-8BIT encoded copyright notices" do
+    text = "Copyright \xC2\xA92015 Ben Balter`".force_encoding("ASCII-8BIT")
+    blob = FakeBlob.new(text)
+    file = Licensee::LicenseFile.new(blob)
+    assert_equal "no-license", Licensee::CopyrightMatcher.match(file).key
+  end
+ end
