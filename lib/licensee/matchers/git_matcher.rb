@@ -19,7 +19,7 @@ class Licensee
     def match_info
       @match_info ||= begin
         match = matches.max_by { |license, similarity| similarity }
-        match if match && match[1] > Licensee::CONFIDENCE_THRESHOLD
+        match if match && match[1] > Licensee.confidence_threshold
       end
     end
   end

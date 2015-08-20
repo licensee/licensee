@@ -14,4 +14,14 @@ class TestLicensee < Minitest::Test
   should "diff a license" do
     Licensee.diff(fixture_path("licenses.git"))
   end
+
+  should "return the confidence threshold" do
+    assert_equal 90, Licensee.confidence_threshold
+  end
+
+  should "let the user override the confidence threshold" do
+    Licensee.confidence_threshold = 50
+    assert_equal 50, Licensee.confidence_threshold
+    Licensee.confidence_threshold = 90
+  end
 end
