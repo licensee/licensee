@@ -17,13 +17,15 @@ require_relative "licensee/matchers/levenshtein_matcher"
 
 class Licensee
 
-  # Over which percent is a match considered a match
+  # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 90
 
   # Base domain from which to build license URLs
   DOMAIN = "http://choosealicense.com"
 
   class << self
+
+    attr_writer :confidence_threshold
 
     # Returns an array of Licensee::License instances
     def licenses
@@ -44,6 +46,10 @@ class Licensee
     # The order should be decending order of anticipated speed to match
     def matchers
       [Licensee::CopyrightMatcher, Licensee::ExactMatcher, Licensee::GitMatcher, Licensee::LevenshteinMatcher]
+    end
+
+    def confidence_threshold
+      @confidence_threshold ||= CONFIDENCE_THRESHOLD
     end
   end
 end

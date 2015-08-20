@@ -4,7 +4,7 @@ class Licensee
     # Return the first potential license that is more similar than the confidence threshold
     def match
       @match ||= potential_licenses.find do |license|
-        similarity(license) >= Licensee::CONFIDENCE_THRESHOLD
+        similarity(license) >= Licensee.confidence_threshold
       end
     end
 
@@ -24,7 +24,7 @@ class Licensee
     # Maximum possible difference between file length and license length
     # for a license to be a potential license to be matched
     def max_delta
-      @max_delta ||= (file_length * (Licensee::CONFIDENCE_THRESHOLD.to_f / 100.to_f ))
+      @max_delta ||= (file_length * (Licensee.confidence_threshold.to_f / 100.to_f ))
     end
 
     # Confidence that the matched license is a match
