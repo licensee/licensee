@@ -74,7 +74,7 @@ class Licensee
     end
 
     def url
-      URI.join(Licensee::DOMAIN, meta["permalink"]).to_s
+      URI.join(Licensee::DOMAIN, "/licenses/#{key}/").to_s
     end
 
     private

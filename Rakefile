@@ -4,7 +4,6 @@ require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
   test.pattern = 'test/**/test_licensee*.rb'
-  test.verbose = true
 end
 
 desc "Open console with Licensee loaded"
