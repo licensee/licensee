@@ -80,6 +80,11 @@ class TestLicenseeProject < Minitest::Test
         project = make_project "no-license.git", as_git
         assert_equal nil, project.license
       end
+
+      should "detect a symlink'd license file" do
+        project = make_project "symlink.git", as_git
+        assert_equal "mit", project.license.key
+      end
     end
   end
 
