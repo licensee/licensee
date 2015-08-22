@@ -41,6 +41,19 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal FalseClass, Licensee::License.new("cc0-1.0").featured?.class
   end
 
+  should "inject default meta without overriding" do
+    license = Licensee::License.new("cc0-1.0")
+
+    assert license.meta.has_key? "featured"
+    assert_equal false, license.meta["featured"]
+
+    assert license.meta.has_key? "hidden"
+    assert_equal false, license.meta["hidden"]
+
+    assert license.meta.has_key? "variant"
+    assert_equal true, license.meta["variant"]
+  end
+
   should "parse the license parts" do
     assert_equal 3, @license.send(:parts).size
   end

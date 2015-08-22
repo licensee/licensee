@@ -8,6 +8,12 @@ class Licensee
 
     attr_reader :key
 
+    YAML_DEFAULTS = {
+      "featured" => false,
+      "hidden" => false,
+      "variant" => false
+    }
+
     def initialize(key)
       @key=key.downcase
     end
@@ -32,10 +38,11 @@ class Licensee
     def meta
       @meta ||= if parts && parts[1]
         if YAML.respond_to? :safe_load
-          YAML.safe_load(parts[1])
+          meta = YAML.safe_load(parts[1])
         else
-          YAML.load(parts[1])
+          meta = YAML.load(parts[1])
         end
+        YAML_DEFAULTS.merge(meta)
       end
     end
 
