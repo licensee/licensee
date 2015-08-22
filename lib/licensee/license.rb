@@ -14,6 +14,8 @@ class Licensee
       "variant" => false
     }
 
+    HIDDEN_LICENSES = %w[other no-license]
+
     def initialize(key)
       @key=key.downcase
     end
@@ -55,6 +57,11 @@ class Licensee
       !!(meta["featured"] if meta)
     end
     alias_method :featured, :featured?
+
+    def hidden?
+      return true if HIDDEN_LICENSES.include?(key)
+      !!(meta["hidden"] if meta)
+    end
 
     # The license body (e.g., contents - frontmatter)
     def body

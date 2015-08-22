@@ -54,6 +54,13 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal true, license.meta["variant"]
   end
 
+  should "know when the license is hidden" do
+    refute @license.hidden?
+    assert Licensee::License.new("ofl-1.1").hidden?
+    assert Licensee::License.new("no-license").hidden?
+
+  end
+
   should "parse the license parts" do
     assert_equal 3, @license.send(:parts).size
   end
