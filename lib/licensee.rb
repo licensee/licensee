@@ -15,6 +15,8 @@ require_relative "licensee/matchers/exact_matcher"
 require_relative "licensee/matchers/copyright_matcher"
 require_relative "licensee/matchers/git_matcher"
 require_relative "licensee/matchers/levenshtein_matcher"
+require_relative "licensee/matchers/package_matcher"
+require_relative "licensee/matchers/gemspec_matcher"
 require_relative "licensee/matchers/npm_bower_matcher"
 
 class Licensee
@@ -52,9 +54,10 @@ class Licensee
         Licensee::ExactMatcher,
         Licensee::GitMatcher,
         Licensee::LevenshteinMatcher,
+        Licensee::GemspecMatcher,
         Licensee::NpmBowerMatcher
       ]
-      matchers.reject! { |m| m == Licensee::NpmBowerMatcher } unless package_manager_files?
+      matchers.reject! { |m| m.package_manager? } unless package_manager_files?
       matchers
     end
 

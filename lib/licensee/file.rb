@@ -61,7 +61,7 @@ class Licensee
     end
 
     def package_score
-      return 1.0  if filename =~ /[a-z0-9\-_]\.gemspec/
+      return 1.0  if filename =~ /[a-zA-Z0-9\-_]+\.gemspec/
       return 1.0  if filename =~ /package\.json/
       return 0.75 if filename =~ /bower.json/
       return 0.0
