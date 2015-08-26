@@ -5,7 +5,7 @@ class TestLicenseeLevenshteinMatcher < Minitest::Test
   def setup
     text = license_from_path( Licensee::Licenses.find("mit").path )
     blob = FakeBlob.new(text)
-    @mit = Licensee::LicenseFile.new(blob)
+    @mit = Licensee::File.new(blob, "LICENSE")
   end
 
   should "match the license" do

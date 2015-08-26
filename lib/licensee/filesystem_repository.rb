@@ -9,14 +9,14 @@ class Licensee
     def tree
       return to_enum(__method__) unless block_given?
       Dir.entries(@path).each do |name|
-        filename = File.join @path, name
-        next if File.directory? filename
+        filename = ::File.join @path, name
+        next if ::File.directory? filename
         yield(:name => name, :type => :blob, :oid => filename)
       end
     end
 
     def lookup(filename)
-      Blob.new File.read(filename)
+      Blob.new ::File.read(filename)
     end
 
     Blob = Struct.new(:content) do

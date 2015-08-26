@@ -19,14 +19,14 @@ class Licensee
 
       # Path to vendored licenses
       def base
-        @base ||= File.expand_path "../../vendor/choosealicense.com/_licenses", File.dirname(__FILE__)
+        @base ||= ::File.expand_path "../../vendor/choosealicense.com/_licenses", ::File.dirname(__FILE__)
       end
 
       # Returns a list of potential license keys, as vendored
       def keys
         @keys ||= begin
           keyes = Dir.entries(base)
-          keyes.map! { |l| File.basename(l, ".txt").downcase }
+          keyes.map! { |l| ::File.basename(l, ".txt").downcase }
           keyes.reject! { |l| l =~ /^\./ || l.nil? }
           keyes
         end

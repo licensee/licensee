@@ -36,7 +36,7 @@ def verify_license_file(license, chaos = false, wrap=false)
   text = wrap(text, wrap) if wrap
 
   blob = FakeBlob.new(text)
-  license_file = Licensee::LicenseFile.new(blob)
+  license_file = Licensee::File.new(blob, "LICENSE")
 
   actual = license_file.match
   assert actual, "No match for #{expected}. Here's the test text:\n#{text}"
