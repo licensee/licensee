@@ -28,7 +28,7 @@ class TestLicenseeProject < Minitest::Test
 
       should "detect the license file" do
         project = make_project "licenses.git", as_git
-        assert_instance_of Licensee::LicenseFile, project.license_file
+        assert_instance_of Licensee::ProjectFile, project.license_file
       end
 
       should "detect the license" do
@@ -36,24 +36,9 @@ class TestLicenseeProject < Minitest::Test
         assert_equal "mit", project.license.key
       end
 
-      should "return the license hash" do
-        project = make_project "licenses.git", as_git
-        assert_equal "LICENSE", project.send(:license_hash)[:name]
-      end
-
-      should "return the license blob" do
-        project = make_project "licenses.git", as_git
-        assert_equal 1077, project.send(:license_blob).size
-      end
-
-      should "return the license path" do
-        project = make_project "licenses.git", as_git
-        assert_equal "LICENSE", project.send(:license_path)
-      end
-
       should "detect an atypically cased license file" do
         project = make_project "case-sensitive.git", as_git
-        assert_instance_of Licensee::LicenseFile, project.license_file
+        assert_instance_of Licensee::ProjectFile, project.license_file
       end
 
       should "detect MIT-LICENSE licensed projects" do
@@ -83,29 +68,20 @@ class TestLicenseeProject < Minitest::Test
     end
   end
 
-  context "license filename scoring" do
+  describe "packages" do
 
-    EXPECTATIONS = {
-      "license"            => 1.0,
-      "LICENCE"            => 1.0,
-      "license.md"         => 1.0,
-      "LICENSE.md"         => 1.0,
-      "license.txt"        => 1.0,
-      "unLICENSE"          => 1.0,
-      "unlicence"          => 1.0,
-      "COPYING"            => 0.75,
-      "copyRIGHT"          => 0.75,
-      "COPYRIGHT.txt"      => 0.75,
-      "LICENSE-MIT"        => 0.5,
-      "MIT-LICENSE.txt"    => 0.5,
-      "mit-license-foo.md" => 0.5,
-      "README.txt"         => 0.0
-    }
+    def setup
+      Licensee.package_manager_files = true
+    end
 
-    EXPECTATIONS.each do |filename, expected|
-      should "score a license named `#{filename}` as `#{expected}`" do
-        assert_equal expected, Licensee::Project.match_license_file(filename)
-      end
+    def teardown
+      Licensee.package_manager_files = false
+    end
+
+    should "detect a package file" do
+      project = Licensee::Project.new fixture_path "npm"
+      assert_equal "package.json", project.package_file.filename
+      assert_equal "mit", project.license.key
     end
   end
 end

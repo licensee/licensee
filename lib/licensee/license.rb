@@ -10,8 +10,8 @@ class Licensee
 
     YAML_DEFAULTS = {
       "featured" => false,
-      "hidden" => false,
-      "variant" => false
+      "hidden"   => false,
+      "variant"  => false
     }
 
     HIDDEN_LICENSES = %w[other no-license]

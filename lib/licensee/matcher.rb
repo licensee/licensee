@@ -12,6 +12,10 @@ class Licensee
       self.new(file).match
     end
 
+    def self.package_manager?
+      false
+    end
+
     def initialize(file)
       @file = file
     end
