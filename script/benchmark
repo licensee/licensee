@@ -4,6 +4,8 @@ require_relative "../lib/licensee"
 require_relative "../test/functions"
 require 'benchmark'
 
+Licensee.package_manager_files = true
+
 puts "Begining benchmark...\n"
 
 # Warm up the license list

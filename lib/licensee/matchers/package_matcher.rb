@@ -6,7 +6,7 @@ class Licensee
     end
 
     def confidence
-      80
+      90
     end
 
     def self.package_manager?
