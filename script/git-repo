@@ -1,0 +1,11 @@
+#!/bin/sh
+# Runs the licensee command against a remote git repo
+
+repo=$1
+name=$(basename $repo)
+dir="./tmp/$name"
+
+git clone -q "$repo" "$dir"
+bundle exec licensee "$dir"
+
+rm -Rf "$dir"
