@@ -10,12 +10,12 @@ puts "Begining benchmark...\n"
 
 # Warm up the license list
 Benchmark.bm(12) do |benchmark|
-  benchmark.report("Load:") { Licensee::Licenses.list }
+  benchmark.report("Load:") { Licensee::License.all }
 end
 
-puts "\n#{Licensee::Licenses.list.count} licenses loaded\n"
+puts "\n#{Licensee::License.all.count} licenses loaded\n"
 
-licenses = Dir["#{Licensee::Licenses.base}/*"].shuffle
+licenses = Licensee::License.license_files.shuffle
 
 puts "\nBenchmarking vendored licenses...\n"
 

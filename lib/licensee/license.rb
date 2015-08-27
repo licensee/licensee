@@ -21,10 +21,8 @@ class Licensee
         File.expand_path "../../vendor/choosealicense.com/_licenses", File.dirname(__FILE__)
       end
 
-      private
-
       def license_files
-        Dir.glob("#{license_dir}/*.txt")
+        @license_files ||= Dir.glob("#{license_dir}/*.txt")
       end
     end
 
