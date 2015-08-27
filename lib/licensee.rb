@@ -1,6 +1,5 @@
 require 'uri'
 require 'yaml'
-require 'json'
 require 'rugged'
 require 'levenshtein'
 
