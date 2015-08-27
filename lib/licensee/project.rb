@@ -23,7 +23,7 @@ class Licensee
 
     # Returns the matching Licensee::License instance if a license can be detected
     def license
-      @license ||= matched_file.match
+      @license ||= matched_file.match if matched_file
     end
 
     def license_file
@@ -31,6 +31,7 @@ class Licensee
     end
 
     def package_file
+      return unless Licensee.package_manager_files?
       @package_file ||= files.select { |f| f.package? }.sort_by { |f| f.package_score }.last
     end
 
