@@ -88,4 +88,23 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal "Other", license.name
     refute license.featured?
   end
+
+  describe "class methods" do
+    should "know license names" do
+      assert_equal Array, Licensee::License.keys.class
+      assert_equal 19, Licensee::License.keys.size
+    end
+
+    should "load the licenses" do
+      assert_equal Array, Licensee::License.all.class
+      assert_equal 19, Licensee::License.all.size
+      assert_equal Licensee::License, Licensee::License.all.first.class
+    end
+
+    should "find a license" do
+      assert_equal "mit", Licensee::License.find("mit").key
+      assert_equal "mit", Licensee::License.find("MIT").key
+      assert_equal "mit", Licensee::License["mit"].key
+    end
+  end
 end

@@ -3,7 +3,7 @@ require 'helper'
 class TestLicenseeExactMatcher < Minitest::Test
 
   def setup
-    text = File.open(Licensee::Licenses.find("mit").path).read.split("---").last
+    text = File.open(Licensee::License.find("mit").path).read.split("---").last
     blob = FakeBlob.new(text)
     @mit = Licensee::ProjectFile.new(blob, "LICENSE")
   end

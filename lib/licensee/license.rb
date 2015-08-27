@@ -2,8 +2,30 @@ class Licensee
   class InvalidLicense < ArgumentError; end
   class License
 
-    def self.all
-      Licensee::licenses
+    class << self
+      def all
+        @all ||= keys.map { |key| self.new(key) }
+      end
+
+      def keys
+        @keys ||= license_files.map { |l| File.basename(l, ".txt").downcase }
+      end
+
+      def find(key)
+        key = key.downcase
+        all.find { |l| l.key == key }
+      end
+      alias_method :[], :find
+
+      def license_dir
+        File.expand_path "../../vendor/choosealicense.com/_licenses", File.dirname(__FILE__)
+      end
+
+      private
+
+      def license_files
+        Dir.glob("#{license_dir}/*.txt")
+      end
     end
 
     attr_reader :key
@@ -22,7 +44,7 @@ class Licensee
 
     # Path to vendored license file on disk
     def path
-      @path ||= File.expand_path "#{@key}.txt", Licensee::Licenses.base
+      @path ||= File.expand_path "#{@key}.txt", Licensee::License.license_dir
     end
 
     # Raw content of license file, including YAML front matter
