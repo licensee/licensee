@@ -36,7 +36,8 @@ class Licensee
     end
 
     def matched_file
-      license_file || package_file
+      return license_file if license_file && license_file.match
+      return package_file if package_file && package_file.match
     end
 
     private
