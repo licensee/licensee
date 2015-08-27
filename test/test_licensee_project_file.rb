@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestLicenseeFile < Minitest::Test
+class TestLicenseeProjectFile < Minitest::Test
 
   def setup
     @repo = Rugged::Repository.new(fixture_path("licenses.git"))

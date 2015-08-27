@@ -67,4 +67,21 @@ class TestLicenseeProject < Minitest::Test
       end
     end
   end
+
+  describe "packages" do
+
+    def setup
+      Licensee.package_manager_files = true
+    end
+
+    def teardown
+      Licensee.package_manager_files = false
+    end
+
+    should "detect a package file" do
+      project = Licensee::Project.new fixture_path "npm"
+      assert_equal "package.json", project.package_file.filename
+      assert_equal "mit", project.license.key
+    end
+  end
 end
