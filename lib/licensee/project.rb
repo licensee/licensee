@@ -49,7 +49,7 @@ class Licensee
     end
 
     def files
-      @files ||= tree.map { |blob| File.new(repository.lookup(blob[:oid]), blob[:name]) }
+      @files ||= tree.map { |blob| ProjectFile.new(repository.lookup(blob[:oid]), blob[:name]) }
     end
   end
 end

@@ -23,7 +23,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_name = File.basename(path, ".txt")
     blob = FakeBlob.new license_from_path(path)
     time = benchmark.report(license_name) do
-      license_file = Licensee::File.new(blob, "LICENSE")
+      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
       license_file.match
     end
     times.push time
@@ -57,7 +57,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_contents = chaos_monkey(license_contents)
     blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::File.new(blob, "LICENSE")
+      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
       license_file.match
     end
     times.push time
@@ -77,7 +77,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_contents = wrap(license_contents, 50)
     blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::File.new(blob, "LICENSE")
+      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
       license_file.match
     end
     times.push time
@@ -98,7 +98,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_contents = chaos_monkey(license_contents)
     blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::File.new(blob, "LICENSE")
+      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
       license_file.match
     end
     times.push time

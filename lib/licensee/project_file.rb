@@ -1,5 +1,5 @@
 class Licensee
-  class File
+  class ProjectFile
 
     # Note: File can be a license file (e.g., `LICENSE.txt`)
     # or a package manager file (e.g, `package.json`)

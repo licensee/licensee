@@ -5,7 +5,7 @@ class TestLicenseeFile < Minitest::Test
   def setup
     @repo = Rugged::Repository.new(fixture_path("licenses.git"))
     blob = 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc'
-    @file = Licensee::File.new(@repo.lookup(blob), "LICENSE")
+    @file = Licensee::ProjectFile.new(@repo.lookup(blob), "LICENSE")
     @gpl = Licensee::Licenses.find "GPL-3.0"
     @mit = Licensee::Licenses.find "MIT"
   end
@@ -52,7 +52,7 @@ class TestLicenseeFile < Minitest::Test
 
     EXPECTATIONS.each do |filename, expected|
       should "score a license named `#{filename}` as `#{expected}`" do
-        assert_equal expected, Licensee::File.license_score(filename)
+        assert_equal expected, Licensee::ProjectFile.license_score(filename)
       end
     end
   end

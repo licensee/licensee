@@ -1,7 +1,7 @@
 # Pulled from helper.rb because something in the test suite monkey patches benchmarking
 
 require 'securerandom'
-require 'licensee/filesystem_repository'
+require_relative '../lib/licensee'
 
 def fixtures_base
   File.expand_path "fixtures", File.dirname( __FILE__ )
@@ -36,7 +36,7 @@ def verify_license_file(license, chaos = false, wrap=false)
   text = wrap(text, wrap) if wrap
 
   blob = FakeBlob.new(text)
-  license_file = Licensee::File.new(blob, "LICENSE")
+  license_file = Licensee::ProjectFile.new(blob, "LICENSE")
 
   actual = license_file.match
   assert actual, "No match for #{expected}. Here's the test text:\n#{text}"

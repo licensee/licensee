@@ -22,13 +22,13 @@ class Licensee
 
     # Path to vendored license file on disk
     def path
-      @path ||= ::File.expand_path "#{@key}.txt", Licensee::Licenses.base
+      @path ||= File.expand_path "#{@key}.txt", Licensee::Licenses.base
     end
 
     # Raw content of license file, including YAML front matter
     def content
-      @content ||= if ::File.exists?(path)
-        ::File.open(path).read
+      @content ||= if File.exists?(path)
+        File.open(path).read
       elsif key == "other" # A pseudo-license with no content
         nil
       else
