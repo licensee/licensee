@@ -6,8 +6,8 @@ class TestLicenseeProjectFile < Minitest::Test
     @repo = Rugged::Repository.new(fixture_path("licenses.git"))
     blob = 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc'
     @file = Licensee::ProjectFile.new(@repo.lookup(blob), "LICENSE")
-    @gpl = Licensee::Licenses.find "GPL-3.0"
-    @mit = Licensee::Licenses.find "MIT"
+    @gpl = Licensee::License.find "GPL-3.0"
+    @mit = Licensee::License.find "MIT"
   end
 
   should "read the file" do

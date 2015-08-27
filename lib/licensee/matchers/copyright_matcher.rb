@@ -17,7 +17,7 @@ class Licensee
     private
 
     def no_license
-      @no_license ||= Licensee::Licenses.find("no-license")
+      @no_license ||= Licensee::License.find("no-license")
     end
   end
 end

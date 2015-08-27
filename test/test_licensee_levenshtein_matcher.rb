@@ -3,7 +3,7 @@ require 'helper'
 class TestLicenseeLevenshteinMatcher < Minitest::Test
 
   def setup
-    text = license_from_path( Licensee::Licenses.find("mit").path )
+    text = license_from_path( Licensee::License.find("mit").path )
     blob = FakeBlob.new(text)
     @mit = Licensee::ProjectFile.new(blob, "LICENSE")
   end
@@ -22,8 +22,8 @@ class TestLicenseeLevenshteinMatcher < Minitest::Test
   end
 
   should "calculate length delta" do
-    isc = Licensee::Licenses.find("isc")
-    assert_equal 2, Licensee::LevenshteinMatcher.new(@mit).length_delta(Licensee::Licenses.find("mit"))
+    isc = Licensee::License.find("isc")
+    assert_equal 2, Licensee::LevenshteinMatcher.new(@mit).length_delta(Licensee::License.find("mit"))
     assert_equal 334, Licensee::LevenshteinMatcher.new(@mit).length_delta(isc)
   end
 

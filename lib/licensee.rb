@@ -5,7 +5,6 @@ require 'levenshtein'
 
 require_relative "licensee/version"
 require_relative "licensee/license"
-require_relative "licensee/licenses"
 require_relative "licensee/project"
 require_relative "licensee/project_file"
 require_relative "licensee/filesystem_repository"
@@ -32,7 +31,7 @@ class Licensee
 
     # Returns an array of Licensee::License instances
     def licenses
-      @licenses ||= Licensee::Licenses.list
+      @licenses ||= Licensee::License.all
     end
 
     # Returns the license for a given git repo

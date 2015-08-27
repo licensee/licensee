@@ -3,7 +3,7 @@ require 'helper'
 class TestLicenseeGitMatcher < Minitest::Test
 
   def setup
-    text = license_from_path( Licensee::Licenses.find("mit").path )
+    text = license_from_path( Licensee::License.find("mit").path )
     blob = FakeBlob.new(text)
     @mit = Licensee::ProjectFile.new(blob, "LICENSE")
   end

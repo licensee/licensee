@@ -1,7 +1,7 @@
 require 'helper'
 
 class TestLicenseeVendor < Minitest::Test
-  Dir["#{Licensee::Licenses.base}/*"].shuffle.each do |license|
+  Licensee::License.send(:license_files).shuffle.each do |license|
 
     should "detect the #{license} license" do
       verify_license_file(license)

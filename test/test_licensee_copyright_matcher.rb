@@ -32,7 +32,7 @@ class TestLicenseeCopyrightMatcher < Minitest::Test
   end
 
   should "not false positive" do
-    text = File.open(Licensee::Licenses.find("mit").path).read.split("---").last
+    text = File.open(Licensee::License.find("mit").path).read.split("---").last
     blob = FakeBlob.new(text)
     file = Licensee::ProjectFile.new(blob, "LICENSE")
     assert_equal nil, Licensee::CopyrightMatcher.match(file)
