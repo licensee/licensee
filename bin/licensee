@@ -10,6 +10,7 @@ license = project.matched_file
 if license
   puts "Matched file: #{license.path}"
   puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
+  puts "Attribution: #{license.attribution}" if license.attribution
   puts "Confidence: #{license.confidence}%"
   puts "Method: #{license.matcher.class}"
 else
