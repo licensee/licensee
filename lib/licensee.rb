@@ -40,11 +40,6 @@ class Licensee
       Licensee::Project.new(path).license
     end
 
-    # Diffs the project license and the known license
-    def diff(path)
-      Licensee::Project.new(path).license_file.diff
-    end
-
     # Array of matchers to use, in order of preference
     # The order should be decending order of anticipated speed to match
     def matchers
