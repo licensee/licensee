@@ -5,7 +5,6 @@ class TestLicenseeVendor < Minitest::Test
   SKIP = %[wtfpl no-license]
 
   Licensee::License.send(:license_files).shuffle.each do |license|
-
     should "detect the #{license} license" do
       verify_license_file(license)
     end
