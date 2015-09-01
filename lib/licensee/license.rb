@@ -115,7 +115,7 @@ class Licensee
     end
 
     def ==(other)
-      key == other.key
+      other != nil && key == other.key
     end
 
     private

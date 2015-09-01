@@ -37,6 +37,7 @@ class TestLicenseeLicense < Minitest::Test
   should "know license equality" do
     assert @license == Licensee::License.new("MIT")
     refute @license == Licensee::License.new("ISC")
+    refute @license == nil
   end
 
   should "know if the license is featured" do
