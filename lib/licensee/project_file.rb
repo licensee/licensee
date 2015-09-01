@@ -7,6 +7,8 @@ class Licensee
     attr_reader :blob, :path
     alias_method :filename, :path
 
+    include Licensee::ContentHelper
+
     def initialize(blob, path)
       @blob = blob
       @path = path
@@ -21,7 +23,7 @@ class Licensee
 
     # File content with all whitespace replaced with a single space
     def content_normalized
-      @content_normalized ||= content.downcase.gsub(/\s+/, " ").strip
+      @content_normalized ||= normalize_content(content)
     end
 
     # Determines which matching strategy to use, returns an instane of that matcher

@@ -2,9 +2,10 @@
 class Licensee
   class CopyrightMatcher < Matcher
 
-    REGEX = /Copyright (©|\(c\)|\xC2\xA9)? ?\d{4}(.*)?\n?/i
+    REGEX = /\s*Copyright (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
 
     def match
+      # Note: must use content, and not content_normalized here
       no_license if file.content.strip =~ /\A#{REGEX}\z/i
     rescue
       nil

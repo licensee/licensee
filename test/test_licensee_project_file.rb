@@ -28,7 +28,7 @@ class TestLicenseeProjectFile < Minitest::Test
   end
 
   should "calculate confidence" do
-    assert_equal 94, @file.confidence
+    assert_equal 100, @file.confidence
   end
 
   context "license filename scoring" do
