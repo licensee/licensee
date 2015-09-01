@@ -1,3 +1,3 @@
 class Licensee
-  VERSION = "5.0.0b1"
+  VERSION = "5.0.0b2"
 end
