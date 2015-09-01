@@ -4,6 +4,13 @@ class Licensee
     # Return the first potential license that is more similar than the confidence threshold
     def match
       @match ||= potential_licenses.find do |license|
+
+        # If we know the license text contains the license name or nickname,
+        # bail early unless the file we're checking contains it.
+        # Guards against OSL & AFL confusion. See https://github.com/benbalter/licensee/issues/50
+        return false if license.body_includes_name? && !includes_license_name?(license)
+        return false if license.body_includes_nickname? && !includes_license_nickname?(license)
+
         similarity(license) >= Licensee.confidence_threshold
       end
     end
@@ -12,7 +19,9 @@ class Licensee
     # Difference in lengths cannot exceed the file's length * the confidence threshold / 100
     def potential_licenses
       @potential_licenses ||= begin
-        Licensee.licenses(:hidden => true).select { |license| length_delta(license) <= max_delta }.sort_by { |l| length_delta(l) }
+        licenses = Licensee.licenses(:hidden => true)
+        licenses = licenses.select { |license| length_delta(license) <= max_delta }
+        licenses.sort_by { |l| length_delta(l) }
       end
     end
 
@@ -50,6 +59,14 @@ class Licensee
     # work faster. As long as they both undergo the same transformation, should match.
     def distance(license)
       Levenshtein.distance(license.body_normalized, file.content_normalized).to_f
+    end
+
+    def includes_license_name?(license)
+      file.content_normalized.include?(license.name_without_version.downcase)
+    end
+
+    def includes_license_nickname?(license)
+       license.nickname && file.content_normalized.include?(license.nickname.downcase)
     end
   end
 end

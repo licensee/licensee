@@ -76,6 +76,14 @@ class Licensee
       meta.nil? ? key.capitalize : meta["title"]
     end
 
+    def nickname
+      meta["nickname"] if meta
+    end
+
+    def name_without_version
+      /(.+?)(( v?\d\.\d)|$)/.match(name)[1]
+    end
+
     def featured?
       !!(meta["featured"] if meta)
     end
@@ -116,6 +124,14 @@ class Licensee
 
     def ==(other)
       other != nil && key == other.key
+    end
+
+    def body_includes_name?
+      @body_includes_name ||= body_normalized.include?(name_without_version.downcase)
+    end
+
+    def body_includes_nickname?
+      @body_includes_nickname ||= !!(nickname && body_normalized.include?(nickname.downcase))
     end
 
     private

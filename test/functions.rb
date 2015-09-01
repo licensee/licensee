@@ -22,8 +22,8 @@ end
 FakeBlob = Licensee::FilesystemRepository::Blob
 
 def chaos_monkey(string)
-  Random.rand(5).times do
-    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(5))
+  Random.rand(3).times do
+    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(3))
   end
   string
 end

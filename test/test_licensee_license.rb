@@ -30,6 +30,11 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal "MIT License", @license.name
   end
 
+  should "know the license nickname" do
+    expected = "GNU Affero GPL v3.0"
+    assert_equal expected, Licensee::License.find("agpl-3.0").nickname
+  end
+
   should "know the license ID" do
     assert_equal "mit", @license.key
   end
@@ -96,6 +101,32 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal nil, license.content
     assert_equal "Other", license.name
     refute license.featured?
+  end
+
+  describe "name without version" do
+    should "strip the version from the license name" do
+      expected = "GNU Affero General Public License"
+      assert_equal expected, Licensee::License.find("agpl-3.0").name_without_version
+      expected = "GNU General Public License"
+      assert_equal expected,  Licensee::License.find("gpl-2.0").name_without_version
+      assert_equal expected,  Licensee::License.find("gpl-3.0").name_without_version
+    end
+
+    should "know if the license contains the name without version" do
+      refute Licensee::License.find("cc0-1.0").body_includes_name?
+      assert Licensee::License.find("agpl-3.0").body_includes_name?
+    end
+
+    should "know if the license contains the nickname" do
+      refute Licensee::License.find("mit").body_includes_nickname?
+      assert Licensee::License.find("apache-2.0").body_includes_nickname?
+    end
+
+    Licensee.licenses.each do |license|
+      should "strip the version number from the #{license.name} license" do
+        assert license.name_without_version
+      end
+    end
   end
 
   describe "class methods" do
