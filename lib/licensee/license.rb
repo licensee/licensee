@@ -9,7 +9,7 @@ class Licensee
       end
 
       def keys
-        @keys ||= license_files.map { |l| File.basename(l, ".txt").downcase }
+        @keys ||= license_files.map { |l| File.basename(l, ".txt").downcase } + ["other"]
       end
 
       def find(key, options={})
@@ -101,7 +101,7 @@ class Licensee
     # Git-computed hash signature for the license file
     def hashsig
       @hashsig ||= Rugged::Blob::HashSignature.new(
-        body, Rugged::Blob::HashSignature::WHITESPACE_SMART)
+        body, Rugged::Blob::HashSignature::WHITESPACE_SMART) unless body.nil?
     rescue Rugged::InvalidError
       nil
     end

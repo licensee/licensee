@@ -34,6 +34,10 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal "mit", @license.key
   end
 
+  should "know the other license" do
+    assert_equal "other", Licensee::License.find_by_key("other").key
+  end
+
   should "know license equality" do
     assert @license == Licensee::License.new("MIT")
     refute @license == Licensee::License.new("ISC")
@@ -97,13 +101,13 @@ class TestLicenseeLicense < Minitest::Test
   describe "class methods" do
     should "know license names" do
       assert_equal Array, Licensee::License.keys.class
-      assert_equal 19, Licensee::License.keys.size
+      assert_equal 20, Licensee::License.keys.size
     end
 
     should "load the licenses" do
       assert_equal Array, Licensee::License.all.class
       assert_equal 15, Licensee::License.all.size
-      assert_equal 19, Licensee::License.all(:hidden => true).size
+      assert_equal 20, Licensee::License.all(:hidden => true).size
       assert_equal Licensee::License, Licensee::License.all.first.class
     end
 

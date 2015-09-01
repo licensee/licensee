@@ -41,7 +41,7 @@ class Licensee
 
     def similarity(other)
       blob.hashsig(Rugged::Blob::HashSignature::WHITESPACE_SMART)
-      other.hashsig ? blob.similarity(other.hashsig) : 0
+      other.hashsig && blob.hashsig ? blob.similarity(other.hashsig) : 0
     rescue Rugged::InvalidError
       0
     end
