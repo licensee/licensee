@@ -48,12 +48,6 @@ class Licensee
       0
     end
 
-    # Comptutes a diff between known license and project license
-    def diff(options={})
-      options = options.merge(:reverse => true)
-      blob.diff(match.body, options).to_s if match
-    end
-
     def license_score
       self.class.license_score(filename)
     end
