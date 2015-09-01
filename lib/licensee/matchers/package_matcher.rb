@@ -2,7 +2,7 @@ class Licensee
   class PackageMatcher < Matcher
 
     def match
-      Licensee.licenses.find { |l| l.key == license_property } if file.package?
+      Licensee.licenses(:hidden => true).find { |l| l.key == license_property } if file.package?
     end
 
     def confidence

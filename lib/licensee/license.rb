@@ -12,7 +12,8 @@ class Licensee
         @keys ||= license_files.map { |l| File.basename(l, ".txt").downcase }
       end
 
-      def find(key,options={})
+      def find(key, options={})
+        options = {:hidden => true}.merge(options)
         key = key.downcase
         all(options).find { |license| license.key == key }
       end
@@ -111,6 +112,10 @@ class Licensee
 
     def url
       URI.join(Licensee::DOMAIN, "/licenses/#{key}/").to_s
+    end
+
+    def ==(other)
+      key == other.key
     end
 
     private

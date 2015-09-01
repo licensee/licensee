@@ -12,7 +12,7 @@ class Licensee
     private
 
     def matches
-      @matches ||= Licensee.licenses.map { |l| [l, file.similarity(l)] }.select { |l,sim| sim > 0 }
+      @matches ||= Licensee.licenses(:hidden => true).map { |l| [l, file.similarity(l)] }.select { |l,sim| sim > 0 }
     end
 
     # Pulled out for easier testing

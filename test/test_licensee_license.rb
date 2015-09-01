@@ -34,6 +34,11 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal "mit", @license.key
   end
 
+  should "know license equality" do
+    assert @license == Licensee::License.new("MIT")
+    refute @license == Licensee::License.new("ISC")
+  end
+
   should "know if the license is featured" do
     assert @license.featured?
     assert_equal TrueClass, @license.featured?.class
@@ -58,7 +63,6 @@ class TestLicenseeLicense < Minitest::Test
     refute @license.hidden?
     assert Licensee::License.new("ofl-1.1").hidden?
     assert Licensee::License.new("no-license").hidden?
-
   end
 
   should "parse the license parts" do
@@ -97,7 +101,8 @@ class TestLicenseeLicense < Minitest::Test
 
     should "load the licenses" do
       assert_equal Array, Licensee::License.all.class
-      assert_equal 19, Licensee::License.all.size
+      assert_equal 15, Licensee::License.all.size
+      assert_equal 19, Licensee::License.all(:hidden => true).size
       assert_equal Licensee::License, Licensee::License.all.first.class
     end
 

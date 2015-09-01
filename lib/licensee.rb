@@ -30,8 +30,8 @@ class Licensee
     attr_writer :confidence_threshold, :package_manager_files
 
     # Returns an array of Licensee::License instances
-    def licenses
-      @licenses ||= Licensee::License.all
+    def licenses(options={})
+      Licensee::License.all(options)
     end
 
     # Returns the license for a given git repo

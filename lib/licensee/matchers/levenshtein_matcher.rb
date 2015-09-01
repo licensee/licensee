@@ -12,7 +12,7 @@ class Licensee
     # Difference in lengths cannot exceed the file's length * the confidence threshold / 100
     def potential_licenses
       @potential_licenses ||= begin
-        Licensee.licenses.select { |license| length_delta(license) <= max_delta }.sort_by { |l| length_delta(l) }
+        Licensee.licenses(:hidden => true).select { |license| length_delta(license) <= max_delta }.sort_by { |l| length_delta(l) }
       end
     end
 
