@@ -55,7 +55,6 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
   times = []
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
-    next if license_name == "wtfpl" # So short it causes false negatives
     license_contents = license_from_path(path)
     license_contents = chaos_monkey(license_contents)
     blob = FakeBlob.new license_contents
@@ -96,7 +95,6 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
   times = []
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
-    next if license_name == "wtfpl" # So short it causes false negatives
     license_contents = license_from_path(path)
     license_contents = wrap(license_contents, 50)
     license_contents = chaos_monkey(license_contents)
