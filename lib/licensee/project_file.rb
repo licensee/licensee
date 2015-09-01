@@ -60,6 +60,12 @@ class Licensee
       license_score != 0.0
     end
 
+    def attribution
+      return nil unless license?
+      matches = /^#{CopyrightMatcher::REGEX}$/i.match(content)
+      matches[0].strip if matches
+    end
+
     def package_score
       return 1.0  if filename =~ /[a-zA-Z0-9\-_]+\.gemspec/
       return 1.0  if filename =~ /package\.json/
