@@ -7,10 +7,13 @@ Licensee.package_manager_files = true
 project = Licensee::Project.new(path)
 license = project.matched_file
 
+if project.license_file
+  puts "License file: #{project.license_file.path}"
+  puts "Attribution: #{project.license_file.attribution}" if project.license_file.attribution
+end
+
 if license
-  puts "Matched file: #{license.path}"
   puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
-  puts "Attribution: #{license.attribution}" if license.attribution
   puts "Confidence: #{license.confidence}%"
   puts "Method: #{license.matcher.class}"
 else

@@ -6,6 +6,6 @@ name=$(basename $repo)
 dir="./tmp/$name"
 
 git clone -q "$repo" "$dir"
-bundle exec licensee "$dir"
+bundle exec bin/licensee "$dir"
 
 rm -Rf "$dir"

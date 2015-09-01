@@ -6,7 +6,7 @@ class TestLicenseeBin < Minitest::Test
     Dir.chdir root
     stdout,stderr,status = Open3.capture3("#{root}/bin/licensee")
     assert stdout.include?("License: MIT"), "expected #{stdout} to include `License: MIT`"
-    assert stdout.include?("Matched file: LICENSE.md"), "expected #{stdout} to include `Matched file: LICENSE.md`"
+    assert stdout.include?("License file: LICENSE.md"), "expected #{stdout} to include `Matched file: LICENSE.md`"
     assert_equal 0, status
   end
 end
