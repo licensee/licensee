@@ -3,19 +3,21 @@ class Licensee
   class License
 
     class << self
-      def all
+      def all(options={})
         @all ||= keys.map { |key| self.new(key) }
+        options[:hidden] ? @all : @all.reject { |l| l.hidden? }
       end
 
       def keys
         @keys ||= license_files.map { |l| File.basename(l, ".txt").downcase }
       end
 
-      def find(key)
+      def find(key,options={})
         key = key.downcase
-        all.find { |l| l.key == key }
+        all(options).find { |license| license.key == key }
       end
       alias_method :[], :find
+      alias_method :find_by_key, :find
 
       def license_dir
         File.expand_path "../../vendor/choosealicense.com/_licenses", File.dirname(__FILE__)
