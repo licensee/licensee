@@ -1,15 +1,17 @@
 require 'helper'
 
 class TestLicenseeVendor < Minitest::Test
-  Licensee::License.send(:license_files).shuffle.each do |license|
 
+  SKIP = %[wtfpl no-license]
+
+  Licensee::License.send(:license_files).shuffle.each do |license|
     should "detect the #{license} license" do
       verify_license_file(license)
     end
 
     context "when modified" do
       should "detect the #{license} license" do
-        verify_license_file(license, true) unless license =~ /no-license\.txt$/
+        verify_license_file(license, true) unless SKIP.include?(File.basename(license, ".txt"))
       end
     end
 
@@ -20,7 +22,7 @@ class TestLicenseeVendor < Minitest::Test
 
       context "when modified" do
         should "detect the #{license} license" do
-          verify_license_file(license, true, 50) unless license =~ /no-license\.txt$/
+          verify_license_file(license, true, 50) unless SKIP.include?(File.basename(license, ".txt"))
         end
       end
     end

@@ -22,13 +22,12 @@ class TestLicenseeProjectFile < Minitest::Test
     assert_equal "LICENSE", @file.path
   end
 
-  should "diff the file" do
-    expected = "-Copyright (c) [year] [fullname]\n+Copyright (c) 2014 Ben Balter"
-    assert @file.diff.include?(expected)
+  should "calculate confidence" do
+    assert_equal 100, @file.confidence
   end
 
-  should "calculate confidence" do
-    assert_equal 94, @file.confidence
+  should "parse the attribution" do
+    assert_equal "Copyright (c) 2014 Ben Balter", @file.attribution
   end
 
   context "license filename scoring" do

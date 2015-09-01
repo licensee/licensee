@@ -4,6 +4,7 @@ require 'rugged'
 require 'levenshtein'
 
 require_relative "licensee/version"
+require_relative "licensee/content_helper"
 require_relative "licensee/license"
 require_relative "licensee/project"
 require_relative "licensee/project_file"
@@ -37,11 +38,6 @@ class Licensee
     # Returns the license for a given git repo
     def license(path)
       Licensee::Project.new(path).license
-    end
-
-    # Diffs the project license and the known license
-    def diff(path)
-      Licensee::Project.new(path).license_file.diff
     end
 
     # Array of matchers to use, in order of preference
