@@ -39,6 +39,8 @@ class Licensee
 
     HIDDEN_LICENSES = %w[other no-license]
 
+    include Licensee::ContentHelper
+
     def initialize(key)
       @key=key.downcase
     end
@@ -103,7 +105,7 @@ class Licensee
 
     # License body with all whitespace replaced with a single space
     def body_normalized
-      @content_normalized ||= body.to_s.downcase.gsub(/\s+/, " ").strip
+      @body_normalized ||= normalize_content(body)
     end
 
     # Git-computed hash signature for the license file

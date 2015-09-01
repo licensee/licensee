@@ -20,7 +20,9 @@ class Licensee
     def potential_licenses
       @potential_licenses ||= begin
         licenses = Licensee.licenses(:hidden => true)
-        licenses = licenses.select { |license| length_delta(license) <= max_delta }
+        licenses = licenses.select do |license|
+          license.body_normalized && length_delta(license) <= max_delta
+        end
         licenses.sort_by { |l| length_delta(l) }
       end
     end

@@ -12,10 +12,6 @@ class TestLicensee < Minitest::Test
     assert_equal "mit", Licensee.license(fixture_path("licenses.git")).key
   end
 
-  should "diff a license" do
-    Licensee.diff(fixture_path("licenses.git"))
-  end
-
   context "confidence threshold" do
     should "return the confidence threshold" do
       assert_equal 90, Licensee.confidence_threshold
