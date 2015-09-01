@@ -21,9 +21,13 @@ class TestLicenseeProjectFile < Minitest::Test
   should "know the path" do
     assert_equal "LICENSE", @file.path
   end
-  
+
   should "calculate confidence" do
     assert_equal 100, @file.confidence
+  end
+
+  should "parse the attribution" do
+    assert_equal "Copyright (c) 2014 Ben Balter", @file.attribution
   end
 
   context "license filename scoring" do

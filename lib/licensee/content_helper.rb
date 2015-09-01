@@ -7,7 +7,7 @@ class Licensee
       content = content.gsub(/[[:space:]]+\z/, '')
       content = content.gsub(/^#{CopyrightMatcher::REGEX}$/i, '')
       content = content.gsub(/[[:space:]]+/, ' ')
-      content.squeeze(' ')
+      content.squeeze(' ').strip
     end
   end
 end

@@ -24,7 +24,7 @@ class TestLicenseeLevenshteinMatcher < Minitest::Test
   should "calculate length delta" do
     isc = Licensee::License.find("isc")
     assert_equal 0.0, Licensee::LevenshteinMatcher.new(@mit).length_delta(Licensee::License.find("mit"))
-    assert_equal 346.0, Licensee::LevenshteinMatcher.new(@mit).length_delta(isc)
+    assert_equal 347.0, Licensee::LevenshteinMatcher.new(@mit).length_delta(isc)
   end
 
   should "round up potential licenses" do
