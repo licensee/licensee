@@ -2,7 +2,7 @@ class Licensee
   class GitMatcher < Matcher
 
     def match
-      match_info[0] unless match_info.nil?
+      match_info[0] if match_info && match_info[1] >= Licensee.confidence_threshold
     end
 
     def confidence
@@ -19,7 +19,7 @@ class Licensee
     def match_info
       @match_info ||= begin
         match = matches.max_by { |license, similarity| similarity }
-        match if match && match[1] > Licensee.confidence_threshold
+        match if match
       end
     end
   end
