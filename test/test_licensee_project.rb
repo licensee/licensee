@@ -68,6 +68,10 @@ class TestLicenseeProject < Minitest::Test
     end
   end
 
+  should "detect the MIT license even with the title removed" do
+    verify_license_file fixture_path("mit-without-title/mit.txt")
+  end
+
   describe "packages" do
 
     def setup

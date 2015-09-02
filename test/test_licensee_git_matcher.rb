@@ -15,4 +15,5 @@ class TestLicenseeGitMatcher < Minitest::Test
   should "know the match confidence" do
     assert_equal 94, Licensee::GitMatcher.new(@mit).confidence
   end
+
 end
