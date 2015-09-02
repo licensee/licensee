@@ -7,6 +7,7 @@ class Licensee
       content = content.gsub(/[[:space:]]+\z/, '')
       content = content.gsub(/^#{CopyrightMatcher::REGEX}$/i, '')
       content = content.gsub(/[[:space:]]+/, ' ')
+      content = content.gsub("\u0000", '') # Remove null byte which breaks Levenshtein
       content.squeeze(' ').strip
     end
   end

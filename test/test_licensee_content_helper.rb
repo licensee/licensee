@@ -33,4 +33,8 @@ class TestLicenseeContentHelper < Minitest::Test
   should "strip copyrights" do
     assert_equal "foo", normalize("Copyright (c) 2015 Ben Balter\nFoo")
   end
+
+  should "strip null bytes" do
+    assert_equal "foo", normalize("\u0000Foo")
+  end
 end
