@@ -39,7 +39,17 @@ def verify_license_file(license, chaos = false, wrap=false)
   license_file = Licensee::ProjectFile.new(blob, "LICENSE")
 
   actual = license_file.match
-  assert actual, "No match for #{expected}. Here's the test text:\n#{text}"
+  msg = "No match for #{expected}."
+
+  unless actual
+    Licensee.matchers.each do |matcher|
+      matcher = matcher.new(license_file)
+      msg << "#{matcher.class}: #{matcher.confidence}% #{matcher.match.inspect}\n"
+    end
+    msg << "Here's the test text:\n#{text}"
+  end
+
+  assert actual, msg
   assert_equal expected, actual.key, "expeceted #{expected} but got #{actual.key} for .match. Confidence: #{license_file.confidence}. Method: #{license_file.matcher.class}"
 end
 

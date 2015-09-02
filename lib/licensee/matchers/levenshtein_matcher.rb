@@ -8,8 +8,8 @@ class Licensee
         # If we know the license text contains the license name or nickname,
         # bail early unless the file we're checking contains it.
         # Guards against OSL & AFL confusion. See https://github.com/benbalter/licensee/issues/50
-        return false if license.body_includes_name? && !includes_license_name?(license)
-        return false if license.body_includes_nickname? && !includes_license_nickname?(license)
+        next if license.body_includes_name? && !includes_license_name?(license)
+        next if license.body_includes_nickname? && !includes_license_nickname?(license)
 
         similarity(license) >= Licensee.confidence_threshold
       end
@@ -68,7 +68,7 @@ class Licensee
     end
 
     def includes_license_nickname?(license)
-       license.nickname && file.content_normalized.include?(license.nickname.downcase)
+      license.nickname && file.content_normalized.include?(license.nickname.downcase)
     end
   end
 end
