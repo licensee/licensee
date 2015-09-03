@@ -39,6 +39,10 @@ class Licensee
 
     HIDDEN_LICENSES = %w[other no-license]
 
+    # Licenses that technically contain the license name or nickname
+    # But we are so short that GitMatcher may not catch if rewrapped
+    BODY_INCLUDES_WHITELIST = %w[mit]
+
     include Licensee::ContentHelper
 
     def initialize(key)
@@ -129,10 +133,12 @@ class Licensee
     end
 
     def body_includes_name?
+      return false if BODY_INCLUDES_WHITELIST.include?(key)
       @body_includes_name ||= body_normalized.include?(name_without_version.downcase)
     end
 
     def body_includes_nickname?
+      return false if BODY_INCLUDES_WHITELIST.include?(key)
       @body_includes_nickname ||= !!(nickname && body_normalized.include?(nickname.downcase))
     end
 

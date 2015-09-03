@@ -51,4 +51,11 @@ class TestLicenseeCopyrightMatcher < Minitest::Test
     file = Licensee::ProjectFile.new(blob, "LICENSE")
     assert_equal "no-license", Licensee::CopyrightMatcher.match(file).key
   end
+
+  should "match comma, separated dates" do
+    text = "Copyright (c) 2003, 2004 Ben Balter"
+    blob = FakeBlob.new(text)
+    file = Licensee::ProjectFile.new(blob, "LICENSE")
+    assert_equal "no-license", Licensee::CopyrightMatcher.match(file).key
+  end
  end
