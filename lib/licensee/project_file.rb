@@ -28,7 +28,8 @@ class Licensee
 
     # Determines which matching strategy to use, returns an instane of that matcher
     def matcher
-      @matcher ||= Licensee.matchers.map { |m| m.new(self) }.find { |m| m.match }
+      return @matcher if defined? @matcher
+      @matcher = Licensee.matchers.map { |m| m.new(self) }.find { |m| m.match }
     end
 
     # Returns an Licensee::License instance of the matches license

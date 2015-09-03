@@ -60,7 +60,7 @@ class Licensee
     end
 
     def package_manager_files?
-      @package_manager_files ||= false
+      @package_manager_files || false
     end
   end
 end

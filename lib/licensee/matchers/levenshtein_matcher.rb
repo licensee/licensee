@@ -3,7 +3,8 @@ class Licensee
 
     # Return the first potential license that is more similar than the confidence threshold
     def match
-      @match ||= potential_licenses.find do |license|
+      return @match if defined? @match
+      @match = potential_licenses.find do |license|
 
         # If we know the license text contains the license name or nickname,
         # bail early unless the file we're checking contains it.

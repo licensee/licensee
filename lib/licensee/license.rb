@@ -46,7 +46,7 @@ class Licensee
     include Licensee::ContentHelper
 
     def initialize(key)
-      @key=key.downcase
+      @key = key.downcase
     end
 
     # Path to vendored license file on disk
@@ -134,12 +134,14 @@ class Licensee
 
     def body_includes_name?
       return false if BODY_INCLUDES_WHITELIST.include?(key)
-      @body_includes_name ||= body_normalized.include?(name_without_version.downcase)
+      return @body_includes_name if defined? @body_includes_name
+      @body_includes_name = body_normalized.include?(name_without_version.downcase)
     end
 
     def body_includes_nickname?
       return false if BODY_INCLUDES_WHITELIST.include?(key)
-      @body_includes_nickname ||= !!(nickname && body_normalized.include?(nickname.downcase))
+      return @body_includes_nickname if defined? @body_includes_nickname
+      @body_includes_nickname = !!(nickname && body_normalized.include?(nickname.downcase))
     end
 
     private
