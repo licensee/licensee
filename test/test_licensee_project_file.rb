@@ -35,9 +35,9 @@ class TestLicenseeProjectFile < Minitest::Test
     EXPECTATIONS = {
       "license"            => 1.0,
       "LICENCE"            => 1.0,
-      "license.md"         => 1.0,
-      "LICENSE.md"         => 1.0,
-      "license.txt"        => 1.0,
+      "license.md"         => 0.9,
+      "LICENSE.md"         => 0.9,
+      "license.txt"        => 0.9,
       "unLICENSE"          => 1.0,
       "unlicence"          => 1.0,
       "COPYING"            => 0.75,
