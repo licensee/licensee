@@ -79,12 +79,12 @@ class Licensee
       #
       # filename - (string) the name of the file to score
       #
-      # Returns 1.0  if the file is definitely a license file (e.g, LICENSE)
+      # Returns 1.0 if the file is definitely a license file (e.g, LICENSE)
       # Returns 0.9 if the file is almost certainly a license file (e.g., LICENSE.md)
       # Returns 0.8 if the file is probably a license file (e.g., COPYING, COPYING.md)
-      # Returns 0.9  if the file is potentially a license file (e.g., LICENSE.php)
-      # Returns 0.5  if the file is likely a license file (MIT-LICENSE)
-      # Returns 0.0  if the file is definitely not a license file (e.g., index.php)
+      # Returns 0.7 if the file is potentially a license file (e.g., LICENSE.php)
+      # Returns 0.5 if the file is likely a license file (MIT-LICENSE)
+      # Returns 0.0 if the file is definitely not a license file (e.g., index.php)
       def license_score(filename)
         return 1.0 if filename =~ /\A(un)?licen[sc]e\z/i
         return 0.9 if filename =~ /\A(un)?licen[sc]e\.(md|markdown|txt)\z/i
