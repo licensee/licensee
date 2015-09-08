@@ -28,7 +28,7 @@ class TestLicenseeLevenshteinMatcher < Minitest::Test
   end
 
   should "round up potential licenses" do
-    assert_equal 6, Licensee::LevenshteinMatcher.new(@mit).potential_licenses.size
+    assert_equal 7, Licensee::LevenshteinMatcher.new(@mit).potential_licenses.size
   end
 
 end
