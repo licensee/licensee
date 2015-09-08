@@ -27,12 +27,14 @@ class Licensee
     end
 
     def license_file
-      @license_file ||= files.select { |f| f.license? }.sort_by { |f| f.license_score }.last
+      return @license_file if defined? @license_file
+      @license_file = files.select { |f| f.license? }.sort_by { |f| f.license_score }.last
     end
 
     def package_file
       return unless Licensee.package_manager_files?
-      @package_file ||= files.select { |f| f.package? }.sort_by { |f| f.package_score }.last
+      return @package_file if defined? @package_file
+      @package_file = files.select { |f| f.package? }.sort_by { |f| f.package_score }.last
     end
 
     def matched_file

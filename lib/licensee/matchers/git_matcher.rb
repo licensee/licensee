@@ -17,7 +17,8 @@ class Licensee
 
     # Pulled out for easier testing
     def match_info
-      @match_info ||= begin
+      return @match_info if defined? @match_info
+      @match_info = begin
         match = matches.max_by { |license, similarity| similarity }
         match if match
       end
