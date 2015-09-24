@@ -60,7 +60,7 @@ class Licensee
       @license_file = begin
         if file = find_blob { |name| self.class.license_score(name) }
           data = load_blob_data(file[:oid])
-          Licensee::ProjectLicense.new(data, file[:name])
+          Project::LicenseFile.new(data, file[:name])
         end
       end
     end
@@ -71,7 +71,7 @@ class Licensee
       @package_file = begin
         if file = find_blob { |name| self.class.package_score(name) }
           data = load_blob_data(file[:oid])
-          Licensee::ProjectPackage.new(data, file[:name])
+          Project::PackageInfo.new(data, file[:name])
         end
       end
     end

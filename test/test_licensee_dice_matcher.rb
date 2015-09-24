@@ -3,7 +3,7 @@ require 'helper'
 class TestLicenseeDiceMatcher < Minitest::Test
   def setup
     text = license_from_path(Licensee::License.find("mit").path)
-    @mit = Licensee::ProjectLicense.new(text)
+    @mit = Licensee::Project::LicenseFile.new(text)
   end
 
   should "match the license" do

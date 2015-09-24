@@ -33,7 +33,7 @@ def verify_license_file(license, chaos = false, wrap=false)
   text = chaos_monkey(text) if chaos
   text = wrap(text, wrap) if wrap
 
-  license_file = Licensee::ProjectLicense.new(text)
+  license_file = Licensee::Project::LicenseFile.new(text)
 
   actual = license_file.license
   msg = "No match for #{expected}."

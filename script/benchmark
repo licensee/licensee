@@ -4,8 +4,6 @@ require_relative "../lib/licensee"
 require_relative "../test/functions"
 require 'benchmark'
 
-Licensee.package_manager_files = true
-
 puts "Begining benchmark...\n"
 
 # Warm up the license list
@@ -23,10 +21,10 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
   times = []
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
-    blob = FakeBlob.new license_from_path(path)
+    data = license_from_path(path)
     time = benchmark.report(license_name) do
-      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
-      license_file.match
+      license_file = Licensee::Project::File.new(data)
+      license_file.license
     end
     times.push time
   end
@@ -57,10 +55,9 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_name = File.basename(path, ".txt")
     license_contents = license_from_path(path)
     license_contents = chaos_monkey(license_contents)
-    blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
-      license_file.match
+      license_file = Licensee::Project::File.new(license_contents)
+      license_file.license
     end
     times.push time
   end
@@ -79,7 +76,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_contents = wrap(license_contents, 50)
     blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
+      license_file = Licensee::Project::File.new(blob, "LICENSE")
       license_file.match
     end
     times.push time
@@ -100,7 +97,7 @@ Benchmark.bm(12, "sum:", "average:") do |benchmark|
     license_contents = chaos_monkey(license_contents)
     blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::ProjectFile.new(blob, "LICENSE")
+      license_file = Licensee::Project::File.new(blob, "LICENSE")
       license_file.match
     end
     times.push time

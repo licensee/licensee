@@ -3,7 +3,7 @@ require 'helper'
 class TestLicenseeExactMatcher < Minitest::Test
   def setup
     text = File.open(Licensee::License.find("mit").path).read.split("---").last
-    @mit = Licensee::ProjectLicense.new(text)
+    @mit = Licensee::Project::LicenseFile.new(text)
   end
 
   should "match the license" do

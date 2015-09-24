@@ -36,7 +36,7 @@ class TestLicenseeProject < Minitest::Test
 
     should "detect the license file" do
       project = make_project "licenses.git"
-      assert_instance_of Licensee::ProjectLicense, project.license_file
+      assert_instance_of Licensee::Project::LicenseFile, project.license_file
     end
 
     should "detect the license" do
@@ -46,7 +46,7 @@ class TestLicenseeProject < Minitest::Test
 
     should "detect an atypically cased license file" do
       project = make_project "case-sensitive.git"
-      assert_instance_of Licensee::ProjectLicense, project.license_file
+      assert_instance_of Licensee::Project::LicenseFile, project.license_file
     end
 
     should "detect MIT-LICENSE licensed projects" do
