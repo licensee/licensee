@@ -3,21 +3,7 @@ class Licensee
     MAX_LICENSE_SIZE = 64 * 1024
 
     class << self
-      def license_score(filename)
-        return 1.0 if filename =~ /\A(un)?licen[sc]e\z/i
-        return 0.9 if filename =~ /\A(un)?licen[sc]e\.(md|markdown|txt)\z/i
-        return 0.8 if filename =~ /\Acopy(ing|right)(\.[^.]+)?\z/i
-        return 0.7 if filename =~ /\A(un)?licen[sc]e\.[^.]+\z/i
-        return 0.5 if filename =~ /licen[sc]e/i
-        return 0.0
-      end
 
-      def package_score(filename)
-        return 1.0  if filename =~ /[a-zA-Z0-9\-_]+\.gemspec/
-        return 1.0  if filename =~ /package\.json/
-        return 0.75 if filename =~ /bower.json/
-        return 0.0
-      end
     end
 
     attr_reader :repository, :revision
@@ -53,9 +39,9 @@ class Licensee
     def license_file
       return @license_file if defined? @license_file
       @license_file = begin
-        if file = find_blob { |name| self.class.license_score(name) }
+        if file = find_blob { |name| LicenseFile.name_score(name) }
           data = load_blob_data(file[:oid])
-          Project::LicenseFile.new(data, file[:name])
+          LicenseFile.new(data, file[:name])
         end
       end
     end
@@ -64,9 +50,9 @@ class Licensee
       return unless detect_packages?
       return @package_file if defined? @package_file
       @package_file = begin
-        if file = find_blob { |name| self.class.package_score(name) }
+        if file = find_blob { |name| PackageInfo.name_score(name) }
           data = load_blob_data(file[:oid])
-          Project::PackageInfo.new(data, file[:name])
+          PackageInfo.new(data, file[:name])
         end
       end
     end
