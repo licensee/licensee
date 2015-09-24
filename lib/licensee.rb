@@ -7,7 +7,6 @@ require_relative "licensee/content_helper"
 require_relative "licensee/license"
 require_relative "licensee/project"
 require_relative "licensee/project_file"
-require_relative "licensee/filesystem_repository"
 
 require_relative "licensee/matchers/exact_matcher"
 require_relative "licensee/matchers/copyright_matcher"

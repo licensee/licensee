@@ -30,12 +30,7 @@ class Licensee
       if repo.kind_of? Rugged::Repository
         @repository = repo
       else
-        begin
-          @repository = Rugged::Repository.new(repo)
-        rescue Rugged::RepositoryError
-          raise if revision
-          @repository = FilesystemRepository.new(repo)
-        end
+        @repository = Rugged::Repository.new(repo)
       end
 
       @revision = revision
@@ -82,12 +77,8 @@ class Licensee
     end
 
     def load_blob_data(oid)
-      if repository.instance_of? Rugged::Repository
-        data, _ = Rugged::Blob.to_buffer(repository, oid, MAX_LICENSE_SIZE)
-        data
-      else
-        repository.lookup(oid)
-      end
+      data, _ = Rugged::Blob.to_buffer(repository, oid, MAX_LICENSE_SIZE)
+      data
     end
 
     def find_blob
