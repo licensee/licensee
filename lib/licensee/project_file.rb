@@ -2,11 +2,12 @@ class Licensee
   class ProjectFile
     include Licensee::ContentHelper
 
-    attr_reader :content
+    attr_reader :content, :filename
 
-    def initialize(content)
+    def initialize(content, filename = nil)
       @content = content
       @content.force_encoding(Encoding::UTF_8)
+      @filename = filename
     end
 
     def wordset

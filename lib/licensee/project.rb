@@ -48,9 +48,11 @@ class Licensee
 
     # Returns the matching Licensee::License instance if a license can be detected
     def license
-      return @license if defined? @license
-      file = license_file || package_file
-      @license = file && file.license
+      @license ||= matched_file && matched_file.license
+    end
+
+    def matched_file
+      @matched_file ||= (license_file || package_file)
     end
 
     def license_file
@@ -58,7 +60,7 @@ class Licensee
       @license_file = begin
         if file = find_blob { |name| self.class.license_score(name) }
           data = load_blob_data(file[:oid])
-          Licensee::ProjectLicense.new(data)
+          Licensee::ProjectLicense.new(data, file[:name])
         end
       end
     end
@@ -69,7 +71,7 @@ class Licensee
       @package_file = begin
         if file = find_blob { |name| self.class.package_score(name) }
           data = load_blob_data(file[:oid])
-          Licensee::ProjectPackage.new(data)
+          Licensee::ProjectPackage.new(data, file[:name])
         end
       end
     end
@@ -91,8 +93,9 @@ class Licensee
     def find_blob
       commit.tree.map do |entry|
         next unless entry[:type] == :blob
-        score = yield entry[:name]
-        { :oid => entry[:oid], :score => score } if score > 0
+        if (score = yield entry[:name]) > 0
+          { :name => entry[:name], :oid => entry[:oid], :score => score }
+        end
       end.compact.sort { |a, b| b[:score] <=> a[:score] }.first
     end
   end
