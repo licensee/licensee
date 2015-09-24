@@ -3,7 +3,7 @@ require_relative "../lib/licensee"
 
 path = ARGV[0] || Dir.pwd
 
-project = Licensee::Project.new(path, detect_packages: true)
+project = Licensee::GitProject.new(path, detect_packages: true)
 file = project.matched_file
 
 if project.license_file

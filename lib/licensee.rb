@@ -26,9 +26,13 @@ class Licensee
       Licensee::License.all(options)
     end
 
-    # Returns the license for a given git repo
+    # Returns the license for a given path
     def license(path)
-      Licensee::Project.new(path).license
+      begin
+        Licensee::GitProject.new(path).license
+      rescue Licensee::GitProject::InvalidRepository
+        Licensee::FSProject.new(path).license
+      end
     end
 
     def confidence_threshold

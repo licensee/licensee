@@ -5,7 +5,7 @@ class TestLicenseeProject < Minitest::Test
   describe("git repository project") do
     def make_project(fixture_name)
       fixture = fixture_path fixture_name
-      Licensee::Project.new fixture
+      Licensee::GitProject.new(fixture)
     end
 
     should "detect the license file" do
@@ -59,10 +59,9 @@ class TestLicenseeProject < Minitest::Test
     end
   end
 
-
   describe "packages" do
     should "detect a package file" do
-      project = Licensee::Project.new(fixture_path("npm.git"), detect_packages: true)
+      project = Licensee::GitProject.new(fixture_path("npm.git"), detect_packages: true)
       assert_equal "package.json", project.package_file.filename
       assert_equal "mit", project.license.key
     end
