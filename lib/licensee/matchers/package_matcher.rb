@@ -1,5 +1,5 @@
 class Licensee
-  module Matcher
+  module Matchers
     class Package
       def initialize(file)
         @file = file

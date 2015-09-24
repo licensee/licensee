@@ -33,7 +33,7 @@ class Licensee
       include Licensee::ContentHelper
 
       def possible_matchers
-        [Matcher::Copyright, Matcher::Exact, Matcher::Dice]
+        [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
       end
 
       def wordset
@@ -41,7 +41,7 @@ class Licensee
       end
 
       def attribution
-        matches = /^#{Matcher::Copyright::REGEX}$/i.match(content)
+        matches = /^#{Matchers::Copyright::REGEX}$/i.match(content)
         matches[0].strip if matches
       end
 
@@ -59,9 +59,9 @@ class Licensee
       def possible_matchers
         case ::File.extname(filename)
         when ".gemspec"
-          [Matcher::Gemspec]
+          [Matchers::Gemspec]
         when ".json"
-          [Matcher::NpmBower]
+          [Matchers::NpmBower]
         else
           []
         end

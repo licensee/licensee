@@ -1,5 +1,5 @@
 class Licensee
-  module Matcher
+  module Matchers
     class Gemspec < Package
       # We definitely don't want to be evaling arbitrary Gemspec files
       # While not 100% accurate, use some lenient regex to try to grep the

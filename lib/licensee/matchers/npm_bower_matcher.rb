@@ -1,5 +1,5 @@
 class Licensee
-  module Matcher
+  module Matchers
     class NpmBower < Package
       # While we could parse the package.json or bower.json file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.

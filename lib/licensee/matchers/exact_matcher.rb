@@ -1,5 +1,5 @@
 class Licensee
-  module Matcher
+  module Matchers
     class Exact
       def initialize(file)
         @file = file

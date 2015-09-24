@@ -44,8 +44,8 @@ end
 
 def wrap(text, line_width=80)
   text = text.clone
-  copyright = /^#{Licensee::Matcher::Copyright::REGEX}$/i.match(text)
-  text.gsub! /^#{Licensee::Matcher::Copyright::REGEX}$/i, '[COPYRIGHT]' if copyright
+  copyright = /^#{Licensee::Matchers::Copyright::REGEX}$/i.match(text)
+  text.gsub! /^#{Licensee::Matchers::Copyright::REGEX}$/i, '[COPYRIGHT]' if copyright
   text.gsub! /([^\n])\n([^\n])/, '\1 \2'
   text = text.split("\n").collect do |line|
     line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip : line
