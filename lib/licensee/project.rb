@@ -1,10 +1,8 @@
+require 'rugged'
+
 class Licensee
   class Project
     MAX_LICENSE_SIZE = 64 * 1024
-
-    class << self
-
-    end
 
     attr_reader :repository, :revision
 

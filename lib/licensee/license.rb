@@ -1,3 +1,6 @@
+require 'uri'
+require 'yaml'
+
 class Licensee
   class InvalidLicense < ArgumentError; end
   class License

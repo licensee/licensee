@@ -1,7 +1,3 @@
-require 'uri'
-require 'yaml'
-require 'rugged'
-
 require_relative "licensee/version"
 require_relative "licensee/content_helper"
 require_relative "licensee/license"
