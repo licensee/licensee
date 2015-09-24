@@ -1,3 +1,5 @@
+require 'set'
+
 class Licensee
   module ContentHelper
     def create_word_set(content)

@@ -4,6 +4,17 @@ require_relative "../lib/licensee"
 require_relative "../test/functions"
 require 'benchmark'
 
+def run_benchmark(bench_name, &block)
+  puts "\nBenchmarking #{bench_name}...\n"
+  Benchmark.bm(12, "sum:", "average:") do |benchmark|
+    times = []
+    block.call(benchmark, times)
+    sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
+    avg = sum / times.size
+    [sum, avg]
+  end
+end
+
 puts "Begining benchmark...\n"
 
 # Warm up the license list
@@ -15,94 +26,62 @@ puts "\n#{Licensee::License.all.count} licenses loaded\n"
 
 licenses = Licensee::License.license_files.shuffle
 
-puts "\nBenchmarking vendored licenses...\n"
-
-Benchmark.bm(12, "sum:", "average:") do |benchmark|
-  times = []
+run_benchmark("vendored licenses") do |benchmark, times|
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
     data = license_from_path(path)
     time = benchmark.report(license_name) do
-      license_file = Licensee::Project::File.new(data)
+      license_file = Licensee::Project::LicenseFile.new(data)
       license_file.license
     end
     times.push time
   end
-  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
-  avg = sum / times.size
-  [sum, avg]
 end
 
-puts "\nBenchmarking fixtures...\n"
-
-Benchmark.bm(12, "sum:", "average:") do |benchmark|
-  times = []
+run_benchmark("fixtures") do |benchmark, times|
   Dir["test/fixtures/*"].each do |dir|
    times.push benchmark.report(dir.split("/")[-1]) {
      Licensee.license(dir)
    }
   end
-  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
-  avg = sum / times.size
-  [sum, avg]
 end
 
-puts "\nBenchmarking modified licenses..."
-
-Benchmark.bm(12, "sum:", "average:") do |benchmark|
-  times = []
+run_benchmark("modified licenses") do |benchmark, times|
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
     license_contents = license_from_path(path)
     license_contents = chaos_monkey(license_contents)
     time = benchmark.report(license_name) do
-      license_file = Licensee::Project::File.new(license_contents)
+      license_file = Licensee::Project::LicenseFile.new(license_contents)
       license_file.license
     end
     times.push time
   end
-  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
-  avg = sum / times.size
-  [sum, avg]
 end
 
-puts "\nBenchmarking rewrapped licenses..."
-
-Benchmark.bm(12, "sum:", "average:") do |benchmark|
-  times = []
+run_benchmark("rewrapped licenses") do |benchmark, times|
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
     license_contents = license_from_path(path)
     license_contents = wrap(license_contents, 50)
-    blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::Project::File.new(blob, "LICENSE")
+      license_file = Licensee::Project::LicenseFile.new(license_contents)
       license_file.match
     end
     times.push time
   end
-  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
-  avg = sum / times.size
-  [sum, avg]
 end
 
-puts "\nBenchmarking rewrapped and modified licenses..."
-
-Benchmark.bm(12, "sum:", "average:") do |benchmark|
-  times = []
+run_benchmark("rewrapped and modified licenses") do |benchmark, times|
   licenses.each do |path|
     license_name = File.basename(path, ".txt")
     license_contents = license_from_path(path)
     license_contents = wrap(license_contents, 50)
     license_contents = chaos_monkey(license_contents)
-    blob = FakeBlob.new license_contents
     time = benchmark.report(license_name) do
-      license_file = Licensee::Project::File.new(blob, "LICENSE")
+      license_file = Licensee::Project::LicenseFile.new(license_contents)
       license_file.match
     end
     times.push time
   end
-  sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
-  avg = sum / times.size
-  [sum, avg]
 end
