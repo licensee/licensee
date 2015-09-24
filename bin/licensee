@@ -3,19 +3,15 @@ require_relative "../lib/licensee"
 
 path = ARGV[0] || Dir.pwd
 
-Licensee.package_manager_files = true
-project = Licensee::Project.new(path)
-license = project.matched_file
+project = Licensee::Project.new(path, detect_packages: true)
+license = project.license
 
 if project.license_file
-  puts "License file: #{project.license_file.path}"
   puts "Attribution: #{project.license_file.attribution}" if project.license_file.attribution
 end
 
 if license
-  puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
-  puts "Confidence: #{license.confidence}%"
-  puts "Method: #{license.matcher.class}"
+  puts "License: #{license.meta['title']}"
 else
   puts "Unknown"
 end

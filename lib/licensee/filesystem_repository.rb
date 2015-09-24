@@ -16,23 +16,7 @@ class Licensee
     end
 
     def lookup(filename)
-      Blob.new File.read(filename)
-    end
-
-    Blob = Struct.new(:content) do
-      def size
-        content.size
-      end
-
-      def similarity(other)
-        self.hashsig ? Rugged::Blob::HashSignature.compare(self.hashsig, other) : 0
-      end
-
-      def hashsig(options = 0)
-        @hashsig ||= Rugged::Blob::HashSignature.new(content, options)
-      rescue Rugged::InvalidError
-        nil
-      end
+      File.read(filename)
     end
   end
 end
