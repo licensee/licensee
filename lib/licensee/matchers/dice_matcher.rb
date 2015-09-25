@@ -52,14 +52,6 @@ class Licensee
         total = @file.wordset.size + license.wordset.size
         100.0 * (overlap * 2.0 / total)
       end
-
-      def includes_license_name?(license)
-        @file.wordset.include?(license.name_without_version.downcase)
-      end
-
-      def includes_license_nickname?(license)
-        license.nickname && @file.wordset.include?(license.nickname.downcase)
-      end
     end
   end
 end
