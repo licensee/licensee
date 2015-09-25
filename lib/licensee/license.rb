@@ -1,3 +1,6 @@
+require 'uri'
+require 'yaml'
+
 class Licensee
   class InvalidLicense < ArgumentError; end
   class License
@@ -38,10 +41,6 @@ class Licensee
     }
 
     HIDDEN_LICENSES = %w[other no-license]
-
-    # Licenses that technically contain the license name or nickname
-    # But we are so short that GitMatcher may not catch if rewrapped
-    BODY_INCLUDES_WHITELIST = %w[mit]
 
     include Licensee::ContentHelper
 
@@ -107,17 +106,8 @@ class Licensee
     alias_method :to_s, :body
     alias_method :text, :body
 
-    # License body with all whitespace replaced with a single space
-    def body_normalized
-      @body_normalized ||= normalize_content(body)
-    end
-
-    # Git-computed hash signature for the license file
-    def hashsig
-      @hashsig ||= Rugged::Blob::HashSignature.new(
-        body, Rugged::Blob::HashSignature::WHITESPACE_SMART) unless body.nil?
-    rescue Rugged::InvalidError
-      nil
+    def wordset
+      @wordset ||= create_word_set(body)
     end
 
     def inspect
@@ -132,20 +122,7 @@ class Licensee
       other != nil && key == other.key
     end
 
-    def body_includes_name?
-      return false if BODY_INCLUDES_WHITELIST.include?(key)
-      return @body_includes_name if defined? @body_includes_name
-      @body_includes_name = body_normalized.include?(name_without_version.downcase)
-    end
-
-    def body_includes_nickname?
-      return false if BODY_INCLUDES_WHITELIST.include?(key)
-      return @body_includes_nickname if defined? @body_includes_nickname
-      @body_includes_nickname = !!(nickname && body_normalized.include?(nickname.downcase))
-    end
-
     private
-
     def parts
       @parts ||= content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if content
     end

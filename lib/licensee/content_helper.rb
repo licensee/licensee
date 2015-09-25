@@ -1,14 +1,13 @@
+require 'set'
+
 class Licensee
   module ContentHelper
-    def normalize_content(content)
+    def create_word_set(content)
       return unless content
-      content = content.downcase
-      content = content.gsub(/\A[[:space:]]+/, '')
-      content = content.gsub(/[[:space:]]+\z/, '')
-      content = content.gsub(/^#{CopyrightMatcher::REGEX}$/i, '')
-      content = content.gsub(/[[:space:]]+/, ' ')
-      content = content.gsub("\u0000", '') # Remove null byte which breaks Levenshtein
-      content.squeeze(' ').strip
+      content = content.dup
+      content.downcase!
+      content.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
+      content.scan(/[\w']+/).to_set
     end
   end
 end

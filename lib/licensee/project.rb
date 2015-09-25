@@ -1,59 +1,125 @@
+require 'rugged'
+
 class Licensee
+  private
   class Project
-    attr_reader :repository, :revision
+    def initialize(detect_packages)
+      @detect_packages = detect_packages
+    end
 
-    # Initializes a new project
-    #
-    # path_or_repo path to git repo or Rugged::Repository instance
-    # revsion - revision ref, if any
-    def initialize(path_or_repo, revision = nil)
-      if path_or_repo.kind_of? Rugged::Repository
-        @repository = path_or_repo
-      else
-        begin
-          @repository = Rugged::Repository.new(path_or_repo)
-        rescue Rugged::RepositoryError
-          raise if revision
-          @repository = FilesystemRepository.new(path_or_repo)
-        end
-      end
-
-      @revision = revision
+    def detect_packages?
+      @detect_packages
     end
 
     # Returns the matching Licensee::License instance if a license can be detected
     def license
-      @license ||= matched_file.match if matched_file
+      @license ||= matched_file && matched_file.license
+    end
+
+    def matched_file
+      @matched_file ||= (license_file || package_file)
     end
 
     def license_file
       return @license_file if defined? @license_file
-      @license_file = files.select { |f| f.license? }.sort_by { |f| f.license_score }.last
+      @license_file = begin
+        content, name = find_file { |name| LicenseFile.name_score(name) }
+        if content && name
+          LicenseFile.new(content, name)
+        end
+      end
     end
 
     def package_file
-      return unless Licensee.package_manager_files?
+      return unless detect_packages?
       return @package_file if defined? @package_file
-      @package_file = files.select { |f| f.package? }.sort_by { |f| f.package_score }.last
+      @package_file = begin
+        content, name = find_file { |name| PackageInfo.name_score(name) }
+        if content && name 
+          PackageInfo.new(content, name)
+        end
+      end
     end
+  end
 
-    def matched_file
-      return license_file if license_file && license_file.match
-      return package_file if package_file && package_file.match
+  public
+
+  # Git-based project
+  # 
+  # analyze a given git repository for license information
+  class GitProject < Project
+    attr_reader :repository, :revision
+
+    class InvalidRepository < ArgumentError; end
+
+    def initialize(repo, revision: nil, detect_packages: false)
+      if repo.kind_of? Rugged::Repository
+        @repository = repo
+      else
+        @repository = Rugged::Repository.new(repo)
+      end
+
+      @revision = revision
+      super(detect_packages)
+    rescue Rugged::RepositoryError
+      raise InvalidRepository
     end
 
     private
-
     def commit
       @commit ||= revision ? repository.lookup(revision) : repository.last_commit
     end
 
-    def tree
-      @tree ||= commit.tree.select { |blob| blob[:type] == :blob }
+    MAX_LICENSE_SIZE = 64 * 1024
+
+    def load_blob_data(oid)
+      data, _ = Rugged::Blob.to_buffer(repository, oid, MAX_LICENSE_SIZE)
+      data
     end
 
-    def files
-      @files ||= tree.map { |blob| ProjectFile.new(repository.lookup(blob[:oid]), blob[:name]) }
+    def find_file
+      files = commit.tree.map do |entry|
+        next unless entry[:type] == :blob
+        if (score = yield entry[:name]) > 0
+          { :name => entry[:name], :oid => entry[:oid], :score => score }
+        end
+      end.compact
+
+      return if files.empty?
+      files.sort! { |a, b| b[:score] <=> a[:score] }
+
+      f = files.first
+      [load_blob_data(f[:oid]), f[:name]]
+    end
+  end
+
+  # Filesystem-based project
+  #
+  # Analyze a folder on the filesystem for license information
+  class FSProject < Project
+    attr_reader :path
+
+    def initialize(path, detect_packages: false)
+      @path = path
+      super(detect_packages)
+    end
+
+    private
+    def find_file
+      files = [] 
+
+      Dir.foreach(path) do |file|
+        next unless ::File.file?(::File.join(path, file))
+        if (score = yield file) > 0
+          files.push({ :name => file, :score => score })
+        end
+      end
+
+      return if files.empty?
+      files.sort! { |a, b| b[:score] <=> a[:score] }
+
+      f = files.first
+      [::File.read(::File.join(path, f[:name])), f[:name]]
     end
   end
 end

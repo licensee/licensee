@@ -19,8 +19,6 @@ def license_from_path(path)
   license
 end
 
-FakeBlob = Licensee::FilesystemRepository::Blob
-
 def chaos_monkey(string)
   Random.rand(3).times do
     string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(3))
@@ -35,19 +33,10 @@ def verify_license_file(license, chaos = false, wrap=false)
   text = chaos_monkey(text) if chaos
   text = wrap(text, wrap) if wrap
 
-  blob = FakeBlob.new(text)
-  license_file = Licensee::ProjectFile.new(blob, "LICENSE")
+  license_file = Licensee::Project::LicenseFile.new(text)
 
-  actual = license_file.match
+  actual = license_file.license
   msg = "No match for #{expected}."
-
-  unless actual
-    Licensee.matchers.each do |matcher|
-      matcher = matcher.new(license_file)
-      msg << "#{matcher.class}: #{matcher.confidence}% #{matcher.match.inspect}\n"
-    end
-    msg << "Here's the test text:\n#{text}"
-  end
 
   assert actual, msg
   assert_equal expected, actual.key, "expeceted #{expected} but got #{actual.key} for .match. Confidence: #{license_file.confidence}. Method: #{license_file.matcher.class}"
@@ -55,8 +44,8 @@ end
 
 def wrap(text, line_width=80)
   text = text.clone
-  copyright = /^#{Licensee::CopyrightMatcher::REGEX}$/i.match(text)
-  text.gsub! /^#{Licensee::CopyrightMatcher::REGEX}$/i, '[COPYRIGHT]' if copyright
+  copyright = /^#{Licensee::Matchers::Copyright::REGEX}$/i.match(text)
+  text.gsub! /^#{Licensee::Matchers::Copyright::REGEX}$/i, '[COPYRIGHT]' if copyright
   text.gsub! /([^\n])\n([^\n])/, '\1 \2'
   text = text.split("\n").collect do |line|
     line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip : line

@@ -23,16 +23,4 @@ class TestLicensee < Minitest::Test
       Licensee.confidence_threshold = 90
     end
   end
-
-  context "npm-bower matcher" do
-    should "be disabled by default" do
-      refute Licensee.matchers.include? Licensee::NpmBowerMatcher
-    end
-
-    should "be enable-able" do
-      Licensee.package_manager_files = true
-      assert Licensee.matchers.include? Licensee::NpmBowerMatcher
-      Licensee.package_manager_files = false
-    end
-  end
 end

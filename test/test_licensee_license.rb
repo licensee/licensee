@@ -112,16 +112,6 @@ class TestLicenseeLicense < Minitest::Test
       assert_equal expected,  Licensee::License.find("gpl-3.0").name_without_version
     end
 
-    should "know if the license contains the name without version" do
-      refute Licensee::License.find("cc0-1.0").body_includes_name?
-      assert Licensee::License.find("agpl-3.0").body_includes_name?
-    end
-
-    should "know if the license contains the nickname" do
-      refute Licensee::License.find("mit").body_includes_nickname?
-      assert Licensee::License.find("apache-2.0").body_includes_nickname?
-    end
-
     Licensee.licenses.each do |license|
       should "strip the version number from the #{license.name} license" do
         assert license.name_without_version

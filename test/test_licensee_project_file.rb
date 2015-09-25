@@ -4,22 +4,18 @@ class TestLicenseeProjectFile < Minitest::Test
 
   def setup
     @repo = Rugged::Repository.new(fixture_path("licenses.git"))
-    blob = 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc'
-    @file = Licensee::ProjectFile.new(@repo.lookup(blob), "LICENSE")
+    blob, _ = Rugged::Blob.to_buffer(@repo, 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc')
+    @file = Licensee::Project::LicenseFile.new(blob)
     @gpl = Licensee::License.find "GPL-3.0"
     @mit = Licensee::License.find "MIT"
   end
 
   should "read the file" do
-    assert @file.contents =~ /MIT/
+    assert @file.content =~ /MIT/
   end
 
   should "match the license" do
-    assert_equal "mit", @file.match.key
-  end
-
-  should "know the path" do
-    assert_equal "LICENSE", @file.path
+    assert_equal "mit", @file.license.key
   end
 
   should "calculate confidence" do
@@ -31,7 +27,6 @@ class TestLicenseeProjectFile < Minitest::Test
   end
 
   context "license filename scoring" do
-
     EXPECTATIONS = {
       "license"            => 1.0,
       "LICENCE"            => 1.0,
@@ -52,7 +47,7 @@ class TestLicenseeProjectFile < Minitest::Test
 
     EXPECTATIONS.each do |filename, expected|
       should "score a license named `#{filename}` as `#{expected}`" do
-        assert_equal expected, Licensee::ProjectFile.license_score(filename)
+        assert_equal expected, Licensee::Project::LicenseFile.name_score(filename)
       end
     end
   end
