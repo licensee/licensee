@@ -9,7 +9,17 @@ class Licensee
       # than the confidence threshold
       def match
         return @match if defined? @match
-        @match = matches.empty? ? nil : matches.max_by { |l, sim| sim }[0] 
+        matches = potential_licenses.map do |license|
+          if (sim = similarity(license)) >= Licensee.confidence_threshold
+            [license, sim]
+          end
+        end
+        matches.compact!
+        @match = if matches.empty?
+          nil
+        else
+          matches.max_by { |l, sim| sim }.first
+        end
       end
 
       # Sort all licenses, in decending order, by difference in
@@ -49,12 +59,6 @@ class Licensee
         overlap = (@file.wordset & license.wordset).size
         total = @file.wordset.size + license.wordset.size
         100.0 * (overlap * 2.0 / total)
-      end
-
-      # Return an array of arrays in the form of [license, similiarity]
-      def matches
-        matches = potential_licenses.map { |license| [license, similarity(license)] }
-        matches.select { |license, similarity| similarity >= Licensee.confidence_threshold }
       end
     end
   end
