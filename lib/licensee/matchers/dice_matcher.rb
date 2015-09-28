@@ -9,8 +9,16 @@ class Licensee
       # than the confidence threshold
       def match
         return @match if defined? @match
-        @match = potential_licenses.find do |license|
-          similarity(license) >= Licensee.confidence_threshold
+        matches = potential_licenses.map do |license|
+          if (sim = similarity(license)) >= Licensee.confidence_threshold
+            [license, sim]
+          end
+        end
+        matches.compact!
+        @match = if matches.empty?
+          nil
+        else
+          matches.max_by { |l, sim| sim }.first
         end
       end
 
