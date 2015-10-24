@@ -3,8 +3,13 @@ require 'rugged'
 class Licensee
   private
   class Project
-    def initialize(detect_packages)
+    def initialize(detect_packages: false, detect_readme: false)
       @detect_packages = detect_packages
+      @detect_readme = detect_readme
+    end
+
+    def detect_readme?
+      @detect_readme
     end
 
     def detect_packages?
@@ -17,7 +22,7 @@ class Licensee
     end
 
     def matched_file
-      @matched_file ||= (license_file || package_file)
+      @matched_file ||= (license_file || readme || package_file)
     end
 
     def license_file
@@ -26,6 +31,17 @@ class Licensee
         content, name = find_file { |name| LicenseFile.name_score(name) }
         if content && name
           LicenseFile.new(content, name)
+        end
+      end
+    end
+
+    def readme
+      return unless detect_readme?
+      return @readme if defined? @readme
+      @readme = begin
+        content, name = find_file { |name| Readme.name_score(name) }
+        if content && name
+          Readme.new(content, name)
         end
       end
     end
@@ -52,7 +68,7 @@ class Licensee
 
     class InvalidRepository < ArgumentError; end
 
-    def initialize(repo, revision: nil, detect_packages: false)
+    def initialize(repo, revision: nil, **args)
       if repo.kind_of? Rugged::Repository
         @repository = repo
       else
@@ -60,7 +76,7 @@ class Licensee
       end
 
       @revision = revision
-      super(detect_packages)
+      super(**args)
     rescue Rugged::RepositoryError
       raise InvalidRepository
     end
@@ -99,9 +115,9 @@ class Licensee
   class FSProject < Project
     attr_reader :path
 
-    def initialize(path, detect_packages: false)
+    def initialize(path, **args)
       @path = path
-      super(detect_packages)
+      super(**args)
     end
 
     private
