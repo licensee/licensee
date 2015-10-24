@@ -55,6 +55,28 @@ class Licensee
       end
     end
 
+    class Readme < LicenseFile
+      SCORES = {
+        /\AREADME\z/i => 1.0,
+        /\AREADME\.(md|markdown|txt)\z/i => 0.9
+      }
+
+      CONTENT_REGEX = /^#+ Licen[sc]e$(.*?)(?=#+|\z)/im
+
+      def initialize(content, filename = nil)
+        match = CONTENT_REGEX.match(content)
+        content = match ? match[1].strip : ""
+        super content, filename
+      end
+
+      def self.name_score(filename)
+        SCORES.each do |pattern, score|
+          return score if pattern =~ filename
+        end
+        return 0.0
+      end
+    end
+
     class PackageInfo < File
       def possible_matchers
         case ::File.extname(filename)

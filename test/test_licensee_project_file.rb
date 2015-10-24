@@ -51,4 +51,54 @@ class TestLicenseeProjectFile < Minitest::Test
       end
     end
   end
+
+  context "readme filename scoring" do
+    EXPECTATIONS = {
+      "readme"      => 1.0,
+      "README"      => 1.0,
+      "readme.md"   => 0.9,
+      "README.md"   => 0.9,
+      "readme.txt"  => 0.9,
+      "LICENSE"     => 0.0
+    }
+
+    EXPECTATIONS.each do |filename, expected|
+      should "score a readme named `#{filename}` as `#{expected}`" do
+        assert_equal expected, Licensee::Project::Readme.name_score(filename)
+      end
+    end
+
+  end
+
+  context "readme content" do
+    should "be blank if not license text" do
+      file = Licensee::Project::Readme.new("There is no License in this README")
+      assert_equal "", file.content
+    end
+
+    should "get content after h1" do
+      file = Licensee::Project::Readme.new("# License\n\nhello world")
+      assert_equal "hello world", file.content
+    end
+
+    should "get content after h2" do
+      file = Licensee::Project::Readme.new("## License\n\nhello world")
+      assert_equal "hello world", file.content
+    end
+
+    should "be case-insensitive" do
+      file = Licensee::Project::Readme.new("## LICENSE\n\nhello world")
+      assert_equal "hello world", file.content
+    end
+
+    should "be british" do
+      file = Licensee::Project::Readme.new("## Licence\n\nhello world")
+      assert_equal "hello world", file.content
+    end
+
+    should "not include trailing content" do
+      file = Licensee::Project::Readme.new("## License\n\nhello world\n\n# Contributing")
+      assert_equal "hello world", file.content
+    end
+  end
 end
