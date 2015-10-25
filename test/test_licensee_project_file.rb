@@ -72,33 +72,33 @@ class TestLicenseeProjectFile < Minitest::Test
 
   context "readme content" do
     should "be blank if not license text" do
-      file = Licensee::Project::Readme.new("There is no License in this README")
-      assert_equal "", file.content
+      content = Licensee::Project::Readme.license_content("There is no License in this README")
+      assert_equal nil, content
     end
 
     should "get content after h1" do
-      file = Licensee::Project::Readme.new("# License\n\nhello world")
-      assert_equal "hello world", file.content
+      content = Licensee::Project::Readme.license_content("# License\n\nhello world")
+      assert_equal "hello world", content
     end
 
     should "get content after h2" do
-      file = Licensee::Project::Readme.new("## License\n\nhello world")
-      assert_equal "hello world", file.content
+      content = Licensee::Project::Readme.license_content("## License\n\nhello world")
+      assert_equal "hello world", content
     end
 
     should "be case-insensitive" do
-      file = Licensee::Project::Readme.new("## LICENSE\n\nhello world")
-      assert_equal "hello world", file.content
+      content = Licensee::Project::Readme.license_content("## LICENSE\n\nhello world")
+      assert_equal "hello world", content
     end
 
     should "be british" do
-      file = Licensee::Project::Readme.new("## Licence\n\nhello world")
-      assert_equal "hello world", file.content
+      content = Licensee::Project::Readme.license_content("## Licence\n\nhello world")
+      assert_equal "hello world", content
     end
 
     should "not include trailing content" do
-      file = Licensee::Project::Readme.new("## License\n\nhello world\n\n# Contributing")
-      assert_equal "hello world", file.content
+      content = Licensee::Project::Readme.license_content("## License\n\nhello world\n\n# Contributing")
+      assert_equal "hello world", content
     end
   end
 end

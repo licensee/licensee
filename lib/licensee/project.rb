@@ -40,6 +40,7 @@ class Licensee
       return @readme if defined? @readme
       @readme = begin
         content, name = find_file { |name| Readme.name_score(name) }
+        content = Readme.license_content(content)
         if content && name
           Readme.new(content, name)
         end

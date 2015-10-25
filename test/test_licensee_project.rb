@@ -21,7 +21,7 @@ class TestLicenseeProject < Minitest::Test
         end
 
         def teardown
-          FileUtils.rm_rf "tmp/fixtures" 
+          FileUtils.rm_rf "tmp/fixtures"
         end
       end
 
@@ -81,6 +81,12 @@ class TestLicenseeProject < Minitest::Test
     should "detect a package file" do
       project = Licensee::GitProject.new(fixture_path("npm.git"), detect_packages: true)
       assert_equal "package.json", project.package_file.filename
+      assert_equal "mit", project.license.key
+    end
+
+    should "skip readme if no license content" do
+      project = Licensee::FSProject.new(fixture_path("bower-with-readme"),
+        detect_packages: true, detect_readme: true)
       assert_equal "mit", project.license.key
     end
   end
