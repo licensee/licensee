@@ -7,7 +7,7 @@ vendor/jquery
 vendor/normalize-css
 vendor/qtip2
 vendor/selectivizr
-vendor/zeroclipboard
+vendor/clipboard/
 vendor/eventEmitter
 vendor/eventie
 vendor/imagesloaded
