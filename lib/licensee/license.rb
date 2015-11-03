@@ -6,9 +6,18 @@ class Licensee
   class License
 
     class << self
+
+      # All license objects defined via Licensee (via choosealicense.com)
+      #
+      # Options - :hidden - boolean, whether to return hidden licenses, defaults to false
+      # Options - :featured - boolean, whether to return only (non)featured licenses, defaults to all
+      #
+      # Returns an Array of License objects.
       def all(options={})
-        @all ||= keys.map { |key| self.new(key) }
-        options[:hidden] ? @all : @all.reject { |l| l.hidden? }
+        output = licenses.dup
+        output.reject! { |l| l.hidden? } unless options[:hidden]
+        output.select! { |l| l.featured? == options[:featured] } unless options[:featured].nil?
+        output
       end
 
       def keys
@@ -29,6 +38,12 @@ class Licensee
 
       def license_files
         @license_files ||= Dir.glob("#{license_dir}/*.txt")
+      end
+
+      private
+
+      def licenses
+        @licenses ||= keys.map { |key| self.new(key) }
       end
     end
 
