@@ -128,7 +128,6 @@ class TestLicenseeLicense < Minitest::Test
     should "load the licenses" do
       assert_equal Array, Licensee::License.all.class
       assert_equal 15, Licensee::License.all.size
-      assert_equal 24, Licensee::License.all(:hidden => true).size
       assert_equal Licensee::License, Licensee::License.all.first.class
     end
 
@@ -136,6 +135,14 @@ class TestLicenseeLicense < Minitest::Test
       assert_equal "mit", Licensee::License.find("mit").key
       assert_equal "mit", Licensee::License.find("MIT").key
       assert_equal "mit", Licensee::License["mit"].key
+    end
+
+    should "filter the licenses" do
+      assert_equal 24, Licensee::License.all(:hidden => true).size
+      assert_equal 3,  Licensee::License.all(:featured => true).size
+      assert_equal 12, Licensee::License.all(:featured => false).size
+      assert_equal 21, Licensee::License.all(:featured => false, :hidden => true).size
+      assert_equal 12, Licensee::License.all(:featured => false, :hidden => false).size
     end
   end
 end
