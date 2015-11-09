@@ -28,10 +28,14 @@ class Licensee
 
     # Returns the license for a given path
     def license(path)
+      Licensee.project(path).license
+    end
+
+    def project(path)
       begin
-        Licensee::GitProject.new(path).license
+        Licensee::GitProject.new(path)
       rescue Licensee::GitProject::InvalidRepository
-        Licensee::FSProject.new(path).license
+        Licensee::FSProject.new(path)
       end
     end
 
