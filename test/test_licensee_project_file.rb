@@ -26,6 +26,12 @@ class TestLicenseeProjectFile < Minitest::Test
     assert_equal "Copyright (c) 2014 Ben Balter", @file.attribution
   end
 
+  should "not choke on non-UTF-8 licenses" do
+    text = "\x91License\x93".force_encoding('windows-1251')
+    file = Licensee::Project::LicenseFile.new(text)
+    assert_equal nil, file.attribution
+  end
+
   context "license filename scoring" do
     EXPECTATIONS = {
       "license"            => 1.0,

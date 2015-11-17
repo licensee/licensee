@@ -7,7 +7,7 @@ class Licensee
 
       def initialize(content, filename = nil)
         @content = content
-        @content.force_encoding(Encoding::UTF_8)
+        @content.encode!(Encoding::UTF_8, :invalid => :replace, :undef => :replace, :replace => "")
         @filename = filename
       end
 
