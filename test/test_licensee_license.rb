@@ -103,6 +103,10 @@ class TestLicenseeLicense < Minitest::Test
     refute license.featured?
   end
 
+  should "know the license hash" do
+    assert_equal "a191511c2825110c81001e1bc286f669b718f27f", @license.hash
+  end
+
   describe "name without version" do
     should "strip the version from the license name" do
       expected = "GNU Affero General Public License"
