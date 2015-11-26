@@ -24,7 +24,7 @@ class TestLicenseeLicenseFile < Minitest::Test
     end
 
     should "create the hash" do
-      assert_equal "44a042145f04777012c38c161533ca67a73dfc1e", @file.hash
+      assert_equal "fb278496ea4663dfcf41ed672eb7e56eb70de798", @file.hash
     end
   end
 

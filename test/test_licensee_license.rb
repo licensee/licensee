@@ -14,7 +14,7 @@ class TestLicenseeLicense < Minitest::Test
   should "read the license body if it contains `---`" do
     license = Licensee::License.new "MIT"
     content = "---\nfoo: bar\n---\nSome license\n---------\nsome text\n"
-    license.instance_variable_set(:@content, content)
+    license.instance_variable_set(:@raw_content, content)
     assert_equal "Some license\n---------\nsome text\n", license.body
   end
 
@@ -104,7 +104,7 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should "know the license hash" do
-    assert_equal "a191511c2825110c81001e1bc286f669b718f27f", @license.hash
+    assert_equal "fb278496ea4663dfcf41ed672eb7e56eb70de798", @license.hash
   end
 
   describe "name without version" do

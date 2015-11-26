@@ -68,17 +68,6 @@ class Licensee
       @path ||= File.expand_path "#{@key}.txt", Licensee::License.license_dir
     end
 
-    # Raw content of license file, including YAML front matter
-    def content
-      @content ||= if File.exists?(path)
-        File.open(path).read
-      elsif key == "other" # A pseudo-license with no content
-        nil
-      else
-        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
-      end
-    end
-
     # License metadata from YAML front matter
     def meta
       @meta ||= if parts && parts[1]
@@ -115,15 +104,12 @@ class Licensee
     end
 
     # The license body (e.g., contents - frontmatter)
-    def body
-      @body ||= parts[2] if parts && parts[2]
+    def content
+      @content ||= parts[2] if parts && parts[2]
     end
-    alias_method :to_s, :body
-    alias_method :text, :body
-
-    def wordset
-      @wordset ||= create_word_set(body)
-    end
+    alias_method :to_s, :content
+    alias_method :text, :content
+    alias_method :body, :content
 
     def inspect
       "#<Licensee::License key=\"#{key}\" name=\"#{name}\">"
@@ -138,8 +124,20 @@ class Licensee
     end
 
     private
+
+    # Raw content of license file, including YAML front matter
+    def raw_content
+      @raw_content ||= if File.exists?(path)
+        File.open(path).read
+      elsif key == "other" # A pseudo-license with no content
+        nil
+      else
+        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
+      end
+    end
+
     def parts
-      @parts ||= content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if content
+      @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if raw_content
     end
   end
 end

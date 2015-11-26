@@ -6,16 +6,21 @@ class Licensee
 
     DIGEST = Digest::SHA1
 
-    def create_word_set(content)
-      return unless content
-      content = content.dup
-      content.downcase!
-      content.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
-      content.scan(/[\w']+/).to_set
+    def wordset
+      @wordset ||= content_normalized.scan(/[\w']+/).to_set if content_normalized
     end
 
     def hash
-      @hash ||= DIGEST.hexdigest(content)
+      @hash ||= DIGEST.hexdigest content_normalized
+    end
+
+    def content_normalized
+      return unless content
+      @content_normalized ||= begin
+        content_normalized = content.downcase.strip
+        content_normalized.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
+        content_normalized.gsub("\n", " ").squeeze(" ")
+      end
     end
   end
 end
