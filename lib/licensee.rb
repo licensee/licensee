@@ -1,7 +1,11 @@
 require_relative "licensee/version"
 require_relative "licensee/content_helper"
 require_relative "licensee/license"
+
+# Projects
 require_relative "licensee/project"
+require_relative "licensee/projects/git_project"
+require_relative "licensee/projects/fs_project"
 
 # Project files
 require_relative "licensee/project_file"
