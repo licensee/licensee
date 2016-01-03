@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   module Matchers
     class Exact
       def initialize(file)

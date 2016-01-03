@@ -1,7 +1,7 @@
 # Git-based project
 #
 # analyze a given git repository for license information
-class Licensee
+module Licensee
   class GitProject < Licensee::Project
     attr_reader :repository, :revision
 

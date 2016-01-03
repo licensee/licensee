@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   module Matchers
     class Package
       def initialize(file)

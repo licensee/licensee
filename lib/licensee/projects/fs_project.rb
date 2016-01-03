@@ -1,7 +1,7 @@
 # Filesystem-based project
 #
 # Analyze a folder on the filesystem for license information
-class Licensee
+module Licensee
   class FSProject < Project
     attr_reader :path
 

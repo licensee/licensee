@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   module Matchers
     class Gemspec < Package
       # We definitely don't want to be evaling arbitrary Gemspec files

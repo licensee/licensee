@@ -9,8 +9,8 @@ require_relative "licensee/projects/fs_project"
 
 # Project files
 require_relative "licensee/project_file"
-require_relative "licensee/project_files/license_file.rb"
-require_relative "licensee/project_files/package_info.rb"
+require_relative "licensee/project_files/license_file"
+require_relative "licensee/project_files/package_info"
 
 # Matchers
 require_relative "licensee/matchers/exact_matcher"
@@ -20,7 +20,7 @@ require_relative "licensee/matchers/package_matcher"
 require_relative "licensee/matchers/gemspec_matcher"
 require_relative "licensee/matchers/npm_bower_matcher"
 
-class Licensee
+module Licensee
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 90
 

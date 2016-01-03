@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   class Project
     class PackageInfo < Licensee::Project::File
       def possible_matchers

@@ -1,6 +1,6 @@
 require 'rugged'
 
-class Licensee
+module Licensee
   private
   class Project
     def initialize(detect_packages)
