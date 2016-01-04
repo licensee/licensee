@@ -7,7 +7,7 @@ module Licensee
 
     class InvalidRepository < ArgumentError; end
 
-    def initialize(repo, revision: nil, detect_packages: false)
+    def initialize(repo, revision: nil, **args)
       if repo.kind_of? Rugged::Repository
         @repository = repo
       else
@@ -15,7 +15,7 @@ module Licensee
       end
 
       @revision = revision
-      super(detect_packages)
+      super(**args)
     rescue Rugged::RepositoryError
       raise InvalidRepository
     end

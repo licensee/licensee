@@ -5,9 +5,9 @@ module Licensee
   class FSProject < Project
     attr_reader :path
 
-    def initialize(path, detect_packages: false)
+    def initialize(path, **args)
       @path = path
-      super(detect_packages)
+      super(**args)
     end
 
     private
