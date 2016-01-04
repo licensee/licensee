@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   class Project
     class LicenseFile < Licensee::Project::File
       include Licensee::ContentHelper
@@ -6,7 +6,7 @@ class Licensee
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
       end
-      
+
       def attribution
         matches = /^#{Matchers::Copyright::REGEX}$/i.match(content)
         matches[0].strip if matches

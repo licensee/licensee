@@ -21,7 +21,7 @@ require_relative "licensee/matchers/package_matcher"
 require_relative "licensee/matchers/gemspec_matcher"
 require_relative "licensee/matchers/npm_bower_matcher"
 
-class Licensee
+module Licensee
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 90
 

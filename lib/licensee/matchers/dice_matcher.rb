@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   module Matchers
     class Dice
       def initialize(file)

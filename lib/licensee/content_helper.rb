@@ -1,7 +1,7 @@
 require 'set'
 require 'digest'
 
-class Licensee
+module Licensee
   module ContentHelper
 
     DIGEST = Digest::SHA1

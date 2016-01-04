@@ -1,7 +1,7 @@
 require 'uri'
 require 'yaml'
 
-class Licensee
+module Licensee
   class InvalidLicense < ArgumentError; end
   class License
 

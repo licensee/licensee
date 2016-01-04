@@ -1,4 +1,4 @@
-class Licensee
+module Licensee
   class Project
     class Readme < LicenseFile
       SCORES = {
