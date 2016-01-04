@@ -13,9 +13,11 @@ module Licensee
       else
         @repository = Rugged::Repository.new(repo)
       end
-
       @revision = revision
       super(**args)
+    rescue NameError => e
+      raise e unless e.message == "uninitialized constant Licensee::GitProject::Rugged"
+      raise InvalidRepository, "Rugged not initialized"
     rescue Rugged::RepositoryError
       raise InvalidRepository
     end

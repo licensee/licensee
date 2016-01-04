@@ -6,3 +6,7 @@ rvm:
 script: "script/cibuild"
 sudo: false
 cache: bundler
+env:
+  matrix:
+    - RUGGED=0
+    - RUGGED=1

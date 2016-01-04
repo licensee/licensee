@@ -9,11 +9,20 @@ class TestLicensee < Minitest::Test
   end
 
   should "detect a project's license" do
-    assert_equal "mit", Licensee.license(fixture_path("licenses.git")).key
+    fixture = "licenses"
+    fixture << ".git" if ENV["RUGGED"] == "1"
+    assert_equal "mit", Licensee.license(fixture_path(fixture)).key
   end
 
   should "init a project" do
-    assert_equal Licensee::GitProject, Licensee.project(fixture_path("licenses.git")).class
+    fixture = "licenses"
+    if rugged?
+      fixture << ".git"
+      expected = Licensee::GitProject
+    else
+      expected = Licensee::FSProject
+    end
+    assert_equal expected, Licensee.project(fixture_path(fixture)).class
   end
 
   context "confidence threshold" do
