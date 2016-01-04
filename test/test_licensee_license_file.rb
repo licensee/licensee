@@ -2,9 +2,7 @@ require 'helper'
 
 class TestLicenseeLicenseFile < Minitest::Test
   def setup
-    @repo = Rugged::Repository.new(fixture_path("licenses.git"))
-    blob, _ = Rugged::Blob.to_buffer(@repo, 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc')
-    @file = Licensee::Project::LicenseFile.new(blob)
+    @file = licenses_file
   end
 
   context "content" do

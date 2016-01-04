@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.bindir = 'bin'
   gem.executables << 'licensee'
 
-  gem.add_dependency('rugged', '~> 0.23')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('shoulda', '~> 3.5')
   gem.add_development_dependency('rake', '~> 10.3')

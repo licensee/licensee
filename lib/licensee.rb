@@ -21,6 +21,12 @@ require_relative "licensee/matchers/package_matcher"
 require_relative "licensee/matchers/gemspec_matcher"
 require_relative "licensee/matchers/npm_bower_matcher"
 
+begin
+  require 'rugged'
+rescue LoadError
+  puts "WARNING: Rugged not installed. Using file system method instead."
+end
+
 module Licensee
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 90
@@ -41,11 +47,11 @@ module Licensee
       Licensee.project(path).license
     end
 
-    def project(path)
+    def project(path, **args)
       begin
-        Licensee::GitProject.new(path)
+        Licensee::GitProject.new(path, args)
       rescue Licensee::GitProject::InvalidRepository
-        Licensee::FSProject.new(path)
+        Licensee::FSProject.new(path, args)
       end
     end
 

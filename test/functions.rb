@@ -53,3 +53,18 @@ def wrap(text, line_width=80)
   text.gsub! "[COPYRIGHT]", "\n#{copyright}\n" if copyright
   text.strip
 end
+
+def rugged?
+  ENV["RUGGED"] == "1"
+end
+
+def licenses_file
+  if rugged?
+    repo = Rugged::Repository.new(fixture_path("licenses.git"))
+    blob, _ = Rugged::Blob.to_buffer(repo, 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc')
+    Licensee::Project::LicenseFile.new(blob)
+  else
+    text = license_from_path Licensee::License.find("mit").path
+    Licensee::Project::LicenseFile.new(text)
+  end
+end

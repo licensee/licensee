@@ -1,5 +1,3 @@
-require 'rugged'
-
 module Licensee
   private
   class Project

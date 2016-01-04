@@ -6,6 +6,9 @@ class TestLicenseeProject < Minitest::Test
   ["git", "filesystem"].each do |project_type|
     describe("#{project_type} repository project") do
       if project_type == "git"
+        # Only test Git-based repos when Rugged is initialized
+        next unless rugged?
+
         def make_project(fixture_name)
           fixture = fixture_path fixture_name
           Licensee::GitProject.new(fixture)
@@ -79,7 +82,11 @@ class TestLicenseeProject < Minitest::Test
 
   describe "packages" do
     should "detect a package file" do
-      project = Licensee::GitProject.new(fixture_path("npm.git"), detect_packages: true)
+      if rugged?
+        project = Licensee::GitProject.new(fixture_path("npm.git"), detect_packages: true)
+      else
+        project = Licensee::FSProject.new(fixture_path("npm"), detect_packages: true)
+      end
       assert_equal "package.json", project.package_file.filename
       assert_equal "mit", project.license.key
     end
