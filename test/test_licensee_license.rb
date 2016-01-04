@@ -14,7 +14,7 @@ class TestLicenseeLicense < Minitest::Test
   should "read the license body if it contains `---`" do
     license = Licensee::License.new "MIT"
     content = "---\nfoo: bar\n---\nSome license\n---------\nsome text\n"
-    license.instance_variable_set(:@content, content)
+    license.instance_variable_set(:@raw_content, content)
     assert_equal "Some license\n---------\nsome text\n", license.body
   end
 
@@ -103,6 +103,10 @@ class TestLicenseeLicense < Minitest::Test
     refute license.featured?
   end
 
+  should "know the license hash" do
+    assert_equal "fb278496ea4663dfcf41ed672eb7e56eb70de798", @license.hash
+  end
+
   describe "name without version" do
     should "strip the version from the license name" do
       expected = "GNU Affero General Public License"
@@ -128,7 +132,6 @@ class TestLicenseeLicense < Minitest::Test
     should "load the licenses" do
       assert_equal Array, Licensee::License.all.class
       assert_equal 15, Licensee::License.all.size
-      assert_equal 24, Licensee::License.all(:hidden => true).size
       assert_equal Licensee::License, Licensee::License.all.first.class
     end
 
@@ -136,6 +139,14 @@ class TestLicenseeLicense < Minitest::Test
       assert_equal "mit", Licensee::License.find("mit").key
       assert_equal "mit", Licensee::License.find("MIT").key
       assert_equal "mit", Licensee::License["mit"].key
+    end
+
+    should "filter the licenses" do
+      assert_equal 24, Licensee::License.all(:hidden => true).size
+      assert_equal 3,  Licensee::License.all(:featured => true).size
+      assert_equal 12, Licensee::License.all(:featured => false).size
+      assert_equal 21, Licensee::License.all(:featured => false, :hidden => true).size
+      assert_equal 12, Licensee::License.all(:featured => false, :hidden => false).size
     end
   end
 end

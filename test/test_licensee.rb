@@ -12,6 +12,10 @@ class TestLicensee < Minitest::Test
     assert_equal "mit", Licensee.license(fixture_path("licenses.git")).key
   end
 
+  should "init a project" do
+    assert_equal Licensee::GitProject, Licensee.project(fixture_path("licenses.git")).class
+  end
+
   context "confidence threshold" do
     should "return the confidence threshold" do
       assert_equal 90, Licensee.confidence_threshold

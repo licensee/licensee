@@ -1,9 +1,19 @@
 require_relative "licensee/version"
 require_relative "licensee/content_helper"
 require_relative "licensee/license"
-require_relative "licensee/project"
-require_relative "licensee/project_file"
 
+# Projects
+require_relative "licensee/project"
+require_relative "licensee/projects/git_project"
+require_relative "licensee/projects/fs_project"
+
+# Project files
+require_relative "licensee/project_file"
+require_relative "licensee/project_files/license_file"
+require_relative "licensee/project_files/package_info"
+require_relative "licensee/project_files/readme"
+
+# Matchers
 require_relative "licensee/matchers/exact_matcher"
 require_relative "licensee/matchers/copyright_matcher"
 require_relative "licensee/matchers/dice_matcher"
@@ -28,10 +38,14 @@ class Licensee
 
     # Returns the license for a given path
     def license(path)
+      Licensee.project(path).license
+    end
+
+    def project(path)
       begin
-        Licensee::GitProject.new(path).license
+        Licensee::GitProject.new(path)
       rescue Licensee::GitProject::InvalidRepository
-        Licensee::FSProject.new(path).license
+        Licensee::FSProject.new(path)
       end
     end
 

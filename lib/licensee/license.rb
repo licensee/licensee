@@ -6,9 +6,18 @@ class Licensee
   class License
 
     class << self
+
+      # All license objects defined via Licensee (via choosealicense.com)
+      #
+      # Options - :hidden - boolean, whether to return hidden licenses, defaults to false
+      # Options - :featured - boolean, whether to return only (non)featured licenses, defaults to all
+      #
+      # Returns an Array of License objects.
       def all(options={})
-        @all ||= keys.map { |key| self.new(key) }
-        options[:hidden] ? @all : @all.reject { |l| l.hidden? }
+        output = licenses.dup
+        output.reject! { |l| l.hidden? } unless options[:hidden]
+        output.select! { |l| l.featured? == options[:featured] } unless options[:featured].nil?
+        output
       end
 
       def keys
@@ -29,6 +38,12 @@ class Licensee
 
       def license_files
         @license_files ||= Dir.glob("#{license_dir}/*.txt")
+      end
+
+      private
+
+      def licenses
+        @licenses ||= keys.map { |key| self.new(key) }
       end
     end
 
@@ -51,17 +66,6 @@ class Licensee
     # Path to vendored license file on disk
     def path
       @path ||= File.expand_path "#{@key}.txt", Licensee::License.license_dir
-    end
-
-    # Raw content of license file, including YAML front matter
-    def content
-      @content ||= if File.exists?(path)
-        File.open(path).read
-      elsif key == "other" # A pseudo-license with no content
-        nil
-      else
-        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
-      end
     end
 
     # License metadata from YAML front matter
@@ -100,15 +104,12 @@ class Licensee
     end
 
     # The license body (e.g., contents - frontmatter)
-    def body
-      @body ||= parts[2] if parts && parts[2]
+    def content
+      @content ||= parts[2] if parts && parts[2]
     end
-    alias_method :to_s, :body
-    alias_method :text, :body
-
-    def wordset
-      @wordset ||= create_word_set(body)
-    end
+    alias_method :to_s, :content
+    alias_method :text, :content
+    alias_method :body, :content
 
     def inspect
       "#<Licensee::License key=\"#{key}\" name=\"#{name}\">"
@@ -123,8 +124,20 @@ class Licensee
     end
 
     private
+
+    # Raw content of license file, including YAML front matter
+    def raw_content
+      @raw_content ||= if File.exists?(path)
+        File.open(path).read
+      elsif key == "other" # A pseudo-license with no content
+        nil
+      else
+        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
+      end
+    end
+
     def parts
-      @parts ||= content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if content
+      @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if raw_content
     end
   end
 end
