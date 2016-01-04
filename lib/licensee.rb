@@ -9,8 +9,9 @@ require_relative "licensee/projects/fs_project"
 
 # Project files
 require_relative "licensee/project_file"
-require_relative "licensee/project_files/license_file.rb"
-require_relative "licensee/project_files/package_info.rb"
+require_relative "licensee/project_files/license_file"
+require_relative "licensee/project_files/package_info"
+require_relative "licensee/project_files/readme"
 
 # Matchers
 require_relative "licensee/matchers/exact_matcher"
