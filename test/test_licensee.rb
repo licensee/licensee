@@ -10,7 +10,7 @@ class TestLicensee < Minitest::Test
 
   should "detect a project's license" do
     fixture = "licenses"
-    fixture << ".git" if ENV["RUGGED"] == "1"
+    fixture << ".git" if rugged?
     assert_equal "mit", Licensee.license(fixture_path(fixture)).key
   end
 
