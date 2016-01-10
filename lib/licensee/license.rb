@@ -16,10 +16,8 @@ module Licensee
         options = { hidden: false, featured: nil }.merge(options)
         output = licenses.dup
         output.reject!(&:hidden?) unless options[:hidden]
-        unless options[:featured].nil?
-          output.select! { |l| l.featured? == options[:featured] }
-        end
-        output
+        return output if options[:featured].nil?
+        output.select { |l| l.featured? == options[:featured] }
       end
 
       def keys
@@ -30,8 +28,7 @@ module Licensee
 
       def find(key, options = {})
         options = { hidden: true }.merge(options)
-        key = key.downcase
-        all(options).find { |license| license.key == key }
+        all(options).find { |license| license.key == key.downcase }
       end
       alias [] find
       alias find_by_key find
@@ -118,10 +115,6 @@ module Licensee
     alias text content
     alias body content
 
-    def inspect
-      "#<Licensee::License key=\"#{key}\" name=\"#{name}\">"
-    end
-
     def url
       URI.join(Licensee::DOMAIN, "/licenses/#{key}/").to_s
     end
@@ -134,20 +127,17 @@ module Licensee
 
     # Raw content of license file, including YAML front matter
     def raw_content
+      return if key == 'other' # A pseudo-license with no content
       @raw_content ||= if File.exist?(path)
         File.open(path).read
-      elsif key == 'other' # A pseudo-license with no content
-        nil
       else
-        msg = "'#{key}' is not a valid license key"
-        fail Licensee::InvalidLicense, msg
+        fail Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
     end
 
     def parts
-      @parts ||= if raw_content
-        raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
-      end
+      return unless raw_content
+      @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
     end
   end
 end
