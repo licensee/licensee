@@ -6,7 +6,7 @@ require 'benchmark'
 
 def run_benchmark(bench_name, &_block)
   puts "\nBenchmarking #{bench_name}...\n"
-  Benchmark.bm(12, 'sum:', 'average:') do |benchmark|
+  Benchmark.bm(30, 'sum:', 'average:') do |benchmark|
     times = []
     yield benchmark, times
     sum = times.inject { |a, e| a + e }
@@ -18,7 +18,7 @@ end
 puts "Begining benchmark...\n"
 
 # Warm up the license list
-Benchmark.bm(12) do |benchmark|
+Benchmark.bm(30) do |benchmark|
   benchmark.report('Load:') { Licensee::License.all }
 end
 
