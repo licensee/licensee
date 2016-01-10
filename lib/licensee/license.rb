@@ -13,12 +13,13 @@ module Licensee
       #
       # Returns an Array of License objects.
       def all(options = {})
+        options = { hidden: false, featured: nil }.merge(options)
         output = licenses.dup
         output.reject!(&:hidden?) unless options[:hidden]
-        return output unless options[:featured].nil?
-        output.select do |license|
-          license.featured? == options[:featured]
+        unless options[:featured].nil?
+          output.select! { |l| l.featured? == options[:featured] }
         end
+        output
       end
 
       def keys
@@ -98,13 +99,15 @@ module Licensee
     end
 
     def featured?
-      meta && meta['featured']
+      return YAML_DEFAULTS['featured'] unless meta
+      meta['featured']
     end
     alias featured featured?
 
     def hidden?
       return true if HIDDEN_LICENSES.include?(key)
-      meta && meta['hidden']
+      return YAML_DEFAULTS['hidden'] unless meta
+      meta['hidden']
     end
 
     # The license body (e.g., contents - frontmatter)
