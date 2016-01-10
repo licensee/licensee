@@ -13,7 +13,8 @@ class TestLicensee < Minitest::Test
   end
 
   should 'init a project' do
-    assert_equal Licensee::GitProject, Licensee.project(fixture_path('licenses.git')).class
+    project = Licensee.project(fixture_path('licenses.git'))
+    assert_equal Licensee::GitProject, project.class
   end
 
   context 'confidence threshold' do

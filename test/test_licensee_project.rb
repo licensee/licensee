@@ -78,14 +78,17 @@ class TestLicenseeProject < Minitest::Test
 
   describe 'packages' do
     should 'detect a package file' do
-      project = Licensee::GitProject.new(fixture_path('npm.git'), detect_packages: true)
+      path = fixture_path('npm.git')
+      options = { detect_packages: true }
+      project = Licensee::GitProject.new(path, options)
       assert_equal 'package.json', project.package_file.filename
       assert_equal 'mit', project.license.key
     end
 
     should 'skip readme if no license content' do
-      project = Licensee::FSProject.new(fixture_path('bower-with-readme'),
-                                        detect_packages: true, detect_readme: true)
+      path = fixture_path('bower-with-readme')
+      options = { detect_packages: true, detect_readme: true }
+      project = Licensee::FSProject.new(path, options)
       assert_equal 'mit', project.license.key
     end
   end

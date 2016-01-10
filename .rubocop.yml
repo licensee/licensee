@@ -3,7 +3,13 @@ AllCops:
   Exclude:
     - tmp/**/*
     - vendor/**/*
+    - test/fixtures/**/*
+    - test/functions.rb
 
 Style/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
+
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*

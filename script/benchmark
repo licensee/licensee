@@ -9,7 +9,7 @@ def run_benchmark(bench_name, &_block)
   Benchmark.bm(12, 'sum:', 'average:') do |benchmark|
     times = []
     yield benchmark, times
-    sum = times.inject(nil) { |sum, t| sum.nil? ? sum = t : sum += t }
+    sum = times.inject { |a, e| a + e }
     avg = sum / times.size
     [sum, avg]
   end

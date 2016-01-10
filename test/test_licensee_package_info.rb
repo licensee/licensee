@@ -11,7 +11,8 @@ class TestLicenseePackageInfo < Minitest::Test
 
     EXPECTATIONS.each do |filename, expected|
       should "score a license named `#{filename}` as `#{expected}`" do
-        assert_equal expected, Licensee::Project::PackageInfo.name_score(filename)
+        score = Licensee::Project::PackageInfo.name_score(filename)
+        assert_equal expected, score
       end
     end
   end

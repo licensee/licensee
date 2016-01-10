@@ -4,6 +4,8 @@ set -e
 
 bundle exec rake test
 
+bundle exec rubocop
+
 bundle exec script/benchmark
 
 gem build licensee.gemspec

@@ -49,4 +49,4 @@ class TestLicenseeCopyrightMatchers < Minitest::Test
     file = Licensee::Project::LicenseFile.new(text)
     assert_equal 'no-license', Licensee::Matchers::Copyright.new(file).match.key
   end
- end
+end

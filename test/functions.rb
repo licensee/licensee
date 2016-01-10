@@ -39,16 +39,27 @@ def verify_license_file(license, chaos = false, wrap = false)
   msg = "No match for #{expected}."
 
   assert actual, msg
-  assert_equal expected, actual.key, "expeceted #{expected} but got #{actual.key} for .match. Confidence: #{license_file.confidence}. Method: #{license_file.matcher.class}"
+
+  msg = "Expeceted #{expected} but got #{actual.key} for .match. "
+  msg << "Confidence: #{license_file.confidence}. "
+  msg << "Method: #{license_file.matcher.class}"
+  assert_equal expected, actual.key, msg
 end
 
 def wrap(text, line_width = 80)
   text = text.clone
   copyright = /^#{Licensee::Matchers::Copyright::REGEX}$/i.match(text)
-  text.gsub! /^#{Licensee::Matchers::Copyright::REGEX}$/i, '[COPYRIGHT]' if copyright
-  text.gsub! /([^\n])\n([^\n])/, '\1 \2'
+  if copyright
+    text.gsub!(/^#{Licensee::Matchers::Copyright::REGEX}$/i, '[COPYRIGHT]')
+  end
+  text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
+
   text = text.split("\n").collect do |line|
-    line.length > line_width ? line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip : line
+    if line.length > line_width
+      line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
+    else
+      line
+    end
   end * "\n"
   text.gsub! '[COPYRIGHT]', "\n#{copyright}\n" if copyright
   text.strip

@@ -7,7 +7,8 @@ class TestLicenseeLicense < Minitest::Test
 
   should 'read the license body' do
     assert @license.body
-    assert @license.text =~ /MIT/, "Expected the following license body to contain MIT:\n#{@license.body}"
+    msg = "Expected the following to contain MIT:\n#{@license.body}"
+    assert @license.text =~ /MIT/, msg
   end
 
   should 'read the license body if it contains `---`' do
@@ -22,7 +23,8 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'know the license path' do
-    assert_equal File.expand_path('./vendor/choosealicense.com/_licenses/mit.txt'), @license.path
+    path = File.expand_path('./vendor/choosealicense.com/_licenses/mit.txt')
+    assert_equal path, @license.path
   end
 
   should 'know the license name' do
@@ -92,7 +94,9 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'fail loudly for invalid licenses' do
-    assert_raises(Licensee::InvalidLicense) { Licensee::License.new('foo').name }
+    assert_raises(Licensee::InvalidLicense) do
+      Licensee::License.new('foo').name
+    end
   end
 
   should "support 'other' licenses" do
@@ -109,10 +113,15 @@ class TestLicenseeLicense < Minitest::Test
   describe 'name without version' do
     should 'strip the version from the license name' do
       expected = 'GNU Affero General Public License'
-      assert_equal expected, Licensee::License.find('agpl-3.0').name_without_version
+      name = Licensee::License.find('agpl-3.0').name_without_version
+      assert_equal expected, name
+
       expected = 'GNU General Public License'
-      assert_equal expected,  Licensee::License.find('gpl-2.0').name_without_version
-      assert_equal expected,  Licensee::License.find('gpl-3.0').name_without_version
+      name = Licensee::License.find('gpl-2.0').name_without_version
+      assert_equal expected, name
+
+      name = Licensee::License.find('gpl-3.0').name_without_version
+      assert_equal expected, name
     end
 
     Licensee.licenses.each do |license|
@@ -144,8 +153,12 @@ class TestLicenseeLicense < Minitest::Test
       assert_equal 24, Licensee::License.all(hidden: true).size
       assert_equal 3,  Licensee::License.all(featured: true).size
       assert_equal 12, Licensee::License.all(featured: false).size
-      assert_equal 21, Licensee::License.all(featured: false, hidden: true).size
-      assert_equal 12, Licensee::License.all(featured: false, hidden: false).size
+
+      licenses = Licensee::License.all(featured: false, hidden: true)
+      assert_equal 21, licenses.size
+
+      licenses = Licensee::License.all(featured: false, hidden: false)
+      assert_equal 12, licenses.size
     end
   end
 end

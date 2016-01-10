@@ -10,7 +10,9 @@ class TestLicenseeVendor < Minitest::Test
 
     context 'when modified' do
       should "detect the #{license} license" do
-        verify_license_file(license, true) unless SKIP.include?(File.basename(license, '.txt'))
+        unless SKIP.include?(File.basename(license, '.txt'))
+          verify_license_file(license, true)
+        end
       end
     end
 
@@ -21,7 +23,9 @@ class TestLicenseeVendor < Minitest::Test
 
       context 'when modified' do
         should "detect the #{license} license" do
-          verify_license_file(license, true, 50) unless SKIP.include?(File.basename(license, '.txt'))
+          unless SKIP.include?(File.basename(license, '.txt'))
+            verify_license_file(license, true, 50)
+          end
         end
       end
     end

@@ -3,7 +3,8 @@ require 'helper'
 class TestLicenseeLicenseFile < Minitest::Test
   def setup
     @repo = Rugged::Repository.new(fixture_path('licenses.git'))
-    blob, = Rugged::Blob.to_buffer(@repo, 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc')
+    ref   = 'bcb552d06d9cf1cd4c048a6d3bf716849c2216cc'
+    blob, = Rugged::Blob.to_buffer(@repo, ref)
     @file = Licensee::Project::LicenseFile.new(blob)
   end
 
@@ -49,7 +50,8 @@ class TestLicenseeLicenseFile < Minitest::Test
 
     EXPECTATIONS.each do |filename, expected|
       should "score a license named `#{filename}` as `#{expected}`" do
-        assert_equal expected, Licensee::Project::LicenseFile.name_score(filename)
+        score = Licensee::Project::LicenseFile.name_score(filename)
+        assert_equal expected, score
       end
     end
   end
