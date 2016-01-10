@@ -4,7 +4,9 @@ module Licensee
       # We definitely don't want to be evaling arbitrary Gemspec files
       # While not 100% accurate, use some lenient regex to try to grep the
       # license declaration from the Gemspec as a string, if any
-      LICENSE_REGEX = /^\s*[a-z0-9_]+\.license\s*\=\s*[\'\"]([a-z\-0-9\.]+)[\'\"]\s*$/i
+      LICENSE_REGEX = /
+        ^\s*[a-z0-9_]+\.license\s*\=\s*[\'\"]([a-z\-0-9\.]+)[\'\"]\s*$
+        /ix
 
       private
 

@@ -13,6 +13,6 @@ class TestLicenseeBin < Minitest::Test
     assert stdout.include?('License file: LICENSE.md'), msg
 
     assert_equal 0, status
-    assert stderr.nil?
+    assert stderr.empty?
   end
 end

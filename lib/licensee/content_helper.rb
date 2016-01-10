@@ -6,7 +6,9 @@ module Licensee
     DIGEST = Digest::SHA1
 
     def wordset
-      @wordset ||= content_normalized.scan(/[\w']+/).to_set if content_normalized
+      @wordset ||= if content_normalized
+        content_normalized.scan(/[\w']+/).to_set
+      end
     end
 
     def hash

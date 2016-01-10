@@ -3,12 +3,15 @@ require_relative '../lib/licensee'
 
 path = ARGV[0] || Dir.pwd
 
-project = Licensee::GitProject.new(path, detect_packages: true, detect_readme: true)
+options = { detect_packages: true, detect_readme: true }
+project = Licensee::GitProject.new(path, options)
 file = project.matched_file
 
 if project.license_file
   puts "License file: #{project.license_file.filename}"
-  puts "Attribution: #{project.license_file.attribution}" if project.license_file.attribution
+  if project.license_file.attribution
+    puts "Attribution: #{project.license_file.attribution}"
+  end
 end
 
 if file

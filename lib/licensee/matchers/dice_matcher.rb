@@ -16,9 +16,9 @@ module Licensee
         end
         matches.compact!
         @match = if matches.empty?
-                   nil
-                 else
-                   matches.max_by { |_l, sim| sim }.first
+          nil
+        else
+          matches.max_by { |_l, sim| sim }.first
         end
       end
 
@@ -45,7 +45,9 @@ module Licensee
       # Maximum possible difference between file length and license length
       # for a license to be a potential license to be matched
       def max_delta
-        @max_delta ||= (@file.wordset.size * (Licensee.confidence_threshold / 100.0))
+        @max_delta ||= (
+          @file.wordset.size * (Licensee.confidence_threshold / 100.0)
+        )
       end
 
       # Confidence that the matched license is a match

@@ -1,13 +1,12 @@
 module Licensee
   class Project
-    private
-
     class File
       attr_reader :content, :filename
 
       def initialize(content, filename = nil)
         @content = content
-        @content.encode!(Encoding::UTF_8, invalid: :replace, undef: :replace, replace: '')
+        options = { invalid: :replace, undef: :replace, replace: '' }
+        @content.encode!(Encoding::UTF_8, options)
         @filename = filename
       end
 

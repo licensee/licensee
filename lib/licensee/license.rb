@@ -7,19 +7,24 @@ module Licensee
     class << self
       # All license objects defined via Licensee (via choosealicense.com)
       #
-      # Options - :hidden - boolean, whether to return hidden licenses, defaults to false
-      # Options - :featured - boolean, whether to return only (non)featured licenses, defaults to all
+      # Options:
+      # - :hidden - boolean, return hidden licenses (default: false)
+      # - :featured - boolean, return only (non)featured licenses (default: all)
       #
       # Returns an Array of License objects.
       def all(options = {})
         output = licenses.dup
         output.reject!(&:hidden?) unless options[:hidden]
-        output.select! { |l| l.featured? == options[:featured] } unless options[:featured].nil?
-        output
+        return output unless options[:featured].nil?
+        output.select do |license|
+          license.featured? == options[:featured]
+        end
       end
 
       def keys
-        @keys ||= license_files.map { |l| File.basename(l, '.txt').downcase } + ['other']
+        @keys ||= license_files.map do |license_file|
+          File.basename(license_file, '.txt').downcase
+        end + ['other']
       end
 
       def find(key, options = {})
@@ -31,7 +36,8 @@ module Licensee
       alias find_by_key find
 
       def license_dir
-        File.expand_path '../../vendor/choosealicense.com/_licenses', File.dirname(__FILE__)
+        dir = File.dirname(__FILE__)
+        File.expand_path '../../vendor/choosealicense.com/_licenses', dir
       end
 
       def license_files
@@ -69,12 +75,12 @@ module Licensee
     # License metadata from YAML front matter
     def meta
       @meta ||= if parts && parts[1]
-                  meta = if YAML.respond_to? :safe_load
-                           YAML.safe_load(parts[1])
-                         else
-                           YAML.load(parts[1])
-                  end
-                  YAML_DEFAULTS.merge(meta)
+        meta = if YAML.respond_to? :safe_load
+          YAML.safe_load(parts[1])
+        else
+          YAML.load(parts[1])
+        end
+        YAML_DEFAULTS.merge(meta)
       end
     end
 
@@ -92,13 +98,13 @@ module Licensee
     end
 
     def featured?
-      !!(meta['featured'] if meta)
+      meta && meta['featured']
     end
     alias featured featured?
 
     def hidden?
       return true if HIDDEN_LICENSES.include?(key)
-      !!(meta['hidden'] if meta)
+      meta && meta['hidden']
     end
 
     # The license body (e.g., contents - frontmatter)
@@ -126,16 +132,19 @@ module Licensee
     # Raw content of license file, including YAML front matter
     def raw_content
       @raw_content ||= if File.exist?(path)
-                         File.open(path).read
-                       elsif key == 'other' # A pseudo-license with no content
-                         nil
-                       else
-                         fail Licensee::InvalidLicense, "'#{key}' is not a valid license key"
+        File.open(path).read
+      elsif key == 'other' # A pseudo-license with no content
+        nil
+      else
+        msg = "'#{key}' is not a valid license key"
+        fail Licensee::InvalidLicense, msg
       end
     end
 
     def parts
-      @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a if raw_content
+      @parts ||= if raw_content
+        raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
+      end
     end
   end
 end

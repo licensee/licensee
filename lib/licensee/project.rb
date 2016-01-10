@@ -1,23 +1,17 @@
 require 'rugged'
 
 module Licensee
-  private
-
   class Project
+    attr_reader :detect_readme, :detect_packages
+    alias detect_readme? detect_readme
+    alias detect_packages? detect_packages
+
     def initialize(detect_packages: false, detect_readme: false)
       @detect_packages = detect_packages
       @detect_readme = detect_readme
     end
 
-    def detect_readme?
-      @detect_readme
-    end
-
-    def detect_packages?
-      @detect_packages
-    end
-
-    # Returns the matching Licensee::License instance if a license can be detected
+    # Returns the matching License instance if a license can be detected
     def license
       @license ||= matched_file && matched_file.license
     end
