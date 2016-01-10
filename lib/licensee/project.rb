@@ -2,6 +2,7 @@ require 'rugged'
 
 module Licensee
   private
+
   class Project
     def initialize(detect_packages: false, detect_readme: false)
       @detect_packages = detect_packages
@@ -29,9 +30,7 @@ module Licensee
       return @license_file if defined? @license_file
       @license_file = begin
         content, name = find_file { |name| LicenseFile.name_score(name) }
-        if content && name
-          LicenseFile.new(content, name)
-        end
+        LicenseFile.new(content, name) if content && name
       end
     end
 
@@ -41,9 +40,7 @@ module Licensee
       @readme = begin
         content, name = find_file { |name| Readme.name_score(name) }
         content = Readme.license_content(content)
-        if content && name
-          Readme.new(content, name)
-        end
+        Readme.new(content, name) if content && name
       end
     end
 
@@ -52,9 +49,7 @@ module Licensee
       return @package_file if defined? @package_file
       @package_file = begin
         content, name = find_file { |name| PackageInfo.name_score(name) }
-        if content && name
-          PackageInfo.new(content, name)
-        end
+        PackageInfo.new(content, name) if content && name
       end
     end
   end

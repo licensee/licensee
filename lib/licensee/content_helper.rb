@@ -3,7 +3,6 @@ require 'digest'
 
 module Licensee
   module ContentHelper
-
     DIGEST = Digest::SHA1
 
     def wordset
@@ -19,7 +18,7 @@ module Licensee
       @content_normalized ||= begin
         content_normalized = content.downcase.strip
         content_normalized.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
-        content_normalized.gsub("\n", " ").squeeze(" ")
+        content_normalized.tr("\n", ' ').squeeze(' ')
       end
     end
   end

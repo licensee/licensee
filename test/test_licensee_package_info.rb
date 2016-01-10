@@ -1,13 +1,13 @@
 require 'helper'
 
 class TestLicenseePackageInfo < Minitest::Test
-  context "license filename scoring" do
+  context 'license filename scoring' do
     EXPECTATIONS = {
-      "licensee.gemspec" => 1.0,
-      "package.json"     => 1.0,
-      "bower.json"       => 0.75,
-      "README.md"        => 0.0
-    }
+      'licensee.gemspec' => 1.0,
+      'package.json'     => 1.0,
+      'bower.json'       => 0.75,
+      'README.md'        => 0.0
+    }.freeze
 
     EXPECTATIONS.each do |filename, expected|
       should "score a license named `#{filename}` as `#{expected}`" do

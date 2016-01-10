@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative "../lib/licensee"
+require_relative '../lib/licensee'
 
 path = ARGV[0] || Dir.pwd
 
@@ -16,5 +16,5 @@ if file
   puts "Confidence: #{file.confidence}%"
   puts "Method: #{file.matcher.class}"
 else
-  puts "Unknown"
+  puts 'Unknown'
 end

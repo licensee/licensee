@@ -6,7 +6,7 @@ module Licensee
       end
 
       def match
-        Licensee.licenses(:hidden => true).find { |l| l.wordset == @file.wordset }
+        Licensee.licenses(hidden: true).find { |l| l.wordset == @file.wordset }
       end
 
       def confidence

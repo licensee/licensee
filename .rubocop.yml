@@ -1,0 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.0
+  Exclude:
+    - tmp/**/*
+    - vendor/**/*
+
+Style/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table

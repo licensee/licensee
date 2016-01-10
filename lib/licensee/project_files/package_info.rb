@@ -3,9 +3,9 @@ module Licensee
     class PackageInfo < Licensee::Project::File
       def possible_matchers
         case ::File.extname(filename)
-        when ".gemspec"
+        when '.gemspec'
           [Matchers::Gemspec]
-        when ".json"
+        when '.json'
           [Matchers::NpmBower]
         else
           []
@@ -13,10 +13,10 @@ module Licensee
       end
 
       def self.name_score(filename)
-        return 1.0  if ::File.extname(filename) == ".gemspec"
-        return 1.0  if filename == "package.json"
-        return 0.75 if filename == "bower.json"
-        return 0.0
+        return 1.0  if ::File.extname(filename) == '.gemspec'
+        return 1.0  if filename == 'package.json'
+        return 0.75 if filename == 'bower.json'
+        0.0
       end
     end
   end

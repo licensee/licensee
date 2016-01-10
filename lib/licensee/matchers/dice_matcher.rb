@@ -16,9 +16,9 @@ module Licensee
         end
         matches.compact!
         @match = if matches.empty?
-          nil
-        else
-          matches.max_by { |l, sim| sim }.first
+                   nil
+                 else
+                   matches.max_by { |_l, sim| sim }.first
         end
       end
 
@@ -28,7 +28,7 @@ module Licensee
       # the confidence threshold / 100
       def potential_licenses
         @potential_licenses ||= begin
-          licenses = Licensee.licenses(:hidden => true)
+          licenses = Licensee.licenses(hidden: true)
           licenses = licenses.select do |license|
             license.wordset && length_delta(license) <= max_delta
           end
@@ -45,7 +45,7 @@ module Licensee
       # Maximum possible difference between file length and license length
       # for a license to be a potential license to be matched
       def max_delta
-        @max_delta ||= (@file.wordset.size * (Licensee.confidence_threshold/100.0))
+        @max_delta ||= (@file.wordset.size * (Licensee.confidence_threshold / 100.0))
       end
 
       # Confidence that the matched license is a match
@@ -54,6 +54,7 @@ module Licensee
       end
 
       private
+
       # Calculate percent changed between file and potential license
       def similarity(license)
         overlap = (@file.wordset & license.wordset).size

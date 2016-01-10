@@ -6,7 +6,7 @@ module Licensee
       end
 
       def match
-        Licensee.licenses(:hidden => true).find { |l| l.key == license_property }
+        Licensee.licenses(hidden: true).find { |l| l.key == license_property }
       end
 
       def confidence
