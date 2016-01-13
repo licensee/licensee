@@ -20,8 +20,8 @@ class TestLicenseeCopyrightMatchers < Minitest::Test
     assert_equal 'no-license', Licensee::Matchers::Copyright.new(file).match.key
   end
 
-  should "match Copyright © copyright notices" do
-    text = "copyright © 2015 Ben Balter"
+  should 'match Copyright © copyright notices' do
+    text = 'copyright © 2015 Ben Balter'
     file = Licensee::Project::LicenseFile.new(text)
     assert_equal 'no-license', Licensee::Matchers::Copyright.new(file).match.key
   end
@@ -33,7 +33,7 @@ class TestLicenseeCopyrightMatchers < Minitest::Test
   end
 
   should 'handle UTF-8 encoded copyright notices' do
-    text = "Copyright (c) 2010-2014 Simon Hürlimann"
+    text = 'Copyright (c) 2010-2014 Simon Hürlimann'
     file = Licensee::Project::LicenseFile.new(text)
     assert_equal 'no-license', Licensee::Matchers::Copyright.new(file).match.key
   end

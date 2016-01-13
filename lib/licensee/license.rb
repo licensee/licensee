@@ -30,8 +30,8 @@ module Licensee
         options = { hidden: true }.merge(options)
         all(options).find { |license| license.key == key.downcase }
       end
-      alias [] find
-      alias find_by_key find
+      alias_method :[], :find
+      alias_method :find_by_key, :find
 
       def license_dir
         dir = File.dirname(__FILE__)
@@ -99,7 +99,7 @@ module Licensee
       return YAML_DEFAULTS['featured'] unless meta
       meta['featured']
     end
-    alias featured featured?
+    alias_method :featured, :featured?
 
     def hidden?
       return true if HIDDEN_LICENSES.include?(key)
@@ -111,9 +111,9 @@ module Licensee
     def content
       @content ||= parts[2] if parts && parts[2]
     end
-    alias to_s content
-    alias text content
-    alias body content
+    alias_method :to_s, :content
+    alias_method :text, :content
+    alias_method :body, :content
 
     def url
       URI.join(Licensee::DOMAIN, "/licenses/#{key}/").to_s

@@ -20,3 +20,9 @@ Style/Documentation:
 Lint/EndAlignment:
   AlignWith: variable
   AutoCorrect: true
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
