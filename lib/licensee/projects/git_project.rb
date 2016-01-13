@@ -8,10 +8,10 @@ module Licensee
     class InvalidRepository < ArgumentError; end
 
     def initialize(repo, revision: nil, **args)
-      if repo.kind_of? Rugged::Repository
-        @repository = repo
+      @repository = if repo.is_a? Rugged::Repository
+        repo
       else
-        @repository = Rugged::Repository.new(repo)
+        Rugged::Repository.new(repo)
       end
 
       @revision = revision
@@ -21,14 +21,19 @@ module Licensee
     end
 
     private
+
     def commit
-      @commit ||= revision ? repository.lookup(revision) : repository.last_commit
+      @commit ||= if revision
+        repository.lookup(revision)
+      else
+        repository.last_commit
+      end
     end
 
     MAX_LICENSE_SIZE = 64 * 1024
 
     def load_blob_data(oid)
-      data, _ = Rugged::Blob.to_buffer(repository, oid, MAX_LICENSE_SIZE)
+      data, = Rugged::Blob.to_buffer(repository, oid, MAX_LICENSE_SIZE)
       data
     end
 
@@ -36,7 +41,7 @@ module Licensee
       files = commit.tree.map do |entry|
         next unless entry[:type] == :blob
         if (score = yield entry[:name]) > 0
-          { :name => entry[:name], :oid => entry[:oid], :score => score }
+          { name: entry[:name], oid: entry[:oid], score: score }
         end
       end.compact
 

@@ -1,0 +1,27 @@
+AllCops:
+  Exclude:
+    - tmp/**/*
+    - vendor/**/*
+    - test/fixtures/**/*
+    - test/functions.rb
+
+Style/AlignHash:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Lint/EndAlignment:
+  AlignWith: variable
+  AutoCorrect: true
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

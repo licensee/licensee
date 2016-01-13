@@ -18,7 +18,7 @@ module Licensee
         return 0.8 if filename =~ /\Acopy(ing|right)(\.[^.]+)?\z/i
         return 0.7 if filename =~ /\A(un)?licen[sc]e\.[^.]+\z/i
         return 0.5 if filename =~ /licen[sc]e/i
-        return 0.0
+        0.0
       end
     end
   end

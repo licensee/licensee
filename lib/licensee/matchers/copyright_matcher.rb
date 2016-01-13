@@ -11,7 +11,7 @@ module Licensee
       def match
         # Note: must use content, and not content_normalized here
         if @file.content.strip =~ /\A#{REGEX}\z/i
-          Licensee::License.find("no-license")
+          Licensee::License.find('no-license')
         end
       rescue
         nil

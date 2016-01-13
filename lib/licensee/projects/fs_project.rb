@@ -11,13 +11,14 @@ module Licensee
     end
 
     private
+
     def find_file
       files = []
 
       Dir.foreach(path) do |file|
         next unless ::File.file?(::File.join(path, file))
         if (score = yield file) > 0
-          files.push({ :name => file, :score => score })
+          files.push(name: file, score: score)
         end
       end
 
