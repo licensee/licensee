@@ -18,18 +18,19 @@ using:
 required:
   - disclose-source
   - include-copyright
+  - same-license
 
 permitted:
   - commercial-use
   - distribution
   - modifications
-  - sublicense
   - patent-use
   - private-use
 
 forbidden:
   - no-liability
 
+hidden: false
 ---
 
 Eclipse Public License - v 1.0

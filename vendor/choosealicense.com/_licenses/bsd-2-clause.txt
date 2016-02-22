@@ -1,7 +1,6 @@
 ---
 title: BSD 2-clause "Simplified" License
-nickname: Simplified BSD
-tab-slug: bsd
+nickname: BSD 2-Clause
 redirect_from: /licenses/bsd/
 family: BSD
 variant: true
@@ -18,12 +17,12 @@ permitted:
   - commercial-use
   - modifications
   - distribution
-  - sublicense
   - private-use
 
 forbidden:
   - no-liability
 
+hidden: false
 ---
 
 Copyright (c) [year], [fullname]

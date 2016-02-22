@@ -23,15 +23,15 @@ module Licensee
       def keys
         @keys ||= license_files.map do |license_file|
           File.basename(license_file, '.txt').downcase
-        end + ['other']
+        end + PSEUDO_LICENSES
       end
 
       def find(key, options = {})
         options = { hidden: true }.merge(options)
-        all(options).find { |license| license.key == key.downcase }
+        all(options).find { |license| key.casecmp(license.key).zero? }
       end
-      alias_method :[], :find
-      alias_method :find_by_key, :find
+      alias [] find
+      alias find_by_key find
 
       def license_dir
         dir = File.dirname(__FILE__)
@@ -51,13 +51,20 @@ module Licensee
 
     attr_reader :key
 
+    # These should be in sync with choosealicense.com's collection defaults
     YAML_DEFAULTS = {
       'featured' => false,
-      'hidden'   => false,
+      'hidden'   => true,
       'variant'  => false
     }.freeze
 
-    HIDDEN_LICENSES = %w(other no-license).freeze
+    # Pseudo-license are license placeholders with no content
+    #
+    # `other` - The project had a license, but we were not able to detect it
+    # `no-license` - The project is not licensed (e.g., all rights reserved)
+    #
+    # Note: A lack of detected license will be a nil license
+    PSEUDO_LICENSES = %w(other no-license).freeze
 
     include Licensee::ContentHelper
 
@@ -99,10 +106,10 @@ module Licensee
       return YAML_DEFAULTS['featured'] unless meta
       meta['featured']
     end
-    alias_method :featured, :featured?
+    alias featured featured?
 
     def hidden?
-      return true if HIDDEN_LICENSES.include?(key)
+      return true if PSEUDO_LICENSES.include?(key)
       return YAML_DEFAULTS['hidden'] unless meta
       meta['hidden']
     end
@@ -111,9 +118,9 @@ module Licensee
     def content
       @content ||= parts[2] if parts && parts[2]
     end
-    alias_method :to_s, :content
-    alias_method :text, :content
-    alias_method :body, :content
+    alias to_s content
+    alias text content
+    alias body content
 
     def url
       URI.join(Licensee::DOMAIN, "/licenses/#{key}/").to_s
@@ -125,13 +132,17 @@ module Licensee
 
     private
 
+    def pseudo_license?
+      PSEUDO_LICENSES.include?(key)
+    end
+
     # Raw content of license file, including YAML front matter
     def raw_content
-      return if key == 'other' # A pseudo-license with no content
+      return if pseudo_license?
       @raw_content ||= if File.exist?(path)
         File.open(path).read
       else
-        fail Licensee::InvalidLicense, "'#{key}' is not a valid license key"
+        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
     end
 

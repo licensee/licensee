@@ -1,6 +1,5 @@
 ---
 title: Apache License 2.0
-nickname: Apache
 redirect_from: /licenses/apache/
 featured: true
 source: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -19,7 +18,6 @@ permitted:
   - commercial-use
   - modifications
   - distribution
-  - sublicense
   - patent-use
   - private-use
 
@@ -27,6 +25,7 @@ forbidden:
   - trademark-use
   - no-liability
 
+hidden: false
 ---
 
                                  Apache License

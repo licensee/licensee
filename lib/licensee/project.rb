@@ -3,8 +3,8 @@ require 'rugged'
 module Licensee
   class Project
     attr_reader :detect_readme, :detect_packages
-    alias_method :detect_readme?, :detect_readme
-    alias_method :detect_packages?, :detect_packages
+    alias detect_readme? detect_readme
+    alias detect_packages? detect_packages
 
     def initialize(detect_packages: false, detect_readme: false)
       @detect_packages = detect_packages

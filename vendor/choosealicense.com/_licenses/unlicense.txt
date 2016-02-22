@@ -1,6 +1,5 @@
 ---
 title: The Unlicense
-tab-slug: unlicense
 family: Public Domain Dedication
 source: http://unlicense.org/UNLICENSE
 
@@ -15,13 +14,13 @@ permitted:
   - commercial-use
   - modifications
   - distribution
-  - sublicense
 
 forbidden:
   - no-liability
 
 required: []
 
+hidden: false
 ---
 
 This is free and unencumbered software released into the public domain.

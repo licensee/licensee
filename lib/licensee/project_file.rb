@@ -23,8 +23,8 @@ module Licensee
         matcher && matcher.match
       end
 
-      alias_method :match, :license
-      alias_method :path, :filename
+      alias match license
+      alias path filename
     end
   end
 end
