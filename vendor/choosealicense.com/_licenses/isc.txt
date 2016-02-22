@@ -1,6 +1,5 @@
 ---
 title: ISC License
-tab-slug: isc
 family: BSD
 source: http://opensource.org/licenses/isc-license
 
@@ -16,11 +15,11 @@ permitted:
   - distribution
   - modifications
   - private-use
-  - sublicense
 
 forbidden:
   - no-liability
 
+hidden: false
 ---
 
 Copyright (c) [year], [fullname]
