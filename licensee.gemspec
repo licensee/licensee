@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
 
   gem.authors  = ['Ben Balter']
   gem.email    = 'ben.balter@github.com'
-  gem.homepage = 'http://github.com/benbalter/licensee'
+  gem.homepage = 'https://github.com/benbalter/licensee'
   gem.license  = 'MIT'
 
   gem.bindir = 'bin'
