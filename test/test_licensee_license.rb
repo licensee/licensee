@@ -134,7 +134,7 @@ class TestLicenseeLicense < Minitest::Test
   describe 'class methods' do
     should 'know license names' do
       assert_equal Array, Licensee::License.keys.class
-      assert_equal 26, Licensee::License.keys.size
+      assert_equal 28, Licensee::License.keys.size
     end
 
     should 'load the licenses' do
@@ -150,12 +150,12 @@ class TestLicenseeLicense < Minitest::Test
     end
 
     should 'filter the licenses' do
-      assert_equal 26, Licensee::License.all(hidden: true).size
+      assert_equal 28, Licensee::License.all(hidden: true).size
       assert_equal 3,  Licensee::License.all(featured: true).size
       assert_equal 12, Licensee::License.all(featured: false).size
 
       licenses = Licensee::License.all(featured: false, hidden: true)
-      assert_equal 23, licenses.size
+      assert_equal 25, licenses.size
 
       licenses = Licensee::License.all(featured: false, hidden: false)
       assert_equal 12, licenses.size
