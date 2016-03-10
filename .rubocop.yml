@@ -23,5 +23,8 @@ Lint/EndAlignment:
 Metrics/MethodLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+  
 Metrics/AbcSize:
   Enabled: false
