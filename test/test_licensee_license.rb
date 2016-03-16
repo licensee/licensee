@@ -90,7 +90,7 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'strip leading newlines from the license' do
-    assert_equal 'T', @license.body[0]
+    assert_equal 'M', @license.body[0]
   end
 
   should 'fail loudly for invalid licenses' do
@@ -107,7 +107,7 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'know the license hash' do
-    assert_equal 'fb278496ea4663dfcf41ed672eb7e56eb70de798', @license.hash
+    assert_equal '750260c322080bab4c19fd55eb78bc73e1ae8f11', @license.hash
   end
 
   describe 'name without version' do

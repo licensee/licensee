@@ -66,13 +66,29 @@ class TestLicenseeProject < Minitest::Test
     end
   end
 
-  describe 'mit license with title removed' do
-    should 'detect the MIT license' do
+  describe 'licenses with title removed or altered' do
+    should 'detect the MIT license without title' do
       verify_license_file fixture_path('mit-without-title/mit.txt')
     end
 
     should 'should detect the MIT license when rewrapped' do
       verify_license_file fixture_path('mit-without-title-rewrapped/mit.txt')
+    end
+
+    should 'detect the MIT license with redundant title' do
+      verify_license_file fixture_path('mit-with-redundant-title/mit.txt')
+    end
+
+    should 'detect the BSD 2-clause license without title' do
+      verify_license_file fixture_path('bsd-2-clause-without-title/bsd-2-clause.txt')
+    end
+
+    should 'detect the BSD 3-Clause license without title' do
+      verify_license_file fixture_path('bsd-3-clause-without-title/bsd-3-clause.txt')
+    end
+
+    should 'detect the ISC license without title' do
+      verify_license_file fixture_path('isc-without-title/isc.txt')
     end
   end
 
