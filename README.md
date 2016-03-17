@@ -31,6 +31,8 @@ Confidence: 98.42%
 Matcher: Licensee::GitMatcher
 ```
 
+Alternately, `licensee <directory>` will treat the argument as the project directory, and `licensee <file>` will attempt to match the individual file specified, both with output that looks like the above.
+
 ## License API
 
 ```ruby

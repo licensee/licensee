@@ -3,21 +3,34 @@ require_relative '../lib/licensee'
 
 path = ARGV[0] || Dir.pwd
 
-options = { detect_packages: true, detect_readme: true }
-project = Licensee::GitProject.new(path, options)
-file = project.matched_file
-
-if project.license_file
-  puts "License file: #{project.license_file.filename}"
-  if project.license_file.attribution
-    puts "Attribution: #{project.license_file.attribution}"
+def print_file(license_file)
+  if license_file
+    puts "License file: #{license_file.filename}"
+    # if license_file.attribution
+    puts "Attribution: #{license_file.attribution}" if license_file.attribution
+    # end
   end
 end
 
-if file
-  puts "License: #{file.license ? file.license.meta['title'] : 'no license'}"
-  puts "Confidence: #{file.confidence}%"
-  puts "Method: #{file.matcher.class}"
+def print_evaluation(file)
+  if file
+    puts "License: #{file.license ? file.license.meta['title'] : 'no license'}"
+    puts "Confidence: #{file.confidence}%"
+    puts "Method: #{file.matcher.class}"
+  else
+    puts 'Unknown'
+  end
+end
+
+if File.file?(path)
+  contents = File.open(path).read
+  license_file = Licensee::Project::LicenseFile.new(contents, path)
+  print_file(license_file)
+  print_evaluation(license_file)
 else
-  puts 'Unknown'
+  options = { detect_packages: true, detect_readme: true }
+  project = Licensee::GitProject.new(path, options)
+  file = project.matched_file
+  print_file(project.license_file)
+  print_evaluation(file)
 end
