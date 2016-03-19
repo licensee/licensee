@@ -6,9 +6,7 @@ path = ARGV[0] || Dir.pwd
 def print_file(license_file)
   if license_file
     puts "License file: #{license_file.filename}"
-    # if license_file.attribution
     puts "Attribution: #{license_file.attribution}" if license_file.attribution
-    # end
   end
 end
 
