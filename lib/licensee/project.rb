@@ -23,7 +23,7 @@ module Licensee
     def license_file
       return @license_file if defined? @license_file
       @license_file = begin
-        content, name = find_file { |name| LicenseFile.name_score(name) }
+        content, name = find_file { |n| LicenseFile.name_score(n) }
         LicenseFile.new(content, name) if content && name
       end
     end
@@ -32,7 +32,7 @@ module Licensee
       return unless detect_readme?
       return @readme if defined? @readme
       @readme = begin
-        content, name = find_file { |name| Readme.name_score(name) }
+        content, name = find_file { |n| Readme.name_score(n) }
         content = Readme.license_content(content)
         Readme.new(content, name) if content && name
       end
@@ -42,7 +42,7 @@ module Licensee
       return unless detect_packages?
       return @package_file if defined? @package_file
       @package_file = begin
-        content, name = find_file { |name| PackageInfo.name_score(name) }
+        content, name = find_file { |n| PackageInfo.name_score(n) }
         PackageInfo.new(content, name) if content && name
       end
     end
