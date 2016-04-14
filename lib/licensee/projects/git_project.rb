@@ -1,8 +1,8 @@
 # Git-based project
 #
-# analyze a given git repository for license information
+# Analyze a given (bare) Git repository for license information
 module Licensee
-  class GitProject < Licensee::Project
+  class GitProject < Project
     attr_reader :repository, :revision
 
     class InvalidRepository < ArgumentError; end
