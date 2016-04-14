@@ -27,7 +27,8 @@ class TestLicenseeCopyrightMatchers < Minitest::Test
   end
 
   should 'not false positive' do
-    text = File.open(Licensee::License.find('mit').path).read.split('---').last
+    path = Licensee::License.find('mit').path
+    text = File.read(path, encoding: 'utf-8').split('---').last
     file = Licensee::Project::LicenseFile.new(text)
     assert_equal nil, Licensee::Matchers::Copyright.new(file).match
   end

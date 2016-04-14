@@ -21,7 +21,7 @@ def print_evaluation(file)
 end
 
 if File.file?(path)
-  contents = File.open(path).read
+  contents = File.read(path, encoding: 'utf-8')
   license_file = Licensee::Project::LicenseFile.new(contents, path)
   print_file(license_file)
   print_evaluation(license_file)

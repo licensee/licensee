@@ -2,7 +2,8 @@ require 'helper'
 
 class TestLicenseeExactMatchers < Minitest::Test
   def setup
-    text = File.open(Licensee::License.find('mit').path).read.split('---').last
+    path = Licensee::License.find('mit').path
+    text = File.read(path, encoding: 'utf-8').split('---').last
     @mit = Licensee::Project::LicenseFile.new(text)
   end
 
