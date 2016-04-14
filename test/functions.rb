@@ -12,7 +12,7 @@ def fixture_path(fixture)
 end
 
 def license_from_path(path)
-  license = File.open(path).read.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a[2]
+  license = File.read(path, encoding: 'utf-8').match(/\A(---\n.*\n---\n+)?(.*)/m).to_a[2]
   license.sub! '[fullname]', 'Ben Balter'
   license.sub! '[year]', '2014'
   license.sub! '[email]', 'ben@github.invalid'

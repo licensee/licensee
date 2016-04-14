@@ -140,7 +140,7 @@ module Licensee
     def raw_content
       return if pseudo_license?
       @raw_content ||= if File.exist?(path)
-        File.open(path).read
+        File.read(path, encoding: 'utf-8')
       else
         raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
