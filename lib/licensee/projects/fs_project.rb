@@ -15,8 +15,16 @@ module Licensee
     def find_file
       files = []
 
-      Dir.foreach(path) do |file|
-        next unless ::File.file?(::File.join(path, file))
+      if ::File.file?(path)
+        pattern = ::File.basename(path)
+        @path = ::File.dirname(path)
+      else
+        pattern = '*'
+      end
+
+      Dir.glob(::File.join(path, pattern)) do |file|
+        next unless ::File.file?(file)
+        file = ::File.basename(file)
         if (score = yield file) > 0
           files.push(name: file, score: score)
         end

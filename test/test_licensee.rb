@@ -12,6 +12,11 @@ class TestLicensee < Minitest::Test
     assert_equal 'mit', Licensee.license(fixture_path('licenses.git')).key
   end
 
+  should "detect a file's license" do
+    file = fixture_path('apache-2.0/LICENSE')
+    assert_equal 'apache-2.0', Licensee.license(file).key
+  end
+
   should 'init a project' do
     project = Licensee.project(fixture_path('licenses.git'))
     assert_equal Licensee::GitProject, project.class
