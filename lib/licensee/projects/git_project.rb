@@ -16,7 +16,7 @@ module Licensee
 
       @revision = revision
       super(**args)
-    rescue Rugged::RepositoryError
+    rescue Rugged::OSError, Rugged::RepositoryError
       raise InvalidRepository
     end
 
