@@ -10,3 +10,7 @@ def assert_license_content(expected, readme)
   content = Licensee::Project::Readme.license_content(readme)
   assert_equal expected, content
 end
+
+def windows?
+  !(RUBY_PLATFORM =~ /mswin|mingw|cygwin/).nil?
+end
