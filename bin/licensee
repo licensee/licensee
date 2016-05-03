@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 require_relative '../lib/licensee'
 
 path = ARGV[0] || Dir.pwd
@@ -20,15 +21,6 @@ def print_evaluation(file)
   end
 end
 
-if File.file?(path)
-  contents = File.read(path, encoding: 'utf-8')
-  license_file = Licensee::Project::LicenseFile.new(contents, path)
-  print_file(license_file)
-  print_evaluation(license_file)
-else
-  options = { detect_packages: true, detect_readme: true }
-  project = Licensee::GitProject.new(path, options)
-  file = project.matched_file
-  print_file(project.license_file)
-  print_evaluation(file)
-end
+project = Licensee.project(path, detect_packages: true, detect_readme: true)
+print_file(project.license_file)
+print_evaluation(project.matched_file)
