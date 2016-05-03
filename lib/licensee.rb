@@ -41,10 +41,10 @@ module Licensee
       Licensee.project(path).license
     end
 
-    def project(path)
-      Licensee::GitProject.new(path)
+    def project(path, **args)
+      Licensee::GitProject.new(path, args)
     rescue Licensee::GitProject::InvalidRepository
-      Licensee::FSProject.new(path)
+      Licensee::FSProject.new(path, args)
     end
 
     def confidence_threshold
