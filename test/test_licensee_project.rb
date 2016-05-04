@@ -14,7 +14,7 @@ class TestLicenseeProject < Minitest::Test
           dest = File.join('tmp', 'fixtures', fixture_name)
           FileUtils.mkdir_p File.dirname(dest)
           system 'git', 'clone', '-q', fixture_path(fixture_name), dest
-          FileUtils.rm_r File.join(dest, '.git')
+          FileUtils.rm_rf File.join(dest, '.git')
 
           Licensee::FSProject.new(dest)
         end
