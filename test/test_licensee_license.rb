@@ -31,6 +31,12 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal 'MIT License', @license.name
   end
 
+  should 'know the license properties' do
+    assert_equal 4, @license.meta['permissions'].length
+    assert_equal 1, @license.meta['conditions'].length
+    assert_equal 1, @license.meta['limitations'].length
+  end
+
   should 'know the license nickname' do
     expected = 'GNU AGPLv3'
     assert_equal expected, Licensee::License.find('agpl-3.0').nickname
