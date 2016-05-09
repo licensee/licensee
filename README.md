@@ -51,8 +51,8 @@ license.meta["source"]
 license.meta["description"]
 => "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
 
-license.meta["permitted"]
-=> ["commercial-use","modifications","distribution","sublicense","private-use"]
+license.meta["permissions"]
+=> ["commercial-use","modifications","distribution","private-use"]
 ```
 
 ## More API
