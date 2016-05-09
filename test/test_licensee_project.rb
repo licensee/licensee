@@ -7,7 +7,11 @@ class TestLicenseeProject < Minitest::Test
       if project_type == 'git'
         def make_project(fixture_name)
           fixture = fixture_path fixture_name
-          Licensee::GitProject.new(fixture)
+          @project = Licensee::GitProject.new(fixture)
+        end
+
+        def teardown
+          @project.close
         end
       else
         def make_project(fixture_name)
