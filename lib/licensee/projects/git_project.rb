@@ -20,6 +20,10 @@ module Licensee
       raise InvalidRepository
     end
 
+    def close
+      @repository.close
+    end
+
     private
 
     def commit

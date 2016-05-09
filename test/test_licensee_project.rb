@@ -7,20 +7,29 @@ class TestLicenseeProject < Minitest::Test
       if project_type == 'git'
         def make_project(fixture_name)
           fixture = fixture_path fixture_name
-          Licensee::GitProject.new(fixture)
-        end
-      else
-        def make_project(fixture_name)
-          dest = File.join('tmp', 'fixtures', fixture_name)
-          FileUtils.mkdir_p File.dirname(dest)
-          system 'git', 'clone', '-q', fixture_path(fixture_name), dest
-          FileUtils.rm_rf File.join(dest, '.git')
-
-          Licensee::FSProject.new(dest)
+          @project = Licensee::GitProject.new(fixture)
         end
 
         def teardown
-          FileUtils.rm_rf 'tmp/fixtures'
+          @project.close
+        end
+      else
+        def make_project(fixture_name)
+          base_name = File.basename(fixture_name, '.git')
+          temp_name = Dir::Tmpname.make_tmpname(base_name, nil)
+          @dest = File.join('tmp', 'fixtures', temp_name)
+          FileUtils.rm_r @dest if File.directory? @dest
+          Rugged::Repository.clone_at(fixture_path(fixture_name), @dest).close
+
+          Licensee::FSProject.new(@dest)
+        end
+
+        def teardown
+          FileUtils.rm_r @dest if File.directory? @dest
+
+          # Also remove the parent directories in case they are empty.
+          FileUtils.rmdir 'tmp/fixtures'
+          FileUtils.rmdir 'tmp'
         end
       end
 
