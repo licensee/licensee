@@ -17,7 +17,7 @@ class TestLicenseeProject < Minitest::Test
         def make_project(fixture_name)
           dest = File.join('tmp', 'fixtures', fixture_name)
           FileUtils.mkdir_p File.dirname(dest)
-          system 'git', 'clone', '-q', fixture_path(fixture_name), dest
+          Rugged::Repository.clone_at(fixture_path(fixture_name), dest).close
           FileUtils.rm_rf File.join(dest, '.git')
 
           Licensee::FSProject.new(dest)
