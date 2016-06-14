@@ -14,7 +14,7 @@ end
 def print_evaluation(file)
   if file
     puts "License: #{file.license ? file.license.meta['title'] : 'no license'}"
-    puts "Confidence: #{file.confidence}%"
+    puts "Confidence: #{format('%.2f', file.confidence)}%"
     puts "Method: #{file.matcher.class}"
   else
     puts 'Unknown'
