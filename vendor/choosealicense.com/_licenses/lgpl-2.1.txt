@@ -1,9 +1,8 @@
 ---
 title: GNU Lesser General Public License v2.1
+spdx-id: LGPL-2.1
 nickname: GNU LGPLv2.1
 redirect_from: /licenses/lgpl-v2.1/
-family: GNU LGPL
-variant: true
 source: http://www.gnu.org/licenses/lgpl-2.1.txt
 
 description: Primarily used for software libraries, the GNU LGPL requires that derived works be licensed under the same license, but works that only link to it do not fall under this restriction. There are two commonly used versions of the GNU LGPL.
@@ -15,19 +14,17 @@ note: The Free Software Foundation recommends taking the additional step of addi
 conditions:
   - include-copyright
   - disclose-source
+  - document-changes
   - same-license
 
 permissions:
   - commercial-use
   - modifications
   - distribution
-  - patent-use
   - private-use
 
 limitations:
   - no-liability
-
-hidden: false
 ---
 
                   GNU LESSER GENERAL PUBLIC LICENSE

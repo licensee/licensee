@@ -1,11 +1,19 @@
 ---
 title: Mozilla Public License 2.0
+spdx-id: MPL-2.0
 redirect_from: /licenses/mozilla/
 source: https://www.mozilla.org/media/MPL/2.0/index.txt
 
-description: The Mozilla Public License (MPL 2.0) is maintained by the Mozilla foundation. This license attempts to be a compromise between the permissive BSD license and the reciprocal GPL license.
+description: Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.
 
 how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file.
+
+note: The Mozilla Foundation recommends taking the additional step of adding a boilerplate notice to the top of each file. The boilerplate can be found at the end of the license (Exhibit A).
+
+using:
+  - Servo: https://github.com/servo/servo/blob/master/LICENSE
+  - TimelineJS3: https://github.com/NUKnightLab/TimelineJS3/blob/master/LICENSE
+  - LibreOffice: https://cgit.freedesktop.org/libreoffice/core/tree/COPYING.MPL
 
 conditions:
   - disclose-source
@@ -22,8 +30,6 @@ permissions:
 limitations:
   - no-liability
   - trademark-use
-
-hidden: false
 ---
 
 Mozilla Public License Version 2.0

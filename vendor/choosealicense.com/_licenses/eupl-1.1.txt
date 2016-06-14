@@ -1,16 +1,14 @@
 ---
 title: European Union Public License 1.1
-nickname: EUPL-1.1
+spdx-id: EUPL-1.1
 redirect_from: /licenses/eupl-v1.1/
-family: EUPL
-featured: false
 source: https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11
 
 description: The “European Union Public Licence” (EUPL) is a copyleft free/open source software license created on the initiative of and approved by the European Commission in 22 official languages of the European Union.
 
 how: Create a text file (typically named COPYING or LICENCE.txt) in the root of your source code and copy the text of the license into the file.
 
-note: The European Commission recommends taking the additional step of adding a boilerplate notice to the top of each file. The boilerplate can be found at https://joinup.ec.europa.eu/sites/default/files/ckeditor_files/files/EUPL%201_1%20Guidelines%20EN%20Joinup.pdf
+note: The European Commission recommends taking the additional step of adding a [boilerplate notice](https://joinup.ec.europa.eu/sites/default/files/ckeditor_files/files/EUPL%201_1%20Guidelines%20EN%20Joinup.pdf#page=17) to the top of each file.
 
 conditions:
   - include-copyright
@@ -29,7 +27,6 @@ permissions:
 limitations:
   - no-liability
   - trademark-use
-
 ---
 
 European Union Public Licence
