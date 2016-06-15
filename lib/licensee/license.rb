@@ -54,8 +54,7 @@ module Licensee
     # These should be in sync with choosealicense.com's collection defaults
     YAML_DEFAULTS = {
       'featured' => false,
-      'hidden'   => true,
-      'variant'  => false
+      'hidden'   => true
     }.freeze
 
     # Pseudo-license are license placeholders with no content

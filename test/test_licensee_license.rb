@@ -64,16 +64,13 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'inject default meta without overriding' do
-    license = Licensee::License.new('cc0-1.0')
+    license = Licensee::License.new('agpl-3.0')
 
     assert license.meta.key? 'featured'
     assert_equal false, license.meta['featured']
 
     assert license.meta.key? 'hidden'
     assert_equal false, license.meta['hidden']
-
-    assert license.meta.key? 'variant'
-    assert_equal true, license.meta['variant']
   end
 
   should 'know when the license is hidden' do
@@ -96,7 +93,7 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'strip leading newlines from the license' do
-    assert_equal 'T', @license.body[0]
+    assert_equal 'M', @license.body[0]
   end
 
   should 'fail loudly for invalid licenses' do
@@ -113,7 +110,7 @@ class TestLicenseeLicense < Minitest::Test
   end
 
   should 'know the license hash' do
-    assert_equal 'fb278496ea4663dfcf41ed672eb7e56eb70de798', @license.hash
+    assert_equal '750260c322080bab4c19fd55eb78bc73e1ae8f11', @license.hash
   end
 
   describe 'name without version' do
@@ -145,7 +142,7 @@ class TestLicenseeLicense < Minitest::Test
 
     should 'load the licenses' do
       assert_equal Array, Licensee::License.all.class
-      assert_equal 15, Licensee::License.all.size
+      assert_equal 7, Licensee::License.all.size
       assert_equal Licensee::License, Licensee::License.all.first.class
     end
 
@@ -158,13 +155,13 @@ class TestLicenseeLicense < Minitest::Test
     should 'filter the licenses' do
       assert_equal 28, Licensee::License.all(hidden: true).size
       assert_equal 3,  Licensee::License.all(featured: true).size
-      assert_equal 12, Licensee::License.all(featured: false).size
+      assert_equal 4,  Licensee::License.all(featured: false).size
 
       licenses = Licensee::License.all(featured: false, hidden: true)
       assert_equal 25, licenses.size
 
       licenses = Licensee::License.all(featured: false, hidden: false)
-      assert_equal 12, licenses.size
+      assert_equal 4, licenses.size
     end
   end
 end
