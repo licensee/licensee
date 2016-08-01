@@ -140,6 +140,7 @@ module Licensee
       return if pseudo_license?
       @raw_content ||= if File.exist?(path)
         File.read(path, encoding: 'utf-8')
+            .encode('utf-8', undef: :replace, invalid: :replace)
       else
         raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
