@@ -90,12 +90,14 @@ class TestLicenseeProject < Minitest::Test
 
     should 'detect the BSD 2-clause license without title' do
       verify_license_file fixture_path(
-        'bsd-2-clause-without-title/bsd-2-clause.txt')
+        'bsd-2-clause-without-title/bsd-2-clause.txt'
+      )
     end
 
     should 'detect the BSD 3-Clause license without title' do
       verify_license_file fixture_path(
-        'bsd-3-clause-without-title/bsd-3-clause.txt')
+        'bsd-3-clause-without-title/bsd-3-clause.txt'
+      )
     end
 
     should 'detect the ISC license without title' do

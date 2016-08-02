@@ -76,9 +76,10 @@ module Licensee
       @path ||= File.expand_path "#{@key}.txt", Licensee::License.license_dir
     end
 
-    # License metadata from YAML front matter
+    # License metadata from YAML front matter with defaults merged in
     def meta
-      @meta ||= if parts && parts[1]
+      @meta ||= begin
+        return YAML_DEFAULTS unless parts && parts[1]
         meta = if YAML.respond_to? :safe_load
           YAML.safe_load(parts[1])
         else
@@ -90,11 +91,11 @@ module Licensee
 
     # Returns the human-readable license name
     def name
-      meta.nil? ? key.capitalize : meta['title']
+      meta['title'] ? meta['title'] : key.capitalize
     end
 
     def nickname
-      meta['nickname'] if meta
+      meta['nickname']
     end
 
     def name_without_version
@@ -102,14 +103,11 @@ module Licensee
     end
 
     def featured?
-      return YAML_DEFAULTS['featured'] unless meta
       meta['featured']
     end
     alias featured featured?
 
     def hidden?
-      return true if PSEUDO_LICENSES.include?(key)
-      return YAML_DEFAULTS['hidden'] unless meta
       meta['hidden']
     end
 
