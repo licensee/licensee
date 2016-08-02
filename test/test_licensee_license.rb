@@ -106,7 +106,11 @@ class TestLicenseeLicense < Minitest::Test
     license = Licensee::License.new('other')
     assert_equal nil, license.content
     assert_equal 'Other', license.name
+    assert license.hidden?
     refute license.featured?
+    Licensee::License::YAML_DEFAULTS.each do |key, value|
+      assert_equal value, license.meta[key]
+    end
   end
 
   should 'know the license hash' do
