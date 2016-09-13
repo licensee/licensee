@@ -23,10 +23,10 @@ class TestLicenseeDiceMatchers < Minitest::Test
     assert_equal 83.7, Licensee::Matchers::Dice.new(@mit).max_delta
   end
 
-  should "know when two licenses have be concatenated" do
-    text= concat_licenses("mit", "gpl-2.0")
+  should 'know when two licenses have be concatenated' do
+    text = concat_licenses('mit', 'gpl-2.0')
     license = Licensee::Project::LicenseFile.new(text)
     matcher = Licensee::Matchers::Dice.new(license)
-    refute_equal "gpl-2.0", matcher.match.key
+    refute_equal 'gpl-2.0', matcher.match.key
   end
 end
