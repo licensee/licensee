@@ -26,6 +26,12 @@ class TestLicenseeCopyrightMatchers < Minitest::Test
     assert_equal 'no-license', Licensee::Matchers::Copyright.new(file).match.key
   end
 
+  should 'match (c) copyright notices' do
+    text = '(C) 2015 Ben Balter'
+    file = Licensee::Project::LicenseFile.new(text)
+    assert_equal 'no-license', Licensee::Matchers::Copyright.new(file).match.key
+  end
+
   should 'not false positive' do
     path = Licensee::License.find('mit').path
     text = File.read(path, encoding: 'utf-8').split('---').last
