@@ -14,10 +14,13 @@ module Licensee
 
       def self.name_score(filename)
         return 1.0 if filename =~ /\A(un)?licen[sc]e\z/i
-        return 0.9 if filename =~ /\A(un)?licen[sc]e\.(md|markdown|txt)\z/i
-        return 0.8 if filename =~ /\Acopy(ing|right)(\.[^.]+)?\z/i
-        return 0.7 if filename =~ /\A(un)?licen[sc]e\.[^.]+\z/i
-        return 0.5 if filename =~ /licen[sc]e/i
+        return 0.9 if filename =~ /\Acopy(ing|right)\z/i
+        return 0.8 if filename =~ /\A(un)?licen[sc]e\.(md|markdown|txt)\z/i
+        return 0.7 if filename =~ /\Acopy(ing|right)\.(md|markdown|txt)\z/i
+        return 0.6 if filename =~ /\A(un)?licen[sc]e\.[^.]+\z/i
+        return 0.5 if filename =~ /\Acopy(ing|right)\.[^.]+\z/i
+        return 0.4 if filename =~ /(un)?licen[sc]e/i
+        return 0.3 if filename =~ /copy(ing|right)/i
         0.0
       end
 
