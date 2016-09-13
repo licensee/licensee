@@ -2,7 +2,8 @@
 module Licensee
   module Matchers
     class Copyright
-      REGEX = /\s*Copyright (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
+      # rubocop:disable Metrics/LineLength
+      REGEX = /\s*(Copyright|\(c\)) (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
 
       def initialize(file)
         @file = file
