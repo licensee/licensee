@@ -19,9 +19,11 @@ def license_from_path(path)
   license
 end
 
-def chaos_monkey(string)
-  Random.rand(3).times do
-    string[Random.rand(string.length)] = SecureRandom.base64(Random.rand(3))
+# Add random words to the end of a license to test similarity tollerances
+def chaos_monkey(string, count: 5)
+  ipsum = %w[lorem ipsum dolor sit amet consectetur adipiscing elit]
+  Random.rand(count).times do
+    string << " #{ipsum[Random.rand(ipsum.length)]}"
   end
   string
 end
@@ -35,15 +37,20 @@ def verify_license_file(license, chaos = false, wrap = false)
 
   license_file = Licensee::Project::LicenseFile.new(text)
 
-  actual = license_file.license
-  msg = "No match for #{expected}."
+  detected = license_file.license
+  msg = "No match for #{expected}.\n"
+  matcher = Licensee::Matchers::Dice.new(license_file)
+  matcher.potential_licenses.each do |potential_license|
+    msg << "Potential license: #{potential_license.key}\n"
+    msg << "Potential similiarity: #{potential_license.similarity(license_file)}\n"
+  end
+  msg << "Text: #{license_file.content_normalized}"
+  assert detected, msg
 
-  assert actual, msg
-
-  msg = "Expeceted #{expected} but got #{actual.key} for .match. "
+  msg = "Expeceted #{expected} but got #{detected.key} for .match. "
   msg << "Confidence: #{license_file.confidence}. "
   msg << "Method: #{license_file.matcher.class}"
-  assert_equal expected, actual.key, msg
+  assert_equal expected, detected.key, msg
 end
 
 def wrap(text, line_width = 80)

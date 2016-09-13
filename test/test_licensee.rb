@@ -24,13 +24,17 @@ class TestLicensee < Minitest::Test
 
   context 'confidence threshold' do
     should 'return the confidence threshold' do
-      assert_equal 90, Licensee.confidence_threshold
+      assert_equal 95, Licensee.confidence_threshold
     end
 
     should 'let the user override the confidence threshold' do
       Licensee.confidence_threshold = 50
       assert_equal 50, Licensee.confidence_threshold
-      Licensee.confidence_threshold = 90
+      Licensee.confidence_threshold = 95
+    end
+
+    should 'return the inverse of the confidence threshold' do
+      assert_equal 0.05, Licensee.inverse_confidence_threshold
     end
   end
 end

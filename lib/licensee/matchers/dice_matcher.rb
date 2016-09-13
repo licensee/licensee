@@ -1,6 +1,8 @@
 module Licensee
   module Matchers
     class Dice
+      attr_reader :file
+
       def initialize(file)
         @file = file
       end
@@ -10,9 +12,8 @@ module Licensee
       def match
         return @match if defined? @match
         matches = potential_licenses.map do |license|
-          if (sim = similarity(license)) >= Licensee.confidence_threshold
-            [license, sim]
-          end
+          similarity = license.similarity(file)
+          [license, similarity] if similarity >= Licensee.confidence_threshold
         end
         matches.compact!
         @match = if matches.empty?
@@ -22,46 +23,20 @@ module Licensee
         end
       end
 
-      # Sort all licenses, in decending order, by difference in
-      # length to the file
-      # Difference in lengths cannot exceed the file's length *
-      # the confidence threshold / 100
+      # Licenses that may be a match for this file.
+      # To avoid false positives, the percentage change in file length
+      # may not exceed the inverse of the confidence threshold
       def potential_licenses
         @potential_licenses ||= begin
-          licenses = Licensee.licenses(hidden: true)
-          licenses = licenses.select do |license|
-            license.wordset && length_delta(license) <= max_delta
+          Licensee.licenses(hidden: true).select do |license|
+            license.wordset && license.length_delta(file) <= license.max_delta
           end
-          licenses.sort_by { |l| length_delta(l) }
         end
-      end
-
-      # Calculate the difference between the file length and a given
-      # license's length
-      def length_delta(license)
-        (@file.wordset.size - license.wordset.size).abs
-      end
-
-      # Maximum possible difference between file length and license length
-      # for a license to be a potential license to be matched
-      def max_delta
-        @max_delta ||= (
-          @file.wordset.size * (Licensee.confidence_threshold / 100.0)
-        )
       end
 
       # Confidence that the matched license is a match
       def confidence
-        @confidence ||= match ? similarity(match) : 0
-      end
-
-      private
-
-      # Calculate percent changed between file and potential license
-      def similarity(license)
-        overlap = (@file.wordset & license.wordset).size
-        total = @file.wordset.size + license.wordset.size
-        100.0 * (overlap * 2.0 / total)
+        @confidence ||= match ? file.similarity(match) : 0
       end
     end
   end

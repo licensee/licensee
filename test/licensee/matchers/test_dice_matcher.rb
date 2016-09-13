@@ -7,7 +7,9 @@ class TestLicenseeDiceMatchers < Minitest::Test
   end
 
   def concat_licenses(*args)
-    args.map { |l| license_from_path(Licensee::License.find(l).path) }.join("\n")
+    args.map do |license|
+      license_from_path(Licensee::License.find(license).path)
+    end.join("\n")
   end
 
   should 'match the license' do
@@ -19,14 +21,10 @@ class TestLicenseeDiceMatchers < Minitest::Test
     assert matcher.confidence > 95, "#{matcher.confidence} < 95"
   end
 
-  should 'calculate max delta' do
-    assert_equal 83.7, Licensee::Matchers::Dice.new(@mit).max_delta
-  end
-
   should 'know when two licenses have be concatenated' do
     text = concat_licenses('mit', 'gpl-2.0')
     license = Licensee::Project::LicenseFile.new(text)
     matcher = Licensee::Matchers::Dice.new(license)
-    refute_equal 'gpl-2.0', matcher.match.key
+    refute matcher.match
   end
 end

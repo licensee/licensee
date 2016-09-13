@@ -18,12 +18,31 @@ module Licensee
       content_normalized.length
     end
 
+    # Number of characters that could be added/removed to still be
+    # considered a potential match
+    def max_delta
+      (length * Licensee.inverse_confidence_threshold).to_i
+    end
+
+    # Given another license or project file, calculates the difference in length
+    def length_delta(other)
+      (length - other.length).abs
+    end
+
+    # Given another license or project file, calculates the similarity
+    # as a percentage of words in common
+    def similarity(other)
+      overlap = (wordset & other.wordset).size
+      total = wordset.size + other.wordset.size
+      100.0 * (overlap * 2.0 / total)
+    end
+
     # SHA1 of the normalized content
     def hash
       @hash ||= DIGEST.hexdigest content_normalized
     end
 
-    # Content with copyright header and linebreaks removed for ease of comparison
+    # Content with copyright header and linebreaks removed
     def content_normalized
       return unless content
       @content_normalized ||= begin
