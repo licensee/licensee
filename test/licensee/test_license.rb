@@ -117,6 +117,17 @@ class TestLicenseeLicense < Minitest::Test
     assert_equal '750260c322080bab4c19fd55eb78bc73e1ae8f11', @license.hash
   end
 
+  should "recognize GPL'd licenses" do
+    license = Licensee::License.new 'gpl-2.0'
+    assert license.gpl?
+
+    license = Licensee::License.new 'gpl-3.0'
+    assert license.gpl?
+
+    license = Licensee::License.new 'mit'
+    refute license.gpl?
+  end
+
   describe 'name without version' do
     should 'strip the version from the license name' do
       expected = 'GNU Affero General Public License'
