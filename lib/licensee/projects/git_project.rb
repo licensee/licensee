@@ -36,24 +36,25 @@ module Licensee
 
     MAX_LICENSE_SIZE = 64 * 1024
 
-    def load_blob_data(oid)
-      data, = Rugged::Blob.to_buffer(repository, oid, MAX_LICENSE_SIZE)
+    # Retrieve a file's content from the Git database
+    #
+    # file - the file hash, including the file's OID
+    #
+    # Returns a string representing the file's contents
+    def load_file(file)
+      data, = Rugged::Blob.to_buffer(repository, file[:oid], MAX_LICENSE_SIZE)
       data
     end
 
-    def find_file
-      files = commit.tree.map do |entry|
+    # Returns an array of hashes representing the project's files.
+    # Hashes will have the the following keys:
+    #  :name - the file's path relative to the repo root
+    #  :oid  - the file's OID
+    def files
+      commit.tree.map do |entry|
         next unless entry[:type] == :blob
-        if (score = yield entry[:name]) > 0
-          { name: entry[:name], oid: entry[:oid], score: score }
-        end
+        { name: entry[:name], oid: entry[:oid] }
       end.compact
-
-      return if files.empty?
-      files.sort! { |a, b| b[:score] <=> a[:score] }
-
-      f = files.first
-      [load_blob_data(f[:oid]), f[:name]]
     end
   end
 end

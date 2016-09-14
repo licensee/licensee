@@ -46,5 +46,26 @@ module Licensee
         PackageInfo.new(content, name) if content && name
       end
     end
+
+    private
+
+    # Given a block, passes each file to that block, and expects a numeric
+    # score in response. Returns an array of all files with a score > 0,
+    # sorted by file score descending
+    def find_files
+      return [] if files.empty? || files.nil?
+      found = files.each { |file| file[:score] = yield(file[:name]) }
+      found.select! { |file| file[:score] > 0 }
+      found.sort { |a, b| b[:score] <=> a[:score] }
+    end
+
+    # Given a block, passes each file to that block, and expects a numeric
+    # score in response. Returns a hash representing the top scoring file
+    # or nil, if no file scored > 0
+    def find_file(&block)
+      return if files.empty? || files.nil?
+      file = find_files(&block).first
+      [load_file(file), file[:name]] if file
+    end
   end
 end
