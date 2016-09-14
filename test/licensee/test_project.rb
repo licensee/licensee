@@ -72,6 +72,11 @@ class TestLicenseeProject < Minitest::Test
         project = make_project 'no-license.git'
         assert_equal nil, project.license
       end
+
+      should 'detect an LGPL licensed project with LICENSE.lesser' do
+        project = make_project 'lgpl.git'
+        assert_equal 'lgpl-3.0', project.license.key
+      end
     end
   end
 
