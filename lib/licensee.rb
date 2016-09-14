@@ -23,7 +23,7 @@ require_relative 'licensee/matchers/npm_bower_matcher'
 
 module Licensee
   # Over which percent is a match considered a match by default
-  CONFIDENCE_THRESHOLD = 90
+  CONFIDENCE_THRESHOLD = 95
 
   # Base domain from which to build license URLs
   DOMAIN = 'http://choosealicense.com'.freeze
@@ -49,6 +49,12 @@ module Licensee
 
     def confidence_threshold
       @confidence_threshold ||= CONFIDENCE_THRESHOLD
+    end
+
+    # Inverse of the confidence threshold, represented as a float
+    # By default this will be 0.1
+    def inverse_confidence_threshold
+      @inverse ||= (1 - Licensee.confidence_threshold / 100.0).round(2)
     end
   end
 end
