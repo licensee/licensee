@@ -111,6 +111,10 @@ module Licensee
       meta['hidden']
     end
 
+    def gpl?
+      key == 'gpl-2.0' || key == 'gpl-3.0'
+    end
+
     # The license body (e.g., contents - frontmatter)
     def content
       @content ||= parts[2] if parts && parts[2]

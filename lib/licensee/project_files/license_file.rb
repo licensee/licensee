@@ -20,6 +20,11 @@ module Licensee
         return 0.5 if filename =~ /licen[sc]e/i
         0.0
       end
+
+      # case-insensitive block to determine if the given file is LICENSE.lesser
+      def self.lesser_gpl_score(filename)
+        filename.casecmp('copying.lesser').zero? ? 1 : 0
+      end
     end
   end
 end

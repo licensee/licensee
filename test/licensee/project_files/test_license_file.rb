@@ -55,4 +55,19 @@ class TestLicenseeLicenseFile < Minitest::Test
       end
     end
   end
+
+  context 'LGPL scoring' do
+    {
+      'COPYING.lesser' => 1,
+      'copying.lesser' => 1,
+      'license.lesser' => 0,
+      'LICENSE.md'     => 0,
+      'FOO.md'         => 0
+    }.each do |filename, expected|
+      should "score a license named `#{filename}` as `#{expected}`" do
+        score = Licensee::Project::LicenseFile.lesser_gpl_score(filename)
+        assert_equal expected, score
+      end
+    end
+  end
 end

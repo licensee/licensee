@@ -12,7 +12,9 @@ module Licensee
 
     private
 
-    def find_file
+    # Returns an array of hashes representing the project's files.
+    # Hashes will have the :name key, with the relative path to the file
+    def files
       files = []
 
       if ::File.file?(path)
@@ -24,17 +26,20 @@ module Licensee
 
       Dir.glob(::File.join(path, pattern)) do |file|
         next unless ::File.file?(file)
-        file = ::File.basename(file)
-        if (score = yield file) > 0
-          files.push(name: file, score: score)
-        end
+        files.push(name: ::File.basename(file))
       end
 
-      return if files.empty?
-      files.sort! { |a, b| b[:score] <=> a[:score] }
+      files
+    end
 
-      f = files.first
-      [::File.read(::File.join(path, f[:name])), f[:name]]
+    # Retrieve a file's content from disk
+    #
+    # file - the file hash, with the :name key as the file's relative path
+    # path - the base path to the project
+    #
+    # Returns the fiel contents as a string
+    def load_file(file)
+      ::File.read(::File.join(path, file[:name]))
     end
   end
 end
