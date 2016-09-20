@@ -48,6 +48,7 @@ module Licensee
       @content_normalized ||= begin
         content_normalized = content.downcase.strip
         content_normalized.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
+        content_normalized.gsub!(/[=-]{4,}/, '') # Strip HRs from MPL
         content_normalized.tr("\n", ' ').squeeze(' ').strip
       end
     end

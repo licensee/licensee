@@ -140,11 +140,10 @@ module Licensee
     # Raw content of license file, including YAML front matter
     def raw_content
       return if pseudo_license?
-      @raw_content ||= if File.exist?(path)
-        File.read(path, encoding: 'utf-8')
-      else
+      unless File.exist?(path)
         raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
+      @raw_content ||= File.read(path, encoding: 'utf-8')
     end
 
     def parts
