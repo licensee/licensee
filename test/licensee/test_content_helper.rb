@@ -8,7 +8,8 @@ class ContentHelperTestHelper
 Copyright 2016 Ben Balter
 
 The made
-up license.
+up  license.
+-----------
   EOS
 
   def initialize(content = nil)
@@ -21,8 +22,32 @@ class TestLicenseeContentHelper < Minitest::Test
     @helper = ContentHelperTestHelper.new
   end
 
-  should 'normalize the content' do
-    assert_equal 'the made up license.', @helper.content_normalized
+  context 'normalizing' do
+    should 'strips copyright' do
+      refute_match('Copyright', @helper.content_normalized)
+      refute_match('Ben Balter', @helper.content_normalized)
+    end
+
+    should 'downcases' do
+      refute_match('The', @helper.content_normalized)
+      assert_match('the', @helper.content_normalized)
+    end
+
+    should 'strips HRs' do
+      refute_match('---', @helper.content_normalized)
+    end
+
+    should 'squeeze whitespace' do
+      refute_match('  ', @helper.content_normalized)
+    end
+
+    should 'strips whitespace' do
+      refute_match(/\n/i, @helper.content_normalized)
+    end
+
+    should 'normalize the content' do
+      assert_equal 'the made up license.', @helper.content_normalized
+    end
   end
 
   should 'generate the hash' do

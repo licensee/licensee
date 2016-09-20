@@ -77,6 +77,11 @@ class TestLicenseeProject < Minitest::Test
         project = make_project 'lgpl.git'
         assert_equal 'lgpl-3.0', project.license.key
       end
+
+      should 'detect the MPL even with HRs removed' do
+        project = make_project 'mpl-without-hrs.git'
+        assert_equal 'mpl-2.0', project.license.key
+      end
     end
   end
 
