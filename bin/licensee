@@ -4,22 +4,33 @@ require_relative '../lib/licensee'
 
 path = ARGV[0] || Dir.pwd
 
-def print_file(license_file)
-  return unless license_file
+def format_percent(float)
+  "#{format('%.2f', float)}%"
+end
+
+project = Licensee.project(path, detect_packages: true, detect_readme: true)
+license_file = project.license_file
+matched_file = project.matched_file
+
+if license_file
   puts "License file: #{license_file.filename}"
   puts "Attribution: #{license_file.attribution}" if license_file.attribution
 end
 
-def print_evaluation(file)
-  if file
-    puts "License: #{file.license ? file.license.meta['title'] : 'no license'}"
-    puts "Confidence: #{format('%.2f', file.confidence)}%" if file.confidence
-    puts "Method: #{file.matcher.class}" if file.matcher
+if matched_file
+  if matched_file.license
+    puts "License: #{matched_file.license.meta['title']}"
+    puts "Confidence: #{format_percent(matched_file.confidence)}" if matched_file.confidence
+    puts "Method: #{matched_file.matcher.class}" if matched_file.matcher
   else
-    puts 'Unknown'
+    puts 'License: Not detected'
+    puts
+    puts "Here's the closest licenses:"
+    matcher = Licensee::Matchers::Dice.new(matched_file)
+    matcher.licenses_by_similiarity[0...3].each do |license, similarity|
+      puts "* #{license.meta['spdx-id']} similarity: #{format_percent(similarity)}"
+    end
   end
+else
+  puts 'Unknown'
 end
-
-project = Licensee.project(path, detect_packages: true, detect_readme: true)
-print_file(project.license_file)
-print_evaluation(project.matched_file)

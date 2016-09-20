@@ -10,16 +10,10 @@ module Licensee
       # Return the first potential license that is more similar
       # than the confidence threshold
       def match
-        return @match if defined? @match
-        matches = potential_licenses.map do |license|
-          similarity = license.similarity(file)
-          [license, similarity] if similarity >= Licensee.confidence_threshold
-        end
-        matches.compact!
-        @match = if matches.empty?
+        @match ||= if matches.empty?
           nil
         else
-          matches.max_by { |_l, sim| sim }.first
+          matches.first[0]
         end
       end
 
@@ -31,6 +25,19 @@ module Licensee
           Licensee.licenses(hidden: true).select do |license|
             license.wordset && license.length_delta(file) <= license.max_delta
           end
+        end
+      end
+
+      def licenses_by_similiarity
+        @licenses_by_similiarity ||= begin
+          licenses = potential_licenses.map { |l| [l, l.similarity(file)] }
+          licenses.sort_by { |_, similarity| similarity }.reverse
+        end
+      end
+
+      def matches
+        @matches ||= licenses_by_similiarity.select do |_, similarity|
+          similarity >= Licensee.confidence_threshold
         end
       end
 
