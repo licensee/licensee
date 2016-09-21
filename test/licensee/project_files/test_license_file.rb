@@ -40,11 +40,17 @@ class TestLicenseeLicenseFile < Minitest::Test
       'license.txt'        => 0.9,
       'COPYING'            => 0.8,
       'copyRIGHT'          => 0.8,
-      'COPYRIGHT.txt'      => 0.8,
-      'LICENSE.php'        => 0.7,
-      'LICENSE-MIT'        => 0.5,
-      'MIT-LICENSE.txt'    => 0.5,
-      'mit-license-foo.md' => 0.5,
+      'COPYRIGHT.txt'      => 0.7,
+      'copying.txt'        => 0.7,
+      'LICENSE.php'        => 0.6,
+      'LICENCE.docs'       => 0.6,
+      'copying.image'      => 0.5,
+      'COPYRIGHT.go'       => 0.5,
+      'LICENSE-MIT'        => 0.4,
+      'MIT-LICENSE.txt'    => 0.4,
+      'mit-license-foo.md' => 0.4,
+      'COPYING-GPL'        => 0.3,
+      'COPYRIGHT-BSD'      => 0.3,
       'README.txt'         => 0.0
     }.freeze
 
