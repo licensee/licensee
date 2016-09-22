@@ -3,6 +3,32 @@ module Licensee
     class LicenseFile < Licensee::Project::File
       include Licensee::ContentHelper
 
+      # List of extensions to give preference to
+      EXTENSIONS = %w(md markdown txt).freeze
+      EXTENSIONS_REGEX = Regexp.union(EXTENSIONS)
+
+      # Regex to match any extension
+      ANY_EXTENSION_REGEX = /[^.]+/
+
+      # Regex to match, LICENSE, LICENCE, unlicense, etc.
+      LICENSE_REGEX = /(un)?licen[sc]e/i
+
+      # Regex to match COPYING, COPYRIGHT, etc.
+      COPYING_REGEX = /copy(ing|right)/i
+
+      # Hash of Regex => score with which to score potential license files
+      FILENAME_REGEXES = {
+        /\A#{LICENSE_REGEX}\z/                         => 1.0, # LICENSE
+        /\A#{LICENSE_REGEX}\.#{EXTENSIONS_REGEX}\z/    => 0.9, # LICENSE.md
+        /\A#{COPYING_REGEX}\z/                         => 0.8, # COPYING
+        /\A#{COPYING_REGEX}\.#{EXTENSIONS_REGEX}\z/    => 0.7, # COPYING.md
+        /\A#{LICENSE_REGEX}\.#{ANY_EXTENSION_REGEX}\z/ => 0.6, # LICENSE.textile
+        /\A#{COPYING_REGEX}\.#{ANY_EXTENSION_REGEX}\z/ => 0.5, # COPYING.textile
+        /#{LICENSE_REGEX}/                             => 0.4, # LICENSE-MIT
+        /#{COPYING_REGEX}/                             => 0.3, # COPYING-MIT
+        //                                             => 0.0  # Catch all
+      }.freeze
+
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
       end
@@ -13,15 +39,7 @@ module Licensee
       end
 
       def self.name_score(filename)
-        return 1.0 if filename =~ /\A(un)?licen[sc]e\z/i
-        return 0.9 if filename =~ /\A(un)?licen[sc]e\.(md|markdown|txt)\z/i
-        return 0.8 if filename =~ /\Acopy(ing|right)\z/i
-        return 0.7 if filename =~ /\Acopy(ing|right)\.(md|markdown|txt)\z/i
-        return 0.6 if filename =~ /\A(un)?licen[sc]e\.[^.]+\z/i
-        return 0.5 if filename =~ /\Acopy(ing|right)\.[^.]+\z/i
-        return 0.4 if filename =~ /(un)?licen[sc]e/i
-        return 0.3 if filename =~ /copy(ing|right)/i
-        0.0
+        FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
       end
 
       # case-insensitive block to determine if the given file is LICENSE.lesser
