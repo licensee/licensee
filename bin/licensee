@@ -20,7 +20,11 @@ end
 if matched_file
   if matched_file.license
     puts "License: #{matched_file.license.meta['title']}"
-    puts "Confidence: #{format_percent(matched_file.confidence)}" if matched_file.confidence
+
+    if matched_file.confidence
+      puts "Confidence: #{format_percent(matched_file.confidence)}"
+    end
+
     puts "Method: #{matched_file.matcher.class}" if matched_file.matcher
   else
     puts 'License: Not detected'
@@ -28,7 +32,8 @@ if matched_file
     puts "Here's the closest licenses:"
     matcher = Licensee::Matchers::Dice.new(matched_file)
     matcher.licenses_by_similiarity[0...3].each do |license, similarity|
-      puts "* #{license.meta['spdx-id']} similarity: #{format_percent(similarity)}"
+      spdx_id = license.meta['spdx-id']
+      puts "* #{spdx_id} similarity: #{format_percent(similarity)}"
     end
   end
 else
