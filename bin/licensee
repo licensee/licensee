@@ -28,12 +28,15 @@ if matched_file
     puts "Method: #{matched_file.matcher.class}" if matched_file.matcher
   else
     puts 'License: Not detected'
-    puts
-    puts "Here's the closest licenses:"
-    matcher = Licensee::Matchers::Dice.new(matched_file)
-    matcher.licenses_by_similiarity[0...3].each do |license, similarity|
-      spdx_id = license.meta['spdx-id']
-      puts "* #{spdx_id} similarity: #{format_percent(similarity)}"
+
+    if matched_file.is_a?(Licensee::Project::LicenseFile)
+      puts
+      puts "Here's the closest licenses:"
+      matcher = Licensee::Matchers::Dice.new(matched_file)
+      matcher.licenses_by_similiarity[0...3].each do |license, similarity|
+        spdx_id = license.meta['spdx-id']
+        puts "* #{spdx_id} similarity: #{format_percent(similarity)}"
+      end
     end
   end
 else
