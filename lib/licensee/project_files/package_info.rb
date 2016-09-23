@@ -2,7 +2,9 @@ module Licensee
   class Project
     class PackageInfo < Licensee::Project::File
       def possible_matchers
-        return [Matchers::Cran] if filename == 'DESCRIPTION'
+        if filename == 'DESCRIPTION' && ::File.start_with?('Package:')
+          return [Matchers::Cran]
+        end
         case ::File.extname(filename)
         when '.gemspec'
           [Matchers::Gemspec]
