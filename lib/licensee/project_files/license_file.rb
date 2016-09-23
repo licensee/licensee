@@ -4,11 +4,11 @@ module Licensee
       include Licensee::ContentHelper
 
       # List of extensions to give preference to
-      EXTENSIONS = %w(md markdown txt).freeze
-      EXTENSIONS_REGEX = Regexp.union(EXTENSIONS)
+      PREFERRED_EXT = %w(md markdown txt).freeze
+      PREFERRED_EXT_REGEX = "\.#{Regexp.union(PREFERRED_EXT)}".freeze
 
       # Regex to match any extension
-      ANY_EXTENSION_REGEX = /[^.]+/
+      ANY_EXT_REGEX = /\.[^.]+/
 
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
       LICENSE_REGEX = /(un)?licen[sc]e/i
@@ -18,15 +18,15 @@ module Licensee
 
       # Hash of Regex => score with which to score potential license files
       FILENAME_REGEXES = {
-        /\A#{LICENSE_REGEX}\z/                         => 1.0, # LICENSE
-        /\A#{LICENSE_REGEX}\.#{EXTENSIONS_REGEX}\z/    => 0.9, # LICENSE.md
-        /\A#{COPYING_REGEX}\z/                         => 0.8, # COPYING
-        /\A#{COPYING_REGEX}\.#{EXTENSIONS_REGEX}\z/    => 0.7, # COPYING.md
-        /\A#{LICENSE_REGEX}\.#{ANY_EXTENSION_REGEX}\z/ => 0.6, # LICENSE.textile
-        /\A#{COPYING_REGEX}\.#{ANY_EXTENSION_REGEX}\z/ => 0.5, # COPYING.textile
-        /#{LICENSE_REGEX}/                             => 0.4, # LICENSE-MIT
-        /#{COPYING_REGEX}/                             => 0.3, # COPYING-MIT
-        //                                             => 0.0  # Catch all
+        /\A#{LICENSE_REGEX}\z/                       => 1.0, # LICENSE
+        /\A#{LICENSE_REGEX}#{PREFERRED_EXT_REGEX}\z/ => 0.9, # LICENSE.md
+        /\A#{COPYING_REGEX}\z/                       => 0.8, # COPYING
+        /\A#{COPYING_REGEX}#{PREFERRED_EXT_REGEX}\z/ => 0.7, # COPYING.md
+        /\A#{LICENSE_REGEX}#{ANY_EXT_REGEX}\z/       => 0.6, # LICENSE.textile
+        /\A#{COPYING_REGEX}#{ANY_EXT_REGEX}\z/       => 0.5, # COPYING.textile
+        /#{LICENSE_REGEX}/                           => 0.4, # LICENSE-MIT
+        /#{COPYING_REGEX}/                           => 0.3, # COPYING-MIT
+        //                                           => 0.0  # Catch all
       }.freeze
 
       def possible_matchers
