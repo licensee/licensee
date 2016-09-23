@@ -17,7 +17,7 @@ LICENSEE.confidence_threshold = 90
 Licensee supports the ability to take into account Ruby or Node package manager metadata, disabled by default. [There are reasons you may not want to use this metadata](what-we-look-at.md). You can explicitly instruct licensee to take this information into account as follows:
 
 ```ruby
-project = Licensee::Project.new("path/to/project", detect_packages: true)
+project = Licensee.project("path/to/project", detect_packages: true)
 project.license
 => #<Licensee::Licensee key="mit">
 ```
@@ -27,7 +27,7 @@ project.license
 Licensee supports the ability to take into account human readable references to licenses within the project's README, disabled by default. [There are reasons you may not want to use this](what-we-look-at.md). You can explicitly instruct licensee to take this information into account as follows:
 
 ```ruby
-project = Licensee::Project.new("path/to/project", detect_readme: true)
+project = Licensee.project("path/to/project", detect_readme: true)
 project.license
 => #<Licensee::Licensee key="mit">
 ```
