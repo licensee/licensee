@@ -5,10 +5,10 @@ module Licensee
 
       # List of extensions to give preference to
       PREFERRED_EXT = %w(md markdown txt).freeze
-      PREFERRED_EXT_REGEX = "\.#{Regexp.union(PREFERRED_EXT)}".freeze
+      PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/
 
       # Regex to match any extension
-      ANY_EXT_REGEX = /\.[^.]+/
+      ANY_EXT_REGEX = %r{\.[^./]+\z}
 
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
       LICENSE_REGEX = /(un)?licen[sc]e/i
