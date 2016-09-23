@@ -12,6 +12,8 @@ module Licensee
         matches[0].strip if matches
       end
 
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/PerceivedComplexity
       def self.name_score(filename)
         return 1.0 if filename =~ /\A(un)?licen[sc]e\z/i
         return 0.9 if filename =~ /\A(un)?licen[sc]e\.(md|markdown|txt)\z/i
@@ -23,6 +25,8 @@ module Licensee
         return 0.3 if filename =~ /copy(ing|right)/i
         0.0
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/PerceivedComplexity
 
       # case-insensitive block to determine if the given file is LICENSE.lesser
       def self.lesser_gpl_score(filename)
