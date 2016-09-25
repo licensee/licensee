@@ -22,7 +22,7 @@ end
 # Add random words to the end of a license to test similarity tollerances
 def chaos_monkey(string, count: 5)
   ipsum = %w[lorem ipsum dolor sit amet consectetur adipiscing elit]
-  Random.rand(count).times do
+  count.times do
     string << " #{ipsum[Random.rand(ipsum.length)]}"
   end
   string

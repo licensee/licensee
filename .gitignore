@@ -1,6 +1,7 @@
 Gemfile.lock
 /*.gem
 /tmp
+spec/examples.txt
 
 vendor/html5shiv
 vendor/jquery

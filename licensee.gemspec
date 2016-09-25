@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('rugged', '~> 0.24')
   gem.add_development_dependency('pry', '~> 0.9')
-  gem.add_development_dependency('shoulda', '~> 3.5')
+  gem.add_development_dependency('rspec', '~> 3.5')
   gem.add_development_dependency('rake', '~> 10.3')
   gem.add_development_dependency('ruby-prof', '~> 0.15')
   gem.add_development_dependency('rubocop', '~> 0.35')

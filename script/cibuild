@@ -2,7 +2,7 @@
 
 set -e
 
-bundle exec rake test
+bundle exec rspec
 
 bundle exec rubocop
 
