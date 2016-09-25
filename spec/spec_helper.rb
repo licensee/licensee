@@ -1,6 +1,6 @@
 require 'licensee'
 require 'open3'
-require "tmpdir"
+require 'tmpdir'
 require 'coveralls'
 Coveralls.wear!
 
