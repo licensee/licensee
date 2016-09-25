@@ -2,7 +2,7 @@
 
 *A Ruby Gem to detect under what license a project is distributed.*
 
-[![Build Status](https://travis-ci.org/benbalter/licensee.svg?branch=master)](https://travis-ci.org/benbalter/licensee) [![Gem Version](https://badge.fury.io/rb/licensee.svg)](http://badge.fury.io/rb/licensee)
+[![Build Status](https://travis-ci.org/benbalter/licensee.svg?branch=master)](https://travis-ci.org/benbalter/licensee) [![Gem Version](https://badge.fury.io/rb/licensee.svg)](http://badge.fury.io/rb/licensee) [![Coverage Status](https://coveralls.io/repos/github/benbalter/licensee/badge.svg?branch=rspec)](https://coveralls.io/github/benbalter/licensee?branch=rspec)
 
 ## The problem
 
