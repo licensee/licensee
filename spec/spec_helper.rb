@@ -61,6 +61,14 @@ def add_random_words(string, count = 5)
   string
 end
 
+def git_init(path)
+  Dir.chdir path do
+    `git init`
+    `git add .`
+    `git commit -m 'initial commit'`
+  end
+end
+
 RSpec::Matchers.define :be_an_existing_file do
   match { |path| File.exist?(path) }
 end

@@ -6,6 +6,4 @@ bundle exec rspec
 
 bundle exec rubocop
 
-bundle exec script/benchmark
-
 gem build licensee.gemspec

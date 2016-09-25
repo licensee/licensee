@@ -23,6 +23,27 @@ RSpec.describe 'vendored licenes' do
           add_random_words(content_with_copyright, random_words)
         end
 
+        context 'without the title' do
+          let(:content) do
+            content = content_with_copyright.sub(/\A.*license\n/i, '')
+            content.sub(/\A#{license.name}/i, '')
+          end
+
+          it 'detects the license' do
+            # WTFPL is too short to be mofifed and still be detected
+            expect(detected_license).to eql(license) unless license == wtfpl
+          end
+        end
+
+        context 'with a double title' do
+          let(:content) { "#{license.name}\n\n#{content_with_copyright}" }
+
+          it 'detects the license' do
+            # WTFPL is too short to be mofifed and still be detected
+            expect(detected_license).to eql(license) unless license == wtfpl
+          end
+        end
+
         context 'when re-wrapped' do
           let(:content) { content_rewrapped }
 
@@ -35,7 +56,7 @@ RSpec.describe 'vendored licenes' do
           let(:content) { content_with_random_words }
 
           it 'detects the license' do
-            # WTFPL is too short to be mofifed and wrapped and still be detected
+            # WTFPL is too short to be mofifed and still be detected
             expect(detected_license).to eql(license) unless license == wtfpl
           end
         end
@@ -44,7 +65,7 @@ RSpec.describe 'vendored licenes' do
           let(:content) { wrap(content_with_random_words, line_length) }
 
           it 'detects the license' do
-            # WTFPL is too short to be mofifed and wrapped and still be detected
+            # WTFPL is too short to be mofifed and still be detected
             expect(detected_license).to eql(license) unless license == wtfpl
           end
         end
