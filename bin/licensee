@@ -18,31 +18,33 @@ if license_file
   puts "Attribution: #{license_file.attribution}" if license_file.attribution
 end
 
-if matched_file
-  if matched_file.license
-    puts "License: #{matched_file.license.meta['title']}"
+unless matched_file
+  puts 'License: Not detected'
+  exit 1
+end
 
-    if matched_file.confidence
-      puts "Confidence: #{format_percent(matched_file.confidence)}"
-    end
+if matched_file.license
+  puts "License: #{matched_file.license.meta['title']}"
 
-    puts "Method: #{matched_file.matcher.class}" if matched_file.matcher
-  else
-    puts 'License: Not detected'
+  if matched_file.confidence
+    puts "Confidence: #{format_percent(matched_file.confidence)}"
+  end
 
-    if matched_file.is_a?(Licensee::Project::LicenseFile)
-      matcher = Licensee::Matchers::Dice.new(matched_file)
-      licenses = matcher.licenses_by_similiarity
-      unless licenses.empty?
-        puts
-        puts "Here's the closest licenses:"
-        licenses[0...3].each do |license, similarity|
-          spdx_id = license.meta['spdx-id']
-          puts "* #{spdx_id} similarity: #{format_percent(similarity)}"
-        end
-      end
+  puts "Method: #{matched_file.matcher.class}" if matched_file.matcher
+  exit 0
+end
+
+if matched_file.is_a?(Licensee::Project::LicenseFile)
+  matcher = Licensee::Matchers::Dice.new(matched_file)
+  licenses = matcher.licenses_by_similiarity
+  unless licenses.empty?
+    puts
+    puts "Here's the closest licenses:"
+    licenses[0...3].each do |license, similarity|
+      spdx_id = license.meta['spdx-id']
+      puts "* #{spdx_id} similarity: #{format_percent(similarity)}"
     end
   end
-else
-  puts 'Unknown'
 end
+
+exit 1
