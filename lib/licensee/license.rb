@@ -131,11 +131,15 @@ module Licensee
       !other.nil? && key == other.key
     end
 
-    private
-
     def pseudo_license?
       PSEUDO_LICENSES.include?(key)
     end
+
+    def inspect
+      "#<Licensee::License key=#{key}>"
+    end
+
+    private
 
     # Raw content of license file, including YAML front matter
     def raw_content

@@ -2,6 +2,8 @@
 module Licensee
   module Matchers
     class Copyright
+      attr_reader :file
+
       # rubocop:disable Metrics/LineLength
       REGEX = /\s*(Copyright|\(c\)) (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
 

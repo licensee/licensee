@@ -35,7 +35,6 @@ module Licensee
     # Retrieve a file's content from disk
     #
     # file - the file hash, with the :name key as the file's relative path
-    # path - the base path to the project
     #
     # Returns the fiel contents as a string
     def load_file(file)

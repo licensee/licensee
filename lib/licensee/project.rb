@@ -36,7 +36,7 @@ module Licensee
       end
     end
 
-    def readme
+    def readme_file
       return unless detect_readme?
       return @readme if defined? @readme
       @readme = begin
@@ -45,6 +45,7 @@ module Licensee
         Readme.new(content, name) if content && name
       end
     end
+    alias readme readme_file
 
     def package_file
       return unless detect_packages?
