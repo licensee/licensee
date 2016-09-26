@@ -1,9 +1,0 @@
-Package: test
-Title: TestPackage
-Version: 0.0.1
-Authors@R: person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre"))
-Description: Test Package
-Depends: R (>= 3.3.0)
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true

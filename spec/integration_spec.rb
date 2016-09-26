@@ -103,6 +103,18 @@ RSpec.describe 'integration test' do
             expect(subject.readme_file.path).to eql(filename)
           end
         end
+
+        context 'a DESCRIPTION file' do
+          let(:content) { "Package: test\nLicense: MIT + file LICENSE" }
+          let(:filename) { 'DESCRIPTION' }
+          let(:license) { Licensee::License.find('mit') }
+          let(:arguments) { { detect_packages: true } }
+
+          it 'matches' do
+            expect(subject.license).to eql(license)
+            expect(subject.package_file.path).to eql(filename)
+          end
+        end
       end
     end
   end

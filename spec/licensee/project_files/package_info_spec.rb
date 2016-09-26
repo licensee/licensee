@@ -7,6 +7,7 @@ RSpec.describe Licensee::Project::PackageInfo do
     {
       'licensee.gemspec' => 1.0,
       'package.json'     => 1.0,
+      'DESCRIPTION'      => 0.9,
       'bower.json'       => 0.75,
       'README.md'        => 0.0
     }.each do |filename, expected_score|
@@ -35,6 +36,15 @@ RSpec.describe Licensee::Project::PackageInfo do
 
       it 'returns the gemspec matcher' do
         expect(possible_matchers).to eql([Licensee::Matchers::NpmBower])
+      end
+    end
+
+    context 'with DESCRIPTION' do
+      let(:filename) { 'DESCRIPTION' }
+      let(:content) { 'Package: test' }
+
+      it 'returns the Cran matcher' do
+        expect(possible_matchers).to eql([Licensee::Matchers::Cran])
       end
     end
   end
