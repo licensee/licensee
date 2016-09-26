@@ -5,12 +5,13 @@ RSpec.describe Licensee::Project::Readme do
 
   context 'scoring names' do
     {
-      'readme'     => 1.0,
-      'README'     => 1.0,
-      'readme.md'  => 0.9,
-      'README.md'  => 0.9,
-      'readme.txt' => 0.9,
-      'LICENSE'    => 0.0
+      'readme'       => 1.0,
+      'README'       => 1.0,
+      'readme.md'    => 0.9,
+      'README.md'    => 0.9,
+      'readme.txt'   => 0.9,
+      'readme.mdown' => 0.9,
+      'LICENSE'      => 0.0
     }.each do |filename, expected_score|
       context "with a file named #{filename}" do
         let(:score) { described_class.name_score(filename) }
