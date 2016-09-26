@@ -6,7 +6,17 @@ module Licensee
         /\AREADME\.(md|markdown|mdown|txt)\z/i => 0.9
       }.freeze
 
-      CONTENT_REGEX = /^#+ Licen[sc]e$(.*?)(?=#+|\z)/im
+      CONTENT_REGEX = /^
+          (?:\#+\sLicen[sc]e     # Start of hashes-based license header
+             |
+             Licen[sc]e\n[-=]+)$ # Start of underlined license header
+          (.*?)                  # License content
+          (?=^(?:\#+             # Next hashes-based header
+                 |
+                 [^\n]+\n[-=]+)  # Next of underlined header
+             |
+             \z)                 # End of file
+        /mix
 
       def self.name_score(filename)
         SCORES.each do |pattern, score|
