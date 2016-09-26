@@ -14,7 +14,7 @@ LICENSEE.confidence_threshold = 90
 
 ## Matching package manager metadata
 
-Licensee supports the ability to take into account Ruby or Node package manager metadata, disabled by default. [There are reasons you may not want to use this metadata](what-we-look-at.md). You can explicitly instruct licensee to take this information into account as follows:
+Licensee supports the ability to take into account Ruby, Node and CRAN package manager metadata, disabled by default. [There are reasons you may not want to use this metadata](what-we-look-at.md). You can explicitly instruct licensee to take this information into account as follows:
 
 ```ruby
 project = Licensee.project("path/to/project", detect_packages: true)
