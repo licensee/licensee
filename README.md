@@ -28,9 +28,9 @@ Licensee automates the process of reading `LICENSE` files and compares their con
 
 See [the docs folder](/docs) for more information. You may be interested in:
 
-* [Contributing to Licensee](CONTRIBUTING.md) (and development instructions)
-* [Customizing Licensee's behavior](docs/customizing.md)
 * [Instructions for using Licensee](docs/usage.md)
+* [Customizing Licensee's behavior](docs/customizing.md)
+* [Contributing to Licensee](CONTRIBUTING.md) (and development instructions)
 * More information about [what Licensee looks at](docs/what-we-look-at.md) (or doesn't, and why)
 
 ## Semantic Versioning
