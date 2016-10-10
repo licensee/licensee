@@ -22,7 +22,7 @@ Licensee automates the process of reading `LICENSE` files and compares their con
 
 ## Installation
 
-`gem install licensee` or add `gem 'licensee'` to your project's `Gemfile`.
+[`gem`](https://rubygems.org/pages/download)` install licensee` or add `gem 'licensee'` to your project's `Gemfile`.
 
 ## Documentation
 
