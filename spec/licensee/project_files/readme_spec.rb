@@ -50,6 +50,14 @@ RSpec.describe Licensee::Project::Readme do
       end
     end
 
+    context 'after an underlined header' do
+      let(:content) { "License\n-------\n\nhello world" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
     context 'With a strangely cased heading' do
       let(:content) { "## LICENSE\n\nhello world" }
 
@@ -68,6 +76,22 @@ RSpec.describe Licensee::Project::Readme do
 
     context 'with trailing content' do
       let(:content) { "## License\n\nhello world\n\n# Contributing" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
+    context 'with trailing content that has an underlined header' do
+      let(:content) { "# License\n\nhello world\n\nContributing\n====" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
+    context 'with trailing content that has a hashes-based header' do
+      let(:content) { "# License\n\nhello world\n\n# Contributing" }
 
       it 'returns the license' do
         expect(license).to eql('hello world')
