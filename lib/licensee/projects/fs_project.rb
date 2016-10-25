@@ -24,7 +24,7 @@ module Licensee
         pattern = '*'
       end
 
-      Dir.glob(::File.join(path, pattern)) do |file|
+      Dir.glob(::File.join(path, pattern).gsub('\\', '/')) do |file|
         next unless ::File.file?(file)
         files.push(name: ::File.basename(file))
       end
