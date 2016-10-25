@@ -26,7 +26,7 @@ module Licensee
         license_file = license_from_file { |n| LicenseFile.name_score(n) }
         return license_file unless license_file && license_file.license
 
-        # Special case LGPL, which actually lives in LICENSE.lesser, per the
+        # Special case LGPL, which actuall lives in LICENSE.lesser, per the
         # license instructions. See https://git.io/viwyK
         lesser = if license_file.license.gpl?
           license_from_file { |file| LicenseFile.lesser_gpl_score(file) }
