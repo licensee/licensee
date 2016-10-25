@@ -3,10 +3,14 @@
 # Analyze a folder on the filesystem for license information
 module Licensee
   class FSProject < Project
-    attr_reader :path
-
     def initialize(path, **args)
-      @path = path
+      if ::File.file?(path)
+        @pattern = ::File.basename(path)
+        @dir = ::File.dirname(path)
+      else
+        @pattern = '*'
+        @dir = path
+      end
       super(**args)
     end
 
@@ -17,14 +21,7 @@ module Licensee
     def files
       files = []
 
-      if ::File.file?(path)
-        pattern = ::File.basename(path)
-        @path = ::File.dirname(path)
-      else
-        pattern = '*'
-      end
-
-      Dir.glob(::File.join(path, pattern).gsub('\\', '/')) do |file|
+      Dir.glob(::File.join(@dir, @pattern).gsub('\\', '/')) do |file|
         next unless ::File.file?(file)
         files.push(name: ::File.basename(file))
       end
@@ -38,7 +35,7 @@ module Licensee
     #
     # Returns the file contents as a string
     def load_file(file)
-      ::File.read(::File.join(path, file[:name]))
+      ::File.read(::File.join(@dir, file[:name]))
     end
   end
 end
