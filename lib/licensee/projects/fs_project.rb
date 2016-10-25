@@ -15,7 +15,9 @@ module Licensee
     # Returns an array of hashes representing the project's files.
     # Hashes will have the :name key, with the relative path to the file
     def files
-      files = []
+      return @files if defined? @files
+
+      @files = []
 
       if ::File.file?(path)
         pattern = ::File.basename(path)
@@ -24,12 +26,12 @@ module Licensee
         pattern = '*'
       end
 
-      Dir.glob(::File.join(path, pattern)) do |file|
+      Dir.glob(::File.join(path, pattern).gsub('\\', '/')) do |file|
         next unless ::File.file?(file)
-        files.push(name: ::File.basename(file))
+        @files.push(name: ::File.basename(file))
       end
 
-      files
+      @files
     end
 
     # Retrieve a file's content from disk

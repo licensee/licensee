@@ -51,7 +51,9 @@ module Licensee
     #  :name - the file's path relative to the repo root
     #  :oid  - the file's OID
     def files
-      commit.tree.map do |entry|
+      return @files if defined? @files
+
+      @files = commit.tree.map do |entry|
         next unless entry[:type] == :blob
         { name: entry[:name], oid: entry[:oid] }
       end.compact
