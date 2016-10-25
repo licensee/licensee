@@ -21,7 +21,7 @@ module Licensee
     def files
       files = []
 
-      Dir.glob(::File.join(@dir, @pattern).gsub('\\', '/')) do |file|
+      Dir.glob(::File.join(@dir, @pattern).tr('\\', '/')) do |file|
         next unless ::File.file?(file)
         files.push(name: ::File.basename(file))
       end
