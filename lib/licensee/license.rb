@@ -135,6 +135,19 @@ module Licensee
       PSEUDO_LICENSES.include?(key)
     end
 
+    # Returns a hash in the form of rule_group => rules describing
+    # what you legally can and can't do with the given license
+    def rules
+      return @rules if defined? @rules
+      @rules = {}
+
+      Rule.groups.each do |group|
+        @rules[group] = meta[group].map { |tag| Rule.find_by_tag(tag) }
+      end
+
+      @rules
+    end
+
     def inspect
       "#<Licensee::License key=#{key}>"
     end
