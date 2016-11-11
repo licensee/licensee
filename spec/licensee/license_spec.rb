@@ -222,9 +222,9 @@ RSpec.describe Licensee::License do
     end.to raise_error(Licensee::InvalidLicense)
   end
 
-  it "returns the rules" do
-    expect(mit.rules).to have_key("permissions")
-    expect(mit.rules["permissions"].first).to be_a(Licensee::Rule)
+  it 'returns the rules' do
+    expect(mit.rules).to have_key('permissions')
+    expect(mit.rules['permissions'].first).to be_a(Licensee::Rule)
     expect(mit.rules.flatten.count).to eql(6)
   end
 end

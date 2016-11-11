@@ -18,11 +18,11 @@ module Licensee
         @all ||= raw_rules.map do |group, rules|
           rules.map do |rule|
             Rule.new(
-              tag: rule["tag"],
-              label: rule["label"],
-              description: rule["description"],
-              group: group
-              )
+              tag:         rule['tag'],
+              label:       rule['label'],
+              description: rule['description'],
+              group:       group
+            )
           end
         end.flatten
       end
