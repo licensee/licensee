@@ -1,0 +1,44 @@
+permissions:
+- description: This software and derivatives may be used for commercial purposes.
+  label: Commercial Use
+  tag: commercial-use
+- description: This software may be modified.
+  label: Modification
+  tag: modifications
+- description: You may distribute this software.
+  label: Distribution
+  tag: distribution
+- description: You may use and modify the software without distributing it.
+  label: Private Use
+  tag: private-use
+- description: This license provides an express grant of patent rights from the contributor to the recipient.
+  label: Patent Use
+  tag: patent-use
+
+conditions:
+- description: Include a copy of the license and copyright notice with the code.
+  label: License and Copyright Notice
+  tag: include-copyright
+- description: Indicate changes made to the code.
+  label: State Changes
+  tag: document-changes
+- description: Source code must be made available when distributing the software.
+  label: Disclose Source
+  tag: disclose-source
+- description: Users who interact with the software via network are given the right to receive a copy of the corresponding source code.
+  label: Network Use is Distribution
+  tag: network-use-disclose
+- description: Modifications must be released under the same license when distributing the software. In some cases a similar or related license may be used.
+  label: Same License
+  tag: same-license
+
+limitations:
+- description: This license explicitly states that it does NOT grant you trademark rights, even though licenses without such a statement probably do not grant you any implicit trademark rights.
+  label: Trademark Use
+  tag: trademark-use
+- description: Software is provided without warranty and the software author/license owner cannot be held liable for damages.
+  label: Hold Liable
+  tag: no-liability
+- description: This license explicitly states that it does NOT grant you any rights in the patents of contributors.
+  label: Patent Use
+  tag: patent-use

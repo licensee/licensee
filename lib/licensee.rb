@@ -1,6 +1,7 @@
 require_relative 'licensee/version'
 require_relative 'licensee/content_helper'
 require_relative 'licensee/license'
+require_relative 'licensee/rule'
 
 # Projects
 require_relative 'licensee/project'
