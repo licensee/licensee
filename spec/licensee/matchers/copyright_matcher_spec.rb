@@ -27,7 +27,8 @@ RSpec.describe Licensee::Matchers::Copyright do
     'Hyphen-separated date' => 'Copyright (c) 2003-2004 Ben Balter',
     'ASCII-8BIT encoded'    => "Copyright \xC2\xA92015 Ben Balter`"
       .force_encoding('ASCII-8BIT'),
-    'Full sentence'         => 'This software is copyright (c) 2016 by John Smith.',
+    'Full sentence'         => 
+	'This software is copyright (c) 2016 by John Smith.'
   }.each do |description, notice|
     context "with a #{description} notice" do
       let(:content) { notice }
