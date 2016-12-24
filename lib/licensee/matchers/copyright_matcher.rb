@@ -5,7 +5,7 @@ module Licensee
       attr_reader :file
 
       # rubocop:disable Metrics/LineLength
-      REGEX = /\s*(Copyright|\(c\)) (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
+      REGEX = /\s*(This software is )?([Cc]opyright|\(c\)) (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
 
       def initialize(file)
         @file = file
