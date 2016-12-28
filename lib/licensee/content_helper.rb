@@ -49,6 +49,8 @@ module Licensee
         content_normalized = content.downcase.strip
         content_normalized.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
         content_normalized.gsub!(/[=-]{4,}/, '') # Strip HRs from MPL
+        h, m, _t = content_normalized.rpartition(/end of terms and conditions/)
+        content_normalized = h.concat(m) unless h.empty?
         content_normalized.tr("\n", ' ').squeeze(' ').strip
       end
     end
