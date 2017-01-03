@@ -1,11 +1,13 @@
-# encoding=utf-8
+# encoding: UTF-8
 module Licensee
   module Matchers
     class Copyright
       attr_reader :file
 
       # rubocop:disable Metrics/LineLength
-      REGEX = /\s*(Copyright|\(c\)) (©|\(c\)|\xC2\xA9)? ?(\d{4}|\[year\])(.*)?\s*/i
+      COPYRIGHT_SYMBOLS = Regexp.union([/copyright/i, /\(c\)/i, "\u00A9", "\xC2\xA9"])
+      REGEX = /\s*#{COPYRIGHT_SYMBOLS} #{COPYRIGHT_SYMBOLS}? ?(\d{4}|\[year\])(.*)?\s*/i
+      # rubocop:enable Metrics/LineLength
 
       def initialize(file)
         @file = file
