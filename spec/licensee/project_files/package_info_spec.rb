@@ -7,6 +7,7 @@ RSpec.describe Licensee::Project::PackageInfo do
     {
       'licensee.gemspec' => 1.0,
       'package.json'     => 1.0,
+      'dist.ini'         => 0.95,
       'DESCRIPTION'      => 0.9,
       'bower.json'       => 0.75,
       'README.md'        => 0.0
@@ -36,6 +37,14 @@ RSpec.describe Licensee::Project::PackageInfo do
 
       it 'returns the gemspec matcher' do
         expect(possible_matchers).to eql([Licensee::Matchers::NpmBower])
+      end
+    end
+
+    context 'with dist.ini' do
+      let(:filename) { 'dist.ini' }
+
+      it 'returns the DistZilla matcher' do
+        expect(possible_matchers).to eql([Licensee::Matchers::DistZilla])
       end
     end
 
