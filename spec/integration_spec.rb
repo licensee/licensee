@@ -70,6 +70,17 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'DESCRIPTION file with a LICENSE file' do
+          let(:license) { Licensee::License.find('mit') }
+          let(:fixture) { 'description-license' }
+          let(:arguments) { { detect_packages: true } }
+
+          it 'matches' do
+            expect(subject.license).to eql(license)
+            expect(subject.package_file.path).to eql('DESCRIPTION')
+          end
+        end
       end
 
       context 'with the license file stubbed' do
@@ -130,7 +141,7 @@ RSpec.describe 'integration test' do
         end
 
         context 'a DESCRIPTION file' do
-          let(:content) { "Package: test\nLicense: MIT + file LICENSE" }
+          let(:content) { "Package: test\nLicense: MIT" }
           let(:filename) { 'DESCRIPTION' }
           let(:license) { Licensee::License.find('mit') }
           let(:arguments) { { detect_packages: true } }

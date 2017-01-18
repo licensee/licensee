@@ -17,7 +17,11 @@ module Licensee
     end
 
     def matched_file
-      @matched_file ||= (license_file || readme || package_file)
+      @matched_file ||= begin
+        return license_file if license_file && license_file.license
+        return readme if readme && readme.license
+        package_file if package_file && package_file.license
+      end
     end
 
     def license_file
