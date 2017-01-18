@@ -42,3 +42,6 @@ spec.add_dependency 'licensee', '~> 1.0'
 This means your project is compatible with licensee 1.0 up until 2.0. You can also set a higher minimum version:
 
 spec.add_dependency 'licensee', '~> 1.1'
+
+
+test
