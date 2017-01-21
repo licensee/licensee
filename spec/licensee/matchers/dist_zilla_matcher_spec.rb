@@ -17,8 +17,8 @@ RSpec.describe Licensee::Matchers::DistZilla do
   end
 
   {
-    'spdx name'     => ["license = MIT", 'mit'],
-    'non spdx name' => ['license = Mozilla_2_0', 'mpl-2.0'],
+    'spdx name'     => ['license = MIT', 'mit'],
+    'non spdx name' => ['license = Mozilla_2_0', 'mpl-2.0']
   }.each do |description, license_declaration_and_key|
     context "with a #{description}" do
       let(:content) { license_declaration_and_key[0] }
@@ -29,5 +29,4 @@ RSpec.describe Licensee::Matchers::DistZilla do
       end
     end
   end
-
 end
