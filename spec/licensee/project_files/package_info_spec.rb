@@ -7,8 +7,8 @@ RSpec.describe Licensee::Project::PackageInfo do
     {
       'licensee.gemspec' => 1.0,
       'package.json'     => 1.0,
-      'dist.ini'         => 0.95,
       'DESCRIPTION'      => 0.9,
+      'dist.ini'         => 0.8,
       'bower.json'       => 0.75,
       'README.md'        => 0.0
     }.each do |filename, expected_score|
