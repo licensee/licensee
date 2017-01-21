@@ -3,9 +3,7 @@ module Licensee
     class DistZilla < Package
       attr_reader :file
 
-      LICENSE_REGEX = /
-        ^license\s*=\s*([a-z\-0-9\.]+)
-      /ix
+      LICENSE_REGEX = /^license\s*=\s*([a-z\-0-9_]+)/i
 
       private
 
