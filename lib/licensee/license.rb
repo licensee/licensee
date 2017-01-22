@@ -80,11 +80,7 @@ module Licensee
     def meta
       @meta ||= begin
         return YAML_DEFAULTS unless parts && parts[1]
-        meta = if YAML.respond_to? :safe_load
-          YAML.safe_load(parts[1])
-        else
-          YAML.load(parts[1])
-        end
+        meta = YAML.safe_load(parts[1])
         YAML_DEFAULTS.merge(meta)
       end
     end

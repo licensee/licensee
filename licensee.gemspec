@@ -25,6 +25,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rubocop', '~> 0.35')
   gem.add_development_dependency('coveralls', '~> 0.8')
 
+  gem.required_ruby_version = '>= 2.1'
+
   # ensure the gem is built out of versioned files
   gem.files = Dir[
     'Rakefile',
