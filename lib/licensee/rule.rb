@@ -37,7 +37,7 @@ module Licensee
       end
 
       def raw_rules
-        YAML.load File.read(Rule.file_path)
+        YAML.safe_load File.read(Rule.file_path)
       end
 
       def groups
