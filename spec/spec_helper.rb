@@ -38,10 +38,6 @@ end
 
 def wrap(text, line_width = 80)
   text = text.clone
-  copyright = /^#{Licensee::Matchers::Copyright::REGEX}$/i.match(text)
-  if copyright
-    text.gsub!(/^#{Licensee::Matchers::Copyright::REGEX}$/i, '[COPYRIGHT]')
-  end
   text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
 
   text = text.split("\n").collect do |line|
@@ -51,7 +47,7 @@ def wrap(text, line_width = 80)
       line
     end
   end * "\n"
-  text.gsub! '[COPYRIGHT]', "\n#{copyright}\n" if copyright
+
   text.strip
 end
 
@@ -75,4 +71,20 @@ end
 
 RSpec::Matchers.define :be_an_existing_file do
   match { |path| File.exist?(path) }
+end
+
+RSpec::Matchers.define :be_detected_as do |expected|
+  match do |actual|
+    @expected_as_array = [expected.content]
+    license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
+    return false unless license_file.license
+    values_match? expected, license_file.license
+  end
+
+  failure_message do |actual|
+    license_name = expected.meta['spdx-id'] || expected.key
+    "Expected the following to match the #{license_name} license:\n\n#{actual}"
+  end
+
+  diffable
 end

@@ -25,7 +25,8 @@ RSpec.describe Licensee::Matchers::Copyright do
     'UTF-8 Encoded'         => 'Copyright (c) 2010-2014 Simon Hürlimann',
     'Comma-separated date'  => 'Copyright (c) 2003, 2004 Ben Balter',
     'Hyphen-separated date' => 'Copyright (c) 2003-2004 Ben Balter',
-    'ASCII-8BIT encoded'    => "Copyright \xC2\xA92015 Ben Balter`"
+    'ASCII-8BIT encoded'    => "Copyright \xC2\xA92015 Ben Balter`",
+    'No year'               => 'Copyright Ben Balter'
       .force_encoding('ASCII-8BIT')
   }.each do |description, notice|
     context "with a #{description} notice" do

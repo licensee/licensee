@@ -1,7 +1,7 @@
 RSpec.describe 'vendored licenes' do
   let(:filename) { 'LICENSE.txt' }
   let(:license_file) { Licensee::Project::LicenseFile.new(content, filename) }
-  let(:detected_license) { license_file.license }
+  let(:detected_license) { license_file.license if license_file }
   let(:wtfpl) { Licensee::License.find('wtfpl') }
 
   Licensee.licenses(hidden: true).each do |license|
@@ -12,11 +12,11 @@ RSpec.describe 'vendored licenes' do
       let(:content) { content_with_copyright }
 
       it 'detects the license' do
-        expect(detected_license).to eql(license)
+        expect(content).to be_detected_as(license)
       end
 
       context 'when modified' do
-        let(:line_length) { 50 }
+        let(:line_length) { 60 }
         let(:random_words) { 3 }
         let(:content_rewrapped) { wrap(content_with_copyright, line_length) }
         let(:content_with_random_words) do
@@ -24,23 +24,21 @@ RSpec.describe 'vendored licenes' do
         end
 
         context 'without the title' do
-          let(:content) do
-            content = content_with_copyright.sub(/\A.*license\n/i, '')
-            content.sub(/\A#{license.name}/i, '')
-          end
+          let(:content) { wtfpl.send :strip_title, content_with_copyright }
 
           it 'detects the license' do
-            # WTFPL is too short to be mofifed and still be detected
-            expect(detected_license).to eql(license) unless license == wtfpl
+            skip 'The WTFPL is too short to be modified' if license == wtfpl
+            expect(content).to be_detected_as(license)
           end
         end
 
         context 'with a double title' do
-          let(:content) { "#{license.name}\n\n#{content_with_copyright}" }
+          let(:content) do
+            "#{license.name.sub('*', 'u')}\n\n#{content_with_copyright}"
+          end
 
           it 'detects the license' do
-            # WTFPL is too short to be mofifed and still be detected
-            expect(detected_license).to eql(license) unless license == wtfpl
+            expect(content).to be_detected_as(license)
           end
         end
 
@@ -48,7 +46,7 @@ RSpec.describe 'vendored licenes' do
           let(:content) { content_rewrapped }
 
           it 'detects the license' do
-            expect(detected_license).to eql(license)
+            expect(content).to be_detected_as(license)
           end
         end
 
@@ -56,8 +54,8 @@ RSpec.describe 'vendored licenes' do
           let(:content) { content_with_random_words }
 
           it 'detects the license' do
-            # WTFPL is too short to be mofifed and still be detected
-            expect(detected_license).to eql(license) unless license == wtfpl
+            skip 'The WTFPL is too short to be modified' if license == wtfpl
+            expect(content).to be_detected_as(license)
           end
         end
 
@@ -65,8 +63,8 @@ RSpec.describe 'vendored licenes' do
           let(:content) { wrap(content_with_random_words, line_length) }
 
           it 'detects the license' do
-            # WTFPL is too short to be mofifed and still be detected
-            expect(detected_license).to eql(license) unless license == wtfpl
+            skip 'The WTFPL is too short to be modified' if license == wtfpl
+            expect(content).to be_detected_as(license)
           end
         end
       end
