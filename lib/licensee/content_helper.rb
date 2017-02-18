@@ -29,6 +29,8 @@ module Licensee
       (length - other.length).abs
     end
 
+    # Modify similarlity to avoid known false positives in context of particular
+    # licenses eg https://github.com/benbalter/licensee/issues/116
     def license_similarity(other)
       s = similarity(other)
       if key.start_with?('cc-by') &&
