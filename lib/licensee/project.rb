@@ -26,11 +26,6 @@ module Licensee
         license_file = license_from_file { |n| LicenseFile.name_score(n) }
         return license_file unless license_file && license_file.license
 
-        # Avoid detecting CC licenses with NC or ND, which differ from
-        # open CC licenses by a small number of words
-        return if license_file.content.include?('NonCommercial')
-        return if license_file.content.include?('NoDeriv')
-
         # Special case LGPL, which actually lives in LICENSE.lesser, per the
         # license instructions. See https://git.io/viwyK
         lesser = if license_file.license.gpl?

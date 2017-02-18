@@ -30,7 +30,8 @@ module Licensee
 
       def licenses_by_similiarity
         @licenses_by_similiarity ||= begin
-          licenses = potential_licenses.map { |l| [l, l.similarity(file)] }
+          licenses =
+            potential_licenses.map { |l| [l, l.license_similarity(file)] }
           licenses.sort_by { |_, similarity| similarity }.reverse
         end
       end
