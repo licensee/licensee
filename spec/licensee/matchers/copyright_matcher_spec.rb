@@ -33,7 +33,7 @@ RSpec.describe Licensee::Matchers::Copyright do
       let(:content) { notice }
 
       it 'matches' do
-        expect(subject.match).to eql(no_license)
+        expect(content).to be_detected_as(no_license)
       end
     end
   end

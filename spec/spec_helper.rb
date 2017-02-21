@@ -64,9 +64,14 @@ end
 def git_init(path)
   Dir.chdir path do
     `git init`
+    `git config --global commit.gpgsign false`
     `git add .`
     `git commit -m 'initial commit'`
   end
+end
+
+def format_percent(float)
+  "#{format('%.2f', float)}%"
 end
 
 RSpec::Matchers.define :be_an_existing_file do
@@ -82,8 +87,20 @@ RSpec::Matchers.define :be_detected_as do |expected|
   end
 
   failure_message do |actual|
+    license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
     license_name = expected.meta['spdx-id'] || expected.key
-    "Expected the following to match the #{license_name} license:\n\n#{actual}"
+    similarity = expected.similarity(license_file)
+    msg = "Expected the content to match the #{license_name} license"
+    msg = " (#{format_percent(similarity)} similarity"
+    msg << "using the #{licese_file.matcher} matcher)"
+  end
+
+  failure_message_when_negated do |actual|
+    license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
+    license_name = expected.meta['spdx-id'] || expected.key
+    similarity = expected.similarity(license_file)
+    msg = "Expected the content to *not* match the #{license_name} license"
+    msg << " (#{format_percent(similarity)} similarity)"
   end
 
   diffable
