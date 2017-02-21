@@ -61,12 +61,17 @@ def add_random_words(string, count = 5)
   string
 end
 
+# Init git dir
+# Note: we disable gpgsign and restore it to its original setting to avoid
+# Signing commits during tests and slowing down / breaking specs
 def git_init(path)
   Dir.chdir path do
     `git init`
+    gpgsign = `git config --local commit.gpgsign`
     `git config --local commit.gpgsign false`
     `git add .`
     `git commit -m 'initial commit'`
+    `git config --local commit.gpgsign #{gpgsign}`
   end
 end
 
