@@ -60,7 +60,7 @@ RSpec.describe Licensee::Matchers::Dice do
 
   context 'CC false positive' do
     context 'CC-BY' do
-      let(:content) { cc_by.content_normalized }
+      let(:content) { cc_by.content }
 
       it 'matches' do
         expect(content).to be_detected_as(cc_by)
