@@ -18,12 +18,12 @@ RSpec.describe Licensee::Project::LicenseFile do
   end
 
   it 'creates the wordset' do
-    expect(subject.wordset.count).to eql(93)
-    expect(subject.wordset.first).to eql('mit')
+    expect(subject.wordset.count).to eql(91)
+    expect(subject.wordset.first).to eql('permission')
   end
 
   it 'creates the hash' do
-    expect(subject.hash).to eql('750260c322080bab4c19fd55eb78bc73e1ae8f11')
+    expect(subject.hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
   end
 
   context 'filename scoring' do

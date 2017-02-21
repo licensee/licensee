@@ -59,11 +59,46 @@ module Licensee
     def content_normalized
       return unless content
       @content_normalized ||= begin
-        content_normalized = content.downcase.strip
-        content_normalized.gsub!(/^#{Matchers::Copyright::REGEX}$/i, '')
-        content_normalized.gsub!(/[=-]{4,}/, '') # Strip HRs from MPL
-        content_normalized.tr("\n", ' ').squeeze(' ').strip
+        string = content.downcase.strip
+        string = strip_title(string) while string =~ title_regex
+        string = strip_version(string)
+        string = strip_copyright(string)
+        string = strip_hrs(string)
+        strip_whitespace(string)
       end
+    end
+
+    private
+
+    def license_names
+      @license_titles ||= License.all(hidden: true).map do |license|
+        license.name_without_version.downcase.sub('*', 'u')
+      end
+    end
+
+    def title_regex
+      /\A(the )?#{Regexp.union(license_names)}.*$/i
+    end
+
+    def strip_title(string)
+      string.sub(title_regex, '').strip
+    end
+
+    def strip_version(string)
+      string.sub(/\Aversion.*$/i, '').strip
+    end
+
+    def strip_copyright(string)
+      string.gsub(/\A#{Matchers::Copyright::REGEX}$/i, '').strip
+    end
+
+    # Strip HRs from MPL
+    def strip_hrs(string)
+      string.gsub(/[=-]{4,}/, '')
+    end
+
+    def strip_whitespace(string)
+      string.tr("\n", ' ').squeeze(' ').strip
     end
   end
 end

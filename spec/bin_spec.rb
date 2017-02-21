@@ -21,7 +21,7 @@ RSpec.describe 'command line invocation' do
     end
 
     it 'outputs the hash' do
-      expect(stdout).to match('750260c322080bab4c19fd55eb78bc73e1ae8f11')
+      expect(stdout).to match('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
     end
 
     it 'outputs the attribution' do

@@ -3,6 +3,8 @@ class ContentHelperTestHelper
   attr_accessor :content
 
   DEFAULT_CONTENT = <<-EOS.freeze
+The MIT License
+
 Copyright 2016 Ben Balter
 
 The made
@@ -32,12 +34,12 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(1012)
+    expect(subject.length_delta(mit)).to eql(1000)
     expect(subject.length_delta(subject)).to eql(0)
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(4)
+    expect(subject.similarity(mit)).to be_within(1).of(2)
     expect(subject.similarity(subject)).to eql(100.0)
   end
 
@@ -68,6 +70,27 @@ RSpec.describe Licensee::ContentHelper do
 
     it 'strips whitespace' do
       expect(normalized_content).to_not match(/\n/)
+    end
+
+    Licensee::License.all(hidden: true).each do |license|
+      context license.name do
+        it 'strips the title' do
+          regex = /\A#{license.name_without_version}/i
+          expect(license.content_normalized).to_not match(regex)
+        end
+
+        it 'strips the version' do
+          expect(license.content_normalized).to_not match(/\Aversion/i)
+        end
+
+        it 'strips the copyright' do
+          expect(license.content_normalized).to_not match(/\Acopyright/i)
+        end
+      end
+    end
+
+    it 'strips the title' do
+      expect(normalized_content).to_not match('MIT')
     end
 
     it 'normalize the content' do
