@@ -4,6 +4,7 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
+    END_OF_TERMS_REGEX = /^\s*end of terms and conditions\s*$/i
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -51,6 +52,7 @@ module Licensee
         string = strip_version(string)
         string = strip_copyright(string)
         string = strip_hrs(string)
+        string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         strip_whitespace(string)
       end
     end

@@ -86,6 +86,12 @@ RSpec.describe Licensee::ContentHelper do
         it 'strips the copyright' do
           expect(license.content_normalized).to_not match(/\Acopyright/i)
         end
+
+        it 'strips the implementation instructions' do
+          end_terms_regex = /END OF TERMS AND CONDITIONS/i
+          expect(license.content_normalized).to_not match(end_terms_regex)
+          expect(license.content_normalized).to_not match(/How to apply/i)
+        end
       end
     end
 
