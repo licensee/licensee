@@ -9,15 +9,15 @@ Style/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
 
-Metrics/ClassLength:
+Metrics/BlockLength:
   Exclude:
-    - test/**/*
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false
 
 Lint/EndAlignment:
-  AlignWith: variable
+  EnforcedStyleAlignWith: variable
   AutoCorrect: true
 
 Metrics/MethodLength:
@@ -25,6 +25,6 @@ Metrics/MethodLength:
 
 Metrics/ClassLength:
   Enabled: false
-  
+
 Metrics/AbcSize:
   Enabled: false
