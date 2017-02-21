@@ -37,6 +37,26 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'creative commons false positives' do
+          let(:other) { Licensee::License.find('other') }
+
+          context 'with CC-BY-NC-SA' do
+            let(:fixture) { 'cc-by-nc-sa' }
+
+            it 'matches nothing' do
+              expect(subject.license).to eql(other)
+            end
+          end
+
+          context 'with CC-BY-ND' do
+            let(:fixture) { 'cc-by-nd' }
+
+            it 'matches nothing' do
+              expect(subject.license).to eql(other)
+            end
+          end
+        end
+
         context 'MPL with HRs removed' do
           let(:license) { Licensee::License.find('mpl-2.0') }
           let(:fixture) { 'mpl-without-hrs' }
