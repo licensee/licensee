@@ -91,7 +91,7 @@ RSpec::Matchers.define :be_detected_as do |expected|
     license_name = expected.meta['spdx-id'] || expected.key
     similarity = expected.similarity(license_file)
     msg = "Expected the content to match the #{license_name} license"
-    msg = " (#{format_percent(similarity)} similarity"
+    msg << " (#{format_percent(similarity)} similarity"
     msg << "using the #{licese_file.matcher} matcher)"
   end
 
