@@ -30,6 +30,19 @@ module Licensee
       (length - other.length).abs
     end
 
+    # Modify similarlity to avoid known false positives in context of particular
+    # licenses eg https://github.com/benbalter/licensee/issues/116
+    def license_similarity(other)
+      s = similarity(other)
+      if key.start_with?('cc-by') &&
+         s >= Licensee.confidence_threshold &&
+         (other.content.include?('NonCommercial') ||
+          other.content.include?('NoDeriv'))
+        return Licensee.confidence_threshold - 1
+      end
+      s
+    end
+
     # Given another license or project file, calculates the similarity
     # as a percentage of words in common
     def similarity(other)
