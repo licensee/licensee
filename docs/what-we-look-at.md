@@ -33,9 +33,7 @@ Because reasons.
 
 Because it's not legally binding. A license is a legal contract. You give up certain rights (e.g., the right to sue the author) in exchange for the right to use the software.
 
-Most popular licenses today *require* that the license itself be distributed along side the software. Simply putting the letters "MIT" or "GPL" in a configuration file doesn't really meet that requirement.
-
-Not to mention, it doesn't tell you much about your rights as a user. Is it GPLv2? GPLv2 or later? Those files are designed to be read by computers (who can't enter into contracts), not humans (who can). It's great metadata, but that's about it.
+Most popular licenses today *require* that the license itself be distributed along side the software. Simply putting the letters "MIT" or "GPL" in a configuration file doesn't really meet that requirement. Those files are designed to be read by computers (who can't enter into contracts), not humans (who can). It's great metadata, but that's about it.
 
 ### What about looking to see if the author said something in the readme?
 
