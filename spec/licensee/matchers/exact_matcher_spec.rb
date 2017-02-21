@@ -9,7 +9,7 @@ RSpec.describe Licensee::Matchers::Exact do
   end
 
   it 'matches' do
-    expect(subject.match).to eql(mit)
+    expect(content).to be_detected_as(mit)
   end
 
   it 'is confident' do
