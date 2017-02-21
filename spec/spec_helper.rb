@@ -38,10 +38,6 @@ end
 
 def wrap(text, line_width = 80)
   text = text.clone
-  copyright = /^#{Licensee::Matchers::Copyright::REGEX}$/i.match(text)
-  if copyright
-    text.gsub!(/^#{Licensee::Matchers::Copyright::REGEX}$/i, '[COPYRIGHT]')
-  end
   text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
 
   text = text.split("\n").collect do |line|
@@ -51,7 +47,7 @@ def wrap(text, line_width = 80)
       line
     end
   end * "\n"
-  text.gsub! '[COPYRIGHT]', "\n#{copyright}\n" if copyright
+
   text.strip
 end
 
@@ -65,14 +61,52 @@ def add_random_words(string, count = 5)
   string
 end
 
+# Init git dir
+# Note: we disable gpgsign and restore it to its original setting to avoid
+# Signing commits during tests and slowing down / breaking specs
 def git_init(path)
   Dir.chdir path do
     `git init`
+    gpgsign = `git config --local commit.gpgsign`
+    `git config --local commit.gpgsign false`
     `git add .`
     `git commit -m 'initial commit'`
+    `git config --local commit.gpgsign #{gpgsign}`
   end
+end
+
+def format_percent(float)
+  "#{format('%.2f', float)}%"
 end
 
 RSpec::Matchers.define :be_an_existing_file do
   match { |path| File.exist?(path) }
+end
+
+RSpec::Matchers.define :be_detected_as do |expected|
+  match do |actual|
+    @expected_as_array = [expected.content]
+    license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
+    return false unless license_file.license
+    values_match? expected, license_file.license
+  end
+
+  failure_message do |actual|
+    license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
+    license_name = expected.meta['spdx-id'] || expected.key
+    similarity = expected.similarity(license_file)
+    msg = "Expected the content to match the #{license_name} license"
+    msg << " (#{format_percent(similarity)} similarity"
+    msg << "using the #{licese_file.matcher} matcher)"
+  end
+
+  failure_message_when_negated do |actual|
+    license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
+    license_name = expected.meta['spdx-id'] || expected.key
+    similarity = expected.similarity(license_file)
+    msg = "Expected the content to *not* match the #{license_name} license"
+    msg << " (#{format_percent(similarity)} similarity)"
+  end
+
+  diffable
 end
