@@ -75,6 +75,22 @@
 
     context 'package manager detection' do
       let(:fixture) { 'gemspec' }
+
+      # Using a `.gemspec` extension in the fixture breaks `gem release`
+      before do
+        FileUtils.cp("#{path}/project._gemspec", "#{path}/project.gemspec")
+        if described_class == Licensee::GitProject
+          Dir.chdir path do
+            `git add project.gemspec`
+            `git commit -m 'add real gemspec'`
+          end
+        end
+      end
+
+      after do
+        FileUtils.rm("#{path}/project.gemspec")
+      end
+
       subject { described_class.new(path, detect_packages: true) }
 
       it 'returns the package file' do
