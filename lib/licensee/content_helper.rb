@@ -45,7 +45,7 @@ module Licensee
 
     # Content with the title and version removed
     # The first time should normally be the attribution line
-    # Used to try up `content_normalized` but we need the case sensitive
+    # Used to dry up `content_normalized` but we need the case sensitive
     # content with attribution first to detect attribuion in LicenseFile
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
