@@ -2,6 +2,8 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:mit) { Licensee::License.find('mit') }
   let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:agpl) { Licensee::License.find('agpl-3.0') }
+  let(:cc_by) { Licensee::License.find('cc-by-4.0') }
+  let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
   let(:content) { sub_copyright_info(gpl.content) }
   let(:file) { Licensee::Project::LicenseFile.new(content, 'LICENSE.txt') }
   subject { described_class.new(file) }
@@ -53,6 +55,30 @@ RSpec.describe Licensee::Matchers::Dice do
       expect(subject.match).to eql(nil)
       expect(subject.matches).to be_empty
       expect(subject.confidence).to eql(0)
+    end
+  end
+
+  context 'CC false positive' do
+    context 'CC-BY' do
+      let(:content) { cc_by.content }
+
+      it 'matches' do
+        expect(content).to be_detected_as(cc_by)
+      end
+    end
+
+    context 'CC-ND' do
+      let(:project_path) { fixture_path('cc-by-nd') }
+      let(:license_path) { File.expand_path('LICENSE', project_path) }
+      let(:content) { File.read(license_path) }
+
+      it "doesn't match" do
+        expect(content).to_not be_detected_as(cc_by)
+        expect(content).to_not be_detected_as(cc_by_sa)
+        expect(subject.match).to be_nil
+        expect(subject.matches).to be_empty
+        expect(subject.confidence).to eql(0)
+      end
     end
   end
 end

@@ -29,6 +29,12 @@ module Licensee
         //                                           => 0.0  # Catch all
       }.freeze
 
+      # CC-NC and CC-ND are not open source licenses and should not be
+      # detected as CC-BY or CC-BY-SA which are 98%+ similar
+      CC_FALSE_POSITIVE_REGEX = /
+        \A(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
+      /xi
+
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
       end
@@ -36,6 +42,11 @@ module Licensee
       def attribution
         matches = /^#{Matchers::Copyright::REGEX}$/i.match(content)
         matches[0].strip if matches
+      end
+
+      # Is this file likely to result in a creative commons false positive?
+      def potential_false_positive?
+        content.strip =~ CC_FALSE_POSITIVE_REGEX
       end
 
       def self.name_score(filename)

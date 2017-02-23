@@ -119,4 +119,40 @@ RSpec.describe Licensee::Project::LicenseFile do
       end
     end
   end
+
+  context 'CC false positives' do
+    let(:regex) { Licensee::Project::LicenseFile::CC_FALSE_POSITIVE_REGEX }
+
+    it "knows MIT isn't a potential false positive" do
+      expect(subject.content).to_not match(regex)
+      expect(subject).to_not be_a_potential_false_positive
+    end
+
+    context 'a CC false positive without creative commons in the title' do
+      let(:content) { 'Creative Commons Attribution-NonCommercial 4.0' }
+
+      it "knows it's a potential false positive" do
+        expect(subject.content).to match(regex)
+        expect(subject).to be_a_potential_false_positive
+      end
+    end
+
+    context 'a CC false positive without creative commons in the title' do
+      let(:content) { 'Attribution-NonCommercial 4.0 International' }
+
+      it "knows it's a potential false positive" do
+        expect(subject.content).to match(regex)
+        expect(subject).to be_a_potential_false_positive
+      end
+    end
+
+    context 'CC-BY-ND' do
+      let(:content) { 'Attribution-NoDerivatives 4.0 International' }
+
+      it "knows it's a potential false positive" do
+        expect(subject.content).to match(regex)
+        expect(subject).to be_a_potential_false_positive
+      end
+    end
+  end
 end

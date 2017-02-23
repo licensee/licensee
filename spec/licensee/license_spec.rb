@@ -168,6 +168,11 @@ RSpec.describe Licensee::License do
       expect(mit).to_not be_gpl
       expect(gpl).to be_gpl
     end
+
+    it 'knows if a license is CC' do
+      expect(gpl).to_not be_creative_commons
+      expect(cc_by).to be_creative_commons
+    end
   end
 
   context 'content' do
