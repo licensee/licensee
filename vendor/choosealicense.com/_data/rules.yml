@@ -16,7 +16,7 @@ permissions:
   tag: patent-use
 
 conditions:
-- description: Include a copy of the license and copyright notice with the code.
+- description: Include a copy of the license and copyright notice with the software.
   label: License and Copyright Notice
   tag: include-copyright
 - description: Indicate changes made to the code.
@@ -31,14 +31,23 @@ conditions:
 - description: Modifications must be released under the same license when distributing the software. In some cases a similar or related license may be used.
   label: Same License
   tag: same-license
+- description: Modifications of existing files must be released under the same license when distributing the software. In some cases a similar or related license may be used.
+  label: Same License (File)
+  tag: same-license--file
+- description: Modifications must be released under the same license when distributing the software. In some cases a similar or related license may be used, or this condition may not apply to works that use the software as a library.
+  label: Same License (Library)
+  tag: same-license--library
 
 limitations:
 - description: This license explicitly states that it does NOT grant you trademark rights, even though licenses without such a statement probably do not grant you any implicit trademark rights.
   label: Trademark Use
   tag: trademark-use
-- description: Software is provided without warranty and the software author/license owner cannot be held liable for damages.
-  label: Hold Liable
-  tag: no-liability
+- description: This license includes a limitation of liability.
+  label: Liability
+  tag: liability
 - description: This license explicitly states that it does NOT grant you any rights in the patents of contributors.
   label: Patent Use
   tag: patent-use
+- description: The license explicitly states that it does NOT provide any warranty.
+  label: Warranty
+  tag: warranty
