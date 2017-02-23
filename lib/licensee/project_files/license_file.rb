@@ -40,8 +40,11 @@ module Licensee
       end
 
       def attribution
-        matches = /^#{Matchers::Copyright::REGEX}$/i.match(content)
-        matches[0].strip if matches
+        @attribution ||= begin
+          matches = /\A#{Matchers::Copyright::REGEX}$/i
+                    .match(content_without_title_and_version)
+          matches[0] if matches
+        end
       end
 
       # Is this file likely to result in a creative commons false positive?

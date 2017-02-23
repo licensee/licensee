@@ -43,13 +43,23 @@ module Licensee
       @hash ||= DIGEST.hexdigest content_normalized
     end
 
-    # Content with copyright header and linebreaks removed
+    # Content with the title and version removed
+    # The first time should normally be the attribution line
+    # Used to try up `content_normalized` but we need the case sensitive
+    # content with attribution first to detect attribuion in LicenseFile
+    def content_without_title_and_version
+      @content_without_title_and_version ||= begin
+        string = content.strip
+        string = strip_title(string) while string =~ title_regex
+        strip_version(string).strip
+      end
+    end
+
+    # Content without title, version, copyright, whitespace, or insturctions
     def content_normalized
       return unless content
       @content_normalized ||= begin
-        string = content.downcase.strip
-        string = strip_title(string) while string =~ title_regex
-        string = strip_version(string)
+        string = content_without_title_and_version.downcase
         string = strip_copyright(string)
         string = strip_hrs(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
@@ -66,7 +76,7 @@ module Licensee
     end
 
     def title_regex
-      /\A(the )?#{Regexp.union(license_names)}.*$/i
+      /\A(the )?(#{Regexp.union(license_names).source}).*$/i
     end
 
     def strip_title(string)
