@@ -9,6 +9,14 @@ RSpec.describe Licensee::Project::LicenseFile do
     expect(subject.attribution).to eql('Copyright (c) 2016 Ben Balter')
   end
 
+  context "when there's a random copyright-like line" do
+    let(:content) { "Foo\nCopyright 2016 Ben Balter\nBar" }
+
+    it "doesn't match" do
+      expect(subject.attribution).to be_nil
+    end
+  end
+
   context 'with an non-UTF-8-encoded license' do
     let(:content) { "\x91License\x93".force_encoding('windows-1251') }
 
