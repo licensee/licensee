@@ -2,7 +2,14 @@ class ContentHelperTestHelper
   include Licensee::ContentHelper
   attr_accessor :content
 
-  DEFAULT_CONTENT = <<-EOS.freeze
+  def initialize(content = nil)
+    @content = content
+  end
+end
+
+RSpec.describe Licensee::ContentHelper do
+  let(:content) do
+    <<-EOS.freeze
 The MIT License
 
 Copyright 2016 Ben Balter
@@ -10,15 +17,9 @@ Copyright 2016 Ben Balter
 The made
 up  license.
 -----------
-  EOS
-
-  def initialize(content = nil)
-    @content = content || DEFAULT_CONTENT
+EOS
   end
-end
-
-RSpec.describe Licensee::ContentHelper do
-  subject { ContentHelperTestHelper.new }
+  subject { ContentHelperTestHelper.new(content) }
   let(:mit) { Licensee::License.find('mit') }
 
   it 'creates the wordset' do
@@ -105,6 +106,15 @@ RSpec.describe Licensee::ContentHelper do
 
     it 'normalize the content' do
       expect(normalized_content).to eql 'the made up license.'
+    end
+
+    context 'a title in parenthesis' do
+      let(:content) { "(The MIT License)\n\nfoo" }
+
+      it 'strips the title' do
+        expect(normalized_content).to_not match('MIT')
+        expect(normalized_content).to eql('foo')
+      end
     end
   end
 end

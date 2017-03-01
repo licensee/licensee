@@ -76,7 +76,7 @@ module Licensee
     end
 
     def title_regex
-      /\A(the )?(#{Regexp.union(license_names).source}).*$/i
+      /\A\(?(the )?(#{Regexp.union(license_names).source}).*$/i
     end
 
     def strip_title(string)
