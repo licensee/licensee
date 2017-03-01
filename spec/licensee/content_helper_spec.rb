@@ -116,5 +116,14 @@ EOS
         expect(normalized_content).to eql('foo')
       end
     end
+
+    context 'multiple copyrights' do
+      let(:content) { "Copyright 2016 Ben Balter\nCopyright 2017 Bob\nFoo" }
+
+      it 'strips multiple copyrights' do
+        expect(normalized_content).to_not match('Ben')
+        expect(normalized_content).to eql('foo')
+      end
+    end
   end
 end
