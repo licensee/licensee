@@ -60,7 +60,9 @@ module Licensee
       return unless content
       @content_normalized ||= begin
         string = content_without_title_and_version.downcase
-        string = strip_copyright(string)
+        while string =~ Matchers::Copyright::REGEX
+          string = strip_copyright(string)
+        end
         string = strip_hrs(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         strip_whitespace(string)
@@ -76,7 +78,7 @@ module Licensee
     end
 
     def title_regex
-      /\A(the )?(#{Regexp.union(license_names).source}).*$/i
+      /\A\(?(the )?(#{Regexp.union(license_names).source}).*$/i
     end
 
     def strip_title(string)
@@ -88,7 +90,7 @@ module Licensee
     end
 
     def strip_copyright(string)
-      string.gsub(/\A#{Matchers::Copyright::REGEX}$/i, '').strip
+      string.gsub(Matchers::Copyright::REGEX, '').strip
     end
 
     # Strip HRs from MPL
