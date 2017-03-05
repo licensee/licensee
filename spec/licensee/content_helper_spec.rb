@@ -78,7 +78,8 @@ EOS
         let(:stripped_content) { subject.content_without_title_and_version }
 
         it 'strips the title' do
-          regex = /\A#{license.name_without_version}/i
+          regex = Licensee::ContentHelper::ALT_TITLE_REGEX[license.key]
+          regex ||= /\A#{license.name_without_version}/i
           expect(license.content_normalized).to_not match(regex)
           expect(stripped_content).to_not match(regex)
         end

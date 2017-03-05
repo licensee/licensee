@@ -5,6 +5,11 @@ module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
     END_OF_TERMS_REGEX = /^\s*end of terms and conditions\s*$/i
+    ALT_TITLE_REGEX = {
+      'bsd-2-clause'       => /bsd 2-clause( \"simplified\")? license/i,
+      'bsd-3-clause'       => /bsd 3-clause( \"new\" or \"revised\")? license/i,
+      'bsd-3-clause-clear' => /bsd 3-clause( clear)? license/i
+    }.freeze
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -73,7 +78,8 @@ module Licensee
 
     def license_names
       @license_titles ||= License.all(hidden: true).map do |license|
-        license.name_without_version.downcase.sub('*', 'u')
+        regex = ALT_TITLE_REGEX[license.key]
+        regex || license.name_without_version.downcase.sub('*', 'u')
       end
     end
 
