@@ -27,9 +27,10 @@ module Licensee
         end.flatten
       end
 
-      def find_by_tag(tag)
-        Rule.all.find { |r| r.tag == tag }
+      def find_by_tag_and_group(tag, group = nil)
+        Rule.all.find { |r| r.tag == tag && (group.nil? || r.group == group) }
       end
+      alias find_by_tag find_by_tag_and_group
 
       def file_path
         dir = File.dirname(__FILE__)
