@@ -143,7 +143,9 @@ module Licensee
       @rules = {}
 
       Rule.groups.each do |group|
-        @rules[group] = meta[group].map { |tag| Rule.find_by_tag(tag) }
+        @rules[group] = meta[group].map do |tag|
+          Rule.find_by_tag_and_group(tag, group)
+        end
       end
 
       @rules

@@ -232,4 +232,11 @@ RSpec.describe Licensee::License do
     expect(mit.rules['permissions'].first).to be_a(Licensee::Rule)
     expect(mit.rules.flatten.count).to eql(6)
   end
+
+  it 'returns rules by tag and group' do
+    expect(cc_by.rules).to have_key('limitations')
+    rule = cc_by.rules['limitations'].find { |r| r.tag == 'patent-use' }
+    expect(rule).to_not be_nil
+    expect(rule.description).to include('does NOT grant')
+  end
 end
