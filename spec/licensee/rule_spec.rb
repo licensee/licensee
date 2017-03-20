@@ -41,6 +41,11 @@ RSpec.describe Licensee::Rule do
     expect(rule).to be_a(described_class)
     expect(rule.tag).to eql('patent-use')
     expect(rule.description).to include('does NOT grant')
+
+    rule = described_class.find_by_tag_and_group('patent-use', 'permissions')
+    expect(rule).to be_a(described_class)
+    expect(rule.tag).to eql('patent-use')
+    expect(rule.description).to include('an express grant of patent rights')
   end
 
   it 'loads all rules' do

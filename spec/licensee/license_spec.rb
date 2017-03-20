@@ -238,5 +238,10 @@ RSpec.describe Licensee::License do
     rule = cc_by.rules['limitations'].find { |r| r.tag == 'patent-use' }
     expect(rule).to_not be_nil
     expect(rule.description).to include('does NOT grant')
+
+    expect(gpl.rules).to have_key('permissions')
+    rule = gpl.rules['permissions'].find { |r| r.tag == 'patent-use' }
+    expect(rule).to_not be_nil
+    expect(rule.description).to include('an express grant of patent rights')
   end
 end
