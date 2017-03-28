@@ -56,6 +56,7 @@ module Licensee
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
         string = content.strip
+        string = strip_markdown_headings(string)
         string = strip_hrs(string)
         string = strip_title(string) while string =~ title_regex
         strip_version(string).strip
@@ -103,6 +104,11 @@ module Licensee
     # Strip HRs from MPL
     def strip_hrs(string)
       string.gsub HR_REGEX, ''
+    end
+
+    # Strip leading #s from the document
+    def strip_markdown_headings(string)
+      string.sub(/\A\s*#+/, '').strip
     end
 
     def strip_whitespace(string)

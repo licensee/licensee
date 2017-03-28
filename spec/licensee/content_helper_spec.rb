@@ -10,7 +10,7 @@ end
 RSpec.describe Licensee::ContentHelper do
   let(:content) do
     <<-EOS.freeze
-  The MIT License
+  # The MIT License
   ===============
 
   Copyright 2016 Ben Balter
@@ -72,6 +72,10 @@ EOS
 
     it 'strips whitespace' do
       expect(normalized_content).to_not match(/\n/)
+    end
+
+    it 'strips markdown headings' do
+      expect(normalized_content).to_not match('#')
     end
 
     Licensee::License.all(hidden: true).each do |license|
