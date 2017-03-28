@@ -10,13 +10,14 @@ end
 RSpec.describe Licensee::ContentHelper do
   let(:content) do
     <<-EOS.freeze
-The MIT License
+  The MIT License
+  ===============
 
-Copyright 2016 Ben Balter
+  Copyright 2016 Ben Balter
 
-The made
-up  license.
------------
+  The made
+  up  license.
+  -----------
 EOS
   end
   subject { ContentHelperTestHelper.new(content) }
