@@ -162,5 +162,20 @@ RSpec.describe Licensee::Project::LicenseFile do
         expect(subject).to be_a_potential_false_positive
       end
     end
+
+    context 'CC-BY-ND with leading instructions' do
+      let(:content) do
+        <<-EOS
+Creative Commons Corporation ("Creative Commons") is not a law firm
+======================================================================
+Creative Commons Attribution-NonCommercial 4.0
+        EOS
+      end
+
+      it "knows it's a potential false positive" do
+        expect(subject.content).to match(regex)
+        expect(subject).to be_a_potential_false_positive
+      end
+    end
   end
 end
