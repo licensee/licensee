@@ -35,7 +35,7 @@ RSpec.describe Licensee::License do
       end
 
       it "doesn't include hidden licenses" do
-        expect(licenses).to all satisfy { |license| !license.hidden? }
+        expect(licenses).to all(satisfy { |license| !license.hidden? })
       end
 
       it 'includes featured licenses' do
