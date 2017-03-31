@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 module Licensee
   module Matchers
     class Copyright
