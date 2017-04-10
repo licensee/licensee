@@ -16,6 +16,10 @@ module Licensee
       # Regex to match COPYING, COPYRIGHT, etc.
       COPYING_REGEX = /copy(ing|right)/i
 
+      # Regex to match OFL.
+      OFL_REGEX = /OFL(.txt|.md)/i
+
+
       # Hash of Regex => score with which to score potential license files
       FILENAME_REGEXES = {
         /\A#{LICENSE_REGEX}\z/                       => 1.0, # LICENSE
@@ -26,6 +30,7 @@ module Licensee
         /\A#{COPYING_REGEX}#{ANY_EXT_REGEX}\z/       => 0.5, # COPYING.textile
         /#{LICENSE_REGEX}/                           => 0.4, # LICENSE-MIT
         /#{COPYING_REGEX}/                           => 0.3, # COPYING-MIT
+        /#{OFL_REGEX}/                               => 0.5, # OFL
         //                                           => 0.0  # Catch all
       }.freeze
 
