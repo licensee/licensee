@@ -63,7 +63,7 @@ module Licensee
     # `no-license` - The project is not licensed (e.g., all rights reserved)
     #
     # Note: A lack of detected license will be a nil license
-    PSEUDO_LICENSES = %w(other no-license).freeze
+    PSEUDO_LICENSES = %w[other no-license].freeze
 
     include Licensee::ContentHelper
 
