@@ -32,7 +32,7 @@ module Licensee
       # CC-NC and CC-ND are not open source licenses and should not be
       # detected as CC-BY or CC-BY-SA which are 98%+ similar
       CC_FALSE_POSITIVE_REGEX = /
-        \A(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
+        ^(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
       /xi
 
       def possible_matchers

@@ -28,3 +28,6 @@ Metrics/ClassLength:
 
 Metrics/AbcSize:
   Enabled: false
+
+Style/IndentHeredoc:
+  Enabled: false

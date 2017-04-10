@@ -9,9 +9,9 @@ end
 
 RSpec.describe Licensee::ContentHelper do
   let(:content) do
-    <<-EOS.freeze
+    <<-EOS.freeze.gsub(/^\s*/, '')
   # The MIT License
-  ===============
+  =================
 
   Copyright 2016 Ben Balter
 
