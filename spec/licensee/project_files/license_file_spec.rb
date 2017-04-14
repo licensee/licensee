@@ -56,6 +56,10 @@ RSpec.describe Licensee::Project::LicenseFile do
       'mit-license-foo.md' => 0.4,
       'COPYING-GPL'        => 0.3,
       'COPYRIGHT-BSD'      => 0.3,
+      'OFL.md'             => 0.2,
+      'ofl.textile'        => 0.1,
+      'ofl'                => 0.05,
+      'not-the-ofl'        => 0.0,
       'README.txt'         => 0.0
     }.each do |filename, expected|
       context "a file named #{filename}" do
