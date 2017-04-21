@@ -1,6 +1,6 @@
 RSpec.describe Licensee::License do
-  let(:license_count) { 30 }
-  let(:hidden_license_count) { 18 }
+  let(:license_count) { 32 }
+  let(:hidden_license_count) { 20 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
