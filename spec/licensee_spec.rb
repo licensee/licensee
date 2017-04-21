@@ -5,7 +5,7 @@ RSpec.describe Licensee do
 
   it 'exposes licenses' do
     expect(described_class.licenses).to be_an(Array)
-    expect(described_class.licenses(hidden: true).count).to eql(30)
+    expect(described_class.licenses(hidden: true).count).to eql(32)
     expect(described_class.licenses.first).to be_a(Licensee::License)
   end
 
