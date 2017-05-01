@@ -16,11 +16,10 @@ module Licensee
         return unless match && match[1]
 
         # Remove The common + file LICENSE text
-        match = match[1]
-        match.slice!(/\s*\+\s*file\s*LICENSE.*/)
+        match = match[1].gsub(/\s* [+] \s* file \s+ LICENSE$/x,'')
 
         # Match GPL (>=2)
-        m = match.match(/^GPL\s*\(>=\s*([23])\)/)
+        m = match.match(/^GPL \s* [(] \s* >= \s* ([23]) \s* [)]/x)
         return "gpl-#{m[1]}.0" if m && m[1]
 
         # Match GPL-2
