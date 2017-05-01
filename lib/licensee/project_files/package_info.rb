@@ -8,7 +8,7 @@ module Licensee
         when '.json'
           [Matchers::NpmBower]
         else
-          if filename == 'DESCRIPTION' && content.start_with?('Package:')
+          if filename == 'DESCRIPTION' && content.match(/^Package:/)
             [Matchers::Cran]
           elsif filename == 'dist.ini'
             [Matchers::DistZilla]
