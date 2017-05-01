@@ -18,9 +18,7 @@ module Licensee
 
     def matched_file
       @matched_file ||= begin
-        return license_file if license_file && license_file.license
-        return readme if readme && readme.license
-        package_file if package_file && package_file.license
+        [license_file, readme, package_file].compact.find(&:license)
       end
     end
 
