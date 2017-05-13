@@ -58,9 +58,13 @@ module Licensee
         content.strip =~ CC_FALSE_POSITIVE_REGEX
       end
 
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/PerceivedComplexity
       def self.name_score(filename)
         FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/PerceivedComplexity
 
       # case-insensitive block to determine if the given file is LICENSE.lesser
       def self.lesser_gpl_score(filename)
