@@ -26,7 +26,7 @@ module Licensee
       end
 
       def license
-        matcher && matcher.match
+        (matcher && matcher.match) || Licensee::License.find('other')
       end
 
       alias match license

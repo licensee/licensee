@@ -24,7 +24,7 @@ unless matched_file
 end
 
 if matched_file.license
-  puts "License: #{matched_file.license.meta['title']}"
+  puts "License: #{matched_file.license.name}"
 
   if matched_file.confidence
     puts "Confidence: #{format_percent(matched_file.confidence)}"

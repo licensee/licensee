@@ -3,6 +3,7 @@ RSpec.describe 'integration test' do
     context "with a #{project_type} project" do
       let(:filename) { 'LICENSE' }
       let(:license) { Licensee::License.find('mit') }
+      let(:other) { Licensee::License.find('other') }
       let(:content) { license.content }
       let(:license_path) { File.expand_path(filename, project_path) }
       let(:arguments) { {} }
@@ -40,16 +41,16 @@ RSpec.describe 'integration test' do
         context 'with CC-BY-NC-SA' do
           let(:fixture) { 'cc-by-nc-sa' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other)
           end
         end
 
         context 'with CC-BY-ND' do
           let(:fixture) { 'cc-by-nd' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other)
           end
         end
 
@@ -111,7 +112,7 @@ RSpec.describe 'integration test' do
           let(:content) { '' }
 
           it "doesn't match" do
-            expect(subject.license).to be_nil
+            expect(subject.license).to eql(other)
             expect(subject.license_file.path).to eql('LICENSE')
           end
         end
