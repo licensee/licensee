@@ -75,6 +75,7 @@ RSpec.describe Licensee::Project::LicenseFile do
       {
         'COPYING.lesser' => 1,
         'copying.lesser' => 1,
+        'COPYING.LESSER' => 1,
         'license.lesser' => 0,
         'LICENSE.md'     => 0,
         'FOO.md'         => 0
