@@ -35,8 +35,8 @@ EOS
     expect(subject.max_delta).to eql(1)
   end
 
-  context "a very long license" do
-    let(:content) { "license" * 1000 }
+  context 'a very long license' do
+    let(:content) { 'license' * 1000 }
 
     it 'does not return a max delta larger than 150' do
       expect(subject.max_delta).to eql(150)
