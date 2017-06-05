@@ -12,6 +12,7 @@ RSpec.describe 'integration test' do
       context 'fixtures' do
         let(:fixture) { 'mit' }
         let(:project_path) { fixture_path(fixture) }
+
         let(:git_path) { File.expand_path('.git', project_path) }
 
         if project_type == Licensee::GitProject
@@ -47,6 +48,22 @@ RSpec.describe 'integration test' do
 
         context 'with CC-BY-ND' do
           let(:fixture) { 'cc-by-nd' }
+
+          it 'matches nothing' do
+            expect(subject.license).to eql(nil)
+          end
+        end
+
+        context 'with WRK Modified Apache 2.0.1' do
+          let(:fixture) { 'wrk-modified-apache' }
+
+          it 'matches nothing' do
+            expect(subject.license).to eql(nil)
+          end
+        end
+
+        context 'with FCPL Modified MPL' do
+          let(:fixture) { 'fcpl-modified-mpl' }
 
           it 'matches nothing' do
             expect(subject.license).to eql(nil)

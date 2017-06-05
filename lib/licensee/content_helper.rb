@@ -28,7 +28,9 @@ module Licensee
     # Number of characters that could be added/removed to still be
     # considered a potential match
     def max_delta
-      (length * Licensee.inverse_confidence_threshold).to_i
+      scaled_delta = (length * Licensee.inverse_confidence_threshold).to_i
+      return scaled_delta unless scaled_delta > 150
+      150
     end
 
     # Given another license or project file, calculates the difference in length
