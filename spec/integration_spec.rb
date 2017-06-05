@@ -12,7 +12,6 @@ RSpec.describe 'integration test' do
       context 'fixtures' do
         let(:fixture) { 'mit' }
         let(:project_path) { fixture_path(fixture) }
-
         let(:git_path) { File.expand_path('.git', project_path) }
 
         if project_type == Licensee::GitProject
