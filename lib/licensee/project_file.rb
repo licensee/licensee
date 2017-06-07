@@ -1,18 +1,18 @@
+require 'charlock_holmes'
+
 module Licensee
   class Project
     class File
       attr_reader :content, :filename
 
-      ENCODING = Encoding::UTF_8
-      ENCODING_OPTIONS = {
-        invalid: :replace,
-        undef:   :replace,
-        replace: ''
-      }.freeze
-
       def initialize(content, filename = nil)
         @content = content
-        @content.encode!(ENCODING, ENCODING_OPTIONS)
+        unless @content.empty?
+          detection = CharlockHolmes::EncodingDetector.detect(content)
+          @content = CharlockHolmes::Converter.convert @content,
+                                                       detection[:encoding],
+                                                       'UTF-8'
+        end
         @filename = filename
       end
 

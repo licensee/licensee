@@ -5,13 +5,14 @@ AllCops:
     - test/fixtures/**/*
     - test/functions.rb
 
-Style/AlignHash:
+Layout/AlignHash:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
 
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - licensee.gemspec
 
 Style/Documentation:
   Enabled: false
@@ -29,5 +30,5 @@ Metrics/ClassLength:
 Metrics/AbcSize:
   Enabled: false
 
-Style/IndentHeredoc:
+Layout/IndentHeredoc:
   Enabled: false

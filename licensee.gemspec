@@ -19,6 +19,7 @@ Gem::Specification.new do |gem|
   gem.executables << 'licensee'
 
   gem.add_dependency('rugged', '~> 0.24')
+  gem.add_dependency('charlock_holmes', '~> 0.7')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('rspec', '~> 3.5')
   gem.add_development_dependency('rake', '~> 10.3')
