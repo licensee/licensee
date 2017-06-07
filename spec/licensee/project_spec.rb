@@ -58,6 +58,16 @@
       end
     end
 
+    context 'encoding correctness' do
+      let(:fixture) { 'copyright-encoding' }
+
+      it "returns a file's content" do
+        expect(subject.license_file.content).to match(
+          'Copyright © 2013–2016 by Peder Ås, 王二麻子, and Seán Ó Rudaí'
+        )
+      end
+    end
+
     context 'readme detection' do
       let(:fixture) { 'readme' }
       subject { described_class.new(path, detect_readme: true) }
