@@ -53,6 +53,22 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'with WRK Modified Apache 2.0.1' do
+          let(:fixture) { 'wrk-modified-apache' }
+
+          it 'matches nothing' do
+            expect(subject.license).to eql(nil)
+          end
+        end
+
+        context 'with FCPL Modified MPL' do
+          let(:fixture) { 'fcpl-modified-mpl' }
+
+          it 'matches nothing' do
+            expect(subject.license).to eql(nil)
+          end
+        end
+
         context 'MPL with HRs removed' do
           let(:license) { Licensee::License.find('mpl-2.0') }
           let(:fixture) { 'mpl-without-hrs' }
