@@ -12,7 +12,10 @@ module Licensee
 
       def initialize(content, filename = nil)
         @content = content
-        @content.encode!(ENCODING, ENCODING_OPTIONS)
+        @content.force_encoding(ENCODING)
+        unless @content.valid_encoding?
+          @content.encode!(ENCODING, ENCODING_OPTIONS)
+        end
         @filename = filename
       end
 
