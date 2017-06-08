@@ -36,7 +36,7 @@ module Licensee
 
   class << self
     attr_writer :confidence_threshold
-    attr_accessor :project_types
+
     # Returns an array of Licensee::License instances
     def licenses(options = {})
       Licensee::License.all(options)
