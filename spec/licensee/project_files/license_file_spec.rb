@@ -90,7 +90,7 @@ RSpec.describe Licensee::Project::LicenseFile do
     end
 
     context 'preferred license regex' do
-      %w[md markdown txt].each do |ext|
+      %w(md markdown txt).each do |ext|
         it "matches .#{ext}" do
           expect(described_class::PREFERRED_EXT_REGEX).to match(".#{ext}")
         end
@@ -116,7 +116,7 @@ RSpec.describe Licensee::Project::LicenseFile do
     end
 
     context 'license regex' do
-      %w[LICENSE licence unlicense LICENSE-MIT MIT-LICENSE].each do |license|
+      %w(LICENSE licence unlicense LICENSE-MIT MIT-LICENSE).each do |license|
         it "matches #{license}" do
           expect(described_class::LICENSE_REGEX).to match(license)
         end
@@ -124,7 +124,7 @@ RSpec.describe Licensee::Project::LicenseFile do
     end
 
     context 'copying regex' do
-      %w[COPYING copyright].each do |copying|
+      %w(COPYING copyright).each do |copying|
         it "matches #{copying}" do
           expect(described_class::COPYING_REGEX).to match(copying)
         end

@@ -54,7 +54,7 @@ end
 # Add random words to the end of a license to test similarity tollerances
 def add_random_words(string, count = 5)
   string = string.dup
-  ipsum = %w[lorem ipsum dolor sit amet consectetur adipiscing elit]
+  ipsum = %w(lorem ipsum dolor sit amet consectetur adipiscing elit)
   count.times do
     string << " #{ipsum[Random.rand(ipsum.length)]}"
   end

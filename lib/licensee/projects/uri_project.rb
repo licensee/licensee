@@ -8,7 +8,7 @@ module Licensee
   class UriProject < Project
     def initialize(path, **args)
       @uri = URI(path)
-      raise UnsupportedProject if @uri.scheme != 'http' and @uri.scheme != 'https'
+      raise UnsupportedProject if @uri.scheme != 'http' && @uri.scheme != 'https'
       super(**args)
     end
 
@@ -17,7 +17,7 @@ module Licensee
     end
 
     def files
-      [{name: @uri.to_s, uri: @uri}]
+      [{ name: @uri.to_s, uri: @uri }]
     end
   end
 end

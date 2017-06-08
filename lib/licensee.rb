@@ -36,7 +36,7 @@ module Licensee
 
   class << self
     attr_writer :confidence_threshold
-
+    attr_accessor :project_types
     # Returns an array of Licensee::License instances
     def licenses(options = {})
       Licensee::License.all(options)
@@ -48,7 +48,8 @@ module Licensee
     end
 
     def project(path, **args)
-      [Licensee::GitProject, Licensee::FSProject, Licensee::UriProject].each do |project_type|
+      project_types = [Licensee::GitProject, Licensee::FSProject, Licensee::UriProject]
+      project_types.each do |project_type|
         begin
           project = project_type.new(path, args)
           return project
