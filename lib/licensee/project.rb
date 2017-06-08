@@ -23,8 +23,7 @@ module Licensee
     end
 
     def license_file
-      return @license_file if defined? @license_file
-      @license_file = begin
+      @license_file ||= begin
         license_file = license_from_file { |n| LicenseFile.name_score(n) }
         return license_file unless license_file && license_file.license
 
@@ -34,7 +33,14 @@ module Licensee
           license_from_file { |file| LicenseFile.lesser_gpl_score(file) }
         end
 
-        lesser || license_file
+        license_files_count =
+          find_files { |n| LicenseFile.name_score(n) }.length
+
+        if lesser && license_files_count == 2
+          lesser
+        elsif license_file && license_files_count == 1
+          license_file
+        end
       end
     end
 

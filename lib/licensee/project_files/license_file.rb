@@ -27,8 +27,10 @@ module Licensee
         /\A#{COPYING_REGEX}#{PREFERRED_EXT_REGEX}\z/ => 0.7,  # COPYING.md
         /\A#{LICENSE_REGEX}#{ANY_EXT_REGEX}\z/       => 0.6,  # LICENSE.textile
         /\A#{COPYING_REGEX}#{ANY_EXT_REGEX}\z/       => 0.5,  # COPYING.textile
-        /#{LICENSE_REGEX}/                           => 0.4,  # LICENSE-MIT
-        /#{COPYING_REGEX}/                           => 0.3,  # COPYING-MIT
+        /#{LICENSE_REGEX}-/                          => 0.4,  # LICENSE-MIT
+        /#{COPYING_REGEX}-/                          => 0.35, # COPYING-MIT
+        /-#{LICENSE_REGEX}/                          => 0.3,  # MIT-LICENSE-MIT
+        /-#{COPYING_REGEX}/                          => 0.25, # MIT-COPYING
         /\A#{OFL_REGEX}#{PREFERRED_EXT_REGEX}/       => 0.2,  # OFL.md
         /\A#{OFL_REGEX}#{ANY_EXT_REGEX}/             => 0.1,  # OFL.textile
         /\A#{OFL_REGEX}\z/                           => 0.05, # OFL
