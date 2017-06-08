@@ -1,3 +1,5 @@
+require 'uri/http'
+
 require_relative 'licensee/version'
 require_relative 'licensee/content_helper'
 require_relative 'licensee/license'
@@ -7,6 +9,7 @@ require_relative 'licensee/rule'
 require_relative 'licensee/project'
 require_relative 'licensee/projects/git_project'
 require_relative 'licensee/projects/fs_project'
+require_relative 'licensee/projects/uri_project'
 
 # Project files
 require_relative 'licensee/project_file'
@@ -45,9 +48,15 @@ module Licensee
     end
 
     def project(path, **args)
-      Licensee::GitProject.new(path, args)
-    rescue Licensee::GitProject::InvalidRepository
-      Licensee::FSProject.new(path, args)
+      uri = URI(path)
+      raise URI::Error if uri.scheme != 'http' and uri.scheme != 'https'
+      Licensee::UriProject.new(uri, args)
+    rescue URI::Error
+      begin
+        Licensee::GitProject.new(path, args)
+      rescue Licensee::GitProject::InvalidRepository
+        Licensee::FSProject.new(path, args)
+      end
     end
 
     def confidence_threshold
