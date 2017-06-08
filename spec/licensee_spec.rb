@@ -21,6 +21,10 @@ RSpec.describe Licensee do
     expect(Licensee.project(project_path)).to be_a(Licensee::Project)
   end
 
+  it 'inits a UriProject given a URI' do
+    expect(Licensee.project('http://localhost')).to be_a(Licensee::UriProject)
+  end
+
   context 'confidence threshold' do
     it 'exposes the confidence threshold' do
       expect(described_class.confidence_threshold).to eql(95)
