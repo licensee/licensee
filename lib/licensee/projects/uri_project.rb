@@ -13,11 +13,13 @@ module Licensee
     end
 
     def load_file(file)
-      Net::HTTP.get(file[:uri])
+      Net::HTTP.get(file[:uri]) if @allow_remote
     end
 
     def files
-      [{ name: @uri.to_s, uri: @uri }]
+      result = []
+      result.push(name: @uri.to_s, uri: @uri) if @allow_remote
+      result
     end
   end
 end

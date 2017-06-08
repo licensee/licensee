@@ -120,7 +120,7 @@ end
 # Tests for URI project
 RSpec.describe Licensee::UriProject do
   let(:path) { 'https://localhost' }
-  subject { described_class.new(path) }
+  subject { described_class.new(path, allow_remote: true) }
 
   context 'reading files' do
     let(:files) { subject.send(:files) }

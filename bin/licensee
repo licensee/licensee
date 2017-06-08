@@ -8,7 +8,15 @@ def format_percent(float)
   "#{format('%.2f', float)}%"
 end
 
-project = Licensee.project(path, detect_packages: true, detect_readme: true)
+begin
+  project = Licensee.project(path,
+                             detect_packages: true,
+                             detect_readme:   true,
+                             allow_remote:    true)
+rescue Licensee::UnsupportedProject
+  puts 'Path: Not supported'
+  exit 1
+end
 license_file = project.license_file
 matched_file = project.matched_file
 

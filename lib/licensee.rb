@@ -48,11 +48,9 @@ module Licensee
     end
 
     def project(path, **args)
-      [
-        Licensee::GitProject,
-        Licensee::FSProject,
-        Licensee::UriProject
-      ].each do |project_type|
+      [Licensee::GitProject,
+       Licensee::FSProject,
+       Licensee::UriProject].each do |project_type|
         begin
           project = project_type.new(path, args)
           return project
@@ -63,6 +61,9 @@ module Licensee
           end
         end
       end
+
+      # If we reach here no project type claimed being able to process
+      raise UnsupportedProject
     end
 
     def confidence_threshold
