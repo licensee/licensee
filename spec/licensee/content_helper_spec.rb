@@ -24,7 +24,7 @@ EOS
   let(:mit) { Licensee::License.find('mit') }
 
   it 'creates the wordset' do
-    expect(subject.wordset).to eql(Set.new(%w(the made up license)))
+    expect(subject.wordset).to eql(Set.new(%w[the made up license]))
   end
 
   it 'knows the length' do

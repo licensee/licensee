@@ -1,5 +1,5 @@
 RSpec.describe Licensee::Rule do
-  let(:groups) { %w(permissions conditions limitations) }
+  let(:groups) { %w[permissions conditions limitations] }
 
   it 'stores the properties' do
     rule = described_class.new(
