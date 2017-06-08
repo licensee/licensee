@@ -8,7 +8,7 @@ module Licensee
   class UriProject < Project
     def initialize(path, **args)
       @uri = URI(path)
-      raise UnsupportedProject if @uri.scheme != 'http' && @uri.scheme != 'https'
+      raise UnsupportedProject if @uri.scheme !~ /^https?$/
       super(**args)
     end
 

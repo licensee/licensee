@@ -48,12 +48,19 @@ module Licensee
     end
 
     def project(path, **args)
-      project_types = [Licensee::GitProject, Licensee::FSProject, Licensee::UriProject]
-      project_types.each do |project_type|
+      [
+        Licensee::GitProject,
+        Licensee::FSProject,
+        Licensee::UriProject
+      ].each do |project_type|
         begin
           project = project_type.new(path, args)
           return project
         rescue Licensee::UnsupportedProject
+          # Intentionally ignoring this exception as it indicates
+          # that this project type doesn't support the passed path
+          begin
+          end
         end
       end
     end
