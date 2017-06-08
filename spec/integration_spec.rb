@@ -37,6 +37,14 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'with multiple license files' do
+          let(:fixture) { 'multiple-license-files' }
+
+          it 'matches nothing' do
+            expect(subject.license).to eql(nil)
+          end
+        end
+
         context 'with CC-BY-NC-SA' do
           let(:fixture) { 'cc-by-nc-sa' }
 
