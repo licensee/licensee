@@ -84,4 +84,6 @@ module Licensee
       LicenseFile.new(content, name) if content && name
     end
   end
+
+  class UnsupportedProject < ArgumentError; end
 end

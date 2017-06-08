@@ -48,14 +48,12 @@ module Licensee
     end
 
     def project(path, **args)
-      uri = URI(path)
-      raise URI::Error if uri.scheme != 'http' and uri.scheme != 'https'
-      Licensee::UriProject.new(uri, args)
-    rescue URI::Error
-      begin
-        Licensee::GitProject.new(path, args)
-      rescue Licensee::GitProject::InvalidRepository
-        Licensee::FSProject.new(path, args)
+      [Licensee::GitProject, Licensee::FSProject, Licensee::UriProject].each do |project_type|
+        begin
+          project = project_type.new(path, args)
+          return project
+        rescue Licensee::UnsupportedProject
+        end
       end
     end
 
