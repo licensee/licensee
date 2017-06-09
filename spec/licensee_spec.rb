@@ -25,6 +25,11 @@ RSpec.describe Licensee do
     expect(Licensee.project('http://localhost')).to be_a(Licensee::UriProject)
   end
 
+  it 'raises an error for unsupported paths' do
+    error_type = Licensee::UnsupportedProject
+    expect { Licensee.project('ftp://localhost') }.to raise_error(error_type)
+  end
+
   context 'confidence threshold' do
     it 'exposes the confidence threshold' do
       expect(described_class.confidence_threshold).to eql(95)
