@@ -182,4 +182,50 @@ Creative Commons Attribution-NonCommercial 4.0
       end
     end
   end
+
+  context "LGPL" do
+    let(:lgpl) { Licensee::License.find('lgpl-3.0') }
+    let(:content) { sub_copyright_info(lgpl.content) }
+
+    context "with a COPYING.lesser file" do
+      let(:filename) { 'COPYING.lesser' }
+
+      it "knows when a license file is LGPL" do
+        expect(subject).to be_lgpl
+      end
+
+      context "with non-lgpl content" do
+        let(:content) { sub_copyright_info(mit.content) }
+
+        it "is not lgpl" do
+          expect(subject).to_not be_lgpl
+        end
+      end
+    end
+
+    context "with a different file name" do
+      let(:filename) { 'COPYING' }
+
+      it "is not lgpl" do
+        expect(subject).to_not be_lgpl
+      end
+    end
+  end
+
+  context "GPL" do
+    let(:gpl) { Licensee::License.find('gpl-3.0') }
+    let(:content) { sub_copyright_info(gpl.content) }
+
+    it "knows its GPL" do
+      expect(subject).to be_gpl
+    end
+
+    context "another license" do
+      let(:content) { sub_copyright_info(mit.content) }
+
+      it "is not GPL" do
+        expect(subject).to_not be_gpl
+      end
+    end
+  end
 end

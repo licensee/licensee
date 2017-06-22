@@ -12,6 +12,7 @@ RSpec.describe Licensee::License do
   let(:unlicense) { described_class.find('unlicense') }
   let(:other) { described_class.find('other') }
   let(:gpl) { described_class.find('gpl-3.0') }
+  let(:lgpl) { described_class.find('lgpl-3.0') }
 
   let(:license_dir) do
     File.expand_path 'vendor/choosealicense.com/_licenses', project_root
@@ -167,6 +168,11 @@ RSpec.describe Licensee::License do
     it 'knows if a license is GPL' do
       expect(mit).to_not be_gpl
       expect(gpl).to be_gpl
+    end
+
+    it 'knows a license is lgpl' do
+      expect(mit).to_not be_gpl
+      expect(lgpl).to be_lgpl
     end
 
     it 'knows if a license is CC' do
