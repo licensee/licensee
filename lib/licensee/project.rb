@@ -96,11 +96,6 @@ module Licensee
       [load_file(file), file[:name]] if file
     end
 
-    def license_from_file(&block)
-      content, name = find_file(&block)
-      LicenseFile.new(content, name) if content && name
-    end
-
     # Given an array of LicenseFiles, ensures LGPL is the first entry,
     # if the first entry is otherwise GPL, and a valid LGPL file exists
     #
