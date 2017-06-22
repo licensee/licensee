@@ -46,16 +46,8 @@ module Licensee
         files = files.map do |file|
           LicenseFile.new(load_file(file), file[:name])
         end
-        return files if files.empty? || !files.first.license
 
-        # Special case LGPL, which actually lives in LICENSE.lesser, per the
-        # license instructions. See https://git.io/viwyK
-        if files.first && files.first.license && files.first.license.gpl?
-          lesser = files.find_index(&:lgpl?)
-          files.unshift(files.delete_at(lesser)) if lesser
-        end
-
-        files
+        prioritize_lgpl(files)
       end
     end
 
@@ -107,6 +99,24 @@ module Licensee
     def license_from_file(&block)
       content, name = find_file(&block)
       LicenseFile.new(content, name) if content && name
+    end
+
+    # Given an array of LicenseFiles, ensures LGPL is the first entry,
+    # if the first entry is otherwise GPL, and a valid LGPL file exists
+    #
+    # This is becaues LGPL actually lives in COPYING.lesser, alongside an
+    # otherwise GPL-licensed project, per the license instructions.
+    # See https://git.io/viwyK.
+    #
+    # Returns an array of LicenseFiles with LPGL first
+    def prioritize_lgpl(files)
+      return files if files.empty?
+      return files unless files.first.license && files.first.license.gpl?
+
+      lesser = files.find_index(&:lgpl?)
+      files.unshift(files.delete_at(lesser)) if lesser
+
+      files
     end
   end
 end
