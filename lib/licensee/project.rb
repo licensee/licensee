@@ -74,7 +74,8 @@ module Licensee
     private
 
     def lgpl?
-      licenses.count == 2 && license_files[0].lgpl? && license_files[1].gpl?
+      return false unless licenses.count == 2 && license_file.count == 2
+      license_files[0].lgpl? && license_files[1].gpl?
     end
 
     # Given a block, passes each filename to that block, and expects a numeric
