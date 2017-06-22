@@ -8,6 +8,27 @@ def format_percent(float)
   "#{format('%.2f', float)}%"
 end
 
+# Given a string or object, prepares it for output and human consumption
+def humanize(value, type = nil)
+  case type
+  when :license
+    value.name
+  when :matcher
+    value.class
+  when :confidence
+    format_percent(value)
+  when :method
+    value.to_s.gsub('_', ' ').capitalize
+  else
+    value
+  end
+end
+
+# Methods to call when displaying information about ProjectFiles
+MATCHED_FILE_METHODS = %i(
+  content_hash attribution confidence matcher license
+)
+
 project = Licensee.project(path, detect_packages: true, detect_readme: true)
 
 if project.license
@@ -22,11 +43,13 @@ puts "Matched files: #{project.matched_files.map(&:filename)}"
 
 project.matched_files.each do |matched_file|
   puts "#{matched_file.filename}:"
-  puts "  Content Hash: #{matched_file.content_hash}" if matched_file.respond_to?(:content_hash)
-  puts "  Attribution: #{matched_file.attribution}" if matched_file.respond_to?(:attribution)
-  puts "  License: #{matched_file.license.name}" if matched_file.license
-  puts "  Confidence: #{format_percent(matched_file.confidence)}"
-  puts "  Method: #{matched_file.matcher.class}" if matched_file.matcher
+
+  MATCHED_FILE_METHODS.each do |method|
+    next unless matched_file.respond_to? method
+    value = matched_file.public_send method
+    next if value.nil?
+    puts "  #{humanize(method, :method)}: #{humanize(value, method)}"
+  end
 
   if matched_file.is_a?(Licensee::Project::LicenseFile) && matched_file.confidence != 100
     matcher = Licensee::Matchers::Dice.new(matched_file)

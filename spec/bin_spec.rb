@@ -34,8 +34,8 @@ RSpec.describe 'command line invocation' do
     end
 
     it 'outputs the method' do
-      expect(stdout).to match('Method: Licensee::Matchers::Exact')
-      expect(stdout).to match('Method: Licensee::Matchers::Gemspec')
+      expect(stdout).to match('Matcher: Licensee::Matchers::Exact')
+      expect(stdout).to match('Matcher: Licensee::Matchers::Gemspec')
     end
 
     it 'outputs the matched files' do
