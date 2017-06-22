@@ -74,7 +74,7 @@ module Licensee
     private
 
     def lgpl?
-      return false unless licenses.count == 2 && license_file.count == 2
+      return false unless licenses.count == 2 && license_files.count == 2
       license_files[0].lgpl? && license_files[1].gpl?
     end
 
