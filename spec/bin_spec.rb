@@ -30,10 +30,16 @@ RSpec.describe 'command line invocation' do
 
     it 'outputs the confidence' do
       expect(stdout).to match('Confidence: 100.00%')
+      expect(stdout).to match('Confidence: 90.00%')
     end
 
     it 'outputs the method' do
       expect(stdout).to match('Method: Licensee::Matchers::Exact')
+      expect(stdout).to match('Method: Licensee::Matchers::Gemspec')
+    end
+
+    it 'outputs the matched files' do
+      expect(stdout).to include('Matched files: ["LICENSE.md", "licensee.gemspec"]')
     end
   end
 
