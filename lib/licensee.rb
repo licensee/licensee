@@ -1,3 +1,5 @@
+require 'uri/http'
+
 require_relative 'licensee/version'
 require_relative 'licensee/content_helper'
 require_relative 'licensee/license'
@@ -7,6 +9,7 @@ require_relative 'licensee/rule'
 require_relative 'licensee/project'
 require_relative 'licensee/projects/git_project'
 require_relative 'licensee/projects/fs_project'
+require_relative 'licensee/projects/uri_project'
 
 # Project files
 require_relative 'licensee/project_file'
@@ -45,9 +48,22 @@ module Licensee
     end
 
     def project(path, **args)
-      Licensee::GitProject.new(path, args)
-    rescue Licensee::GitProject::InvalidRepository
-      Licensee::FSProject.new(path, args)
+      [Licensee::GitProject,
+       Licensee::FSProject,
+       Licensee::UriProject].each do |project_type|
+        begin
+          project = project_type.new(path, args)
+          return project
+        rescue Licensee::UnsupportedProject
+          # Intentionally ignoring this exception as it indicates
+          # that this project type doesn't support the passed path
+          begin
+          end
+        end
+      end
+
+      # If we reach here no project type claimed being able to process
+      raise UnsupportedProject
     end
 
     def confidence_threshold

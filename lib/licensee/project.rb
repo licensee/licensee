@@ -2,13 +2,17 @@ require 'rugged'
 
 module Licensee
   class Project
-    attr_reader :detect_readme, :detect_packages
+    attr_reader :detect_readme, :detect_packages, :allow_remote
     alias detect_readme? detect_readme
     alias detect_packages? detect_packages
+    alias allow_remote? allow_remote
 
-    def initialize(detect_packages: false, detect_readme: false)
+    def initialize(detect_packages: false,
+                   detect_readme: false,
+                   allow_remote: false)
       @detect_packages = detect_packages
       @detect_readme = detect_readme
+      @allow_remote = allow_remote
     end
 
     # Returns the matching License instance if a license can be detected
@@ -84,4 +88,6 @@ module Licensee
       LicenseFile.new(content, name) if content && name
     end
   end
+
+  class UnsupportedProject < ArgumentError; end
 end

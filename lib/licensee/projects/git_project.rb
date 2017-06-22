@@ -5,7 +5,7 @@ module Licensee
   class GitProject < Project
     attr_reader :repository, :revision
 
-    class InvalidRepository < ArgumentError; end
+    class InvalidRepository < UnsupportedProject; end
 
     def initialize(repo, revision: nil, **args)
       @repository = if repo.is_a? Rugged::Repository

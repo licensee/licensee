@@ -4,6 +4,7 @@
 module Licensee
   class FSProject < Project
     def initialize(path, **args)
+      raise UnsupportedProject unless ::File.exist?(path)
       if ::File.file?(path)
         @pattern = ::File.basename(path)
         @dir = ::File.dirname(path)

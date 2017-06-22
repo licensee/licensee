@@ -1,3 +1,4 @@
+# File system-based project types
 [Licensee::FSProject, Licensee::GitProject].each do |project_type|
   RSpec.describe project_type do
     let(:mit) { Licensee::License.find('mit') }
@@ -112,6 +113,22 @@
         expect(subject.license).to be_a(Licensee::License)
         expect(subject.license).to eql(mit)
       end
+    end
+  end
+end
+
+# Tests for URI project
+RSpec.describe Licensee::UriProject do
+  let(:path) { 'https://localhost' }
+  subject { described_class.new(path, allow_remote: true) }
+
+  context 'reading files' do
+    let(:files) { subject.send(:files) }
+
+    it 'returns the file list' do
+      expect(files.count).to eql(1)
+      expect(files.first[:name]).to eql(path)
+      expect(files.first).to have_key(:uri)
     end
   end
 end
