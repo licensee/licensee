@@ -17,9 +17,14 @@ module Licensee
     end
 
     def matched_file
-      @matched_file ||= begin
-        [license_file, readme, package_file].compact.find(&:license)
+      return @matched_file if defined? @matched_file
+      other = nil
+      [license_file, readme, package_file].compact.each do |f|
+        next unless f.license
+        return @matched_file = f unless f.license.key == 'other'
+        other ||= f
       end
+      @matched_file = other
     end
 
     def license_file
