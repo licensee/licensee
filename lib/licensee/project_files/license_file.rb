@@ -58,6 +58,14 @@ module Licensee
         content.strip =~ CC_FALSE_POSITIVE_REGEX
       end
 
+      def lgpl?
+        LicenseFile.lesser_gpl_score(filename) == 1 && license && license.lgpl?
+      end
+
+      def gpl?
+        license && license.gpl?
+      end
+
       def self.name_score(filename)
         FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
       end

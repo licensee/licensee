@@ -31,7 +31,7 @@ RSpec.describe Licensee::Project::LicenseFile do
   end
 
   it 'creates the hash' do
-    expect(subject.hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
+    expect(subject.content_hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
   end
 
   context 'filename scoring' do
