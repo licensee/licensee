@@ -16,8 +16,6 @@ module Licensee
       return @license if defined? @license
       @license = if licenses.count == 1 || lgpl?
         licenses.first
-      elsif licenses.count > 1
-        License.find('other')
       end
     end
 
