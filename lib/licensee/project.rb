@@ -14,9 +14,7 @@ module Licensee
     # Returns the matching License instance if a license can be detected
     def license
       return @license if defined? @license
-      @license = if licenses.count == 1 || lgpl?
-        licenses.first
-      end
+      @license = (licenses.first if licenses.count == 1 || lgpl?)
     end
 
     # Returns an array of detected Licenses
@@ -31,7 +29,9 @@ module Licensee
 
     # Returns an array of matches LicenseFiles
     def matched_files
-      @matched_files ||= [license_files, readme, package_file].flatten.compact.select(&:license)
+      @matched_files ||= begin
+        [license_files, readme, package_file].flatten.compact.select(&:license)
+      end
     end
 
     # Returns the LicenseFile used to determine the License
@@ -43,13 +43,15 @@ module Licensee
       @license_files ||= begin
         return [] if files.empty? || files.nil?
         files = find_files { |n| LicenseFile.name_score(n) }
-        files = files.map { |file| LicenseFile.new(load_file(file), file[:name]) }
+        files = files.map do |file|
+          LicenseFile.new(load_file(file), file[:name])
+        end
         return files if files.empty? || !files.first.license
 
         # Special case LGPL, which actually lives in LICENSE.lesser, per the
         # license instructions. See https://git.io/viwyK
         if files.first && files.first.license && files.first.license.gpl?
-          lesser = files.find_index { |l| l.lgpl? }
+          lesser = files.find_index(&:lgpl?)
           files.unshift(files.delete_at(lesser)) if lesser
         end
 

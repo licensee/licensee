@@ -191,7 +191,8 @@ RSpec.describe Licensee::License do
     end
 
     it 'computes the hash' do
-      expect(mit.content_hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
+      content_hash = 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3'
+      expect(mit.content_hash).to eql(content_hash)
     end
 
     context 'with content stubbed' do

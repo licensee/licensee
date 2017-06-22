@@ -18,16 +18,16 @@ def humanize(value, type = nil)
   when :confidence
     format_percent(value)
   when :method
-    value.to_s.gsub('_', ' ').capitalize
+    value.to_s.tr('_', ' ').capitalize
   else
     value
   end
 end
 
 # Methods to call when displaying information about ProjectFiles
-MATCHED_FILE_METHODS = %i(
+MATCHED_FILE_METHODS = %i[
   content_hash attribution confidence matcher license
-)
+].freeze
 
 project = Licensee.project(path, detect_packages: true, detect_readme: true)
 
@@ -36,7 +36,7 @@ if project.license
 elsif project.licenses
   puts "Licenses: #{project.licenses.map(&:name)}"
 else
-  puts "License: Not detected"
+  puts 'License: Not detected'
 end
 
 puts "Matched files: #{project.matched_files.map(&:filename)}"
@@ -51,16 +51,16 @@ project.matched_files.each do |matched_file|
     puts "  #{humanize(method, :method)}: #{humanize(value, method)}"
   end
 
-  if matched_file.is_a?(Licensee::Project::LicenseFile) && matched_file.confidence != 100
-    matcher = Licensee::Matchers::Dice.new(matched_file)
-    licenses = matcher.licenses_by_similiarity
-    unless licenses.empty?
-      puts "  Closest licenses:"
-      licenses[0...3].each do |license, similarity|
-        spdx_id = license.meta['spdx-id']
-        puts "    * #{spdx_id} similarity: #{format_percent(similarity)}"
-      end
-    end
+  next unless matched_file.is_a? Licensee::Project::LicenseFile
+  next unless matched_file.confidence != 100
+
+  matcher = Licensee::Matchers::Dice.new(matched_file)
+  licenses = matcher.licenses_by_similiarity
+  next if licenses.empty?
+  puts '  Closest licenses:'
+  licenses[0...3].each do |license, similarity|
+    spdx_id = license.meta['spdx-id']
+    puts "    * #{spdx_id} similarity: #{format_percent(similarity)}"
   end
 end
 

@@ -114,75 +114,75 @@
       end
     end
 
-    context "multiple licenses" do
+    context 'multiple licenses' do
       let(:fixture) { 'multiple-license-files' }
 
-      it "returns nil for license" do
+      it 'returns nil for license' do
         expect(subject.license).to be_nil
       end
 
-      it "returns nil for matched_file" do
+      it 'returns nil for matched_file' do
         expect(subject.matched_file).to be_nil
       end
 
-      it "returns nil for license_file" do
+      it 'returns nil for license_file' do
         expect(subject.license_file).to be_nil
       end
 
-      it "returns both licenses" do
+      it 'returns both licenses' do
         expect(subject.licenses.count).to eql(2)
-        expect(subject.licenses.first).to eql(Licensee::License.find("mpl-2.0"))
+        expect(subject.licenses.first).to eql(Licensee::License.find('mpl-2.0'))
         expect(subject.licenses.last).to eql(mit)
       end
 
-      it "returns both matched_files" do
+      it 'returns both matched_files' do
         expect(subject.matched_files.count).to eql(2)
-        expect(subject.matched_files.first.filename).to eql("LICENSE")
-        expect(subject.matched_files.last.filename).to eql("LICENSE.txt")
+        expect(subject.matched_files.first.filename).to eql('LICENSE')
+        expect(subject.matched_files.last.filename).to eql('LICENSE.txt')
       end
 
-      it "returns both license_files" do
+      it 'returns both license_files' do
         expect(subject.license_files.count).to eql(2)
-        expect(subject.license_files.first.filename).to eql("LICENSE")
-        expect(subject.license_files.last.filename).to eql("LICENSE.txt")
+        expect(subject.license_files.first.filename).to eql('LICENSE')
+        expect(subject.license_files.last.filename).to eql('LICENSE.txt')
       end
     end
 
-    context "lgpl" do
+    context 'lgpl' do
       let(:gpl) { Licensee::License.find('gpl-3.0') }
       let(:lgpl) { Licensee::License.find('lgpl-3.0') }
       let(:fixture) { 'lgpl' }
 
-      it "license returns lgpl" do
+      it 'license returns lgpl' do
         expect(subject.license).to eql(lgpl)
       end
 
-      it "matched_file returns copying.lesser" do
+      it 'matched_file returns copying.lesser' do
         expect(subject.matched_file).to_not be_nil
-        expect(subject.matched_file.filename).to eql("COPYING.lesser")
+        expect(subject.matched_file.filename).to eql('COPYING.lesser')
       end
 
-      it "license_file returns copying.lesser" do
+      it 'license_file returns copying.lesser' do
         expect(subject.license_file).to_not be_nil
-        expect(subject.license_file.filename).to eql("COPYING.lesser")
+        expect(subject.license_file.filename).to eql('COPYING.lesser')
       end
 
-      it "returns both licenses" do
+      it 'returns both licenses' do
         expect(subject.licenses.count).to eql(2)
         expect(subject.licenses.first).to eql(lgpl)
         expect(subject.licenses.last).to eql(gpl)
       end
 
-      it "returns both matched_files" do
+      it 'returns both matched_files' do
         expect(subject.matched_files.count).to eql(2)
-        expect(subject.matched_files.first.filename).to eql("COPYING.lesser")
-        expect(subject.matched_files.last.filename).to eql("LICENSE")
+        expect(subject.matched_files.first.filename).to eql('COPYING.lesser')
+        expect(subject.matched_files.last.filename).to eql('LICENSE')
       end
 
-      it "returns both license_files" do
+      it 'returns both license_files' do
         expect(subject.license_files.count).to eql(2)
-        expect(subject.license_files.first.filename).to eql("COPYING.lesser")
-        expect(subject.license_files.last.filename).to eql("LICENSE")
+        expect(subject.license_files.first.filename).to eql('COPYING.lesser')
+        expect(subject.license_files.last.filename).to eql('LICENSE')
       end
     end
   end

@@ -31,7 +31,8 @@ RSpec.describe Licensee::Project::LicenseFile do
   end
 
   it 'creates the hash' do
-    expect(subject.content_hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
+    content_hash = 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3'
+    expect(subject.content_hash).to eql(content_hash)
   end
 
   context 'filename scoring' do
@@ -183,47 +184,47 @@ Creative Commons Attribution-NonCommercial 4.0
     end
   end
 
-  context "LGPL" do
+  context 'LGPL' do
     let(:lgpl) { Licensee::License.find('lgpl-3.0') }
     let(:content) { sub_copyright_info(lgpl.content) }
 
-    context "with a COPYING.lesser file" do
+    context 'with a COPYING.lesser file' do
       let(:filename) { 'COPYING.lesser' }
 
-      it "knows when a license file is LGPL" do
+      it 'knows when a license file is LGPL' do
         expect(subject).to be_lgpl
       end
 
-      context "with non-lgpl content" do
+      context 'with non-lgpl content' do
         let(:content) { sub_copyright_info(mit.content) }
 
-        it "is not lgpl" do
+        it 'is not lgpl' do
           expect(subject).to_not be_lgpl
         end
       end
     end
 
-    context "with a different file name" do
+    context 'with a different file name' do
       let(:filename) { 'COPYING' }
 
-      it "is not lgpl" do
+      it 'is not lgpl' do
         expect(subject).to_not be_lgpl
       end
     end
   end
 
-  context "GPL" do
+  context 'GPL' do
     let(:gpl) { Licensee::License.find('gpl-3.0') }
     let(:content) { sub_copyright_info(gpl.content) }
 
-    it "knows its GPL" do
+    it 'knows its GPL' do
       expect(subject).to be_gpl
     end
 
-    context "another license" do
+    context 'another license' do
       let(:content) { sub_copyright_info(mit.content) }
 
-      it "is not GPL" do
+      it 'is not GPL' do
         expect(subject).to_not be_gpl
       end
     end

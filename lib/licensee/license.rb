@@ -112,7 +112,7 @@ module Licensee
     end
 
     def lgpl?
-      key == "lgpl-2.1" || key == "lgpl-3.0"
+      key == 'lgpl-2.1' || key == 'lgpl-3.0'
     end
 
     # Is this license a Creative Commons license?
