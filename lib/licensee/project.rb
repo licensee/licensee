@@ -26,7 +26,7 @@ module Licensee
 
     # Returns the ProjectFile used to determine the License
     def matched_file
-      matched_files.first
+      matched_files.first if matched_files.count == 1 || lgpl?
     end
 
     # Returns an array of matches LicenseFiles
@@ -36,7 +36,7 @@ module Licensee
 
     # Returns the LicenseFile used to determine the License
     def license_file
-      license_files.first
+      license_files.first if license_files.count == 1 || lgpl?
     end
 
     def license_files
@@ -49,8 +49,8 @@ module Licensee
         # Special case LGPL, which actually lives in LICENSE.lesser, per the
         # license instructions. See https://git.io/viwyK
         if files.first && files.first.license && files.first.license.gpl?
-          lesser = files.find { |l| l.lgpl? }
-          files.unshift(lesser) if lesser
+          lesser = files.find_index { |l| l.lgpl? }
+          files.unshift(files.delete_at(lesser)) if lesser
         end
 
         files
