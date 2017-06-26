@@ -4,6 +4,8 @@ require 'yaml'
 module Licensee
   class InvalidLicense < ArgumentError; end
   class License
+    @all ||= {}
+
     class << self
       # All license objects defined via Licensee (via choosealicense.com)
       #
@@ -13,11 +15,13 @@ module Licensee
       #
       # Returns an Array of License objects.
       def all(options = {})
-        options = { hidden: false, featured: nil }.merge(options)
-        output = licenses.dup
-        output.reject!(&:hidden?) unless options[:hidden]
-        return output if options[:featured].nil?
-        output.select { |l| l.featured? == options[:featured] }
+        @all[options] ||= begin
+          options = { hidden: false, featured: nil }.merge(options)
+          output = licenses.dup
+          output.reject!(&:hidden?) unless options[:hidden]
+          return output if options[:featured].nil?
+          output.select { |l| l.featured? == options[:featured] }
+        end
       end
 
       def keys
