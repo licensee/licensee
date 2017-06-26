@@ -25,7 +25,7 @@ RSpec.describe 'command line invocation' do
     end
 
     it 'outputs the attribution' do
-      expect(stdout).to match('2014-2016 Ben Balter')
+      expect(stdout).to match('2014-2017 Ben Balter')
     end
 
     it 'outputs the confidence' do
