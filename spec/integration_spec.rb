@@ -105,6 +105,15 @@ RSpec.describe 'integration test' do
             expect(subject.package_file.path).to eql('DESCRIPTION')
           end
         end
+
+        context 'A license with CRLF line-endings' do
+          let(:license) { Licensee::License.find('gpl-3.0') }
+          let(:fixture) { 'crlf-license' }
+
+          it 'matches' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do
