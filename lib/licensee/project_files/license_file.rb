@@ -68,6 +68,14 @@ module Licensee
         license && license.gpl?
       end
 
+      def license
+        if matcher && matcher.match
+          matcher.match
+        else
+          License.find('other')
+        end
+      end
+
       def self.name_score(filename)
         FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
       end
