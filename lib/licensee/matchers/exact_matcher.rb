@@ -8,7 +8,8 @@ module Licensee
       end
 
       def match
-        Licensee.licenses(hidden: true).find do |license|
+        return @match if defined? @match
+        @match = Licensee.licenses(hidden: true).find do |license|
           license.length == @file.length && license.wordset == @file.wordset
         end
       end

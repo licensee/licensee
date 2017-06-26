@@ -27,7 +27,6 @@ RSpec.describe 'vendored licenes' do
           let(:content) { wtfpl.send :strip_title, content_with_copyright }
 
           it 'detects the license' do
-            skip 'The WTFPL is too short to be modified' if license == wtfpl
             expect(content).to be_detected_as(license)
           end
         end

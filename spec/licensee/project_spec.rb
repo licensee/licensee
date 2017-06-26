@@ -1,6 +1,7 @@
 [Licensee::FSProject, Licensee::GitProject].each do |project_type|
   RSpec.describe project_type do
     let(:mit) { Licensee::License.find('mit') }
+    let(:other) { Licensee::License.find('other') }
     let(:fixture) { 'mit' }
     let(:path) { fixture_path(fixture) }
     subject { described_class.new(path) }
@@ -117,8 +118,8 @@
     context 'multiple licenses' do
       let(:fixture) { 'multiple-license-files' }
 
-      it 'returns nil for license' do
-        expect(subject.license).to be_nil
+      it 'returns other for license' do
+        expect(subject.license).to eql(other)
       end
 
       it 'returns nil for matched_file' do
