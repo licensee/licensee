@@ -111,6 +111,10 @@ module Licensee
       key == 'gpl-2.0' || key == 'gpl-3.0'
     end
 
+    def lgpl?
+      key == 'lgpl-2.1' || key == 'lgpl-3.0'
+    end
+
     # Is this license a Creative Commons license?
     def creative_commons?
       key.start_with?('cc-')

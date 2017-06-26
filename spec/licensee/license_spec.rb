@@ -12,6 +12,7 @@ RSpec.describe Licensee::License do
   let(:unlicense) { described_class.find('unlicense') }
   let(:other) { described_class.find('other') }
   let(:gpl) { described_class.find('gpl-3.0') }
+  let(:lgpl) { described_class.find('lgpl-3.0') }
 
   let(:license_dir) do
     File.expand_path 'vendor/choosealicense.com/_licenses', project_root
@@ -169,6 +170,11 @@ RSpec.describe Licensee::License do
       expect(gpl).to be_gpl
     end
 
+    it 'knows a license is lgpl' do
+      expect(mit).to_not be_gpl
+      expect(lgpl).to be_lgpl
+    end
+
     it 'knows if a license is CC' do
       expect(gpl).to_not be_creative_commons
       expect(cc_by).to be_creative_commons
@@ -185,7 +191,8 @@ RSpec.describe Licensee::License do
     end
 
     it 'computes the hash' do
-      expect(mit.hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
+      content_hash = 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3'
+      expect(mit.content_hash).to eql(content_hash)
     end
 
     context 'with content stubbed' do

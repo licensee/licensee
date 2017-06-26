@@ -31,7 +31,8 @@ RSpec.describe Licensee::Project::LicenseFile do
   end
 
   it 'creates the hash' do
-    expect(subject.hash).to eql('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
+    content_hash = 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3'
+    expect(subject.content_hash).to eql(content_hash)
   end
 
   context 'filename scoring' do
@@ -52,10 +53,10 @@ RSpec.describe Licensee::Project::LicenseFile do
       'copying.image'      => 0.5,
       'COPYRIGHT.go'       => 0.5,
       'LICENSE-MIT'        => 0.4,
-      'MIT-LICENSE.txt'    => 0.4,
+      'MIT-LICENSE.txt'    => 0.3,
       'mit-license-foo.md' => 0.4,
-      'COPYING-GPL'        => 0.3,
-      'COPYRIGHT-BSD'      => 0.3,
+      'COPYING-GPL'        => 0.35,
+      'COPYRIGHT-BSD'      => 0.35,
       'OFL.md'             => 0.2,
       'ofl.textile'        => 0.1,
       'ofl'                => 0.05,
@@ -179,6 +180,52 @@ Creative Commons Attribution-NonCommercial 4.0
       it "knows it's a potential false positive" do
         expect(subject.content).to match(regex)
         expect(subject).to be_a_potential_false_positive
+      end
+    end
+  end
+
+  context 'LGPL' do
+    let(:lgpl) { Licensee::License.find('lgpl-3.0') }
+    let(:content) { sub_copyright_info(lgpl.content) }
+
+    context 'with a COPYING.lesser file' do
+      let(:filename) { 'COPYING.lesser' }
+
+      it 'knows when a license file is LGPL' do
+        expect(subject).to be_lgpl
+      end
+
+      context 'with non-lgpl content' do
+        let(:content) { sub_copyright_info(mit.content) }
+
+        it 'is not lgpl' do
+          expect(subject).to_not be_lgpl
+        end
+      end
+    end
+
+    context 'with a different file name' do
+      let(:filename) { 'COPYING' }
+
+      it 'is not lgpl' do
+        expect(subject).to_not be_lgpl
+      end
+    end
+  end
+
+  context 'GPL' do
+    let(:gpl) { Licensee::License.find('gpl-3.0') }
+    let(:content) { sub_copyright_info(gpl.content) }
+
+    it 'knows its GPL' do
+      expect(subject).to be_gpl
+    end
+
+    context 'another license' do
+      let(:content) { sub_copyright_info(mit.content) }
+
+      it 'is not GPL' do
+        expect(subject).to_not be_gpl
       end
     end
   end

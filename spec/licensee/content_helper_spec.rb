@@ -54,7 +54,8 @@ EOS
   end
 
   it 'calculates the hash' do
-    expect(subject.hash).to eql('3c59634b9fae4396a76a978f3f6aa718ed790a9a')
+    content_hash = '3c59634b9fae4396a76a978f3f6aa718ed790a9a'
+    expect(subject.content_hash).to eql(content_hash)
   end
 
   context 'normalizing' do

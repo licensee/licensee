@@ -13,28 +13,41 @@ module Licensee
 
     # Returns the matching License instance if a license can be detected
     def license
-      @license ||= matched_file && matched_file.license
+      return @license if defined? @license
+      @license = (licenses.first if licenses.count == 1 || lgpl?)
     end
 
+    # Returns an array of detected Licenses
+    def licenses
+      @licenses ||= matched_files.map(&:license).uniq
+    end
+
+    # Returns the ProjectFile used to determine the License
     def matched_file
-      @matched_file ||= begin
-        [license_file, readme, package_file].compact.find(&:license)
+      matched_files.first if matched_files.count == 1 || lgpl?
+    end
+
+    # Returns an array of matches LicenseFiles
+    def matched_files
+      @matched_files ||= begin
+        [license_files, readme, package_file].flatten.compact.select(&:license)
       end
     end
 
+    # Returns the LicenseFile used to determine the License
     def license_file
-      return @license_file if defined? @license_file
-      @license_file = begin
-        license_file = license_from_file { |n| LicenseFile.name_score(n) }
-        return license_file unless license_file && license_file.license
+      license_files.first if license_files.count == 1 || lgpl?
+    end
 
-        # Special case LGPL, which actually lives in LICENSE.lesser, per the
-        # license instructions. See https://git.io/viwyK
-        lesser = if license_file.license.gpl?
-          license_from_file { |file| LicenseFile.lesser_gpl_score(file) }
+    def license_files
+      @license_files ||= begin
+        return [] if files.empty? || files.nil?
+        files = find_files { |n| LicenseFile.name_score(n) }
+        files = files.map do |file|
+          LicenseFile.new(load_file(file), file[:name])
         end
 
-        lesser || license_file
+        prioritize_lgpl(files)
       end
     end
 
@@ -60,6 +73,11 @@ module Licensee
 
     private
 
+    def lgpl?
+      return false unless licenses.count == 2 && license_files.count == 2
+      license_files[0].lgpl? && license_files[1].gpl?
+    end
+
     # Given a block, passes each filename to that block, and expects a numeric
     # score in response. Returns an array of all files with a score > 0,
     # sorted by file score descending
@@ -79,9 +97,22 @@ module Licensee
       [load_file(file), file[:name]] if file
     end
 
-    def license_from_file(&block)
-      content, name = find_file(&block)
-      LicenseFile.new(content, name) if content && name
+    # Given an array of LicenseFiles, ensures LGPL is the first entry,
+    # if the first entry is otherwise GPL, and a valid LGPL file exists
+    #
+    # This is becaues LGPL actually lives in COPYING.lesser, alongside an
+    # otherwise GPL-licensed project, per the license instructions.
+    # See https://git.io/viwyK.
+    #
+    # Returns an array of LicenseFiles with LPGL first
+    def prioritize_lgpl(files)
+      return files if files.empty?
+      return files unless files.first.license && files.first.license.gpl?
+
+      lesser = files.find_index(&:lgpl?)
+      files.unshift(files.delete_at(lesser)) if lesser
+
+      files
     end
   end
 end

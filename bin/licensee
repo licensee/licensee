@@ -8,43 +8,60 @@ def format_percent(float)
   "#{format('%.2f', float)}%"
 end
 
+# Given a string or object, prepares it for output and human consumption
+def humanize(value, type = nil)
+  case type
+  when :license
+    value.name
+  when :matcher
+    value.class
+  when :confidence
+    format_percent(value)
+  when :method
+    value.to_s.tr('_', ' ').capitalize
+  else
+    value
+  end
+end
+
+# Methods to call when displaying information about ProjectFiles
+MATCHED_FILE_METHODS = %i[
+  content_hash attribution confidence matcher license
+].freeze
+
 project = Licensee.project(path, detect_packages: true, detect_readme: true)
-license_file = project.license_file
-matched_file = project.matched_file
 
-if license_file
-  puts "License file: #{license_file.filename}"
-  puts "License hash: #{license_file.hash}"
-  puts "Attribution: #{license_file.attribution}" if license_file.attribution
-end
-
-unless matched_file
+if project.license
+  puts "License: #{project.license.name}"
+elsif project.licenses
+  puts "Licenses: #{project.licenses.map(&:name)}"
+else
   puts 'License: Not detected'
-  exit 1
 end
 
-if matched_file.license
-  puts "License: #{matched_file.license.meta['title']}"
+puts "Matched files: #{project.matched_files.map(&:filename)}"
 
-  if matched_file.confidence
-    puts "Confidence: #{format_percent(matched_file.confidence)}"
+project.matched_files.each do |matched_file|
+  puts "#{matched_file.filename}:"
+
+  MATCHED_FILE_METHODS.each do |method|
+    next unless matched_file.respond_to? method
+    value = matched_file.public_send method
+    next if value.nil?
+    puts "  #{humanize(method, :method)}: #{humanize(value, method)}"
   end
 
-  puts "Method: #{matched_file.matcher.class}" if matched_file.matcher
-  exit 0
-end
+  next unless matched_file.is_a? Licensee::Project::LicenseFile
+  next unless matched_file.confidence != 100
 
-if matched_file.is_a?(Licensee::Project::LicenseFile)
   matcher = Licensee::Matchers::Dice.new(matched_file)
   licenses = matcher.licenses_by_similiarity
-  unless licenses.empty?
-    puts
-    puts "Here's the closest licenses:"
-    licenses[0...3].each do |license, similarity|
-      spdx_id = license.meta['spdx-id']
-      puts "* #{spdx_id} similarity: #{format_percent(similarity)}"
-    end
+  next if licenses.empty?
+  puts '  Closest licenses:'
+  licenses[0...3].each do |license, similarity|
+    spdx_id = license.meta['spdx-id']
+    puts "    * #{spdx_id} similarity: #{format_percent(similarity)}"
   end
 end
 
-exit 1
+exit !project.licenses.empty?

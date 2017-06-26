@@ -46,8 +46,8 @@ module Licensee
     end
 
     # SHA1 of the normalized content
-    def hash
-      @hash ||= DIGEST.hexdigest content_normalized
+    def content_hash
+      @content_hash ||= DIGEST.hexdigest content_normalized
     end
 
     # Content with the title and version removed
