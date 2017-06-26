@@ -6,7 +6,12 @@ module Licensee
       end
 
       def match
-        Licensee.licenses(hidden: true).find { |l| l.key == license_property }
+        return @match if defined? @match
+        return if license_property.nil? || license_property.to_s.empty?
+        @match = Licensee.licenses(hidden: true).find do |license|
+          license.key == license_property
+        end
+        @match ||= License.find('other')
       end
 
       def confidence

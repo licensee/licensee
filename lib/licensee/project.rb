@@ -14,7 +14,11 @@ module Licensee
     # Returns the matching License instance if a license can be detected
     def license
       return @license if defined? @license
-      @license = (licenses.first if licenses.count == 1 || lgpl?)
+      @license = if licenses.count == 1 || lgpl?
+        licenses.first
+      elsif licenses.count > 1
+        License.find('other')
+      end
     end
 
     # Returns an array of detected Licenses
