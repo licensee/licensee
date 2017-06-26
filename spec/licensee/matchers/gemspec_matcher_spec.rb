@@ -26,4 +26,20 @@ RSpec.describe Licensee::Matchers::Gemspec do
       end
     end
   end
+
+  context "no license field" do
+    let(:content) { "s.foo = 'bar'" }
+
+    it "returns nil" do
+      expect(subject.match).to be_nil
+    end
+  end
+
+  context "an unknown license" do
+    let(:content) { "s.license = 'foo'" }
+
+    it "returns other" do
+      expect(subject.match).to eql(Licensee::License.find('other'))
+    end
+  end
 end

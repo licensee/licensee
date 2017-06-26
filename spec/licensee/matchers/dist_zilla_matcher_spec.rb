@@ -18,7 +18,8 @@ RSpec.describe Licensee::Matchers::DistZilla do
 
   {
     'spdx name'     => ['license = MIT', 'mit'],
-    'non spdx name' => ['license = Mozilla_2_0', 'mpl-2.0']
+    'non spdx name' => ['license = Mozilla_2_0', 'mpl-2.0'],
+    'other license' => ['license = Foo', 'other']
   }.each do |description, license_declaration_and_key|
     context "with a #{description}" do
       let(:content) { license_declaration_and_key[0] }
@@ -27,6 +28,14 @@ RSpec.describe Licensee::Matchers::DistZilla do
       it 'matches' do
         expect(subject.match).to eql(license)
       end
+    end
+  end
+
+  context "no license field" do
+    let(:content) { "foo = bar" }
+
+    it "returns nil" do
+      expect(subject.match).to be_nil
     end
   end
 end

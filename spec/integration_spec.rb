@@ -3,6 +3,7 @@ RSpec.describe 'integration test' do
     context "with a #{project_type} project" do
       let(:filename) { 'LICENSE' }
       let(:license) { Licensee::License.find('mit') }
+      let(:other_license) { Licensee::License.find('other') }
       let(:content) { license.content }
       let(:license_path) { File.expand_path(filename, project_path) }
       let(:arguments) { {} }
@@ -27,6 +28,26 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'with no license files' do
+          let(:project_path) { Dir.mktmpdir }
+          let(:file_path) { File.expand_path("foo.md", project_path) }
+
+          before do
+            File.write(file_path, "bar")
+            git_init(project_path) if project_type == Licensee::GitProject
+          end
+
+          after { FileUtils.rm_rf(project_path) }
+
+          it "returns nil" do
+            expect(subject.license).to be_nil
+            expect(subject.license_files).to be_empty
+
+            expect(subject.matched_file).to be_nil
+            expect(subject.matched_files).to be_empty
+          end
+        end
+
         context 'with LICENSE.lesser' do
           let(:license) { Licensee::License.find('lgpl-3.0') }
           let(:fixture) { 'lgpl' }
@@ -40,40 +61,40 @@ RSpec.describe 'integration test' do
         context 'with multiple license files' do
           let(:fixture) { 'multiple-license-files' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
           end
         end
 
         context 'with CC-BY-NC-SA' do
           let(:fixture) { 'cc-by-nc-sa' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
           end
         end
 
         context 'with CC-BY-ND' do
           let(:fixture) { 'cc-by-nd' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
           end
         end
 
         context 'with WRK Modified Apache 2.0.1' do
           let(:fixture) { 'wrk-modified-apache' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
           end
         end
 
         context 'with FCPL Modified MPL' do
           let(:fixture) { 'fcpl-modified-mpl' }
 
-          it 'matches nothing' do
-            expect(subject.license).to eql(nil)
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
           end
         end
 
@@ -96,12 +117,11 @@ RSpec.describe 'integration test' do
         end
 
         context 'DESCRIPTION file with a LICENSE file' do
-          let(:license) { Licensee::License.find('mit') }
           let(:fixture) { 'description-license' }
           let(:arguments) { { detect_packages: true } }
 
-          it 'matches' do
-            expect(subject.license).to eql(license)
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
             expect(subject.package_file.path).to eql('DESCRIPTION')
           end
         end
@@ -128,15 +148,6 @@ RSpec.describe 'integration test' do
               expect(subject.license).to eql(license)
               expect(subject.license_file.path).to eql(filename)
             end
-          end
-        end
-
-        context 'an unlicensed project' do
-          let(:content) { '' }
-
-          it "doesn't match" do
-            expect(subject.license).to be_nil
-            expect(subject.license_file.path).to eql('LICENSE')
           end
         end
 
