@@ -4,7 +4,8 @@ require 'yaml'
 module Licensee
   class InvalidLicense < ArgumentError; end
   class License
-    @all ||= {}
+    @all = {}
+    @keys_licenses = {}
 
     class << self
       # All license objects defined via Licensee (via choosealicense.com)
@@ -32,7 +33,7 @@ module Licensee
 
       def find(key, options = {})
         options = { hidden: true }.merge(options)
-        all(options).find { |license| key.casecmp(license.key).zero? }
+        keys_licenses(options)[key.downcase]
       end
       alias [] find
       alias find_by_key find
@@ -50,6 +51,10 @@ module Licensee
 
       def licenses
         @licenses ||= keys.map { |key| new(key) }
+      end
+
+      def keys_licenses(options = {})
+        @keys_licenses[options] ||= all(options).map { |l| [l.key, l] }.to_h
       end
     end
 
