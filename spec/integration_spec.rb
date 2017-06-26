@@ -30,16 +30,16 @@ RSpec.describe 'integration test' do
 
         context 'with no license files' do
           let(:project_path) { Dir.mktmpdir }
-          let(:file_path) { File.expand_path("foo.md", project_path) }
+          let(:file_path) { File.expand_path('foo.md', project_path) }
 
           before do
-            File.write(file_path, "bar")
+            File.write(file_path, 'bar')
             git_init(project_path) if project_type == Licensee::GitProject
           end
 
           after { FileUtils.rm_rf(project_path) }
 
-          it "returns nil" do
+          it 'returns nil' do
             expect(subject.license).to be_nil
             expect(subject.license_files).to be_empty
 

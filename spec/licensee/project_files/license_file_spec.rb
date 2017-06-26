@@ -230,11 +230,11 @@ Creative Commons Attribution-NonCommercial 4.0
     end
   end
 
-  context "an unknown license" do
+  context 'an unknown license' do
     let(:content) { 'foo' }
     let(:other) { Licensee::License.find('other') }
 
-    it "matches to other" do
+    it 'matches to other' do
       expect(subject.license).to eql(other)
     end
   end

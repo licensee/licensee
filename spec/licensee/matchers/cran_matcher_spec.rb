@@ -27,7 +27,7 @@ RSpec.describe Licensee::Matchers::Cran do
     'GPL (>=3)'                => Licensee::License.find('gpl-3.0'),
     'GPL-2'                    => Licensee::License.find('gpl-2.0'),
     'GPL-3'                    => Licensee::License.find('gpl-3.0'),
-    'Foo'                      => Licensee::License.find('other'),
+    'Foo'                      => Licensee::License.find('other')
   }.each do |license_declaration, license|
     context "with '#{license_declaration}' declaration" do
       let(:content) { "Package: test\nLicense: #{license_declaration}" }
@@ -38,10 +38,10 @@ RSpec.describe Licensee::Matchers::Cran do
     end
   end
 
-  context "with no license field" do
-    let(:content) { "Package: test" }
+  context 'with no license field' do
+    let(:content) { 'Package: test' }
 
-    it "returns nil" do
+    it 'returns nil' do
       expect(subject.match).to be_nil
     end
   end

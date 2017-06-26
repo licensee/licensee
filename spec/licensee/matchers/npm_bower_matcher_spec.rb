@@ -29,18 +29,18 @@ RSpec.describe Licensee::Matchers::NpmBower do
     end
   end
 
-  context "no license field" do
-    let(:content) { "foo: bar" }
+  context 'no license field' do
+    let(:content) { 'foo: bar' }
 
-    it "returns nil" do
+    it 'returns nil' do
       expect(subject.match).to be_nil
     end
   end
 
-  context "an unknown license" do
+  context 'an unknown license' do
     let(:content) { "'license': 'foo'" }
 
-    it "returns other" do
+    it 'returns other' do
       expect(subject.match).to eql(Licensee::License.find('other'))
     end
   end

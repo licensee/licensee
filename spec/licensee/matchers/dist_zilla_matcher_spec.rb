@@ -31,10 +31,10 @@ RSpec.describe Licensee::Matchers::DistZilla do
     end
   end
 
-  context "no license field" do
-    let(:content) { "foo = bar" }
+  context 'no license field' do
+    let(:content) { 'foo = bar' }
 
-    it "returns nil" do
+    it 'returns nil' do
       expect(subject.match).to be_nil
     end
   end
