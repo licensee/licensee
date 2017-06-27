@@ -5,7 +5,7 @@ module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
     END_OF_TERMS_REGEX = /^\s*end of terms and conditions\s*$/i
-    HR_REGEX = /^\s*[=\-\* ]{4,}/
+    HR_REGEX = /^\s*[=\-\*\s]{4,}/
     ALT_TITLE_REGEX = {
       'bsd-2-clause'       => /bsd 2-clause( \"simplified\")? license/i,
       'bsd-3-clause'       => /bsd 3-clause( \"new\" or \"revised\")? license/i,
@@ -104,7 +104,7 @@ module Licensee
 
     # Strip HRs from MPL
     def strip_hrs(string)
-      string.gsub HR_REGEX, ''
+      string.gsub HR_REGEX, ' '
     end
 
     # Strip leading #s from the document
