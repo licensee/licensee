@@ -12,6 +12,7 @@ module Licensee
       'bsd-3-clause-clear' => /bsd 3-clause( clear)? license/i
     }.freeze
     MAX_SCALED_DELTA = 150
+    MAX_WORDSET_DIFFERENCE = 15
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -42,7 +43,11 @@ module Licensee
     def similarity(other)
       overlap = (wordset & other.wordset).size
       total = wordset.size + other.wordset.size
-      100.0 * (overlap * 2.0 / total)
+      sim = 100 * (overlap * 2.0 / total)
+      return sim unless sim > CONFIDENCE_THRESHOLD &&
+                        sim < 100 &&
+                        total - overlap * 2 > MAX_WORDSET_DIFFERENCE
+      100 - (100 - CONFIDENCE_THRESHOLD) * 2
     end
 
     # SHA1 of the normalized content
