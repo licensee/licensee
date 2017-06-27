@@ -11,11 +11,13 @@ RSpec.describe Licensee::ContentHelper do
   let(:content) do
     <<-EOS.freeze.gsub(/^\s*/, '')
   # The MIT License
-  =================
+	=================
 
-  Copyright 2016 Ben Balter
+	Copyright 2016 Ben Balter
+	*************************
 
   The made
+  * * * *
   up  license.
   -----------
 EOS
@@ -73,10 +75,14 @@ EOS
 
     it 'strips HRs' do
       expect(normalized_content).to_not match '---'
+      expect(normalized_content).to_not match '==='
+      expect(normalized_content).to_not include '***'
+      expect(normalized_content).to_not include '* *'
     end
 
     it 'squeezes whitespace' do
       expect(normalized_content).to_not match '  '
+      expect(normalized_content).to_not match(/\t/)
     end
 
     it 'strips whitespace' do
