@@ -82,11 +82,11 @@ EOS
 
     it 'squeezes whitespace' do
       expect(normalized_content).to_not match '  '
-      expect(normalized_content).to_not match(/\t/)
     end
 
     it 'strips whitespace' do
       expect(normalized_content).to_not match(/\n/)
+      expect(normalized_content).to_not match(/\t/)
     end
 
     it 'strips markdown headings' do
