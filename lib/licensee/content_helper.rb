@@ -113,7 +113,7 @@ module Licensee
     end
 
     def strip_whitespace(string)
-      string.gsub(/\r?\n/, ' ').squeeze(' ').strip
+      string.gsub(/\s+/, ' ').squeeze(' ').strip
     end
 
     def scaled_delta
