@@ -4,7 +4,7 @@ module Licensee
       # While we could parse the package.json or bower.json file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.
       LICENSE_REGEX = /
-        s*[\"\']license[\"\']\s*\:\s*[\'\"]([a-z\-0-9\.]+)[\'\"],?\s*
+        \s*[\"\']license[\"\']\s*\:\s*[\'\"]([a-z\-0-9\.]+)[\'\"],?\s*
       /ix
 
       private

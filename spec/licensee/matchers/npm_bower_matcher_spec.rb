@@ -14,11 +14,12 @@ RSpec.describe Licensee::Matchers::NpmBower do
   end
 
   {
-    'double quotes' => '"license": "mit"',
-    'single quotes' => "'license': 'mit'",
-    'mixed quotes'  => "'license': \"mit\"",
-    'whitespace'    => "'license' : 'mit'",
-    'no whitespace' => "'license':'mit'"
+    'double quotes'      => '"license": "mit"',
+    'single quotes'      => "'license': 'mit'",
+    'mixed quotes'       => "'license': \"mit\"",
+    'whitespace'         => "'license' : 'mit'",
+    'no whitespace'      => "'license':'mit'",
+    'leading whitespace' => " 'license':'mit'"
   }.each do |description, license_declaration|
     context "with a #{description} declaration" do
       let(:content) { license_declaration }
