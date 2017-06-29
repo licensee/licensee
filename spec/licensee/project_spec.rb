@@ -57,6 +57,31 @@
         content = subject.send(:load_file, files.first)
         expect(content).to match('Permission is hereby granted')
       end
+
+      if described_class == Licensee::FSProject
+        context 'with search root argument' do
+          let(:fixture) { 'license-in-parent-folder/license-folder/package' }
+          let(:path) { fixture_path(fixture) }
+          let(:license_folder) { 'license-in-parent-folder/license-folder' }
+          let(:search_root) { fixture_path(license_folder) }
+          let(:subject) { described_class.new(path, search_root: search_root) }
+          let(:files) { subject.send(:files) }
+
+          it 'looks for licenses in parent directories up to the search root' do
+            # should not include the license in 'license-in-parent-folder' dir
+            expect(files.count).to eql(1)
+            expect(files.first[:name]).to eql('LICENSE.txt')
+          end
+        end
+
+        context 'without search root argument' do
+          let(:fixture) { 'license-in-parent-folder/license-folder/package' }
+
+          it 'looks for licenses in current directory only' do
+            expect(files.count).to eql(0)
+          end
+        end
+      end
     end
 
     context 'encoding correctness' do
