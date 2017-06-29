@@ -6,6 +6,7 @@ RSpec.describe Licensee::Project::PackageInfo do
   context 'name scoring' do
     {
       'licensee.gemspec' => 1.0,
+      'test.cabal'       => 1.0,
       'package.json'     => 1.0,
       'DESCRIPTION'      => 0.9,
       'dist.ini'         => 0.8,
@@ -29,6 +30,14 @@ RSpec.describe Licensee::Project::PackageInfo do
 
       it 'returns the gemspec matcher' do
         expect(possible_matchers).to eql([Licensee::Matchers::Gemspec])
+      end
+    end
+
+    context 'with cabal file ' do
+      let(:filename) { 'test.cabal' }
+
+      it 'returns the cabal matcher' do
+        expect(possible_matchers).to eql([Licensee::Matchers::Cabal])
       end
     end
 
