@@ -23,6 +23,7 @@ require_relative 'licensee/matchers/gemspec_matcher'
 require_relative 'licensee/matchers/npm_bower_matcher'
 require_relative 'licensee/matchers/cran_matcher'
 require_relative 'licensee/matchers/dist_zilla_matcher'
+require_relative 'licensee/matchers/cabal_matcher'
 
 module Licensee
   # Over which percent is a match considered a match by default
