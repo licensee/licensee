@@ -76,6 +76,16 @@ EOS
       expect(normalized_content).to_not include '* *'
     end
 
+    it 'strips formatting from the MPL' do
+      license = Licensee::License.find('mpl-2.0')
+      expect(license.content_normalized).to_not include('* *')
+    end
+
+    it 'wraps' do
+      lines = mit.content_normalized(wrap: 40).split("\n")
+      expect(lines.first.length).to be <= 40
+    end
+
     it 'squeezes whitespace' do
       expect(normalized_content).to_not match '  '
     end

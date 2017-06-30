@@ -36,22 +36,6 @@ def sub_copyright_info(text)
   text
 end
 
-def wrap(text, line_width = 80)
-  return if text.nil?
-  text = text.clone
-  text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
-
-  text = text.split("\n").collect do |line|
-    if line.length > line_width
-      line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
-    else
-      line
-    end
-  end * "\n"
-
-  text.strip
-end
-
 # Add random words to the end of a license to test similarity tollerances
 def add_random_words(string, count = 5)
   words = string.dup.split(' ')
@@ -88,9 +72,9 @@ end
 
 RSpec::Matchers.define :be_detected_as do |expected|
   match do |actual|
-    @expected_as_array = [wrap(expected.content_normalized)]
+    @expected_as_array = [expected.content_normalized(wrap: 80)]
     license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
-    @actual = wrap(license_file.content_normalized)
+    @actual = license_file.content_normalized(wrap: 80)
     return false unless license_file.license
     values_match? expected, license_file.license
   end

@@ -12,6 +12,7 @@ Layout/AlignHash:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - licensee.gemspec
 
 Style/Documentation:
   Enabled: false
