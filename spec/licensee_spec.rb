@@ -32,6 +32,7 @@ RSpec.describe Licensee do
 
     context 'user overridden' do
       before { Licensee.confidence_threshold = 50 }
+      after { Licensee.confidence_threshold = nil }
 
       it 'lets the user override the confidence threshold' do
         expect(described_class.confidence_threshold).to eql(50)

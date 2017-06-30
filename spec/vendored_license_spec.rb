@@ -1,4 +1,4 @@
-RSpec.describe 'vendored licenes' do
+RSpec.describe 'vendored licenses' do
   let(:filename) { 'LICENSE.txt' }
   let(:license_file) { Licensee::Project::LicenseFile.new(content, filename) }
   let(:detected_license) { license_file.license if license_file }
@@ -52,7 +52,7 @@ RSpec.describe 'vendored licenes' do
         context 'with random words added' do
           let(:content) { content_with_random_words }
 
-          it 'detects the license' do
+          it 'does not match the license' do
             expect(content).to_not be_detected_as(license)
           end
         end
@@ -60,7 +60,7 @@ RSpec.describe 'vendored licenes' do
         context 'when rewrapped with random words added' do
           let(:content) { wrap(content_with_random_words, line_length) }
 
-          it 'detects the license' do
+          it 'does not match the license' do
             expect(content).to_not be_detected_as(license)
           end
         end
