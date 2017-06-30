@@ -11,7 +11,6 @@ module Licensee
       'bsd-3-clause'       => /bsd 3-clause( \"new\" or \"revised\")? license/i,
       'bsd-3-clause-clear' => /bsd 3-clause( clear)? license/i
     }.freeze
-    MAX_SCALED_DELTA = 150
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -29,7 +28,7 @@ module Licensee
     # Number of characters that could be added/removed to still be
     # considered a potential match
     def max_delta
-      scaled_delta < MAX_SCALED_DELTA ? scaled_delta : MAX_SCALED_DELTA
+      @max_delta ||= (length * Licensee.inverse_confidence_threshold).to_i
     end
 
     # Given another license or project file, calculates the difference in length
@@ -114,10 +113,6 @@ module Licensee
 
     def strip_whitespace(string)
       string.gsub(/\s+/, ' ').squeeze(' ').strip
-    end
-
-    def scaled_delta
-      @scaled_delta ||= (length * Licensee.inverse_confidence_threshold).to_i
     end
   end
 end

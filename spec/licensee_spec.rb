@@ -23,11 +23,11 @@ RSpec.describe Licensee do
 
   context 'confidence threshold' do
     it 'exposes the confidence threshold' do
-      expect(described_class.confidence_threshold).to eql(95)
+      expect(described_class.confidence_threshold).to eql(98)
     end
 
     it 'exposes the inverse of the confidence threshold' do
-      expect(described_class.inverse_confidence_threshold).to eql(0.05)
+      expect(described_class.inverse_confidence_threshold).to eql(0.02)
     end
 
     context 'user overridden' do

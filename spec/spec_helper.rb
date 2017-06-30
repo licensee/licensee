@@ -53,12 +53,14 @@ end
 
 # Add random words to the end of a license to test similarity tollerances
 def add_random_words(string, count = 5)
-  string = string.dup
-  ipsum = %w[lorem ipsum dolor sit amet consectetur adipiscing elit]
+  words = string.dup.split(' ')
+  ipsum = File.read(fixture_path('ipsum.txt')).split(' ')
   count.times do
-    string << " #{ipsum[Random.rand(ipsum.length)]}"
+    word = ipsum[Random.rand(ipsum.length)]
+    index = Random.rand(words.length)
+    words.insert(index, word)
   end
-  string
+  words.join(' ')
 end
 
 # Init git dir

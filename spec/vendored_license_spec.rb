@@ -17,7 +17,7 @@ RSpec.describe 'vendored licenes' do
 
       context 'when modified' do
         let(:line_length) { 60 }
-        let(:random_words) { 3 }
+        let(:random_words) { 50 }
         let(:content_rewrapped) { wrap(content_with_copyright, line_length) }
         let(:content_with_random_words) do
           add_random_words(content_with_copyright, random_words)
@@ -53,8 +53,7 @@ RSpec.describe 'vendored licenes' do
           let(:content) { content_with_random_words }
 
           it 'detects the license' do
-            skip 'The WTFPL is too short to be modified' if license == wtfpl
-            expect(content).to be_detected_as(license)
+            expect(content).to_not be_detected_as(license)
           end
         end
 
@@ -62,8 +61,7 @@ RSpec.describe 'vendored licenes' do
           let(:content) { wrap(content_with_random_words, line_length) }
 
           it 'detects the license' do
-            skip 'The WTFPL is too short to be modified' if license == wtfpl
-            expect(content).to be_detected_as(license)
+            expect(content).to_not be_detected_as(license)
           end
         end
       end
