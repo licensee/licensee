@@ -1,23 +1,21 @@
 module Licensee
   class Project
     class PackageInfo < Licensee::Project::File
+      # Hash of Extension => [possible matchers]
+      MATCHERS_EXTENSIONS = {
+        '.gemspec' => [Matchers::Gemspec],
+        '.json'    => [Matchers::NpmBower],
+        '.cabal'   => [Matchers::Cabal]
+      }.freeze
+
+      # Hash of Filename => [possible matchers]
+      FILENAMES_EXTENSIONS = {
+        'DESCRIPTION' => [Matchers::Cran],
+        'dist.ini'    => [Matchers::DistZilla]
+      }.freeze
+
       def possible_matchers
-        case ::File.extname(filename)
-        when '.gemspec'
-          [Matchers::Gemspec]
-        when '.json'
-          [Matchers::NpmBower]
-        when '.cabal'
-          [Matchers::Cabal]
-        else
-          if filename == 'DESCRIPTION' && content.match(/^Package:/)
-            [Matchers::Cran]
-          elsif filename == 'dist.ini'
-            [Matchers::DistZilla]
-          else
-            []
-          end
-        end
+        MATCHERS_EXTENSIONS[extension] || FILENAMES_EXTENSIONS[filename] || []
       end
 
       def self.name_score(filename)
@@ -27,6 +25,12 @@ module Licensee
         return 0.9  if filename == 'DESCRIPTION'
         return 0.75 if filename == 'bower.json'
         0.0
+      end
+
+      private
+
+      def extension
+        @extension ||= ::File.extname(filename)
       end
     end
   end
