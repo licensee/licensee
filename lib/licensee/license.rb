@@ -27,7 +27,7 @@ module Licensee
 
       def keys
         @keys ||= license_files.map do |license_file|
-          File.basename(license_file, '.txt').downcase
+          ::File.basename(license_file, '.txt').downcase
         end + PSEUDO_LICENSES
       end
 
@@ -39,8 +39,8 @@ module Licensee
       alias find_by_key find
 
       def license_dir
-        dir = File.dirname(__FILE__)
-        File.expand_path '../../vendor/choosealicense.com/_licenses', dir
+        dir = ::File.dirname(__FILE__)
+        ::File.expand_path '../../vendor/choosealicense.com/_licenses', dir
       end
 
       def license_files

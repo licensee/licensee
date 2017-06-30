@@ -1,30 +1,15 @@
 require_relative 'licensee/version'
-require_relative 'licensee/content_helper'
-require_relative 'licensee/license'
-require_relative 'licensee/rule'
-
-# Projects
-require_relative 'licensee/project'
-require_relative 'licensee/projects/git_project'
-require_relative 'licensee/projects/fs_project'
-
-# Project files
-require_relative 'licensee/project_file'
-require_relative 'licensee/project_files/license_file'
-require_relative 'licensee/project_files/package_info'
-require_relative 'licensee/project_files/readme'
-
-# Matchers
-require_relative 'licensee/matchers/exact_matcher'
-require_relative 'licensee/matchers/copyright_matcher'
-require_relative 'licensee/matchers/dice_matcher'
-require_relative 'licensee/matchers/package_matcher'
-require_relative 'licensee/matchers/gemspec_matcher'
-require_relative 'licensee/matchers/npm_bower_matcher'
-require_relative 'licensee/matchers/cran_matcher'
-require_relative 'licensee/matchers/dist_zilla_matcher'
+require 'rugged'
 
 module Licensee
+  autoload :ContentHelper, 'licensee/content_helper'
+  autoload :License, 'licensee/license'
+  autoload :Rule, 'licensee/rule'
+  autoload :Project, 'licensee/project'
+  autoload :FSProject, 'licensee/projects/fs_project'
+  autoload :GitProject, 'licensee/projects/git_project'
+  autoload :Matchers, 'licensee/matchers'
+
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 98
 
