@@ -7,7 +7,7 @@ RSpec.describe 'vendored licenes' do
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
 
-    context "the #{license.meta['spdx-id'] || license.key} license" do
+    context "the #{license.name} license" do
       let(:content_with_copyright) { sub_copyright_info(license.content) }
       let(:content) { content_with_copyright }
 

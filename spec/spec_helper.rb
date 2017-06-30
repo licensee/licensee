@@ -37,6 +37,7 @@ def sub_copyright_info(text)
 end
 
 def wrap(text, line_width = 80)
+  return if text.nil?
   text = text.clone
   text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
 
@@ -87,8 +88,9 @@ end
 
 RSpec::Matchers.define :be_detected_as do |expected|
   match do |actual|
-    @expected_as_array = [expected.content]
+    @expected_as_array = [wrap(expected.content_normalized)]
     license_file = Licensee::Project::LicenseFile.new(actual, 'LICENSE')
+    @actual = wrap(license_file.content_normalized)
     return false unless license_file.license
     values_match? expected, license_file.license
   end
