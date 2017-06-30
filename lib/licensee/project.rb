@@ -1,7 +1,10 @@
-require 'rugged'
-
 module Licensee
   class Project
+    autoload :LicenseFile, 'licensee/project_files/license_file'
+    autoload :PackageInfo, 'licensee/project_files/package_info'
+    autoload :Readme, 'licensee/project_files/readme'
+    autoload :File, 'licensee/project_file'
+
     attr_reader :detect_readme, :detect_packages
     alias detect_readme? detect_readme
     alias detect_packages? detect_packages
