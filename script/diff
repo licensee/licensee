@@ -15,7 +15,8 @@ license = Licensee::License.find(ARGV[0])
 
 if license.nil?
   puts "#{ARGV[0]} is not a valid license"
-  puts "Valid licenses: #{Licensee::License.all(hidden: true).map(&:key).join(', ')}"
+  licenses = Licensee::License.all(hidden: true).map(&:key).join(', ')
+  puts "Valid licenses: #{licenses}"
   exit 1
 end
 
@@ -31,12 +32,12 @@ similarity = Licensee::ContentHelper.format_percent(similarity)
 puts "  Similarity: #{similarity}"
 
 if left == right
-  puts "  Exact match!"
+  puts '  Exact match!'
   exit
 end
 
 dir = Dir.mktmpdir
-path = File.expand_path "LICENSE", dir
+path = File.expand_path 'LICENSE', dir
 
 Dir.chdir(dir) do
   `git init`

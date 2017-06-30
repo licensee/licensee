@@ -4,7 +4,7 @@
 require 'licensee'
 
 if ARGV[0].to_s.empty?
-  "Usage: script/license-path [PROJECT_PATH]"
+  puts 'Usage: script/license-path [PROJECT_PATH]'
   exit 1
 end
 
