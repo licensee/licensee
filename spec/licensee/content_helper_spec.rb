@@ -56,6 +56,17 @@ EOS
     expect(subject.content_hash).to eql(content_hash)
   end
 
+  it 'wraps' do
+    content = Licensee::ContentHelper.wrap(mit.content, 40)
+    lines = content.split("\n")
+    expect(lines.first.length).to be <= 40
+  end
+
+  it 'formats percents' do
+    percent = Licensee::ContentHelper.format_percent(12.3456789)
+    expect(percent).to eql('12.35%')
+  end
+
   context 'normalizing' do
     let(:normalized_content) { subject.content_normalized }
 
@@ -74,6 +85,16 @@ EOS
       expect(normalized_content).to_not match '==='
       expect(normalized_content).to_not include '***'
       expect(normalized_content).to_not include '* *'
+    end
+
+    it 'strips formatting from the MPL' do
+      license = Licensee::License.find('mpl-2.0')
+      expect(license.content_normalized).to_not include('* *')
+    end
+
+    it 'wraps' do
+      lines = mit.content_normalized(wrap: 40).split("\n")
+      expect(lines.first.length).to be <= 40
     end
 
     it 'squeezes whitespace' do

@@ -17,8 +17,10 @@ RSpec.describe 'vendored licenses' do
 
       context 'when modified' do
         let(:line_length) { 60 }
-        let(:random_words) { 50 }
-        let(:content_rewrapped) { wrap(content_with_copyright, line_length) }
+        let(:random_words) { 75 }
+        let(:content_rewrapped) do
+          Licensee::ContentHelper.wrap(content_with_copyright, line_length)
+        end
         let(:content_with_random_words) do
           add_random_words(content_with_copyright, random_words)
         end
@@ -58,7 +60,9 @@ RSpec.describe 'vendored licenses' do
         end
 
         context 'when rewrapped with random words added' do
-          let(:content) { wrap(content_with_random_words, line_length) }
+          let(:content) do
+            Licensee::ContentHelper.wrap(content_with_random_words, line_length)
+          end
 
           it 'does not match the license' do
             expect(content).to_not be_detected_as(license)
