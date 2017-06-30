@@ -15,7 +15,32 @@
         end
       end
 
-      after { FileUtils.rm_rf File.expand_path '.git', path }
+      after do
+        subject.close
+        FileUtils.rm_rf File.expand_path '.git', path
+      end
+    end
+
+    if described_class == Licensee::GitProject
+      context 'when initialized with a repo' do
+        let(:repo) { Rugged::Repository.new(path) }
+        subject { described_class.new(repo) }
+
+        it 'returns the repository' do
+          expect(subject.repository).to be_a(Rugged::Repository)
+        end
+      end
+
+      context 'when initialized with a revision' do
+        let(:revision) { subject.repository.last_commit.oid }
+        before do
+          subject.instance_variable_set('@revision', revision)
+        end
+
+        it 'returns the commit' do
+          expect(subject.send(:commit).oid).to eql(revision)
+        end
+      end
     end
 
     it 'returns the license' do
