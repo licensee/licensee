@@ -7,6 +7,8 @@ module Licensee
           [Matchers::Gemspec]
         when '.json'
           [Matchers::NpmBower]
+        when '.cabal'
+          [Matchers::Cabal]
         else
           if filename == 'DESCRIPTION' && content.match(/^Package:/)
             [Matchers::Cran]
@@ -19,7 +21,7 @@ module Licensee
       end
 
       def self.name_score(filename)
-        return 1.0  if ::File.extname(filename) == '.gemspec'
+        return 1.0  if ['.gemspec', '.cabal'].include?(::File.extname(filename))
         return 1.0  if filename == 'package.json'
         return 0.8  if filename == 'dist.ini'
         return 0.9  if filename == 'DESCRIPTION'
