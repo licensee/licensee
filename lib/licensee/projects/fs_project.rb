@@ -26,7 +26,7 @@ module Licensee
       while search_directory?(dir)
         Dir.glob(::File.join(dir, @pattern).tr('\\', '/')) do |file|
           next unless ::File.file?(file)
-          files.push(name: ::File.basename(file))
+          files.push(name: ::File.basename(file), dir: dir)
         end
 
         dir = ::File.expand_path('..', dir)
@@ -41,7 +41,7 @@ module Licensee
     #
     # Returns the file contents as a string
     def load_file(file)
-      ::File.read(::File.join(@dir, file[:name]))
+      ::File.read(::File.join(file[:dir], file[:name]))
     end
 
     # Returns whether a directory should be searched for license files
