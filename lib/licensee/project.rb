@@ -48,7 +48,7 @@ module Licensee
         return [] if files.empty? || files.nil?
         files = find_files { |n| LicenseFile.name_score(n) }
         files = files.map do |file|
-          LicenseFile.new(load_file(file), file[:name])
+          LicenseFile.new(load_file(file), file)
         end
 
         prioritize_lgpl(files)

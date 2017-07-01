@@ -1,7 +1,7 @@
 module Licensee
   class Project
     class File
-      attr_reader :content, :filename
+      attr_reader :content
 
       ENCODING = Encoding::UTF_8
       ENCODING_OPTIONS = {
@@ -10,13 +10,18 @@ module Licensee
         replace: ''
       }.freeze
 
-      def initialize(content, filename = nil)
+      def initialize(content, file = {})
         @content = content
         @content.force_encoding(ENCODING)
         unless @content.valid_encoding?
           @content.encode!(ENCODING, ENCODING_OPTIONS)
         end
-        @filename = filename
+        file = { name: file } if file.is_a? String
+        @file = file || {}
+      end
+
+      def filename
+        @file[:name]
       end
 
       def matcher
@@ -30,6 +35,10 @@ module Licensee
 
       def license
         matcher && matcher.match
+      end
+
+      def [](key)
+        @file[key]
       end
 
       alias match license

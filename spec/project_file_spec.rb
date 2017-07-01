@@ -30,4 +30,17 @@ RSpec.describe Licensee::Project::File do
   it 'returns the license' do
     expect(subject.license).to eql(mit)
   end
+
+  context 'with additional metadata' do
+    subject { described_class.new(content, name: filename, dir: Dir.pwd) }
+
+    it 'stores the filename' do
+      expect(subject.filename).to eql(filename)
+      expect(subject[:name]).to eql(filename)
+    end
+
+    it 'stores additional metadata' do
+      expect(subject[:dir]).to eql(Dir.pwd)
+    end
+  end
 end
