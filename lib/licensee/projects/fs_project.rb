@@ -3,6 +3,10 @@ require 'pathname'
 # Filesystem-based project
 #
 # Analyze a folder on the filesystem for license information
+#
+# Project files for this project type will contain the following keys:
+#  :name - the relative file name
+#  :dir  - the directory path containing the file
 module Licensee
   class FSProject < Project
     def initialize(path, **args)
@@ -26,8 +30,8 @@ module Licensee
 
     # Returns an array of hashes representing the project's files.
     # Hashes will have the the following keys:
-    #  :name - the file name and extension
-    #  :dir  - the path to the directory
+    #  :name - the relative file name
+    #  :dir  - the directory path containing the file
     def files
       search_directories.flat_map do |dir|
         Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).map do |file|

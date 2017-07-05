@@ -1,6 +1,10 @@
 # Git-based project
 #
 # Analyze a given (bare) Git repository for license information
+#
+# Project files for this project type will contain the following keys:
+#  :name - the file's path relative to the repo root
+#  :oid  - the file's OID
 module Licensee
   class GitProject < Project
     attr_reader :repository, :revision

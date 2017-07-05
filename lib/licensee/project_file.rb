@@ -14,6 +14,15 @@ module Licensee
         replace: ''
       }.freeze
 
+      # Create a new Licensee::Project::File with content and metadata
+      #
+      # content - file content
+      # metadata - can be either the string filename, or a hash containing
+      #            metadata about the file content.  If a hash is given, the
+      #            filename should be given using the :name key.  See individual
+      #            project types for additional available metadata
+      #
+      # Returns a new Licensee::Project::File
       def initialize(content, metadata = {})
         @content = content
         @content.force_encoding(ENCODING)
