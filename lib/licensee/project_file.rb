@@ -1,7 +1,11 @@
+require 'forwardable'
+
 module Licensee
   class Project
     class File
-      attr_reader :content, :filename
+      extend Forwardable
+
+      attr_reader :content
 
       ENCODING = Encoding::UTF_8
       ENCODING_OPTIONS = {
@@ -10,13 +14,28 @@ module Licensee
         replace: ''
       }.freeze
 
-      def initialize(content, filename = nil)
+      # Create a new Licensee::Project::File with content and metadata
+      #
+      # content - file content
+      # metadata - can be either the string filename, or a hash containing
+      #            metadata about the file content.  If a hash is given, the
+      #            filename should be given using the :name key.  See individual
+      #            project types for additional available metadata
+      #
+      # Returns a new Licensee::Project::File
+      def initialize(content, metadata = {})
         @content = content
         @content.force_encoding(ENCODING)
         unless @content.valid_encoding?
           @content.encode!(ENCODING, ENCODING_OPTIONS)
         end
-        @filename = filename
+
+        metadata = { name: metadata } if metadata.is_a? String
+        @data = metadata || {}
+      end
+
+      def filename
+        @data[:name]
       end
 
       def matcher
@@ -34,6 +53,7 @@ module Licensee
 
       alias match license
       alias path filename
+      def_delegator :@data, :[]
     end
   end
 end

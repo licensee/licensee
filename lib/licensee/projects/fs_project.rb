@@ -1,6 +1,12 @@
+require 'pathname'
+
 # Filesystem-based project
 #
 # Analyze a folder on the filesystem for license information
+#
+# Project files for this project type will contain the following keys:
+#  :name - the relative file name
+#  :dir  - the directory path containing the file
 module Licensee
   class FSProject < Project
     def initialize(path, **args)
@@ -11,22 +17,28 @@ module Licensee
         @pattern = '*'
         @dir = path
       end
+
+      @root = args.delete(:search_root) || @dir
+      unless valid_search_root?
+        raise 'Search root must be the FSProject path directory or its ancestor'
+      end
+
       super(**args)
     end
 
     private
 
     # Returns an array of hashes representing the project's files.
-    # Hashes will have the :name key, with the relative path to the file
+    # Hashes will have the the following keys:
+    #  :name - the relative file name
+    #  :dir  - the directory path containing the file
     def files
-      files = []
-
-      Dir.glob(::File.join(@dir, @pattern).tr('\\', '/')) do |file|
-        next unless ::File.file?(file)
-        files.push(name: ::File.basename(file))
+      @files ||= search_directories.flat_map do |dir|
+        Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).map do |file|
+          next unless ::File.file?(file)
+          { name: ::File.basename(file), dir: dir }
+        end.compact
       end
-
-      files
     end
 
     # Retrieve a file's content from disk
@@ -35,7 +47,32 @@ module Licensee
     #
     # Returns the file contents as a string
     def load_file(file)
-      ::File.read(::File.join(@dir, file[:name]))
+      ::File.read(::File.join(file[:dir], file[:name]))
+    end
+
+    # Returns true if @dir is @root or it's descendant
+    def valid_search_root?
+      dir = Pathname.new(@dir)
+      dir.fnmatch?(@root) || dir.fnmatch?(::File.join(@root, '**'))
+    end
+
+    # Returns the set of unique paths to search for project files
+    # in order from @dir -> @root
+    def search_directories
+      search_enumerator.map(&:to_path)
+                       .push(@root) # ensure root is included in the search
+                       .uniq # don't include the root twice if @dir == @root
+    end
+
+    # Enumerates all directories to search, from @dir to @root
+    def search_enumerator
+      root = Pathname.new(@root)
+      dir = Pathname.new(@dir)
+      Enumerator.new do |yielder|
+        dir.relative_path_from(root).ascend do |relative|
+          yielder.yield root.join(relative)
+        end
+      end
     end
   end
 end
