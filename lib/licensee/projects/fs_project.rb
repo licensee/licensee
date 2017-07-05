@@ -56,15 +56,23 @@ module Licensee
       dir.fnmatch?(@root) || dir.fnmatch?(::File.join(@root, '**'))
     end
 
-    # Enumerates all directories to search, from @dir to @root
+    # Returns the set of unique paths to search for project files
+    # in order from @dir -> @root
     def search_directories
+      search_enumerator.map(&:to_path)
+                       .push(@root) # ensure root is included in the search
+                       .uniq # don't include the root twice if @dir == @root
+    end
+
+    # Enumerates all directories to search, from @dir to @root
+    def search_enumerator
       root = Pathname.new(@root)
-      Pathname.new(@dir)
-              .relative_path_from(root)
-              .ascend # search from dir to root
-              .map { |rel| root.join(rel).to_path }
-              .push(@root) # ensure root is included in the search
-              .uniq # don't include the root twice if @dir == @root
+      dir = Pathname.new(@dir)
+      Enumerator.new do |yielder|
+        dir.relative_path_from(root).ascend do |relative|
+          yielder.yield root.join(relative)
+        end
+      end
     end
   end
 end
