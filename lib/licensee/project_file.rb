@@ -1,6 +1,10 @@
+require 'forwardable'
+
 module Licensee
   class Project
     class File
+      extend Forwardable
+
       attr_reader :content
 
       ENCODING = Encoding::UTF_8
@@ -10,18 +14,19 @@ module Licensee
         replace: ''
       }.freeze
 
-      def initialize(content, file = {})
+      def initialize(content, metadata = {})
         @content = content
         @content.force_encoding(ENCODING)
         unless @content.valid_encoding?
           @content.encode!(ENCODING, ENCODING_OPTIONS)
         end
-        file = { name: file } if file.is_a? String
-        @file = file || {}
+
+        metadata = { name: metadata } if metadata.is_a? String
+        @data = metadata || {}
       end
 
       def filename
-        @file[:name]
+        @data[:name]
       end
 
       def matcher
@@ -37,12 +42,9 @@ module Licensee
         matcher && matcher.match
       end
 
-      def [](key)
-        @file[key]
-      end
-
       alias match license
       alias path filename
+      def_delegator :@data, :[]
     end
   end
 end
