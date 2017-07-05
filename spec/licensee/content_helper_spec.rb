@@ -11,11 +11,13 @@ RSpec.describe Licensee::ContentHelper do
   let(:content) do
     <<-EOS.freeze.gsub(/^\s*/, '')
   # The MIT License
-  =================
+	=================
 
-  Copyright 2016 Ben Balter
+	Copyright 2016 Ben Balter
+	*************************
 
   The made
+  * * * *
   up  license.
   -----------
 EOS
@@ -31,15 +33,11 @@ EOS
     expect(subject.length).to eql(20)
   end
 
-  it 'knows the max delta' do
-    expect(subject.max_delta).to eql(1)
-  end
-
   context 'a very long license' do
     let(:content) { 'license' * 1000 }
 
-    it 'does not return a max delta larger than 150' do
-      expect(subject.max_delta).to eql(150)
+    it 'returns the max delta' do
+      expect(subject.max_delta).to eql(140)
     end
   end
 
@@ -58,6 +56,17 @@ EOS
     expect(subject.content_hash).to eql(content_hash)
   end
 
+  it 'wraps' do
+    content = Licensee::ContentHelper.wrap(mit.content, 40)
+    lines = content.split("\n")
+    expect(lines.first.length).to be <= 40
+  end
+
+  it 'formats percents' do
+    percent = Licensee::ContentHelper.format_percent(12.3456789)
+    expect(percent).to eql('12.35%')
+  end
+
   context 'normalizing' do
     let(:normalized_content) { subject.content_normalized }
 
@@ -73,6 +82,19 @@ EOS
 
     it 'strips HRs' do
       expect(normalized_content).to_not match '---'
+      expect(normalized_content).to_not match '==='
+      expect(normalized_content).to_not include '***'
+      expect(normalized_content).to_not include '* *'
+    end
+
+    it 'strips formatting from the MPL' do
+      license = Licensee::License.find('mpl-2.0')
+      expect(license.content_normalized).to_not include('* *')
+    end
+
+    it 'wraps' do
+      lines = mit.content_normalized(wrap: 40).split("\n")
+      expect(lines.first.length).to be <= 40
     end
 
     it 'squeezes whitespace' do
@@ -81,6 +103,7 @@ EOS
 
     it 'strips whitespace' do
       expect(normalized_content).to_not match(/\n/)
+      expect(normalized_content).to_not match(/\t/)
     end
 
     it 'strips markdown headings' do

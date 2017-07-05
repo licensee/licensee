@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# Given a project, returns the path to its license
+
+require 'licensee'
+
+if ARGV[0].to_s.empty?
+  puts 'Usage: script/license-path [PROJECT_PATH]'
+  exit 1
+end
+
+project = Licensee.project(ARGV[0])
+
+if project.license_file
+  puts File.expand_path project.license_file.path, ARGV[0]
+else
+  exit 1
+end

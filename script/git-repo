@@ -1,11 +1,19 @@
 #!/bin/sh
 # Runs the licensee command against a remote git repo
 
+set -e
+
 repo=$1
 name=$(basename $repo)
 dir="./tmp/$name"
+rm -Rf "$dir"
 
 git clone --depth 1 --quiet "$repo" "$dir"
 bundle exec bin/licensee "$dir"
+
+if [ "$2" = "--license" ]; then
+  license_path=$(bundle exec ./script/license-path $dir)
+  cat $license_path | bundle exec script/diff $3
+fi
 
 rm -Rf "$dir"

@@ -1,4 +1,4 @@
-RSpec.describe 'vendored licenes' do
+RSpec.describe 'vendored licenses' do
   let(:filename) { 'LICENSE.txt' }
   let(:license_file) { Licensee::Project::LicenseFile.new(content, filename) }
   let(:detected_license) { license_file.license if license_file }
@@ -7,7 +7,7 @@ RSpec.describe 'vendored licenes' do
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
 
-    context "the #{license.meta['spdx-id'] || license.key} license" do
+    context "the #{license.name} license" do
       let(:content_with_copyright) { sub_copyright_info(license.content) }
       let(:content) { content_with_copyright }
 
@@ -17,8 +17,10 @@ RSpec.describe 'vendored licenes' do
 
       context 'when modified' do
         let(:line_length) { 60 }
-        let(:random_words) { 3 }
-        let(:content_rewrapped) { wrap(content_with_copyright, line_length) }
+        let(:random_words) { 75 }
+        let(:content_rewrapped) do
+          Licensee::ContentHelper.wrap(content_with_copyright, line_length)
+        end
         let(:content_with_random_words) do
           add_random_words(content_with_copyright, random_words)
         end
@@ -52,18 +54,18 @@ RSpec.describe 'vendored licenes' do
         context 'with random words added' do
           let(:content) { content_with_random_words }
 
-          it 'detects the license' do
-            skip 'The WTFPL is too short to be modified' if license == wtfpl
-            expect(content).to be_detected_as(license)
+          it 'does not match the license' do
+            expect(content).to_not be_detected_as(license)
           end
         end
 
         context 'when rewrapped with random words added' do
-          let(:content) { wrap(content_with_random_words, line_length) }
+          let(:content) do
+            Licensee::ContentHelper.wrap(content_with_random_words, line_length)
+          end
 
-          it 'detects the license' do
-            skip 'The WTFPL is too short to be modified' if license == wtfpl
-            expect(content).to be_detected_as(license)
+          it 'does not match the license' do
+            expect(content).to_not be_detected_as(license)
           end
         end
       end

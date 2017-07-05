@@ -5,13 +5,12 @@ module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
     END_OF_TERMS_REGEX = /^\s*end of terms and conditions\s*$/i
-    HR_REGEX = /^\s*[=-]{4,}/
+    HR_REGEX = /[=\-\*][=\-\*\s]{3,}/
     ALT_TITLE_REGEX = {
       'bsd-2-clause'       => /bsd 2-clause( \"simplified\")? license/i,
       'bsd-3-clause'       => /bsd 3-clause( \"new\" or \"revised\")? license/i,
       'bsd-3-clause-clear' => /bsd 3-clause( clear)? license/i
     }.freeze
-    MAX_SCALED_DELTA = 150
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -29,7 +28,7 @@ module Licensee
     # Number of characters that could be added/removed to still be
     # considered a potential match
     def max_delta
-      scaled_delta < MAX_SCALED_DELTA ? scaled_delta : MAX_SCALED_DELTA
+      @max_delta ||= (length * Licensee.inverse_confidence_threshold).to_i
     end
 
     # Given another license or project file, calculates the difference in length
@@ -65,7 +64,11 @@ module Licensee
     end
 
     # Content without title, version, copyright, whitespace, or insturctions
-    def content_normalized
+    #
+    # wrap - Optional width to wrap the content
+    #
+    # Returns a string
+    def content_normalized(wrap: nil)
       return unless content
       @content_normalized ||= begin
         string = content_without_title_and_version.downcase
@@ -75,6 +78,33 @@ module Licensee
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         strip_whitespace(string)
       end
+
+      if wrap.nil?
+        @content_normalized
+      else
+        Licensee::ContentHelper.wrap(@content_normalized, wrap)
+      end
+    end
+
+    # Wrap text to the given line length
+    def self.wrap(text, line_width = 80)
+      return if text.nil?
+      text = text.clone
+      text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
+
+      text = text.split("\n").collect do |line|
+        if line.length > line_width
+          line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
+        else
+          line
+        end
+      end * "\n"
+
+      text.strip
+    end
+
+    def self.format_percent(float)
+      "#{format('%.2f', float)}%"
     end
 
     private
@@ -104,7 +134,7 @@ module Licensee
 
     # Strip HRs from MPL
     def strip_hrs(string)
-      string.gsub HR_REGEX, ''
+      string.gsub HR_REGEX, ' '
     end
 
     # Strip leading #s from the document
@@ -113,11 +143,7 @@ module Licensee
     end
 
     def strip_whitespace(string)
-      string.gsub(/\r?\n/, ' ').squeeze(' ').strip
-    end
-
-    def scaled_delta
-      @scaled_delta ||= (length * Licensee.inverse_confidence_threshold).to_i
+      string.gsub(/\s+/, ' ').squeeze(' ').strip
     end
   end
 end
