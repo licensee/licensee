@@ -1,3 +1,5 @@
+require 'pathname'
+
 # Filesystem-based project
 #
 # Analyze a folder on the filesystem for license information
@@ -11,28 +13,28 @@ module Licensee
         @pattern = '*'
         @dir = path
       end
+
       @root = args.delete(:search_root) || @dir
+      unless valid_search_root?
+        raise 'Search root must the FSProject path directory or its ancestory'
+      end
+
       super(**args)
     end
 
     private
 
     # Returns an array of hashes representing the project's files.
-    # Hashes will have the :name key, with the relative path to the file
+    # Hashes will have the the following keys:
+    #  :name - the file name and extension
+    #  :dir  - the path to the directory
     def files
-      dir = @dir
-      files = []
-
-      while search_directory?(dir)
-        Dir.glob(::File.join(dir, @pattern).tr('\\', '/')) do |file|
+      search_directories.flat_map do |dir|
+        Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).map do |file|
           next unless ::File.file?(file)
-          files.push(name: ::File.basename(file), dir: dir)
-        end
-
-        dir = ::File.expand_path('..', dir)
+          { name: ::File.basename(file), dir: dir }
+        end.compact
       end
-
-      files
     end
 
     # Retrieve a file's content from disk
@@ -44,18 +46,21 @@ module Licensee
       ::File.read(::File.join(file[:dir], file[:name]))
     end
 
-    # Returns whether a directory should be searched for license files
-    #
-    # dir - a directory path string
-    #
-    # Returns true if the directory path is a descendant of the search root
-    def search_directory?(dir)
-      dir_parts = ::File.expand_path(dir).split(::File::SEPARATOR)
-      @root_parts ||= ::File.expand_path(@root).split(::File::SEPARATOR)
+    # Returns true if @dir is @root or it's descendant
+    def valid_search_root?
+      dir = Pathname.new(@dir)
+      dir.fnmatch?(@root) || dir.fnmatch?(::File.join(@root, '**'))
+    end
 
-      return false if dir_parts.length < @root_parts.length
-
-      dir_parts[0..@root_parts.length - 1] == @root_parts
+    # Enumerates all directories to search, from @dir to @root
+    def search_directories
+      root = Pathname.new(@root)
+      Pathname.new(@dir)
+              .relative_path_from(root)
+              .ascend # search from dir to root
+              .map { |rel| root.join(rel).to_path }
+              .push(@root) # ensure root is included in the search
+              .uniq # don't include the root twice if @dir == @root
     end
   end
 end
