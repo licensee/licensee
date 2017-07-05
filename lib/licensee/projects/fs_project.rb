@@ -33,7 +33,7 @@ module Licensee
     #  :name - the relative file name
     #  :dir  - the directory path containing the file
     def files
-      search_directories.flat_map do |dir|
+      @files ||= search_directories.flat_map do |dir|
         Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).map do |file|
           next unless ::File.file?(file)
           { name: ::File.basename(file), dir: dir }

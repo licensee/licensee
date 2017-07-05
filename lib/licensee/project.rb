@@ -90,7 +90,7 @@ module Licensee
     # sorted by file score descending
     def find_files
       return [] if files.empty? || files.nil?
-      found = files.each { |file| file[:score] = yield(file[:name]) }
+      found = files.map { |file| file.merge(score: yield(file[:name])) }
       found.select! { |file| file[:score] > 0 }
       found.sort { |a, b| b[:score] <=> a[:score] }
     end
