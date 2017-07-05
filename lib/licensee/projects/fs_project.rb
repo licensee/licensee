@@ -20,7 +20,7 @@ module Licensee
 
       @root = args.delete(:search_root) || @dir
       unless valid_search_root?
-        raise 'Search root must the FSProject path directory or its ancestory'
+        raise 'Search root must be the FSProject path directory or its ancestor'
       end
 
       super(**args)
