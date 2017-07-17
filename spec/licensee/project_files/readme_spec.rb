@@ -1,4 +1,4 @@
-RSpec.describe Licensee::Project::Readme do
+RSpec.describe Licensee::ProjectFiles::ReadmeFile do
   let(:filename) { 'README.md' }
   let(:content) { '' }
   subject { described_class.new(content, filename) }

@@ -1,7 +1,7 @@
 RSpec.describe Licensee::Matchers::Exact do
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit.content) }
-  let(:file) { Licensee::Project::LicenseFile.new(content, 'LICENSE.txt') }
+  let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   subject { described_class.new(file) }
 
   it 'stores the file' do

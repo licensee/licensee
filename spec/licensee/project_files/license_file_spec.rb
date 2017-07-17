@@ -1,4 +1,4 @@
-RSpec.describe Licensee::Project::LicenseFile do
+RSpec.describe Licensee::ProjectFiles::LicenseFile do
   let(:filename) { 'LICENSE.txt' }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit.content) }
@@ -134,7 +134,7 @@ RSpec.describe Licensee::Project::LicenseFile do
   end
 
   context 'CC false positives' do
-    let(:regex) { Licensee::Project::LicenseFile::CC_FALSE_POSITIVE_REGEX }
+    let(:regex) { Licensee::ProjectFiles::LicenseFile::CC_FALSE_POSITIVE_REGEX }
 
     it "knows MIT isn't a potential false positive" do
       expect(subject.content).to_not match(regex)

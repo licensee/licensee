@@ -1,4 +1,4 @@
-RSpec.describe Licensee::Project::File do
+RSpec.describe Licensee::ProjectFiles::ProjectFile do
   let(:filename) { 'LICENSE.txt' }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { mit.content }

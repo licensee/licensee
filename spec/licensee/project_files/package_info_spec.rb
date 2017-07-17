@@ -1,4 +1,4 @@
-RSpec.describe Licensee::Project::PackageInfo do
+RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
   let(:content) { '' }
   let(:filename) { '' }
   subject { described_class.new(content, filename) }

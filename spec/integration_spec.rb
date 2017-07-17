@@ -1,5 +1,8 @@
 RSpec.describe 'integration test' do
-  [Licensee::FSProject, Licensee::GitProject].each do |project_type|
+  [
+    Licensee::Projects::FSProject,
+    Licensee::Projects::GitProject
+  ].each do |project_type|
     context "with a #{project_type} project" do
       let(:filename) { 'LICENSE' }
       let(:license) { Licensee::License.find('mit') }
@@ -15,7 +18,7 @@ RSpec.describe 'integration test' do
         let(:project_path) { fixture_path(fixture) }
         let(:git_path) { File.expand_path('.git', project_path) }
 
-        if project_type == Licensee::GitProject
+        if project_type == Licensee::Projects::GitProject
           before { git_init(project_path) }
           after { FileUtils.rm_rf(git_path) }
         end
@@ -34,7 +37,9 @@ RSpec.describe 'integration test' do
 
           before do
             File.write(file_path, 'bar')
-            git_init(project_path) if project_type == Licensee::GitProject
+            if project_type == Licensee::Projects::GitProject
+              git_init(project_path)
+            end
           end
 
           after { FileUtils.rm_rf(project_path) }
@@ -141,7 +146,9 @@ RSpec.describe 'integration test' do
 
         before do
           File.write(license_path, content)
-          git_init(project_path) if project_type == Licensee::GitProject
+          if project_type == Licensee::Projects::GitProject
+            git_init(project_path)
+          end
         end
 
         after { FileUtils.rm_rf(project_path) }

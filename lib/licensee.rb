@@ -1,14 +1,15 @@
 require_relative 'licensee/version'
+require 'forwardable'
+require 'pathname'
 require 'rugged'
 
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
   autoload :License, 'licensee/license'
   autoload :Rule, 'licensee/rule'
-  autoload :Project, 'licensee/project'
-  autoload :FSProject, 'licensee/projects/fs_project'
-  autoload :GitProject, 'licensee/projects/git_project'
   autoload :Matchers, 'licensee/matchers'
+  autoload :Projects, 'licensee/projects'
+  autoload :ProjectFiles, 'licensee/project_files'
 
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 98
@@ -30,9 +31,9 @@ module Licensee
     end
 
     def project(path, **args)
-      Licensee::GitProject.new(path, args)
-    rescue Licensee::GitProject::InvalidRepository
-      Licensee::FSProject.new(path, args)
+      Licensee::Projects::GitProject.new(path, args)
+    rescue Licensee::Projects::GitProject::InvalidRepository
+      Licensee::Projects::FSProject.new(path, args)
     end
 
     def confidence_threshold

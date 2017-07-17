@@ -1,6 +1,8 @@
 RSpec.describe 'vendored licenses' do
   let(:filename) { 'LICENSE.txt' }
-  let(:license_file) { Licensee::Project::LicenseFile.new(content, filename) }
+  let(:license_file) do
+    Licensee::ProjectFiles::LicenseFile.new(content, filename)
+  end
   let(:detected_license) { license_file.license if license_file }
   let(:wtfpl) { Licensee::License.find('wtfpl') }
 

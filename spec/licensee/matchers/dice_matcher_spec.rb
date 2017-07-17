@@ -5,7 +5,7 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:cc_by) { Licensee::License.find('cc-by-4.0') }
   let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
   let(:content) { sub_copyright_info(gpl.content) }
-  let(:file) { Licensee::Project::LicenseFile.new(content, 'LICENSE.txt') }
+  let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   subject { described_class.new(file) }
 
   it 'stores the file' do

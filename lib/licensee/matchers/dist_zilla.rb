@@ -1,6 +1,6 @@
 module Licensee
   module Matchers
-    class DistZilla < Package
+    class DistZilla < Licensee::Matchers::Package
       attr_reader :file
 
       LICENSE_REGEX = /^license\s*=\s*([a-z\-0-9\._]+)/i

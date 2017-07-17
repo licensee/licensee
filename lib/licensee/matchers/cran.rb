@@ -1,6 +1,6 @@
 module Licensee
   module Matchers
-    class Cran < Package
+    class Cran < Licensee::Matchers::Package
       attr_reader :file
 
       # While we could parse the DESCRIPTION file, prefer

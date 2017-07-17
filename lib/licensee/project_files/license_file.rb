@@ -1,6 +1,6 @@
 module Licensee
-  class Project
-    class LicenseFile < Licensee::Project::File
+  module ProjectFiles
+    class LicenseFile < Licensee::ProjectFiles::ProjectFile
       include Licensee::ContentHelper
 
       # List of extensions to give preference to

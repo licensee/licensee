@@ -1,7 +1,9 @@
 RSpec.describe Licensee::Matchers::Package do
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { '' }
-  let(:file) { Licensee::Project::LicenseFile.new(content, 'project.gemspec') }
+  let(:file) do
+    Licensee::ProjectFiles::LicenseFile.new(content, 'project.gemspec')
+  end
   let(:license_property) { 'mit' }
   subject { described_class.new(file) }
   before do

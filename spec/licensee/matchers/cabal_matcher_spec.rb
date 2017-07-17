@@ -1,6 +1,6 @@
 RSpec.describe Licensee::Matchers::Cabal do
   let(:content) { 'license: mit' }
-  let(:file) { Licensee::Project::LicenseFile.new(content, 'LICENSE.txt') }
+  let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:mit) { Licensee::License.find('mit') }
   let(:no_license) { Licensee::License.find('no-license') }
   subject { described_class.new(file) }
