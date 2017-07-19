@@ -1,4 +1,5 @@
-[Licensee::FSProject, Licensee::GitProject].each do |project_type|
+[Licensee::Projects::FSProject,
+ Licensee::Projects::GitProject].each do |project_type|
   RSpec.describe project_type do
     let(:mit) { Licensee::License.find('mit') }
     let(:other) { Licensee::License.find('other') }
@@ -6,7 +7,7 @@
     let(:path) { fixture_path(fixture) }
     subject { described_class.new(path) }
 
-    if described_class == Licensee::GitProject
+    if described_class == Licensee::Projects::GitProject
       before do
         Dir.chdir path do
           `git init`
@@ -21,7 +22,7 @@
       end
     end
 
-    if described_class == Licensee::GitProject
+    if described_class == Licensee::Projects::GitProject
       context 'when initialized with a repo' do
         let(:repo) { Rugged::Repository.new(path) }
         subject { described_class.new(repo) }
@@ -49,12 +50,12 @@
     end
 
     it 'returns the matched file' do
-      expect(subject.matched_file).to be_a(Licensee::Project::LicenseFile)
+      expect(subject.matched_file).to be_a(Licensee::ProjectFiles::LicenseFile)
       expect(subject.matched_file.filename).to eql('LICENSE.txt')
     end
 
     it 'returns the license file' do
-      expect(subject.license_file).to be_a(Licensee::Project::LicenseFile)
+      expect(subject.license_file).to be_a(Licensee::ProjectFiles::LicenseFile)
       expect(subject.license_file.filename).to eql('LICENSE.txt')
     end
 
@@ -73,7 +74,7 @@
         expect(files.count).to eql(2)
         expect(files.first[:name]).to eql('LICENSE.txt')
 
-        if described_class == Licensee::GitProject
+        if described_class == Licensee::Projects::GitProject
           expect(files.first).to have_key(:oid)
         end
       end
@@ -83,7 +84,7 @@
         expect(content).to match('Permission is hereby granted')
       end
 
-      if described_class == Licensee::FSProject
+      if described_class == Licensee::Projects::FSProject
         context 'with search root argument' do
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
           let(:path) { fixture_path(fixture) }
@@ -124,7 +125,7 @@
       subject { described_class.new(path, detect_readme: true) }
 
       it 'returns the readme' do
-        expect(subject.readme_file).to be_a(Licensee::Project::Readme)
+        expect(subject.readme_file).to be_a(Licensee::ProjectFiles::ReadmeFile)
         expect(subject.readme_file.filename).to eql('README.md')
       end
 
@@ -140,7 +141,7 @@
       # Using a `.gemspec` extension in the fixture breaks `gem release`
       before do
         FileUtils.cp("#{path}/project._gemspec", "#{path}/project.gemspec")
-        if described_class == Licensee::GitProject
+        if described_class == Licensee::Projects::GitProject
           Dir.chdir path do
             `git add project.gemspec`
             `git commit -m 'add real gemspec'`
@@ -155,7 +156,8 @@
       subject { described_class.new(path, detect_packages: true) }
 
       it 'returns the package file' do
-        expect(subject.package_file).to be_a(Licensee::Project::PackageInfo)
+        expected = Licensee::ProjectFiles::PackageManagerFile
+        expect(subject.package_file).to be_a(expected)
         expect(subject.package_file.filename).to eql('project.gemspec')
       end
 

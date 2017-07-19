@@ -47,7 +47,7 @@ project.matched_files.each do |matched_file|
     puts "  #{humanize(method, :method)}: #{humanize(value, method)}"
   end
 
-  next unless matched_file.is_a? Licensee::Project::LicenseFile
+  next unless matched_file.is_a? Licensee::ProjectFiles::LicenseFile
   next unless matched_file.confidence != 100
 
   matcher = Licensee::Matchers::Dice.new(matched_file)

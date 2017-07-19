@@ -1,6 +1,6 @@
 module Licensee
-  class Project
-    class Readme < LicenseFile
+  module ProjectFiles
+    class ReadmeFile < Licensee::ProjectFiles::LicenseFile
       SCORES = {
         /\AREADME\z/i                          => 1.0,
         /\AREADME\.(md|markdown|mdown|txt)\z/i => 0.9

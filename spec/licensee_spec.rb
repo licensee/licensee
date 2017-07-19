@@ -18,7 +18,7 @@ RSpec.describe Licensee do
   end
 
   it 'inits a project' do
-    expect(Licensee.project(project_path)).to be_a(Licensee::Project)
+    expect(Licensee.project(project_path)).to be_a(Licensee::Projects::Project)
   end
 
   context 'confidence threshold' do

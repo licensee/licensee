@@ -1,12 +1,6 @@
 module Licensee
   module Matchers
-    class Dice
-      attr_reader :file
-
-      def initialize(file)
-        @file = file
-      end
-
+    class Dice < Licensee::Matchers::Matcher
       # Return the first potential license that is more similar
       # than the confidence threshold
       def match

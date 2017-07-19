@@ -1,6 +1,6 @@
 RSpec.describe Licensee::Matchers::Copyright do
   let(:content) { 'Copyright 2015 Ben Balter' }
-  let(:file) { Licensee::Project::LicenseFile.new(content, 'LICENSE.txt') }
+  let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:mit) { Licensee::License.find('mit') }
   let(:no_license) { Licensee::License.find('no-license') }
 

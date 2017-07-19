@@ -1,9 +1,12 @@
-require 'forwardable'
-
+# A project file is a file within a project that contains license information
+# Currently extended by LicenseFile, PackageManagerFile, and ReadmeFile
+#
+# Sublcasses should implement the possible_matchers method
 module Licensee
-  class Project
-    class File
+  module ProjectFiles
+    class ProjectFile
       extend Forwardable
+      def_delegator :@data, :[]
 
       attr_reader :content
 
@@ -14,15 +17,15 @@ module Licensee
         replace: ''
       }.freeze
 
-      # Create a new Licensee::Project::File with content and metadata
+      # Create a new Licensee::ProjectFile with content and metadata
       #
       # content - file content
       # metadata - can be either the string filename, or a hash containing
-      #            metadata about the file content.  If a hash is given, the
-      #            filename should be given using the :name key.  See individual
+      #            metadata about the file content. If a hash is given, the
+      #            filename should be given using the :name key. See individual
       #            project types for additional available metadata
       #
-      # Returns a new Licensee::Project::File
+      # Returns a new Licensee::ProjectFile
       def initialize(content, metadata = {})
         @content = content
         @content.force_encoding(ENCODING)
@@ -36,6 +39,10 @@ module Licensee
 
       def filename
         @data[:name]
+      end
+
+      def possible_matchers
+        raise 'Not implemented'
       end
 
       def matcher
@@ -53,7 +60,6 @@ module Licensee
 
       alias match license
       alias path filename
-      def_delegator :@data, :[]
     end
   end
 end

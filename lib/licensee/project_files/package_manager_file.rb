@@ -1,6 +1,6 @@
 module Licensee
-  class Project
-    class PackageInfo < Licensee::Project::File
+  module ProjectFiles
+    class PackageManagerFile < Licensee::ProjectFiles::ProjectFile
       # Hash of Extension => [possible matchers]
       MATCHERS_EXTENSIONS = {
         '.gemspec' => [Matchers::Gemspec],
@@ -19,7 +19,7 @@ module Licensee
       end
 
       def self.name_score(filename)
-        return 1.0  if ['.gemspec', '.cabal'].include?(::File.extname(filename))
+        return 1.0  if ['.gemspec', '.cabal'].include?(File.extname(filename))
         return 1.0  if filename == 'package.json'
         return 0.8  if filename == 'dist.ini'
         return 0.9  if filename == 'DESCRIPTION'
@@ -30,7 +30,7 @@ module Licensee
       private
 
       def extension
-        @extension ||= ::File.extname(filename)
+        @extension ||= File.extname(filename)
       end
     end
   end

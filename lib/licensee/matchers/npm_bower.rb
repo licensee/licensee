@@ -1,6 +1,6 @@
 module Licensee
   module Matchers
-    class NpmBower < Package
+    class NpmBower < Licensee::Matchers::Package
       # While we could parse the package.json or bower.json file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.
       LICENSE_REGEX = /
