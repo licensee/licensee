@@ -98,8 +98,9 @@ RSpec.describe Licensee::LicenseMeta do
   end
 
   it 'returns the list of helper methods' do
-    expect(described_class.helper_methods.length).to eql(15)
+    expect(described_class.helper_methods.length).to eql(13)
     expect(described_class.helper_methods).to include(:hidden?)
+    expect(described_class.helper_methods).to_not include(:hidden)
     expect(described_class.helper_methods).to include(:title)
   end
 end
