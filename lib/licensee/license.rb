@@ -116,6 +116,10 @@ module Licensee
       meta['hidden']
     end
 
+    def other?
+      key == 'other'
+    end
+
     def gpl?
       key == 'gpl-2.0' || key == 'gpl-3.0'
     end
@@ -127,6 +131,10 @@ module Licensee
     # Is this license a Creative Commons license?
     def creative_commons?
       key.start_with?('cc-')
+    end
+
+    def spdx_id
+      meta['spdx-id']
     end
 
     # The license body (e.g., contents - frontmatter)

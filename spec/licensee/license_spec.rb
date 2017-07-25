@@ -127,6 +127,20 @@ RSpec.describe Licensee::License do
     expect(mit.key).to eql('mit')
   end
 
+  it 'exposes the SPDX ID' do
+    expect(gpl.spdx_id).to eql('GPL-3.0')
+  end
+
+  context '#other?' do
+    it 'knows MIT is not other' do
+      expect(gpl).to_not be_other
+    end
+
+    it 'knows the other license is other?' do
+      expect(other).to be_other
+    end
+  end
+
   context 'meta' do
     it 'exposes license meta' do
       expect(mit).to respond_to(:meta)
