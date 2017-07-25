@@ -1,5 +1,4 @@
 require 'uri'
-require 'yaml'
 
 module Licensee
   class InvalidLicense < ArgumentError; end
@@ -60,11 +59,8 @@ module Licensee
 
     attr_reader :key
 
-    # These should be in sync with choosealicense.com's collection defaults
-    YAML_DEFAULTS = {
-      'featured' => false,
-      'hidden'   => true
-    }.freeze
+    # Preserved for backwards compatability
+    YAML_DEFAULTS = Licensee::LicenseMeta.members
 
     # Pseudo-license are license placeholders with no content
     #
@@ -75,6 +71,8 @@ module Licensee
     PSEUDO_LICENSES = %w[other no-license].freeze
 
     include Licensee::ContentHelper
+    extend Forwardable
+    def_delegators :meta, *LicenseMeta.helper_methods
 
     def initialize(key)
       @key = key.downcase
@@ -87,33 +85,16 @@ module Licensee
 
     # License metadata from YAML front matter with defaults merged in
     def meta
-      @meta ||= begin
-        return YAML_DEFAULTS unless parts && parts[1]
-        meta = YAML.safe_load(parts[1])
-        YAML_DEFAULTS.merge(meta)
-      end
+      @meta ||= LicenseMeta.from_yaml(yaml)
     end
 
     # Returns the human-readable license name
     def name
-      meta['title'] ? meta['title'] : key.capitalize
-    end
-
-    def nickname
-      meta['nickname']
+      title ? title : key.capitalize
     end
 
     def name_without_version
       /(.+?)(( v?\d\.\d)|$)/.match(name)[1]
-    end
-
-    def featured?
-      meta['featured']
-    end
-    alias featured featured?
-
-    def hidden?
-      meta['hidden']
     end
 
     def other?
@@ -131,10 +112,6 @@ module Licensee
     # Is this license a Creative Commons license?
     def creative_commons?
       key.start_with?('cc-')
-    end
-
-    def spdx_id
-      meta['spdx-id']
     end
 
     # The license body (e.g., contents - frontmatter)
@@ -190,6 +167,10 @@ module Licensee
     def parts
       return unless raw_content
       @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
+    end
+
+    def yaml
+      @yaml ||= parts[1] if parts
     end
   end
 end

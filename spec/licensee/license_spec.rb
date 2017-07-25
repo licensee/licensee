@@ -144,8 +144,9 @@ RSpec.describe Licensee::License do
   context 'meta' do
     it 'exposes license meta' do
       expect(mit).to respond_to(:meta)
-      expect(mit.meta).to have_key('title')
+      expect(mit.meta).to respond_to(:title)
       expect(mit.meta['title']).to eql('MIT License')
+      expect(mit.meta.title).to eql('MIT License')
     end
 
     it 'includes defaults' do

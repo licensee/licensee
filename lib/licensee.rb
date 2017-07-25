@@ -6,6 +6,7 @@ require 'rugged'
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
   autoload :License, 'licensee/license'
+  autoload :LicenseMeta, 'licensee/license_meta'
   autoload :Rule, 'licensee/rule'
   autoload :Matchers, 'licensee/matchers'
   autoload :Projects, 'licensee/projects'
