@@ -10,7 +10,7 @@ if STDIN.tty? || ARGV[0].to_s.empty?
 end
 
 text = STDIN.read
-license_file = Licensee::Project::LicenseFile.new(text, 'LICENSE')
+license_file = Licensee::ProjectFiles::LicenseFile.new(text, 'LICENSE')
 license = Licensee::License.find(ARGV[0])
 
 if license.nil?
