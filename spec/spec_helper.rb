@@ -66,6 +66,12 @@ def format_percent(float)
   "#{format('%.2f', float)}%"
 end
 
+def meta_fields
+  path = 'vendor/choosealicense.com/_data/meta.yml'
+  path = File.expand_path(path, project_root)
+  YAML.safe_load(File.read(path))
+end
+
 RSpec::Matchers.define :be_an_existing_file do
   match { |path| File.exist?(path) }
 end
