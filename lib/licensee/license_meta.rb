@@ -46,5 +46,11 @@ module Licensee
     PREDICATE_FIELDS.each do |field|
       alias_method "#{field}?".to_sym, field
     end
+
+    # Backward compatibalize `#["spdx-id"]` calls to avoid a breaking change
+    def [](key)
+      key = 'spdx_id' if key == 'spdx-id'
+      super(key)
+    end
   end
 end

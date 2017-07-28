@@ -63,6 +63,10 @@ RSpec.describe Licensee::LicenseMeta do
       it 'renames spdx-id to spdx_id' do
         expect(subject['spdx_id']).to eql('foo')
       end
+
+      it 'exposes spdx-id via #[]' do
+        expect(subject['spdx-id']).to eql('foo')
+      end
     end
   end
 
