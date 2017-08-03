@@ -1,0 +1,45 @@
+RSpec.describe Licensee::LicenseRules do
+  let(:mit) { Licensee::License.find('mit') }
+  subject { mit.rules }
+
+  Licensee::Rule.groups.each do |group|
+    context "the #{group} rule group" do
+      it 'responds as a hash key string' do
+        expect(subject[group]).to be_a(Array)
+      end
+
+      it 'responds as a hash key symbol' do
+        expect(subject[group.to_sym]).to be_a(Array)
+      end
+
+      it 'responds as a method' do
+        expect(subject.public_send(group.to_sym)).to be_a(Array)
+      end
+    end
+  end
+
+  context 'created from a license' do
+    subject { described_class.from_license(mit) }
+
+    it 'exposes the rules' do
+      expect(subject.permissions.first.label).to eql('Commercial use')
+    end
+  end
+
+  context 'created from a meta' do
+    subject { described_class.from_meta(mit.meta) }
+
+    it 'exposes the rules' do
+      expect(subject.permissions.first.label).to eql('Commercial use')
+    end
+  end
+
+  context 'created from a hash' do
+    let(:hash) { { 'permissions' => Licensee::Rule.all } }
+    subject { described_class.from_hash(hash) }
+
+    it 'exposes the rules' do
+      expect(subject.permissions.first.label).to eql('Commercial use')
+    end
+  end
+end

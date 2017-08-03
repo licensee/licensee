@@ -1,5 +1,3 @@
-require 'yaml'
-
 module Licensee
   class LicenseMeta < Struct.new(
     :title, :spdx_id, :source, :description, :how, :conditions, :permissions,

@@ -134,19 +134,8 @@ module Licensee
       PSEUDO_LICENSES.include?(key)
     end
 
-    # Returns a hash in the form of rule_group => rules describing
-    # what you legally can and can't do with the given license
     def rules
-      return @rules if defined? @rules
-      @rules = {}
-
-      Rule.groups.each do |group|
-        @rules[group] = meta[group].map do |tag|
-          Rule.find_by_tag_and_group(tag, group)
-        end
-      end
-
-      @rules
+      @rules ||= LicenseRules.from_meta(meta)
     end
 
     def inspect
