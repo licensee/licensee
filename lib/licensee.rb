@@ -2,11 +2,13 @@ require_relative 'licensee/version'
 require 'forwardable'
 require 'pathname'
 require 'rugged'
+require 'yaml'
 
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
   autoload :License, 'licensee/license'
   autoload :LicenseMeta, 'licensee/license_meta'
+  autoload :LicenseRules, 'licensee/license_rules'
   autoload :Rule, 'licensee/rule'
   autoload :Matchers, 'licensee/matchers'
   autoload :Projects, 'licensee/projects'

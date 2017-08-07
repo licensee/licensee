@@ -250,9 +250,10 @@ RSpec.describe Licensee::License do
   end
 
   it 'returns the rules' do
+    expect(mit.rules).to be_a(Licensee::LicenseRules)
     expect(mit.rules).to have_key('permissions')
     expect(mit.rules['permissions'].first).to be_a(Licensee::Rule)
-    expect(mit.rules.flatten.count).to eql(6)
+    expect(mit.rules.flatten.count).to eql(7)
   end
 
   it 'returns rules by tag and group' do
