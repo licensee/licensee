@@ -139,6 +139,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'BSD + PATENTS' do
+          let(:license) { Licensee::License.find('other') }
+          let(:fixture) { 'bsd-plus-patents' }
+
+          it 'returns other' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do
