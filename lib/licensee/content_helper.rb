@@ -9,8 +9,12 @@ module Licensee
     ALT_TITLE_REGEX = {
       'bsd-2-clause'       => /bsd 2-clause( \"simplified\")? license/i,
       'bsd-3-clause'       => /bsd 3-clause( \"new\" or \"revised\")? license/i,
-      'bsd-3-clause-clear' => /bsd 3-clause( clear)? license/i
+      'bsd-3-clause-clear' => /(clear bsd|bsd 3-clause( clear)?) license/i
     }.freeze
+    ALL_RIGHTS_RESERVED_REGEX = /\Aall rights reserved\.?$/i
+    WHITESPACE_REGEX = /\s+/
+    MARKDOWN_HEADING_REGEX = /\A\s*#+/
+    VERSION_REGEX = /\Aversion.*$/i
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -75,6 +79,7 @@ module Licensee
         while string =~ Matchers::Copyright::REGEX
           string = strip_copyright(string)
         end
+        string = strip_all_rights_reserved(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         strip_whitespace(string)
       end
@@ -121,29 +126,37 @@ module Licensee
     end
 
     def strip_title(string)
-      string.sub(title_regex, '').strip
+      strip(string, title_regex)
     end
 
     def strip_version(string)
-      string.sub(/\Aversion.*$/i, '').strip
+      strip(string, VERSION_REGEX)
     end
 
     def strip_copyright(string)
-      string.gsub(Matchers::Copyright::REGEX, '').strip
+      strip(string, Matchers::Copyright::REGEX)
     end
 
     # Strip HRs from MPL
     def strip_hrs(string)
-      string.gsub HR_REGEX, ' '
+      strip(string, HR_REGEX)
     end
 
     # Strip leading #s from the document
     def strip_markdown_headings(string)
-      string.sub(/\A\s*#+/, '').strip
+      strip(string, MARKDOWN_HEADING_REGEX)
     end
 
     def strip_whitespace(string)
-      string.gsub(/\s+/, ' ').squeeze(' ').strip
+      strip(string, WHITESPACE_REGEX)
+    end
+
+    def strip_all_rights_reserved(string)
+      strip(string, ALL_RIGHTS_RESERVED_REGEX)
+    end
+
+    def strip(string, regex)
+      string.gsub(regex, ' ').squeeze(' ').strip
     end
   end
 end

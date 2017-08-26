@@ -16,6 +16,8 @@ RSpec.describe Licensee::ContentHelper do
 	Copyright 2016 Ben Balter
 	*************************
 
+  All rights reserved.
+
   The made
   * * * *
   up  license.
@@ -110,6 +112,10 @@ EOS
       expect(normalized_content).to_not match('#')
     end
 
+    it 'strips all rights reserved' do
+      expect(normalized_content).to_not match(/all rights reserved/i)
+    end
+
     Licensee::License.all(hidden: true).each do |license|
       context license.name do
         let(:stripped_content) { subject.content_without_title_and_version }
@@ -124,6 +130,11 @@ EOS
         it 'strips the version' do
           expect(license.content_normalized).to_not match(/\Aversion/i)
           expect(stripped_content).to_not match(/\Aversion/i)
+        end
+
+        it 'strips all rights reserved' do
+          regex = /all rights reserved/i
+          expect(license.content_normalized).to_not match(regex)
         end
 
         it 'strips the copyright' do
