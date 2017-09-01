@@ -59,7 +59,7 @@ module Licensee
 
     attr_reader :key
 
-    # Preserved for backwards compatability
+    # Preserved for backwards compatibility
     YAML_DEFAULTS = Licensee::LicenseMeta.members
 
     # Pseudo-license are license placeholders with no content
