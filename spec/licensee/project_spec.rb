@@ -11,6 +11,7 @@
       before do
         Dir.chdir path do
           `git init`
+          `git config --local commit.gpgsign false`
           `git add .`
           `git commit -m 'initial commit'`
         end

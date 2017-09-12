@@ -54,11 +54,9 @@ end
 def git_init(path)
   Dir.chdir path do
     `git init`
-    gpgsign = `git config --local commit.gpgsign`
     `git config --local commit.gpgsign false`
     `git add .`
     `git commit -m 'initial commit'`
-    `git config --local commit.gpgsign #{gpgsign}`
   end
 end
 
