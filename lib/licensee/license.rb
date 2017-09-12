@@ -113,6 +113,7 @@ module Licensee
     def creative_commons?
       key.start_with?('cc-')
     end
+    alias cc? creative_commons?
 
     # The license body (e.g., contents - frontmatter)
     def content
