@@ -4,6 +4,11 @@ Licensee is an open source project supported by the efforts of an entire communi
 
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue, assessing changes, and helping you finalize your pull requests.
 
+
+## Looking for support?
+
+We'd love to help. Check out [the support guidelines](SUPPORT.md).
+
 ## How to report a bug
 
 Think you found a bug? Please check [the list of open issues](https://github.com/benbalter/licensee/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/benbalter/licensee/issues/new).
@@ -20,11 +25,19 @@ Here are a few tips for writing *great* bug reports:
 
 **If you find a security vulnerability, do not open an issue. Please email ben@balter.com instead.**
 
+## How to suggest a feature or enhancement
+
+If you find yourself wishing for a feature that doesn't exist in Licensee, you are probably not alone. There are bound to be others out there with similar needs. Many of the features that Licensee has today have been added because our users saw the need.
+
+Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and goals of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Please provide as much detail and context as possible, including describing the problem you're trying to solve.
+
+[Open an issue](https://github.com/benbalter/licensee/issues/new) which describes the feature you would like to see, why you want it, how it should work, etc.
+
 ## Reporting an improperly detected license
 
 Licensee is an open source project used by hosted services like GitHub and GitLab which often  detect licenses using prior versions of Licensee and cache the result.
 
-If you'd like to report that a license is improperly detected by a hosted service, please contact [GitHub support](https://github.com/contact) or [GitLab support](https://about.gitlab.com/getting-help/) directly.
+If you&#39;d like to report that a license is improperly detected by a hosted service, please contact [GitHub support](https://github.com/contact) or [GitLab support](https://about.gitlab.com/getting-help/) directly.
 
 To check if Licensee itself can properly detect a license, please:
 
@@ -36,7 +49,7 @@ If Licensee cannot detect the license locally, [open an issue](https://github.co
 
 ## Adding a license
 
-Licensee doesn't curate any license information directly. Instead, we rely on the licenses and metadata provided by choosealicense.com and its much larger community (which can properly vet licenses and make determinations as to their properties).
+Licensee doesn&#39;t curate any license information directly. Instead, we rely on the licenses and metadata provided by choosealicense.com and its much larger community (which can properly vet licenses and make determinations as to their properties).
 
 Interested in adding support for Licensee to detect an additional license? Please [follow these instructions](https://github.com/github/choosealicense.com/blob/gh-pages/CONTRIBUTING.md#adding-a-license) to submit a pull request to get the license added upstream, and it will be automatically vendored (and detected) here.
 
@@ -44,13 +57,6 @@ Interested in adding support for Licensee to detect an additional license? Pleas
 
 License data is pulled from `choosealicense.com`. To update the license data, simple run `script/vendor-licenses`.
 
-## How to suggest a feature or enhancement
-
-If you find yourself wishing for a feature that doesn't exist in Licensee, you are probably not alone. There are bound to be others out there with similar needs. Many of the features that Licensee has today have been added because our users saw the need.
-
-Feature requests are welcome. But take a moment to find out whether your idea fits with the scope and goals of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Please provide as much detail and context as possible, including describing the problem you're trying to solve.
-
-[Open an issue](https://github.com/benbalter/licensee/issues/new) which describes the feature you would like to see, why you want it, how it should work, etc.
 
 ## Your first contribution
 
@@ -71,7 +77,7 @@ Here's a few general guidelines for proposing changes:
 * Do not commit changes to files that are irrelevant to your feature or bug fix
 * Don't bump the version number in your pull request (it will be bumped prior to release)
 
-At a high level, the process for proposing changes is:
+At a high level, [the process for proposing changes](https://guides.github.com/introduction/flow/) is:
 
 1. Fork the project
 2. Create a descriptively named branch
@@ -90,4 +96,4 @@ At a high level, the process for proposing changes is:
 
 ## Code of conduct
 
-This project is governed by [the Contributor Covenant Code of Conduct](CONTRIBUTING.md). By participating, you are expected to uphold this code.
+This project is governed by [the Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
