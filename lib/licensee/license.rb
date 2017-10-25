@@ -143,6 +143,19 @@ module Licensee
       "#<Licensee::License key=#{key}>"
     end
 
+    # Returns an array of strings of substitutable fields in the license body
+    def fields
+      @fields ||= LicenseField.from_content(content)
+    end
+
+    # Returns a string with `[fields]` replaced by `{{{fields}}}`
+    # Does not mangle non-supported fields in the form of `[field]`
+    def content_for_mustache
+      @content_for_mustache ||= begin
+        content.gsub(LicenseField::FIELD_REGEX, '{{{\1}}}')
+      end
+    end
+
     private
 
     # Raw content of license file, including YAML front matter

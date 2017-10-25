@@ -2,10 +2,12 @@ RSpec.describe Licensee do
   let(:project_path) { fixture_path('mit') }
   let(:license_path) { fixture_path('mit/LICENSE.txt') }
   let(:mit_license) { Licensee::License.find('mit') }
+  let(:hidden_license_count) { 33 }
 
   it 'exposes licenses' do
     expect(described_class.licenses).to be_an(Array)
-    expect(described_class.licenses(hidden: true).count).to eql(32)
+    hidden_licenses = described_class.licenses(hidden: true).count
+    expect(hidden_licenses).to eql(hidden_license_count)
     expect(described_class.licenses.first).to be_a(Licensee::License)
   end
 

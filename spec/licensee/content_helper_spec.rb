@@ -9,7 +9,7 @@ end
 
 RSpec.describe Licensee::ContentHelper do
   let(:content) do
-    <<-EOS.freeze.gsub(/^\s*/, '')
+    <<-LICENSE.freeze.gsub(/^\s*/, '')
   # The MIT License
 	=================
 
@@ -22,7 +22,7 @@ RSpec.describe Licensee::ContentHelper do
   * * * *
   up  license.
   -----------
-EOS
+LICENSE
   end
   subject { ContentHelperTestHelper.new(content) }
   let(:mit) { Licensee::License.find('mit') }

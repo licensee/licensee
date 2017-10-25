@@ -8,9 +8,10 @@ RSpec.describe 'vendored licenses' do
 
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
+    next if license.key == 'postgresql'
 
     context "the #{license.name} license" do
-      let(:content_with_copyright) { sub_copyright_info(license.content) }
+      let(:content_with_copyright) { sub_copyright_info(license) }
       let(:content) { content_with_copyright }
 
       it 'detects the license' do
