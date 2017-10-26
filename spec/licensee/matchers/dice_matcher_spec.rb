@@ -4,7 +4,7 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:agpl) { Licensee::License.find('agpl-3.0') }
   let(:cc_by) { Licensee::License.find('cc-by-4.0') }
   let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
-  let(:content) { sub_copyright_info(gpl.content) }
+  let(:content) { sub_copyright_info(gpl) }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   subject { described_class.new(file) }
 
@@ -46,7 +46,7 @@ RSpec.describe Licensee::Matchers::Dice do
 
   context 'stacked licenses' do
     let(:content) do
-      sub_copyright_info(mit.content) + "\n\n" + sub_copyright_info(gpl.content)
+      sub_copyright_info(mit) + "\n\n" + sub_copyright_info(gpl)
     end
 
     it "doesn't match" do

@@ -1,7 +1,7 @@
 RSpec.describe Licensee::ProjectFiles::LicenseFile do
   let(:filename) { 'LICENSE.txt' }
   let(:mit) { Licensee::License.find('mit') }
-  let(:content) { sub_copyright_info(mit.content) }
+  let(:content) { sub_copyright_info(mit) }
 
   subject { described_class.new(content, filename) }
 
@@ -170,11 +170,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
 
     context 'CC-BY-ND with leading instructions' do
       let(:content) do
-        <<-EOS
+        <<-LICENSE
 Creative Commons Corporation ("Creative Commons") is not a law firm
 ======================================================================
 Creative Commons Attribution-NonCommercial 4.0
-        EOS
+        LICENSE
       end
 
       it "knows it's a potential false positive" do
@@ -186,7 +186,7 @@ Creative Commons Attribution-NonCommercial 4.0
 
   context 'LGPL' do
     let(:lgpl) { Licensee::License.find('lgpl-3.0') }
-    let(:content) { sub_copyright_info(lgpl.content) }
+    let(:content) { sub_copyright_info(lgpl) }
 
     context 'with a COPYING.lesser file' do
       let(:filename) { 'COPYING.lesser' }
@@ -196,7 +196,7 @@ Creative Commons Attribution-NonCommercial 4.0
       end
 
       context 'with non-lgpl content' do
-        let(:content) { sub_copyright_info(mit.content) }
+        let(:content) { sub_copyright_info(mit) }
 
         it 'is not lgpl' do
           expect(subject).to_not be_lgpl
@@ -215,14 +215,14 @@ Creative Commons Attribution-NonCommercial 4.0
 
   context 'GPL' do
     let(:gpl) { Licensee::License.find('gpl-3.0') }
-    let(:content) { sub_copyright_info(gpl.content) }
+    let(:content) { sub_copyright_info(gpl) }
 
     it 'knows its GPL' do
       expect(subject).to be_gpl
     end
 
     context 'another license' do
-      let(:content) { sub_copyright_info(mit.content) }
+      let(:content) { sub_copyright_info(mit) }
 
       it 'is not GPL' do
         expect(subject).to_not be_gpl

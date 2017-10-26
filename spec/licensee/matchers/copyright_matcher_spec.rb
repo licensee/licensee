@@ -39,7 +39,7 @@ RSpec.describe Licensee::Matchers::Copyright do
   end
 
   context 'with a license with a copyright notice' do
-    let(:content) { sub_copyright_info(mit.content) }
+    let(:content) { sub_copyright_info(mit) }
 
     it "doesn't match" do
       expect(subject.match).to be_nil

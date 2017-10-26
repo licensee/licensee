@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 module Licensee
   module Matchers
     class Copyright < Licensee::Matchers::Matcher
@@ -15,7 +13,7 @@ module Licensee
         if @file.content.strip =~ /\A#{REGEX}\z/i
           Licensee::License.find('no-license')
         end
-      rescue
+      rescue Encoding::CompatibilityError
         nil
       end
 

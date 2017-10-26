@@ -4,6 +4,7 @@ Coveralls.wear!
 require 'licensee'
 require 'open3'
 require 'tmpdir'
+require 'mustache'
 
 RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
@@ -29,11 +30,10 @@ def fixture_path(fixture)
   File.expand_path fixture, fixtures_base
 end
 
-def sub_copyright_info(text)
-  text.sub! '[fullname]', 'Ben Balter'
-  text.sub! '[year]', '2016'
-  text.sub! '[email]', 'ben@github.invalid'
-  text
+def sub_copyright_info(license)
+  Mustache.render license.content_for_mustache, fullname: 'Ben Balter',
+                                                year:     '2016',
+                                                email:    'ben@github.invalid'
 end
 
 # Add random words to the end of a license to test similarity tollerances

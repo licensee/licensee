@@ -73,7 +73,8 @@
 
       it 'returns the file list' do
         expect(files.count).to eql(2)
-        expect(files.first[:name]).to eql('LICENSE.txt')
+        license = files.find { |f| f[:name] == 'LICENSE.txt' }
+        expect(license).to_not be_nil
 
         if described_class == Licensee::Projects::GitProject
           expect(files.first).to have_key(:oid)

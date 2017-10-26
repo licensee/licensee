@@ -1,6 +1,6 @@
 RSpec.describe Licensee::License do
-  let(:license_count) { 32 }
-  let(:hidden_license_count) { 20 }
+  let(:license_count) { 33 }
+  let(:hidden_license_count) { 21 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
@@ -266,5 +266,35 @@ RSpec.describe Licensee::License do
     rule = gpl.rules['permissions'].find { |r| r.tag == 'patent-use' }
     expect(rule).to_not be_nil
     expect(rule.description).to include('an express grant of patent rights')
+  end
+
+  context 'fields' do
+    it 'returns the license fields' do
+      expect(mit.fields.count).to eql(2)
+      expect(mit.fields.first.key).to eql('year')
+      expect(mit.fields.last.key).to eql('fullname')
+      expect(gpl.fields).to be_empty
+    end
+
+    context 'muscache' do
+      let(:license) do
+        license = described_class.new 'MIT'
+        content = license.content + '[foo] [bar]'
+        license.instance_variable_set(:@content, content)
+        license
+      end
+
+      it 'returns mustache content' do
+        expect(license.content_for_mustache).to match(/{{{year}}}/)
+        expect(license.content_for_mustache).to match(/{{{fullname}}}/)
+        expect(license.content_for_mustache).to_not match(/\[year\]/)
+        expect(license.content_for_mustache).to_not match(/\[fullname\]/)
+      end
+
+      it "doesn't mangle other fields" do
+        expect(license.content_for_mustache).to match(/\[foo\]/)
+        expect(license.content_for_mustache).to_not match(/{{{foo}}}/)
+      end
+    end
   end
 end
