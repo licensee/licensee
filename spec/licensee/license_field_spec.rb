@@ -55,4 +55,9 @@ RSpec.describe Licensee::LicenseField do
     expect(field.name).to eql('foo')
     expect(field.description).to eql('bar')
   end
+
+  it "doesn't error for licenses without bodies" do
+    other = Licensee::License.find('other')
+    expect(other.fields).to be_empty
+  end
 end

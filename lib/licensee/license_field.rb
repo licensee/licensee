@@ -38,6 +38,7 @@ module Licensee
 
       # Given a license body, returns an array of included LicneseFields
       def from_content(content)
+        return [] unless content
         LicenseField.from_array content.scan(FIELD_REGEX).flatten
       end
     end
