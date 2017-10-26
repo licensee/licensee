@@ -1,3 +1,3 @@
 module Licensee
-  VERSION = '9.2.1'.freeze
+  VERSION = '9.3.0'.freeze
 end
