@@ -34,11 +34,12 @@ module Licensee
         /#{COPYING_REGEX}-/                          => 0.65,  # COPYING-MIT
         /-#{LICENSE_REGEX}/                          => 0.60,  # MIT-LICENSE-MIT
         /-#{COPYING_REGEX}/                          => 0.55,  # MIT-COPYING
-        /\A#{OFL_REGEX}#{PREFERRED_EXT_REGEX}/       => 0.50,  # OFL.md
-        /\A#{OFL_REGEX}#{ANY_EXT_REGEX}/             => 0.45,  # OFL.textile
-        /\A#{OFL_REGEX}\z/                           => 0.40,  # OFL
-        /\A#{PATENTS_REGEX}\z/                       => 0.35,  # PATENTS
-        /\A#{PATENTS_REGEX}#{ANY_EXT_REGEX}\z/       => 0.30,  # PATENTS.txt
+        /#{LICENSE_REGEX}_/                          => 0.50,  # LICENSE_1_0.txt
+        /\A#{OFL_REGEX}#{PREFERRED_EXT_REGEX}/       => 0.45,  # OFL.md
+        /\A#{OFL_REGEX}#{ANY_EXT_REGEX}/             => 0.40,  # OFL.textile
+        /\A#{OFL_REGEX}\z/                           => 0.35,  # OFL
+        /\A#{PATENTS_REGEX}\z/                       => 0.30,  # PATENTS
+        /\A#{PATENTS_REGEX}#{ANY_EXT_REGEX}\z/       => 0.25,  # PATENTS.txt
         //                                           => 0.00   # Catch all
       }.freeze
 

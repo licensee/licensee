@@ -57,9 +57,10 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'mit-license-foo.md' => 0.70,
       'COPYING-GPL'        => 0.65,
       'COPYRIGHT-BSD'      => 0.65,
-      'OFL.md'             => 0.50,
-      'ofl.textile'        => 0.45,
-      'ofl'                => 0.40,
+      'LICENSE_1_0.txt'    => 0.50,
+      'OFL.md'             => 0.45,
+      'ofl.textile'        => 0.40,
+      'ofl'                => 0.35,
       'not-the-ofl'        => 0.00,
       'README.txt'         => 0.00
     }.each do |filename, expected|
