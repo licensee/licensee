@@ -7,6 +7,18 @@ module Licensee
     @keys_licenses = {}
 
     class << self
+      def default_license_dir
+        dir = ::File.dirname(__FILE__)
+        ::File.expand_path '../../vendor/choosealicense.com/_licenses', dir
+      end
+
+      # Backwards compatability
+      alias license_dir default_license_dir
+    end
+
+    @license_dirs = [ default_license_dir() ]
+
+    class << self
       # All license objects defined via Licensee (via choosealicense.com)
       #
       # Options:
@@ -37,13 +49,23 @@ module Licensee
       alias [] find
       alias find_by_key find
 
-      def license_dir
-        dir = ::File.dirname(__FILE__)
-        ::File.expand_path '../../vendor/choosealicense.com/_licenses', dir
+      def license_dirs
+        return @license_dirs
       end
 
+      # A user customized lookup array of directories for license files. If the user wants 
+      # to include the default, they should make one of the entries be default_license_dir()
+      def license_dirs=(dirs)
+        @license_dirs=dirs
+      end
+
+      # Returns all the license files across the various license directories
       def license_files
-        @license_files ||= Dir.glob("#{license_dir}/*.txt")
+        files=[]
+        @license_dirs.each do |dir|
+          files.concat(Dir.glob("#{dir}/*.txt"))
+        end
+        @license_files ||= files
       end
 
       private
@@ -80,7 +102,14 @@ module Licensee
 
     # Path to vendored license file on disk
     def path
-      @path ||= File.expand_path "#{@key}.txt", Licensee::License.license_dir
+      foundpath=nil
+      Licensee::License.license_dirs().each do |dir|
+        foundpath = File.expand_path "#{@key}.txt", dir
+        if(File.exist?(foundpath))
+          break
+        end
+      end
+      @path = foundpath
     end
 
     # License metadata from YAML front matter with defaults merged in
