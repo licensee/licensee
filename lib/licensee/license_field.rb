@@ -45,5 +45,11 @@ module Licensee
 
     alias key name
     FIELD_REGEX = /\[(#{Regexp.union(LicenseField.keys)})\]/
+
+    # The human-readable field name
+    def label
+      key.sub('fullname', 'full name').capitalize
+    end
+    alias to_s label
   end
 end

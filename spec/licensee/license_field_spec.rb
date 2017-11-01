@@ -53,11 +53,27 @@ RSpec.describe Licensee::LicenseField do
   it 'stores and exposes values' do
     field = described_class.new('foo', 'bar')
     expect(field.name).to eql('foo')
+    expect(field.key).to eql('foo')
     expect(field.description).to eql('bar')
+  end
+
+  it 'returns the field label' do
+    field = described_class.new('foo', 'bar')
+    expect(field.label).to eql('Foo')
   end
 
   it "doesn't error for licenses without bodies" do
     other = Licensee::License.find('other')
     expect(other.fields).to be_empty
+  end
+
+  it 'converts fullname to two words' do
+    field = described_class.new('fullname', 'foo')
+    expect(field.label).to eql('Full name')
+  end
+
+  it 'returns the label for #to_s' do
+    field = described_class.new('foo', 'bar')
+    expect(field.to_s).to eql('Foo')
   end
 end
