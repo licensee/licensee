@@ -126,10 +126,17 @@ module Licensee
         string = name.downcase.sub('*', 'u')
         string.sub!(/\Athe /i, '')
         string.sub!(/ license\z/i, '')
-        Regexp.new Regexp.escape(string), 'i'
+        string = Regexp.escape(string)
+        string = string.sub(/\bgnu\\ /, '(?:GNU )?')
+        Regexp.new string, 'i'
       end
 
-      @regex = Regexp.union [title_regex, key, meta.nickname].compact
+      parts = [title_regex, key]
+      if meta.nickname
+        parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?')
+      end
+
+      @regex = Regexp.union parts
     end
 
     def other?

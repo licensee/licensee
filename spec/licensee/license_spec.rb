@@ -352,6 +352,16 @@ RSpec.describe Licensee::License do
               expect(described_class.find_by_title(text)).to eql(license)
             end
 
+            if license.title =~ /\bGNU\b/
+              context "without 'GNU'" do
+                let(:text) { license_variation.sub(/GNU /i, '') }
+
+                it 'still matches' do
+                  expect(text).to match(license.title_regex)
+                end
+              end
+            end
+
             context "with 'the' and 'license'" do
               let(:text) { "The #{license_variation} license" }
 
