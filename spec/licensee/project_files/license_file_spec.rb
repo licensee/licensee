@@ -238,4 +238,31 @@ Creative Commons Attribution-NonCommercial 4.0
       expect(subject.license).to eql(other)
     end
   end
+
+  context 'copyright?' do
+    context 'a copyright file' do
+      let(:content) { 'Copyright 2017 Ben Balter' }
+      let(:filename) { 'COPYRIGHT.txt' }
+
+      it "knows it's a copyright file" do
+        expect(subject.send(:copyright?)).to be_truthy
+      end
+    end
+
+    context 'A copyright file with license text' do
+      let(:filename) { 'COPYRIGHT.txt' }
+
+      it "knows it's not a copyright file" do
+        expect(subject.send(:copyright?)).to be_falsy
+      end
+    end
+
+    context 'a license file with copyright text' do
+      let(:content) { 'Copyright 2017 Ben Balter' }
+
+      it "knows it's not a copyright file" do
+        expect(subject.send(:copyright?)).to be_falsy
+      end
+    end
+  end
 end
