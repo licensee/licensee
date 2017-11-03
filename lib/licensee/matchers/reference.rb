@@ -9,7 +9,7 @@ module Licensee
       end
 
       def confidence
-        raise 'Not implemented'
+        90
       end
     end
   end
