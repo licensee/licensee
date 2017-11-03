@@ -6,11 +6,7 @@ module Licensee
     DIGEST = Digest::SHA1
     END_OF_TERMS_REGEX = /^\s*end of terms and conditions\s*$/i
     HR_REGEX = /[=\-\*][=\-\*\s]{3,}/
-    ALT_TITLE_REGEX = {
-      'bsd-2-clause'       => /bsd 2-clause( \"simplified\")? license/i,
-      'bsd-3-clause'       => /bsd 3-clause( \"new\" or \"revised\")? license/i,
-      'bsd-3-clause-clear' => /(clear bsd|bsd 3-clause( clear)?) license/i
-    }.freeze
+    ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     ALL_RIGHTS_RESERVED_REGEX = /\Aall rights reserved\.?$/i
     WHITESPACE_REGEX = /\s+/
     MARKDOWN_HEADING_REGEX = /\A\s*#+/
@@ -62,7 +58,7 @@ module Licensee
         string = content.strip
         string = strip_markdown_headings(string)
         string = strip_hrs(string)
-        string = strip_title(string) while string =~ title_regex
+        string = strip_title(string) while string =~ ContentHelper.title_regex
         strip_version(string).strip
       end
     end
@@ -112,21 +108,25 @@ module Licensee
       "#{format('%.2f', float)}%"
     end
 
+    def self.title_regex
+      licenses = Licensee::License.all(hidden: true, psuedo: false)
+      titles = licenses.map(&:title_regex)
+
+      # Title regex must include the version to support matching within
+      # families, but for sake of normilization, we can be less strict
+      without_versions = licenses.map do |license|
+        next if license.title == license.name_without_version
+        Regexp.new Regexp.escape(license.name_without_version), 'i'
+      end
+      titles.concat(without_versions.compact)
+
+      /\A\s*\(?(the )?#{Regexp.union titles}.*$/i
+    end
+
     private
 
-    def license_names
-      @license_titles ||= License.all(hidden: true).map do |license|
-        regex = ALT_TITLE_REGEX[license.key]
-        regex || license.name_without_version.downcase.sub('*', 'u')
-      end
-    end
-
-    def title_regex
-      /\A\(?(the )?(#{Regexp.union(license_names).source}).*$/i
-    end
-
     def strip_title(string)
-      strip(string, title_regex)
+      strip(string, ContentHelper.title_regex)
     end
 
     def strip_version(string)

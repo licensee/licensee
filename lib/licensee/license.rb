@@ -16,9 +16,10 @@ module Licensee
       # Returns an Array of License objects.
       def all(options = {})
         @all[options] ||= begin
-          options = { hidden: false, featured: nil }.merge(options)
+          options = DEFAULT_OPTIONS.merge(options)
           output = licenses.dup
           output.reject!(&:hidden?) unless options[:hidden]
+          output.reject!(&:pseudo_license?) unless options[:psuedo]
           return output if options[:featured].nil?
           output.select { |l| l.featured? == options[:featured] }
         end
@@ -36,6 +37,13 @@ module Licensee
       end
       alias [] find
       alias find_by_key find
+
+      # Given a license title or nickname, fuzzy match the license
+      def find_by_title(title)
+        License.all(hidden: true, psuedo: false).find do |license|
+          title =~ /\A(the )?#{license.title_regex}( license)?\z/i
+        end
+      end
 
       def license_dir
         dir = ::File.dirname(__FILE__)
@@ -70,6 +78,19 @@ module Licensee
     # Note: A lack of detected license will be a nil license
     PSEUDO_LICENSES = %w[other no-license].freeze
 
+    # Default options to use when retrieving licenses via #all
+    DEFAULT_OPTIONS = {
+      hidden:   false,
+      featured: nil,
+      psuedo:   true
+    }.freeze
+
+    ALT_TITLE_REGEX = {
+      'bsd-2-clause'       => /bsd 2-clause(?: \"simplified\")?/i,
+      'bsd-3-clause'       => /bsd 3-clause(?: \"new\" or \"revised\")?/i,
+      'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
+    }.freeze
+
     include Licensee::ContentHelper
     extend Forwardable
     def_delegators :meta, *LicenseMeta.helper_methods
@@ -95,6 +116,20 @@ module Licensee
 
     def name_without_version
       /(.+?)(( v?\d\.\d)|$)/.match(name)[1]
+    end
+
+    def title_regex
+      return @regex if defined? @regex
+
+      title_regex = ALT_TITLE_REGEX[key]
+      title_regex ||= begin
+        string = name.downcase.sub('*', 'u')
+        string.sub!(/\Athe /i, '')
+        string.sub!(/ license\z/i, '')
+        Regexp.new Regexp.escape(string), 'i'
+      end
+
+      @regex = Regexp.union [title_regex, key, meta.nickname].compact
     end
 
     def other?

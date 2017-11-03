@@ -85,6 +85,42 @@ RSpec.describe Licensee::License do
         end
       end
     end
+
+    context 'psudo licenses' do
+      let(:other) { Licensee::License.find('other') }
+
+      context 'by default' do
+        let(:arguments) { {} }
+
+        it "doesn't include psudo licenses" do
+          expect(licenses).to_not include(other)
+        end
+      end
+
+      context 'with hidden licenses' do
+        let(:arguments) { { hidden: true } }
+
+        it 'includes psudo licenses' do
+          expect(licenses).to include(other)
+        end
+      end
+
+      context 'when explicitly asked' do
+        let(:arguments) { { hidden: true, psuedo: true } }
+
+        it 'includes psudo licenses' do
+          expect(licenses).to include(other)
+        end
+      end
+
+      context 'when explicitly excluded' do
+        let(:arguments) { { hidden: true, psuedo: false } }
+
+        it "doesn'tincludes psudo licenses" do
+          expect(licenses).to_not include(other)
+        end
+      end
+    end
   end
 
   context 'finding' do
@@ -294,6 +330,50 @@ RSpec.describe Licensee::License do
       it "doesn't mangle other fields" do
         expect(license.content_for_mustache).to match(/\[foo\]/)
         expect(license.content_for_mustache).to_not match(/{{{foo}}}/)
+      end
+    end
+  end
+
+  context 'License.title_regex' do
+    Licensee::License.all(hidden: true, psuedo: false).each do |license|
+      context "the #{license.title} license" do
+        %i[title nickname key].each do |variation|
+          next if license.send(variation).nil?
+
+          context "the license #{variation}" do
+            let(:license_variation) { license.send(variation).sub('*', 'u') }
+            let(:text) { license_variation }
+
+            it 'matches' do
+              expect(text).to match(license.title_regex)
+            end
+
+            it 'finds by title' do
+              expect(described_class.find_by_title(text)).to eql(license)
+            end
+
+            context "with 'the' and 'license'" do
+              let(:text) { "The #{license_variation} license" }
+
+              it 'matches' do
+                expect(text).to match(license.title_regex)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    context 'a license with an alt title' do
+      let(:text) { 'The Clear BSD license' }
+      let(:license) { Licensee::License.find('bsd-3-clause-clear') }
+
+      it 'matches' do
+        expect(text).to match(license.title_regex)
+      end
+
+      it 'finds by title' do
+        expect(described_class.find_by_title(text)).to eql(license)
       end
     end
   end
