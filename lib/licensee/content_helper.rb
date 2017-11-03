@@ -113,7 +113,7 @@ module Licensee
       titles = licenses.map(&:title_regex)
 
       # Title regex must include the version to support matching within
-      # families, but for sake of normilization, we can be less strict
+      # families, but for sake of normalization, we can be less strict
       without_versions = licenses.map do |license|
         next if license.title == license.name_without_version
         Regexp.new Regexp.escape(license.name_without_version), 'i'
