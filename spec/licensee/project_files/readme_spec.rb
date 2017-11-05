@@ -98,4 +98,13 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
   end
+
+  context 'a license reference' do
+    let(:content) { 'The MIT License' }
+    let(:mit) { Licensee::License.find('mit') }
+
+    it 'matches' do
+      expect(subject.match).to eql(mit)
+    end
+  end
 end

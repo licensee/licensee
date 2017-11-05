@@ -60,6 +60,14 @@ module Licensee
 
       alias match license
       alias path filename
+
+      # Is this file a COPYRIGHT file with only a copyright statement?
+      # If so, it can be excluded from determining if a project has >1 license
+      def copyright?
+        return false unless is_a?(LicenseFile)
+        return false unless matcher.is_a?(Matchers::Copyright)
+        filename =~ /\Acopyright(?:#{LicenseFile::ANY_EXT_REGEX})?\z/i
+      end
     end
   end
 end
