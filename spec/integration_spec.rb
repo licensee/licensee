@@ -157,6 +157,16 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'license + README reference' do
+          let(:license) { Licensee::License.find('mit') }
+          let(:fixture) { 'license-with-readme-reference' }
+          let(:arguments) { { detect_readme: true } }
+
+          it 'determines the project is MIT' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do

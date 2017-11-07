@@ -240,5 +240,13 @@
         expect(subject.license_files.last.filename).to eql('LICENSE')
       end
     end
+
+    context 'with a copyright file' do
+      let(:fixture) { 'mit-with-copyright' }
+
+      it 'returns MIT' do
+        expect(subject.license).to eql(mit)
+      end
+    end
   end
 end
