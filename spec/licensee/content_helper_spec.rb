@@ -175,4 +175,69 @@ LICENSE
       end
     end
   end
+
+  context 'title regex' do
+    let(:license) { Licensee::License.find('gpl-3.0') }
+
+    %i[key title nickname name_without_version].each do |variation|
+      context "a license #{variation}" do
+        let(:license_variation) { license.send(variation) }
+        let(:text) { license_variation }
+
+        it 'matches' do
+          expect(text).to match(described_class.title_regex)
+        end
+
+        context 'preceded by the' do
+          let(:text) { "The #{license_variation} license" }
+
+          it 'matches' do
+            expect(text).to match(described_class.title_regex)
+          end
+        end
+
+        context 'with parens' do
+          let(:text) { "(#{license_variation})" }
+
+          it 'matches' do
+            expect(text).to match(described_class.title_regex)
+          end
+        end
+
+        context 'with parens and a preceding the' do
+          let(:text) { "(the #{license_variation} license)" }
+
+          it 'matches' do
+            expect(text).to match(described_class.title_regex)
+          end
+        end
+
+        context 'with whitespace' do
+          let(:text) { "     the #{license_variation} license" }
+
+          it 'matches' do
+            expect(text).to match(described_class.title_regex)
+          end
+        end
+
+        context 'escaping' do
+          let(:text) { 'gpl-3 0' }
+
+          it 'escapes' do
+            expect(text).to_not match(described_class.title_regex)
+          end
+        end
+
+        context 'in the middle of a string' do
+          let(:text) do
+            "The project is not licensed under the #{license_variation} license"
+          end
+
+          it 'matches' do
+            expect(text).to_not match(described_class.title_regex)
+          end
+        end
+      end
+    end
+  end
 end

@@ -18,9 +18,9 @@ module Licensee
       # Returns the matching License instance if a license can be detected
       def license
         return @license if defined? @license
-        @license = if licenses.count == 1 || lgpl?
-          licenses.first
-        elsif licenses.count > 1
+        @license = if licenses_without_copyright.count == 1 || lgpl?
+          licenses_without_copyright.first
+        elsif licenses_without_copyright.count > 1
           Licensee::License.find('other')
         end
       end
@@ -135,6 +135,14 @@ module Licensee
 
       def project_files
         @project_files ||= [license_files, readme, package_file].flatten.compact
+      end
+
+      # Returns an array of matches licenses, excluding the COPYRIGHT file
+      # which can often be ignored for purposes of determing dual licensing
+      def licenses_without_copyright
+        @licenses_without_copyright ||= begin
+          matched_files.reject(&:copyright?).map(&:license).uniq
+        end
       end
     end
 

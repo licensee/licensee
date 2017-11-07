@@ -18,6 +18,10 @@ module Licensee
              \z)                 # End of file
         /mix
 
+      def possible_matchers
+        super.push(Matchers::Reference)
+      end
+
       def self.name_score(filename)
         SCORES.each do |pattern, score|
           return score if pattern =~ filename
