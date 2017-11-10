@@ -86,6 +86,7 @@ module Licensee
     }.freeze
 
     ALT_TITLE_REGEX = {
+      'apache-2.0'         => /apache license(?:, version)? 2.0/i,
       'bsd-2-clause'       => /bsd 2-clause(?: \"simplified\")?/i,
       'bsd-3-clause'       => /bsd 3-clause(?: \"new\" or \"revised\")?/i,
       'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
