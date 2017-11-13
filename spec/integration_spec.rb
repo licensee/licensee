@@ -158,6 +158,16 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'apache license + README notice' do
+          let(:license) { Licensee::License.find('apache-2.0') }
+          let(:fixture) { 'apache-with-readme-notice' }
+          let(:arguments) { { detect_readme: true } }
+
+          it 'determines the project is Apache-2.0' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do
