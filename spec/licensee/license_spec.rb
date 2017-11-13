@@ -387,4 +387,41 @@ RSpec.describe Licensee::License do
       end
     end
   end
+
+  context 'source regex' do
+    Licensee::License.all(hidden: true, psuedo: false).each do |license|
+      context "the #{license.title} license" do
+        let(:source) { URI.parse(license.source) }
+
+        %w[http https].each do |scheme|
+          context "with a #{scheme}:// scheme" do
+            before { source.scheme = scheme }
+
+            ['www.', ''].each do |prefix|
+              context "with '#{prefix}' before the host" do
+                before do
+                  source.host = "#{prefix}#{source.host.sub(/\Awww\./, '')}"
+                end
+
+                ['.html', '.htm', '.txt', ''].each do |suffix|
+                  context "with '#{suffix}' after the path" do
+                    before do
+                      next if license.key == 'wtfpl'
+                      regex = /#{Licensee::License::SOURCE_SUFFIX}\z/
+                      source.path = source.path.sub(regex, '')
+                      source.path = "#{source.path}#{suffix}"
+                    end
+
+                    it 'matches' do
+                      expect(source.to_s).to match(license.source_regex)
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 end
