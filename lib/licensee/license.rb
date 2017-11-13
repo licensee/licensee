@@ -86,7 +86,6 @@ module Licensee
     }.freeze
 
     ALT_TITLE_REGEX = {
-      'apache-2.0'         => /apache license(?:, version)? 2.0/i,
       'bsd-2-clause'       => /bsd 2-clause(?: \"simplified\")?/i,
       'bsd-3-clause'       => /bsd 3-clause(?: \"new\" or \"revised\")?/i,
       'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
@@ -127,7 +126,10 @@ module Licensee
         string = name.downcase.sub('*', 'u')
         string.sub!(/\Athe /i, '')
         string.sub!(/ license\z/i, '')
+        string.sub!(/,? version /, ' ')
+        string.sub!(/v(\d+\.\d+)/, '\1')
         string = Regexp.escape(string)
+        string = string.sub(/ (\d+\\.\d+)/, ',?\ (?:version\ |v)?\1')
         string = string.sub(/\bgnu\\ /, '(?:GNU )?')
         Regexp.new string, 'i'
       end
