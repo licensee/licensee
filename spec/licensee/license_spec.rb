@@ -369,6 +369,40 @@ RSpec.describe Licensee::License do
                 expect(text).to match(license.title_regex)
               end
             end
+
+            if variation == :title
+              context 'version notation variations' do
+                context "with 'version x.x'" do
+                  let(:text) do
+                    license_variation.sub(/v?(\d+\.\d+)/i, 'version \1')
+                  end
+
+                  it 'matches' do
+                    expect(text).to match(license.title_regex)
+                  end
+                end
+
+                context "with ', version x.x'" do
+                  let(:text) do
+                    license_variation.sub(/ v?(\d+\.\d+)/i, ', version \1')
+                  end
+
+                  it 'matches' do
+                    expect(text).to match(license.title_regex)
+                  end
+                end
+
+                context "with 'vx.x'" do
+                  let(:text) do
+                    license_variation.sub(/(?:version)? (\d+\.\d+)/i, ' v\1')
+                  end
+
+                  it 'matches' do
+                    expect(text).to match(license.title_regex)
+                  end
+                end
+              end
+            end
           end
         end
       end
