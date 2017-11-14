@@ -39,4 +39,13 @@ RSpec.describe Licensee::Matchers::Reference do
       expect(subject.match).to eql(license)
     end
   end
+
+  context 'with a license source' do
+    let(:license) { Licensee::License.find('mpl-2.0') }
+    let(:content) { "The [license](#{license.source})" }
+
+    it 'matches' do
+      expect(subject.match).to eql(license)
+    end
+  end
 end

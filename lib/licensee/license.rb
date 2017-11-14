@@ -91,6 +91,9 @@ module Licensee
       'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
     }.freeze
 
+    SOURCE_PREFIX = %r{https?://(?:www\.)?}i
+    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)}i
+
     include Licensee::ContentHelper
     extend Forwardable
     def_delegators :meta, *LicenseMeta.helper_methods
@@ -119,7 +122,7 @@ module Licensee
     end
 
     def title_regex
-      return @regex if defined? @regex
+      return @title_regex if defined? @title_regex
 
       title_regex = ALT_TITLE_REGEX[key]
       title_regex ||= begin
@@ -139,7 +142,26 @@ module Licensee
         parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?')
       end
 
-      @regex = Regexp.union parts
+      @title_regex = Regexp.union parts
+    end
+
+    # Returns a regex that will match the license source
+    #
+    # The following variations are supported (as presumed identical):
+    # 1. HTTP or HTTPS
+    # 2. www or non-www
+    # 3. .txt, .html, .htm, or / suffix
+    #
+    # Returns the regex, or nil if no source exists
+    def source_regex
+      return @source_regex if defined? @source_regex
+      return unless meta.source
+
+      source = meta.source.dup.sub(/\A#{SOURCE_PREFIX}/, '')
+      source = source.sub(/#{SOURCE_SUFFIX}\z/, '')
+
+      escaped_source = Regexp.escape(source)
+      @source_regex = /#{SOURCE_PREFIX}#{escaped_source}(?:#{SOURCE_SUFFIX})?/i
     end
 
     def other?
