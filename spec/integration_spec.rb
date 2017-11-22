@@ -177,6 +177,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'with package.json license expression' do
+          let(:fixture) { 'npm-license-expression' }
+          let(:arguments) { { detect_packages: true } }
+
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do

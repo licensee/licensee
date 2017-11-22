@@ -1,0 +1,6 @@
+{
+  "name": "fake-package"
+  "description": "Fake package available under various licenses",
+  "license": "(MIT OR Apache-2.0 OR AGPL-3.0+)",
+  "version": "0.1"
+}
