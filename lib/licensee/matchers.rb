@@ -11,5 +11,6 @@ module Licensee
     autoload :NpmBower,  'licensee/matchers/npm_bower'
     autoload :Package,   'licensee/matchers/package'
     autoload :Reference, 'licensee/matchers/reference'
+    autoload :Spdx,      'licensee/matchers/spdx'
   end
 end

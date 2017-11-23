@@ -10,8 +10,9 @@ module Licensee
 
       # Hash of Filename => [possible matchers]
       FILENAMES_EXTENSIONS = {
-        'DESCRIPTION' => [Matchers::Cran],
-        'dist.ini'    => [Matchers::DistZilla]
+        'DESCRIPTION'  => [Matchers::Cran],
+        'dist.ini'     => [Matchers::DistZilla],
+        'LICENSE.spdx' => [Matchers::Spdx]
       }.freeze
 
       def possible_matchers
@@ -21,6 +22,7 @@ module Licensee
       def self.name_score(filename)
         return 1.0  if ['.gemspec', '.cabal'].include?(File.extname(filename))
         return 1.0  if filename == 'package.json'
+        return 1.0  if filename == 'LICENSE.spdx'
         return 0.8  if filename == 'dist.ini'
         return 0.9  if filename == 'DESCRIPTION'
         return 0.75 if filename == 'bower.json'
