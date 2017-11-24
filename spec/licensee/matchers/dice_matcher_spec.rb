@@ -22,12 +22,12 @@ RSpec.describe Licensee::Matchers::Dice do
 
   it 'sorts licenses by similarity' do
     expect(subject.licenses_by_similiarity[0]).to eql([gpl, 100.0])
-    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 95.73361082206036])
+    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 86.66032027067445])
   end
 
   it 'returns a list of licenses above the confidence threshold' do
     expect(subject.licenses_by_similiarity[0]).to eql([gpl, 100.0])
-    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 95.73361082206036])
+    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 86.66032027067445])
   end
 
   it 'returns the match confidence' do
@@ -77,6 +77,41 @@ RSpec.describe Licensee::Matchers::Dice do
         expect(subject.match).to be_nil
         expect(subject.matches).to be_empty
         expect(subject.confidence).to eql(0)
+      end
+    end
+  end
+
+  context 'confidence similarity match' do
+    module Licensee
+      module ContentHelper
+        alias max_delta_original max_delta
+        alias max_delta calculate_max_delta
+        public :max_delta
+      end
+    end
+
+    Licensee.licenses(hidden: true).each do |license|
+      next if license.pseudo_license?
+      context "the #{license.key} license" do
+        let(:content) { license.content }
+
+        nearest =
+          Licensee
+          .licenses(hidden: true)
+          .reject { |other| other.pseudo_license? || other.key == license.key }
+          .collect { |other| [other, license.similarity(other)] }
+          .max_by { |other_similarity| other_similarity[1] }
+        next if nearest[1] < 50
+
+        it "matches #{nearest[0].key}" do
+          Licensee.confidence_threshold = nearest[1].floor
+
+          matcher = Licensee::Matchers::Dice.new(file)
+          similars = matcher.licenses_by_similiarity.map { |s| s[0] }
+
+          expect(similars).to include nearest[0]
+          Licensee.confidence_threshold = Licensee::CONFIDENCE_THRESHOLD
+        end
       end
     end
   end

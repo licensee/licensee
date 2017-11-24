@@ -22,8 +22,6 @@ module Licensee
   DOMAIN = 'http://choosealicense.com'.freeze
 
   class << self
-    attr_writer :confidence_threshold
-
     # Returns an array of Licensee::License instances
     def licenses(options = {})
       Licensee::License.all(options)
@@ -38,6 +36,11 @@ module Licensee
       Licensee::Projects::GitProject.new(path, args)
     rescue Licensee::Projects::GitProject::InvalidRepository
       Licensee::Projects::FSProject.new(path, args)
+    end
+
+    def confidence_threshold=(value)
+      @confidence_threshold = value
+      @inverse = nil
     end
 
     def confidence_threshold

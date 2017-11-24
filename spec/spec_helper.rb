@@ -89,7 +89,7 @@ RSpec::Matchers.define :be_detected_as do |expected|
     similarity = expected.similarity(license_file)
     msg = "Expected the content to match the #{license_name} license"
     msg << " (#{format_percent(similarity)} similarity"
-    msg << "using the #{license_file.matcher} matcher)"
+    msg << " using the #{license_file.matcher} matcher)"
   end
 
   failure_message_when_negated do |actual|

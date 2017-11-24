@@ -39,7 +39,7 @@ LICENSE
     let(:content) { 'license' * 1000 }
 
     it 'returns the max delta' do
-      expect(subject.max_delta).to eql(140)
+      expect(subject.max_delta).to eql(280)
     end
   end
 
@@ -49,7 +49,7 @@ LICENSE
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(2)
+    expect(subject.similarity(mit)).to be_within(1).of(1)
     expect(subject.similarity(subject)).to eql(100.0)
   end
 
