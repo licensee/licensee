@@ -3,7 +3,7 @@
 # Example usage: cat LICENSE.md | be script/diff mit
 
 require 'licensee'
-require "tmpdir"
+require 'tmpdir'
 
 if STDIN.tty? || ARGV[0].to_s.empty?
   puts 'USAGE: [LICENSE_CONTENT] | script/diff [LICENSE_ID]'
