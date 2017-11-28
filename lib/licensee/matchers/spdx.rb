@@ -1,11 +1,9 @@
 module Licensee
   module Matchers
-    class NpmBower < Licensee::Matchers::Package
-      # While we could parse the package.json or bower.json file, prefer
+    class Spdx < Licensee::Matchers::Package
+      # While we could parse the LICENSE.spdx file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.
-      LICENSE_REGEX = /
-        \s*[\"\']license[\"\']\s*\:\s*[\'\"]([a-z\-0-9\.+ ()]+)[\'\"],?\s*
-      /ix
+      LICENSE_REGEX = /PackageLicenseDeclared:\s*([a-z\-0-9\. +()]+)\s*/i
 
       private
 
