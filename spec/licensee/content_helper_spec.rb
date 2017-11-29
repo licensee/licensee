@@ -43,13 +43,21 @@ LICENSE
     end
   end
 
+  context 'a very short license' do
+    let(:content) { 'license' * 10 }
+
+    it 'returns the max delta' do
+      expect(subject.max_delta).to eql(2)
+    end
+  end
+
   it 'knows the length delta' do
     expect(subject.length_delta(mit)).to eql(1000)
     expect(subject.length_delta(subject)).to eql(0)
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(1)
+    expect(subject.similarity(mit)).to be_within(1).of(10)
     expect(subject.similarity(subject)).to eql(100.0)
   end
 

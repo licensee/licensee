@@ -28,7 +28,7 @@ module Licensee
     # Number of characters that could be added/removed to still be
     # considered a potential match
     def max_delta
-      @max_delta ||= calculate_max_delta
+      (length * Licensee.inverse_confidence_threshold).to_i * 2
     end
 
     # Given another license or project file, calculates the difference in length
@@ -37,11 +37,16 @@ module Licensee
     end
 
     # Given another license or project file, calculates the similarity
-    # as a percentage of words in common
+    # as a percentage of words in common, minus a penalty that increases
+    # as percentage of words in common decreases and wordset size increases
+    # so that false positives for long licnses are ruled out by this score
+    # alone. The penality is incurred by taking the decimal proportion to a
+    # power (**) which is itself scaled by wordset size (log10 of 100 is 2,
+    # 1000 is 3).
     def similarity(other)
       overlap = (wordset & other.wordset).size
       total = wordset.size + other.wordset.size
-      100.0 * ((overlap * 2.0 / total)**Math.log10(total))
+      100.0 * ((overlap * 2.0 / total)**Math.log10(wordset.size))
     end
 
     # SHA1 of the normalized content
@@ -124,10 +129,6 @@ module Licensee
     end
 
     private
-
-    def calculate_max_delta
-      (length * Licensee.inverse_confidence_threshold).to_i * 2
-    end
 
     def strip_title(string)
       strip(string, ContentHelper.title_regex)

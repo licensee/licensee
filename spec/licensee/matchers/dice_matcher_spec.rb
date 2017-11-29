@@ -22,12 +22,12 @@ RSpec.describe Licensee::Matchers::Dice do
 
   it 'sorts licenses by similarity' do
     expect(subject.licenses_by_similiarity[0]).to eql([gpl, 100.0])
-    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 86.66032027067445])
+    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 87.82263900056662])
   end
 
   it 'returns a list of licenses above the confidence threshold' do
     expect(subject.licenses_by_similiarity[0]).to eql([gpl, 100.0])
-    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 86.66032027067445])
+    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 87.82263900056662])
   end
 
   it 'returns the match confidence' do
@@ -81,26 +81,23 @@ RSpec.describe Licensee::Matchers::Dice do
     end
   end
 
+  # expect to detect a license if candidate has similarity equal to
+  # confidence threshold; use licenses we know about as test dataset
   context 'confidence similarity match' do
-    module Licensee
-      module ContentHelper
-        alias max_delta_original max_delta
-        alias max_delta calculate_max_delta
-        public :max_delta
-      end
-    end
-
     Licensee.licenses(hidden: true).each do |license|
       next if license.pseudo_license?
       context "the #{license.key} license" do
         let(:content) { license.content }
 
+        # find most similar license
         nearest =
           Licensee
           .licenses(hidden: true)
           .reject { |other| other.pseudo_license? || other.key == license.key }
           .collect { |other| [other, license.similarity(other)] }
           .max_by { |other_similarity| other_similarity[1] }
+
+        # no promises if you set confidence below 50
         next if nearest[1] < 50
 
         it "matches #{nearest[0].key}" do
