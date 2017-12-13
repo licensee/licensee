@@ -28,10 +28,18 @@ module Licensee
         match = @file.content.match LICENSE_REGEX
         return match[1].downcase if match && match[1]
 
-        # this will capture each value in the license array
-        # for now only return the first match
+        # check for a licenses array property
+        licenses = license_array_property
+        return unless licenses
+
+        # use 'other' if array contains multiple licenses
+        return 'other' unless licenses.size == 1
+        licenses[0]
+      end
+
+      def license_array_property
         match = @file.content.match LICENSE_ARRAY_REGEX
-        match[1].downcase if match && match[1]
+        match.captures.compact.map(&:downcase) if match
       end
 
       def declarations

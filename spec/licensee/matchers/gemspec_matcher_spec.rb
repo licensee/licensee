@@ -19,7 +19,7 @@ RSpec.describe Licensee::Matchers::Gemspec do
     'double quotes' => 's.license = "mit"',
     'no whitespace' => "s.license='mit'",
     'uppercase'     => "s.license = 'MIT'",
-    'array'         => "s.licenses = ['mit' , 'bsd-3-clause']",
+    'array'         => "s.licenses = ['mit']",
     'frozen'        => "s.license = 'mit'.freeze"
   }.each do |description, license_declaration|
     context "with a #{description} declaration" do
@@ -41,6 +41,14 @@ RSpec.describe Licensee::Matchers::Gemspec do
 
   context 'an unknown license' do
     let(:content) { "s.license = 'foo'" }
+
+    it 'returns other' do
+      expect(subject.match).to eql(Licensee::License.find('other'))
+    end
+  end
+
+  context 'a licenses property with multiple licenses' do
+    let(:content) { "s.licenses = ['mit', 'bsd-3-clause']" }
 
     it 'returns other' do
       expect(subject.match).to eql(Licensee::License.find('other'))
