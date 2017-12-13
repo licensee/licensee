@@ -19,7 +19,8 @@ RSpec.describe Licensee::Matchers::Gemspec do
     'double quotes' => 's.license = "mit"',
     'no whitespace' => "s.license='mit'",
     'uppercase'     => "s.license = 'MIT'",
-    'array'         => "s.licenses = ['mit']"
+    'array'         => "s.licenses = ['mit']",
+    'frozen'        => "s.license = 'mit'.freeze"
   }.each do |description, license_declaration|
     context "with a #{description} declaration" do
       let(:content) { license_declaration }

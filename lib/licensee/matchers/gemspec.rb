@@ -2,7 +2,8 @@ module Licensee
   module Matchers
     class Gemspec < Licensee::Matchers::Package
       # a value is a string surrounded by any amount of whitespace
-      VALUE_REGEX = /\s*[\'\"]([a-z\-0-9\.]+)[\'\"]\s*/i
+      # optionally ended with (non-captured) ".freeze"
+      VALUE_REGEX = /\s*[\'\"]([a-z\-0-9\.]+)[\'\"](?:\.freeze)?\s*/i
 
       # an array contains one or more values. all values, or array itself,
       # can be surrounded by any amount of whitespace.  do not capture
