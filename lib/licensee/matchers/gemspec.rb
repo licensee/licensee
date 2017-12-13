@@ -1,18 +1,35 @@
 module Licensee
   module Matchers
     class Gemspec < Licensee::Matchers::Package
+      # a value is a string surrounded by any amount of whitespace
+      VALUE_REGEX = /\s*[\'\"]([a-z\-0-9\.]+)[\'\"]\s*/i
+
+      # an array contains one or more values. all values, or array itself,
+      # can be surrounded by any amount of whitespace.  do not capture
+      # non-value groups
+      ARRAY_REGEX = /\s*\[#{VALUE_REGEX}(?:,#{VALUE_REGEX})*\]\s*/i
+
       DECLARATION_REGEX = /
-        ^\s*[a-z0-9_]+\.([a-z0-9_]+)\s*\=\s*[\'\"]([a-z\-0-9\.]+)[\'\"]\s*$
-        /ix
+        ^\s*[a-z0-9_]+\.([a-z0-9_]+)\s*\=#{VALUE_REGEX}$
+      /ix
 
       LICENSE_REGEX = /
-           ^\s*[a-z0-9_]+\.license\s*\=\s*[\'\"]([a-z\-0-9\.]+)[\'\"]\s*$
-           /ix
+        ^\s*[a-z0-9_]+\.license\s*\=#{VALUE_REGEX}$
+      /ix
+
+      LICENSE_ARRAY_REGEX = /
+        ^\s*[a-z0-9_]+\.licenses\s*\=#{ARRAY_REGEX}$
+      /ix
 
       private
 
       def license_property
         match = @file.content.match LICENSE_REGEX
+        return match[1].downcase if match && match[1]
+
+        # this will capture each value in the license array
+        # for now only return the first match
+        match = @file.content.match LICENSE_ARRAY_REGEX
         match[1].downcase if match && match[1]
       end
 

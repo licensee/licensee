@@ -18,7 +18,8 @@ RSpec.describe Licensee::Matchers::Gemspec do
     'as spec.'      => "spec.license = 'mit'",
     'double quotes' => 's.license = "mit"',
     'no whitespace' => "s.license='mit'",
-    'uppercase'     => "s.license = 'MIT'"
+    'uppercase'     => "s.license = 'MIT'",
+    'array'         => "s.licenses = ['mit']"
   }.each do |description, license_declaration|
     context "with a #{description} declaration" do
       let(:content) { license_declaration }
