@@ -11,7 +11,7 @@ module Licensee
     WHITESPACE_REGEX = /\s+/
     MARKDOWN_HEADING_REGEX = /\A\s*#+/
     VERSION_REGEX = /\Aversion.*$/i
-    MARKUP_REGEX = /[^\w'\.\-]+/
+    MARKUP_REGEX = /[^\w'\.\-,]+/
 
     # A set of each word in the license, without duplicates
     def wordset
