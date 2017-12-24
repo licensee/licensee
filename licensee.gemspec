@@ -18,7 +18,9 @@ Gem::Specification.new do |gem|
   gem.bindir = 'bin'
   gem.executables << 'licensee'
 
+  gem.add_dependency('octokit', '~> 4.8.0')
   gem.add_dependency('rugged', '~> 0.24')
+
   gem.add_development_dependency('coveralls', '~> 0.8')
   gem.add_development_dependency('mustache', '>= 0.9', '< 2.0')
   gem.add_development_dependency('pry', '~> 0.9')
