@@ -40,44 +40,20 @@ RSpec.describe Licensee::Projects::GitHubProject do
 
   context 'when the repo exists' do
     before do
-      allow(Octokit)
-        .to receive(:contents)
-        .with('benbalter/licensee')
-        .and_return([
-                      {
-                        name:         'LICENSE.txt',
-                        path:         'LICENSE.txt',
-                        sha:          'sha1',
-                        size:         1072,
-                        url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSE.txt?ref=master',
-                        html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSE.txt',
-                        git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha1',
-                        download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSE.txt',
-                        type:         'file',
-                        _links:       {}
-                      },
-                      { name:         'README.md',
-                        path:         'README.md',
-                        sha:          'sha2',
-                        size:         13_420,
-                        url:          'https://api.github.com/repos/benbalter/licensee/contents/README.md?ref=master',
-                        html_url:     'https://github.com/benbalter/licensee/blob/master/README.md',
-                        git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha2',
-                        download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/README.md',
-                        type:         'file',
-                        _links:       {} }
-                    ])
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
+        .to_return(
+          status:  200,
+          body:    fixture_contents('webmock/licensee.json'),
+          headers: { 'Content-Type' => 'application/json' }
+        )
 
-      allow(Octokit)
-        .to receive(:contents)
-        .with(repo, path:   'LICENSE.txt',
-                    accept: 'application/vnd.github.v3.raw')
-        .and_return(license_file)
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSE.txt')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: license_file)
 
-      allow(Octokit)
-        .to receive(:contents)
-        .with(repo, path: 'README.md', accept: 'application/vnd.github.v3.raw')
-        .and_return(readme_file)
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/README.md')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: readme_file)
     end
 
     it 'returns the license' do
@@ -119,11 +95,11 @@ RSpec.describe Licensee::Projects::GitHubProject do
   end
 
   context 'when the repo cannot be found' do
-    let(:github_url) { 'https://github.com/benbalter/not-foundsss' }
+    let(:repo) { 'benbalter/not-foundsss' }
 
     before do
-      allow(Octokit)
-        .to receive(:contents).with(anything).and_raise(Octokit::NotFound)
+      stub_request(:get, 'https://api.github.com/repos/benbalter/not-foundsss/contents/')
+        .to_return(status: 404)
     end
 
     it 'raises a RepoNotFound error' do
