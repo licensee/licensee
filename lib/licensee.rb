@@ -8,6 +8,7 @@ module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
   autoload :License, 'licensee/license'
   autoload :LicenseField, 'licensee/license_field'
+  autoload :LicenseTemplate, 'licensee/license_template'
   autoload :LicenseMeta, 'licensee/license_meta'
   autoload :LicenseRules, 'licensee/license_rules'
   autoload :Rule, 'licensee/rule'

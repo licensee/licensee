@@ -24,3 +24,7 @@ vendor/choosealicense.com/CNAME
 vendor/choosealicense.com/Gemfile
 vendor/choosealicense.com/Rakefile
 vendor/choosealicense.com/spec
+
+vendor/spdx-license-list/*
+vendor/spdx-license-list/.git
+!vendor/spdx-license-list/text/*

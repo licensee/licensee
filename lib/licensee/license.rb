@@ -223,6 +223,10 @@ module Licensee
       end
     end
 
+    def template
+      @template ||= LicenseTemplate.find(key)
+    end
+
     private
 
     # Raw content of license file, including YAML front matter

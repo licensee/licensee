@@ -20,7 +20,7 @@ module Licensee
       #    of the confidence threshold
       def potential_licenses
         @potential_licenses ||= begin
-          Licensee.licenses(hidden: true).select do |license|
+          licenses.select do |license|
             if license.creative_commons? && file.potential_false_positive?
               false
             else

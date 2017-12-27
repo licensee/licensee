@@ -14,6 +14,12 @@ module Licensee
       def confidence
         raise 'Not implemented'
       end
+
+      private
+
+      def licenses
+        License.all(hidden: true, psuedo: false)
+      end
     end
   end
 end

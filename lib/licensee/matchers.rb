@@ -12,5 +12,6 @@ module Licensee
     autoload :Package,   'licensee/matchers/package'
     autoload :Reference, 'licensee/matchers/reference'
     autoload :Spdx,      'licensee/matchers/spdx'
+    autoload :SpdxTemplate, 'licensee/matchers/spdx_template'
   end
 end
