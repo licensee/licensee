@@ -27,4 +27,4 @@ vendor/choosealicense.com/spec
 
 vendor/spdx-license-list/*
 vendor/spdx-license-list/.git
-!vendor/spdx-license-list/text/*
+!vendor/spdx-license-list/template/*

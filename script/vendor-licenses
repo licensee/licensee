@@ -1,16 +1,11 @@
 #!/bin/sh
 
-rm -Rf vendor/choosealicense.com
-bower install github/choosealicense.com#gh-pages
+#rm -Rf vendor/choosealicense.com
+#bower install github/choosealicense.com#gh-pages
 
 rm -Rf vendor/spdx-license-list
-git clone --depth 1 https://github.com/spdx/license-list-data vendor/spdx-license-list
-rm -Rf vendor/spdx-license-list/.git
-
-licenses=$(ruby -r './lib/licensee' -e 'puts Licensee::License.all(hidden: true, psuedo: false).map { |l| "-not -name \"#{l.spdx_id}.template.txt\""}.join(" -and ")')
-to_delete=$(find ./vendor/spdx-license-list/text -type f $licenses)
-
-for template in $(echo $to_delete | tr ";" "\n")
-do
-  rm "$template"
-done
+mkdir -p vendor/spdx-license-list/template
+wget https://github.com/spdx/license-list-data/archive/master.zip -O tmp.zip
+unzip -j tmp.zip *.txt -d vendor/spdx-license-list/template
+rm tmp.zip
+bundle exec script/prune-spdx-templates
