@@ -1,25 +1,28 @@
 RSpec.describe Licensee::Projects::GitHubProject do
+  let(:repo) { 'benbalter/licensee' }
+  let(:github_url) { "https://github.com/#{repo}" }
+  let(:mit) { Licensee::License.find('mit') }
+  let(:readme_file) { File.read(fixture_path('mit/README.md')) }
+  let(:license_file) { File.read(fixture_path('mit/LICENSE.txt')) }
+  subject(:instance) { described_class.new(github_url) }
+
   describe '#initialize' do
-    subject(:instance) { described_class.new(github_url) }
-
     context 'with a GitHub URI' do
-      let(:github_url) { 'https://github.com/benbalter/licensee' }
-
       it 'should set @repo' do
-        expect(instance.repo).to eq('benbalter/licensee')
+        expect(instance.repo).to eq(repo)
       end
     end
 
     context 'with a GitHub git URI' do
-      let(:github_url) { 'https://github.com/benbalter/licensee.git' }
+      let(:github_url) { "https://github.com/#{repo}.git" }
 
       it 'should set @repo, stripping the trailing extension' do
-        expect(instance.repo).to eq('benbalter/licensee')
+        expect(instance.repo).to eq(repo)
       end
     end
 
     context 'with a non-GitHub URI' do
-      let(:github_url) { 'https://gitlab.com/benbalter/licensee' }
+      let(:github_url) { "https://gitlab.com/#{repo}" }
 
       it 'should raise an ArgumentError' do
         expect { instance }.to raise_error(ArgumentError)
@@ -34,16 +37,6 @@ RSpec.describe Licensee::Projects::GitHubProject do
       end
     end
   end
-
-  subject { described_class.new(github_url) }
-
-  let(:repo) { 'benbalter/licensee' }
-  let(:github_url) { 'https://github.com/benbalter/licensee' }
-  let(:mit) { Licensee::License.find('mit') }
-  let(:readme_file) do
-    File.read(fixture_path('mit/README.md'))
-  end
-  let(:license_file) { File.read(fixture_path('mit/LICENSE.txt')) }
 
   context 'when the repo exists' do
     before do
