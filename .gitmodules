@@ -1,3 +1,0 @@
-[submodule "spec/fixtures/shared-test-fixture"]
-	path = spec/fixtures/shared-test-fixture
-	url = https://github.com/benbalter/licensee-test-fixture
