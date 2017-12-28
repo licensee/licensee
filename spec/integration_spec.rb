@@ -158,6 +158,24 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'CC0 as published by CC' do
+          let(:license) { Licensee::License.find('cc0-1.0') }
+          let(:fixture) { 'cc0-cc' }
+
+          it 'returns cc0-1.0' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
+        context 'CC0 as published on choosealicense.com 2013-2017' do
+          let(:license) { Licensee::License.find('cc0-1.0') }
+          let(:fixture) { 'cc0-cal2013' }
+
+          it 'returns cc0-1.0' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'license + README reference' do
           let(:license) { Licensee::License.find('mit') }
           let(:fixture) { 'license-with-readme-reference' }
