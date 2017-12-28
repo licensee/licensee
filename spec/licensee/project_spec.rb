@@ -9,6 +9,7 @@
     let(:other) { Licensee::License.find('other') }
     let(:fixture) { 'mit' }
     let(:path) { fixture_path(fixture) }
+    let(:api_base) { 'https://api.github.com/repos' }
     subject { described_class.new(path) }
 
     if described_class == Licensee::Projects::GitProject
@@ -27,16 +28,18 @@
       end
     elsif described_class == Licensee::Projects::GitHubProject
       let(:path) do
-        stub_request(:get, "https://api.github.com/repos/#{stubbed_org}/#{fixture}/contents/")
-          .to_return(
-            status:  200,
-            body:    fixture_root_contents_from_api(fixture),
-            headers: { 'Content-Type' => 'application/json' }
-          )
+        stub_request(
+          :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
+        ).to_return(
+          status:  200,
+          body:    fixture_root_contents_from_api(fixture),
+          headers: { 'Content-Type' => 'application/json' }
+        )
 
         fixture_root_files(fixture).each do |file|
           relative_path = File.basename(file)
-          stub_request(:get, "https://api.github.com/repos/#{stubbed_org}/#{fixture}/contents/#{relative_path}")
+          parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
+          stub_request(:get, parts.join('/'))
             .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
             .to_return(status: 200, body: File.read(file))
         end
@@ -164,7 +167,9 @@
 
       # Using a `.gemspec` extension in the fixture breaks `gem release`
       before do
-        FileUtils.cp("#{fixture_path(fixture)}/project._gemspec", "#{fixture_path(fixture)}/project.gemspec")
+        from = "#{fixture_path(fixture)}/project._gemspec"
+        to   = "#{fixture_path(fixture)}/project.gemspec"
+        FileUtils.cp(from, to)
         if described_class == Licensee::Projects::GitProject
           Dir.chdir fixture_path(fixture) do
             `git add project.gemspec`
