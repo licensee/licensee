@@ -116,6 +116,10 @@ LICENSE
       expect(normalized_content).to_not match(/all rights reserved/i)
     end
 
+    it 'strips markup' do
+      expect(normalized_content).to_not match(/[*=_-]+/)
+    end
+
     Licensee::License.all(hidden: true).each do |license|
       context license.name do
         let(:stripped_content) { subject.content_without_title_and_version }
