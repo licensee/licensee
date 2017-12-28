@@ -26,28 +26,34 @@ module Licensee
     include ContentHelper
     attr_reader :spdx_id
 
-    FIELD_REGEX = /(?<field><<var;name=(?<name>.+?);original=(?<original>.+?);match=(?<match>.+?)>>)/
+    VAR_REGEX = /var;name=(?<name>.+?)/
+    ORIGINAL_REGEX = /original=(?<original>.+?)/
+    MATCH_REGEX = /match=(?<match>.+?)/
+    FIELD_REGEX = /(?<field><<#{VAR_REGEX};#{ORIGINAL_REGEX};#{MATCH_REGEX}>>)/
 
     def initialize(spdx_id)
       @spdx_id = spdx_id
     end
 
     def regex
-      @regex ||= Regexp.new(content_with_fields_replaced, Regexp::IGNORECASE)
+      @regex ||= Regexp.new(content_with_field_regex, Regexp::IGNORECASE)
     end
 
     private
 
-    def content_with_fields_replaced
-      return @content_with_fields_replaced if defined? @content_with_fields_replaced
+    def content_with_field_regex
+      return @content_with_field_regex if defined? @content_with_field_regex
       replacements = fields.map do |field|
         [Regexp.escape(field[:field]), "(?<#{field[:name]}>#{field[:match]}?)"]
       end
-      @content_with_fields_replaced = content_escaped.gsub(/<<var.+?>>/, replacements.to_h)
+      @content_with_field_regex = content_escaped
+                                  .gsub(/<<var.+?>>/, replacements.to_h)
     end
 
     def fields
-      @fields ||= content_normalized.to_enum(:scan, FIELD_REGEX).map { Regexp.last_match }
+      @fields ||= begin
+        content_normalized.to_enum(:scan, FIELD_REGEX).map { Regexp.last_match }
+      end
     end
 
     def content_escaped

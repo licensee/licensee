@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 # Remove any vendored SPDX templates not used by Licensee
 
-require_relative "../lib/licensee"
+require_relative '../lib/licensee'
 
 licenses = Licensee::License.all(hidden: true, psuedo: false)
 templates_to_keep = licenses.map { |l| "#{l.spdx_id}.template.txt" }
-template_dir = File.expand_path "../vendor/spdx-license-list/template", __dir__
+template_dir = File.expand_path '../vendor/spdx-license-list/template', __dir__
 
 Dir["#{template_dir}/*"].each do |template|
   File.unlink template unless templates_to_keep.include? File.basename(template)
