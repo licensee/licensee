@@ -1,5 +1,7 @@
 #!/bin/sh
 # Runs the licensee command against a remote git repo
+# Usage: script/git-repo benbalter/licensee
+# or script/git-repo https://github.com/benbalter/licensee
 
 set -e
 
@@ -7,6 +9,10 @@ repo=$1
 name=$(basename "$repo")
 dir="./tmp/$name"
 rm -Rf "$dir"
+
+if [[ ! $repo == https://* ]]; then
+  repo="https://github.com/$repo"
+fi
 
 bundle exec bin/licensee "$repo"
 
