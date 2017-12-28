@@ -11,6 +11,8 @@ module Licensee
     WHITESPACE_REGEX = /\s+/
     MARKDOWN_HEADING_REGEX = /\A\s*#+/
     VERSION_REGEX = /\Aversion.*$/i
+    CC_LEGAL_CODE_REGEX = /^\s*Creative Commons Legal Code\s*$/i
+    CC0_INFO_REGEX = %r{\s*For more information, please see\s*<http://creativecommons.org/publicdomain/zero/1.0/>\s*}im
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -76,6 +78,7 @@ module Licensee
           string = strip_copyright(string)
         end
         string = strip_all_rights_reserved(string)
+        string = strip_cc0_optional(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         strip_whitespace(string)
       end
@@ -153,6 +156,11 @@ module Licensee
 
     def strip_all_rights_reserved(string)
       strip(string, ALL_RIGHTS_RESERVED_REGEX)
+    end
+
+    def strip_cc0_optional(string)
+      string1 = strip(string, CC_LEGAL_CODE_REGEX)
+      strip(string1, CC0_INFO_REGEX)
     end
 
     def strip(string, regex)
