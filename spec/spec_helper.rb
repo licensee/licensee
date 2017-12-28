@@ -37,6 +37,19 @@ def fixture_contents(fixture)
   File.read fixture_path(fixture)
 end
 
+def fixture_root_files(fixture)
+  Dir["#{fixture_path(fixture)}/*"]
+end
+
+def fixture_root_contents_from_api(fixture)
+  fixture_root_files(fixture).map do |file|
+    {
+      name: File.basename(file),
+      type: 'file'
+    }
+  end.to_json
+end
+
 def sub_copyright_info(license)
   Mustache.render license.content_for_mustache, fullname: 'Ben Balter',
                                                 year:     '2016',
