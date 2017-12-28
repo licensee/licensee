@@ -4,7 +4,7 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
-    END_OF_TERMS_REGEX = /^\s*end of terms and conditions\s*$/i
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
     HR_REGEX = /[=\-\*][=\-\*\s]{3,}/
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     ALL_RIGHTS_RESERVED_REGEX = /\Aall rights reserved\.?$/i
@@ -13,6 +13,7 @@ module Licensee
     VERSION_REGEX = /\Aversion.*$/i
     CC_LEGAL_CODE_REGEX = /^\s*Creative Commons Legal Code\s*$/i
     CC0_INFO_REGEX = %r{\s*For more information, please see\s*<http://creativecommons.org/publicdomain/zero/1.0/>\s*}im
+    MARKUP_REGEX = /[#_*=~\[\]()`|>]+/
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -80,6 +81,7 @@ module Licensee
         string = strip_all_rights_reserved(string)
         string = strip_cc0_optional(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
+        string = strip_markup(string)
         strip_whitespace(string)
       end
 
@@ -161,6 +163,10 @@ module Licensee
     def strip_cc0_optional(string)
       string1 = strip(string, CC_LEGAL_CODE_REGEX)
       strip(string1, CC0_INFO_REGEX)
+    end
+      
+    def strip_markup(string)
+      strip(string, MARKUP_REGEX)
     end
 
     def strip(string, regex)

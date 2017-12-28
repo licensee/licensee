@@ -195,6 +195,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'GPL2 with Markdown formatting' do
+          let(:license) { Licensee::License.find('gpl-2.0') }
+          let(:fixture) { 'markdown-gpl' }
+
+          it 'matches to GPL2' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do

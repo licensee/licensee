@@ -8,6 +8,7 @@ RSpec.describe 'command line invocation' do
   let(:stdout) { output[0] }
   let(:stderr) { output[1] }
   let(:status) { output[2] }
+  let(:hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
 
   context 'without any arguments' do
     let(:arguments) { [] }
@@ -21,7 +22,7 @@ RSpec.describe 'command line invocation' do
     end
 
     it 'outputs the hash' do
-      expect(stdout).to match('d64f3bb4282a97b37454b5bb96a8a264a3363dc3')
+      expect(stdout).to match(hash)
     end
 
     it 'outputs the attribution' do
@@ -55,6 +56,14 @@ RSpec.describe 'command line invocation' do
   context 'when given a license path' do
     let(:license_path) { File.expand_path 'LICENSE.md', project_root }
     let(:arguments) { [license_path] }
+
+    it "detects the file's license" do
+      expect(stdout).to match('License: MIT License')
+    end
+  end
+
+  context 'when given a repo URL' do
+    let(:arguments) { 'https://github.com/benbalter/licensee' }
 
     it "detects the file's license" do
       expect(stdout).to match('License: MIT License')

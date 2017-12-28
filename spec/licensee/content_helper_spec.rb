@@ -44,7 +44,7 @@ LICENSE
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(1000)
+    expect(subject.length_delta(mit)).to eql(999)
     expect(subject.length_delta(subject)).to eql(0)
   end
 
@@ -114,6 +114,10 @@ LICENSE
 
     it 'strips all rights reserved' do
       expect(normalized_content).to_not match(/all rights reserved/i)
+    end
+
+    it 'strips markup' do
+      expect(normalized_content).to_not match(/[*=_-]+/)
     end
 
     Licensee::License.all(hidden: true).each do |license|
