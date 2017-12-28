@@ -4,7 +4,7 @@
 set -e
 
 repo=$1
-name=$(basename $repo)
+name=$(basename "$repo")
 dir="./tmp/$name"
 rm -Rf "$dir"
 
@@ -12,8 +12,8 @@ bundle exec bin/licensee "$repo"
 
 if [ "$2" = "--license" ]; then
   git clone --depth 1 --quiet "$repo" "$dir"
-  license_path=$(bundle exec ./script/license-path $dir)
-  cat $license_path | bundle exec script/diff $3
+  license_path=$(bundle exec ./script/license-path "$dir")
+  bundle exec script/diff $3 < "$license_path"
 fi
 
 rm -Rf "$dir"
