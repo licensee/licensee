@@ -172,9 +172,9 @@ module Licensee
 
     def strip_cc0_optional(string)
       return string unless string.include? 'cc0'
-      string1 = strip(string, CC_LEGAL_CODE_REGEX)
-      string2 = strip(string1, CC0_INFO_REGEX)
-      strip(string2, CC0_DISCLAIMER_REGEX)
+      string = strip(string, CC_LEGAL_CODE_REGEX)
+      string = strip(string, CC0_INFO_REGEX)
+      strip(string, CC0_DISCLAIMER_REGEX)
     end
 
     def strip_markup(string)
