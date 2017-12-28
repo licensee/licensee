@@ -44,7 +44,7 @@ LICENSE
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(1000)
+    expect(subject.length_delta(mit)).to eql(999)
     expect(subject.length_delta(subject)).to eql(0)
   end
 

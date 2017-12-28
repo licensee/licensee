@@ -2,6 +2,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   let(:filename) { 'LICENSE.txt' }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
+  let(:content_hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
 
   subject { described_class.new(content, filename) }
 
@@ -31,7 +32,6 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   end
 
   it 'creates the hash' do
-    content_hash = 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3'
     expect(subject.content_hash).to eql(content_hash)
   end
 
