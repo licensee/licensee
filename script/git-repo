@@ -1,5 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 # Runs the licensee command against a remote git repo
+# Usage: script/git-repo benbalter/licensee
+# or script/git-repo https://github.com/benbalter/licensee
 
 set -e
 
@@ -8,12 +10,16 @@ name=$(basename "$repo")
 dir="./tmp/$name"
 rm -Rf "$dir"
 
+if [[ ! "$repo" == https://* ]]; then
+  repo="https://github.com/$repo"
+fi
+
 bundle exec bin/licensee "$repo"
 
 if [ "$2" = "--license" ]; then
   git clone --depth 1 --quiet "$repo" "$dir"
   license_path=$(bundle exec ./script/license-path "$dir")
-  bundle exec script/diff $3 < "$license_path"
+  bundle exec script/diff "$3" < "$license_path"
 fi
 
 rm -Rf "$dir"
