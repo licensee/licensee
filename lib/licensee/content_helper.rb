@@ -4,7 +4,7 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
-    END_OF_TERMS_REGEX = /^[\s#]*end of terms and conditions\s*$/i
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
     HR_REGEX = /[=\-\*][=\-\*\s]{3,}/
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     ALL_RIGHTS_RESERVED_REGEX = /\Aall rights reserved\.?$/i
