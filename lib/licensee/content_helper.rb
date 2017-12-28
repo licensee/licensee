@@ -16,14 +16,14 @@ module Licensee
     CC0_INFO = 'For more information, please see\s*' +
                '<http://creativecommons.org/publicdomain/zero/1.0/>\s*'.freeze
     CC0_INFO_REGEX = /#{CC0_INFO}/im
-    CC_DISCLAIMER = %(CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES
+    CC0_DISCLAIMER = %(CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES
     NOT PROVIDE LEGAL SERVICES. DISTRIBUTION OF THIS DOCUMENT DOES NOT CREATE AN
     ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON
     AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE USE OF
     THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED HEREUNDER, AND DISCLAIMS
     LIABILITY FOR DAMAGES RESULTING FROM THE USE OF THIS DOCUMENT OR THE
     INFORMATION OR WORKS PROVIDED HEREUNDER.).gsub(/\s+/m, '\s+').freeze
-    CC_DISCLAIMER_REGEX = /#{CC_DISCLAIMER}/im
+    CC0_DISCLAIMER_REGEX = /#{CC0_DISCLAIMER}/im
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -174,7 +174,7 @@ module Licensee
       return string unless string.include? 'cc0'
       string1 = strip(string, CC_LEGAL_CODE_REGEX)
       string2 = strip(string1, CC0_INFO_REGEX)
-      strip(string2, CC_DISCLAIMER_REGEX)
+      strip(string2, CC0_DISCLAIMER_REGEX)
     end
 
     def strip_markup(string)
