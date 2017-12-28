@@ -19,8 +19,20 @@ RSpec.describe Licensee do
     expect(Licensee.license(license_path)).to eql(mit_license)
   end
 
-  it 'inits a project' do
-    expect(Licensee.project(project_path)).to be_a(Licensee::Projects::Project)
+  describe '.project' do
+    subject { Licensee.project(project_path) }
+
+    it 'inits a project' do
+      expect(subject).to be_a(Licensee::Projects::Project)
+    end
+
+    context 'given a GitHub repository' do
+      let(:project_path) { 'https://github.com/benbalter/licensee' }
+
+      it 'creates a GitHubProject' do
+        expect(subject).to be_a(Licensee::Projects::GitHubProject)
+      end
+    end
   end
 
   context 'confidence threshold' do

@@ -2,18 +2,22 @@
 
 ## Command line usage
 
-1. `cd` into a project directory
-2. Execute the `licensee` command
+This gem includes an executable which can be run using the `licensee [PATH]` command,
+where `[PATH]` is:
 
-You'll get an output that looks like:
+* A directory, for example: `licensee vendor/gems/activesupport`
+* A file, for example: `licensee LICENSE.txt`
+* A GitHub repository, for example: `licensee https://github.com/facebook/react`
+
+If you don't specify any arguments, `licensee` will just scan the current directory.
+
+In all cases, you'll get an output that looks like:
 
 ```
 License: MIT
 Confidence: 98.42%
 Matcher: Licensee::GitMatcher
 ```
-
-Alternately, `licensee <directory>` will treat the argument as the project directory, and `licensee <file>` will attempt to match the individual file specified, both with output that looks like the above.
 
 ## License Ruby API
 
@@ -35,6 +39,24 @@ license.meta["description"]
 
 license.meta["permissions"]
 => ["commercial-use","modifications","distribution","private-use"]
+```
+
+If you wish to scan private GitHub repositories, or are hitting API rate limits, you can configure the embedded [Octokit](https://github.com/octokit/octokit.rb)
+client using environment variables, for example:
+
+```sh
+OCTOKIT_ACCESS_TOKEN=abc123 licensee https://github.com/benbalter/licensee
+```
+
+Octokit can also be configured using standard module-level configuration:
+
+```ruby
+# see https://github.com/octokit/octokit.rb#configuring-module-defaults
+Octokit.configure do |c|
+  c.access_token = "<your 40 char token>"
+end
+
+license = Licensee.license "https://github.com/benbalter/licensee"
 ```
 
 ## Advanced API usage
