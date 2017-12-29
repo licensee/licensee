@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+
+require 'licensee'
+
+Licensee::License.all(hidden: true, psuedo: false).each do |license|
+  next if ['gpl-2.0', 'cc-by-4.0'].include? license.key
+  puts license.key
+
+  license_text = license.content_normalized
+  template = Licensee::LicenseTemplate.find(license.key)
+  raw_regex = template.regex.to_s[7...-1]
+
+  (0...raw_regex.length).each do |i|
+    puts raw_regex.length - i
+
+    begin
+      regex = Regexp.new(raw_regex.slice(0,raw_regex.length - i))
+    rescue RegexpError
+      next
+    end
+
+    if regex.match(license_text)
+      if i == 0
+        puts "MATCH!"
+        break
+      else
+        puts raw_regex
+        puts "---"
+        puts regex
+        puts "---"
+        puts license_text
+        puts "---"
+        puts license.key
+        puts raw_regex[(raw_regex.length - i - 10)...(raw_regex.length - i + 10)]
+        puts " " * 10 + "^"
+        exit
+      end
+    end
+
+
+  end
+
+  puts "FIN!"
+end

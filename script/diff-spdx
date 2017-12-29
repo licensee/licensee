@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/licensee'
+require 'tmpdir'
+
+licenses = Licensee::License.all(hidden: true, psuedo: false)
+licenses.each do |license|
+  license_text = license.content_normalized(wrap: 80)
+
+  template = Licensee::LicenseTemplate.find(license.key)
+  template_text = template.content_normalized
+  fields = template.send(:fields).map { |f| [f[:field], f[:original]] }
+  template_text.gsub!(Licensee::LicenseTemplate::FIELD_REGEX, fields.to_h)
+  template_text = Licensee::ContentHelper.wrap(template_text, 80)
+  template_text.gsub!(/<<.*?>>/, '')
+
+  dir = Dir.mktmpdir
+  path = File.expand_path 'LICENSE', dir
+
+  Dir.chdir(dir) do
+    `git init`
+    File.write(path, license_text)
+    `git add LICENSE`
+    `git commit -m 'left'`
+    File.write(path, template_text)
+    puts `git diff --word-diff`
+  end
+end

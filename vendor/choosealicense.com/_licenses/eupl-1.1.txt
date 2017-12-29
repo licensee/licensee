@@ -100,7 +100,7 @@ person.
 2. Scope of the rights granted by the Licence
 
 The Licensor hereby grants You a world-wide, royalty-free, non-exclusive,
-sub-licensable licence to do the following, for the duration of copyright
+sublicensable licence to do the following, for the duration of copyright
 vested in the Original Work:
 
 - use the Work in any circumstance and for all usage,

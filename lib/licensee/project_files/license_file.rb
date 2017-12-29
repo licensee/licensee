@@ -51,7 +51,8 @@ module Licensee
       def possible_matchers
         [
           Matchers::Copyright, Matchers::Exact,
-          Matchers::SpdxTemplate, Matchers::Dice
+          # Matchers::SpdxTemplate,
+          Matchers::Dice
         ]
       end
 

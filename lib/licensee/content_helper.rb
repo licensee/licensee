@@ -4,14 +4,64 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
+    START_REGEX = /(?<=\A|<<endOptional>>)\s*/i
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
-    HR_REGEX = /[=\-\*][=\-\*\s]{3,}/
+    HR_REGEX = /^\s*[=\-\*][=\-\* ]{2,}/
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
-    ALL_RIGHTS_RESERVED_REGEX = /\Aall rights reserved\.?$/i
+    ALL_RIGHTS_RESERVED_REGEX = /#{START_REGEX}all rights reserved\.?$/i
     WHITESPACE_REGEX = /\s+/
     MARKDOWN_HEADING_REGEX = /\A\s*#+/
     VERSION_REGEX = /\Aversion.*$/i
-    MARKUP_REGEX = /[#_*=~\[\]()`|>]+/
+    MARKUP_REGEX = /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/
+    URL_REGEX = /#{START_REGEX}https?:\/\/[^ ]+/
+    BULLET_REGEX = /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.]+)\s+/i
+
+    # Legally equivalent words that schould be ignored for comparison
+    # See https://spdx.org/spdx-license-list/matching-guidelines
+    VARIETAL_WORDS = {
+      'acknowledgment'  => 'acknowledgement',
+      'analogue'        => 'analog',
+      'analyse'         => 'analyze',
+      'artefact'        => 'artifact',
+      'authorisation'   => 'authorization',
+      'authorised'      => 'authorized',
+      'calibre'         => 'caliber',
+      'cancelled'       => 'canceled',
+      'capitalisations' => 'capitalizations',
+      'catalogue'       => 'catalog',
+      'categorise'      => 'categorize',
+      'centre'          => 'center',
+      'emphasised'      => 'emphasized',
+      'favour'          => 'favor',
+      'favourite'       => 'favorite',
+      'fulfil'          => 'fulfill',
+      'fulfilment'      => 'fulfillment',
+      'initialise'      => 'initialize',
+      'judgment'        => 'judgement',
+      'labelling'       => 'labeling',
+      'labour'          => 'labor',
+      'licence'         => 'license',
+      'maximise'        => 'maximize',
+      'modelled'        => 'modeled',
+      'modelling'       => 'modeling',
+      'offence'         => 'offense',
+      'optimise'        => 'optimize',
+      'organisation'    => 'organization',
+      'organise'        => 'organize',
+      'practise'        => 'practice',
+      'programme'       => 'program',
+      'realise'         => 'realize',
+      'recognise'       => 'recognize',
+      'signalling'      => 'signaling',
+      'sub-license'     => 'sublicense',
+      'sub license'     => 'sublicense',
+      'utilisation'     => 'utilization',
+      'whilst'          => 'while',
+      'wilful'          => 'wilfull',
+      'non-commercial'  => 'noncommercial',
+      'cent'            => 'percent',
+      'owner'           => 'holder'
+    }.freeze
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -73,13 +123,23 @@ module Licensee
       return unless content
       @content_normalized ||= begin
         string = content_without_title_and_version.downcase
+        %i[dashes quotes spelling copyright bullets ampersands].each do |operation|
+          string = send("normalize_#{operation}", string)
+        end
+
         while string =~ Matchers::Copyright::REGEX
           string = strip_copyright(string)
         end
-        string = strip_all_rights_reserved(string)
+
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
-        string = strip_markup(string)
-        strip_whitespace(string)
+
+        %i[
+          all_rights_reserved url markup whitespace
+        ].each do |operation|
+          string = send("strip_#{operation}", string)
+        end
+
+        string
       end
 
       if wrap.nil?
@@ -93,10 +153,13 @@ module Licensee
     def self.wrap(text, line_width = 80)
       return if text.nil?
       text = text.clone
+      text.gsub!(BULLET_REGEX) { |m| "\n#{m}\n" }
       text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
 
       text = text.split("\n").collect do |line|
-        if line.length > line_width
+        if line =~ HR_REGEX
+          line
+        elsif line.length > line_width
           line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
         else
           line
@@ -122,7 +185,7 @@ module Licensee
       end
       titles.concat(without_versions.compact)
 
-      /\A\s*\(?(the )?#{Regexp.union titles}.*$/i
+      /#{START_REGEX}\s*\(?(the )?#{Regexp.union titles}.*$/i
     end
 
     private
@@ -161,8 +224,39 @@ module Licensee
       strip(string, MARKUP_REGEX)
     end
 
+    def strip_url(string)
+      strip(string, URL_REGEX)
+    end
+
     def strip(string, regex)
       string.gsub(regex, ' ').squeeze(' ').strip
+    end
+
+    def normalize_dashes(string)
+      string.gsub(/[—–-]+/, '-')
+    end
+
+    def normalize_quotes(string)
+      string = string.gsub(/[“”]+(?!s\s)/, '"')
+      string.gsub(/’/, "'")
+    end
+
+    def normalize_spelling(string)
+      regex = /\b#{Regexp.union(VARIETAL_WORDS.keys)}\b/
+      string.gsub(regex, VARIETAL_WORDS)
+    end
+
+    def normalize_copyright(string)
+      string.gsub(/(?:copyright\ )?#{Matchers::Copyright::COPYRIGHT_SYMBOLS}/, 'copyright')
+    end
+
+    def normalize_bullets(string)
+      string = string.gsub(BULLET_REGEX, "\n\n* ")
+      string.gsub(/\)[\s\n]+\(/, ')(')
+    end
+
+    def normalize_ampersands(string)
+      string.gsub("&", "and")
     end
   end
 end
