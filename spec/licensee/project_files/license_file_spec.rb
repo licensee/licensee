@@ -109,11 +109,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
 
     context 'any extension regex' do
       it 'matches .foo' do
-        expect(described_class::NONSPDX_EXT_REGEX).to match('.foo')
+        expect(described_class::OTHER_EXT_REGEX).to match('.foo')
       end
 
       it 'does not match .md/foo' do
-        expect(described_class::NONSPDX_EXT_REGEX).to_not match('.md/foo')
+        expect(described_class::OTHER_EXT_REGEX).to_not match('.md/foo')
       end
     end
 
