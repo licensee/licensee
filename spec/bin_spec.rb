@@ -61,12 +61,4 @@ RSpec.describe 'command line invocation' do
       expect(stdout).to match('License: MIT License')
     end
   end
-
-  context 'when given a repo URL' do
-    let(:arguments) { 'https://github.com/benbalter/licensee' }
-
-    it "detects the file's license" do
-      expect(stdout).to match('License: MIT License')
-    end
-  end
 end
