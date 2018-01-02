@@ -3,7 +3,7 @@
 require 'licensee'
 
 Licensee::License.all(hidden: true, psuedo: false).each do |license|
-  next if ['gpl-2.0', 'cc-by-4.0'].include? license.key
+  next if ['gpl-2.0', 'cc-by-4.0', 'lgpl-2.1'].include? license.key
   puts license.key
 
   license_text = license.content_normalized

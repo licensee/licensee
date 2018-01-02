@@ -14,7 +14,7 @@ module Licensee
     VERSION_REGEX = /\Aversion.*$/i
     MARKUP_REGEX = /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/
     URL_REGEX = /#{START_REGEX}https?:\/\/[^ ]+/
-    BULLET_REGEX = /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.]+)\s+/i
+    BULLET_REGEX = /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i
 
     # Legally equivalent words that schould be ignored for comparison
     # See https://spdx.org/spdx-license-list/matching-guidelines
@@ -134,7 +134,7 @@ module Licensee
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
 
         %i[
-          all_rights_reserved url markup whitespace
+          all_rights_reserved url borders markup whitespace
         ].each do |operation|
           string = send("strip_#{operation}", string)
         end
@@ -190,73 +190,6 @@ module Licensee
 
     private
 
-    def strip_title(string)
-      strip(string, ContentHelper.title_regex)
-    end
-
-    def strip_version(string)
-      strip(string, VERSION_REGEX)
-    end
-
-    def strip_copyright(string)
-      strip(string, Matchers::Copyright::REGEX)
-    end
-
-    # Strip HRs from MPL
-    def strip_hrs(string)
-      strip(string, HR_REGEX)
-    end
-
-    # Strip leading #s from the document
-    def strip_markdown_headings(string)
-      strip(string, MARKDOWN_HEADING_REGEX)
-    end
-
-    def strip_whitespace(string)
-      strip(string, WHITESPACE_REGEX)
-    end
-
-    def strip_all_rights_reserved(string)
-      strip(string, ALL_RIGHTS_RESERVED_REGEX)
-    end
-
-    def strip_markup(string)
-      strip(string, MARKUP_REGEX)
-    end
-
-    def strip_url(string)
-      strip(string, URL_REGEX)
-    end
-
-    def strip(string, regex)
-      string.gsub(regex, ' ').squeeze(' ').strip
-    end
-
-    def normalize_dashes(string)
-      string.gsub(/[—–-]+/, '-')
-    end
-
-    def normalize_quotes(string)
-      string = string.gsub(/[“”]+(?!s\s)/, '"')
-      string.gsub(/’/, "'")
-    end
-
-    def normalize_spelling(string)
-      regex = /\b#{Regexp.union(VARIETAL_WORDS.keys)}\b/
-      string.gsub(regex, VARIETAL_WORDS)
-    end
-
-    def normalize_copyright(string)
-      string.gsub(/(?:copyright\ )?#{Matchers::Copyright::COPYRIGHT_SYMBOLS}/, 'copyright')
-    end
-
-    def normalize_bullets(string)
-      string = string.gsub(BULLET_REGEX, "\n\n* ")
-      string.gsub(/\)[\s\n]+\(/, ')(')
-    end
-
-    def normalize_ampersands(string)
-      string.gsub("&", "and")
-    end
+    
   end
 end
