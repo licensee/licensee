@@ -1,12 +1,12 @@
 RSpec.describe Licensee::LicenseField do
   context 'class' do
     it 'returns all license fields' do
-      expect(described_class.all.count).to eql(6)
+      expect(described_class.all.count).to eql(7)
       expect(described_class.all.first).to be_a(Licensee::LicenseField)
     end
 
     it 'returns all license field keys' do
-      expect(described_class.keys.count).to eql(6)
+      expect(described_class.keys.count).to eql(7)
       expect(described_class.keys.first).to be_a(String)
       expect(described_class.keys.first).to eql('fullname')
     end

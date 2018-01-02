@@ -45,9 +45,11 @@ module Licensee
     # power (**) which is itself scaled by wordset size (log10 of 100 is 2,
     # 1000 is 3).
     def similarity(other)
-      overlap = (wordset & other.wordset).size
-      total = wordset.size + other.wordset.size
-      100.0 * ((overlap * 2.0 / total)**Math.log10(wordset.size))
+      wordset_fieldless = wordset - LicenseField.keys
+      fields_removed = wordset.size - wordset_fieldless.size
+      overlap = (wordset_fieldless & other.wordset).size
+      total = wordset_fieldless.size + other.wordset.size - fields_removed
+      100.0 * ((overlap * 2.0 / total)**Math.log10(wordset_fieldless.size))
     end
 
     # SHA1 of the normalized content
