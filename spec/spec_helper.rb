@@ -6,6 +6,9 @@ require 'open3'
 require 'tmpdir'
 require 'mustache'
 
+require 'webmock/rspec'
+WebMock.disable_net_connect!
+
 RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.example_status_persistence_file_path = 'spec/examples.txt'
@@ -28,6 +31,23 @@ end
 
 def fixture_path(fixture)
   File.expand_path fixture, fixtures_base
+end
+
+def fixture_contents(fixture)
+  File.read fixture_path(fixture)
+end
+
+def fixture_root_files(fixture)
+  Dir["#{fixture_path(fixture)}/*"]
+end
+
+def fixture_root_contents_from_api(fixture)
+  fixture_root_files(fixture).map do |file|
+    {
+      name: File.basename(file),
+      type: 'file'
+    }
+  end.to_json
 end
 
 def sub_copyright_info(license)
