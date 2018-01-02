@@ -115,8 +115,10 @@ module Licensee
     # Given another license or project file, calculates the similarity
     # as a percentage of words in common
     def similarity(other)
-      overlap = (wordset & other.wordset).size
-      total = wordset.size + other.wordset.size
+      wordset_fieldless = wordset - LicenseField.keys
+      fields_removed = wordset.size - wordset_fieldless.size
+      overlap = (wordset_fieldless & other.wordset).size
+      total = wordset_fieldless.size + other.wordset.size - fields_removed
       100.0 * (overlap * 2.0 / total)
     end
 
