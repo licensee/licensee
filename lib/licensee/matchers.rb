@@ -2,6 +2,7 @@ module Licensee
   module Matchers
     autoload :Matcher,   'licensee/matchers/matcher'
     autoload :Cabal,     'licensee/matchers/cabal'
+    autoload :Cargo,     'licensee/matchers/cargo'
     autoload :Copyright, 'licensee/matchers/copyright'
     autoload :Cran,      'licensee/matchers/cran'
     autoload :Dice,      'licensee/matchers/dice'
