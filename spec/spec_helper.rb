@@ -52,11 +52,11 @@ end
 
 def sub_copyright_info(license)
   Mustache.render license.content_for_mustache,
-                  fullname:    'Ben Balter',
-                  year:        '2016',
-                  email:       'ben@github.invalid',
-                  project:     'LicenseeSpec',
-                  projecturl:  'https://licenseespec.invalid'
+                  fullname:   'Ben Balter',
+                  year:       '2016',
+                  email:      'ben@github.invalid',
+                  project:    'LicenseeSpec',
+                  projecturl: 'https://licenseespec.invalid'
 end
 
 # Add random words to the end of a license to test similarity tollerances
