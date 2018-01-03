@@ -12,12 +12,14 @@ module Licensee
       FILENAMES_EXTENSIONS = {
         'DESCRIPTION'  => [Matchers::Cran],
         'dist.ini'     => [Matchers::DistZilla],
-        'LICENSE.spdx' => [Matchers::Spdx]
+        'LICENSE.spdx' => [Matchers::Spdx],
+        'Cargo.toml'   => [Matchers::Cargo]
       }.freeze
 
       FILENAMES_SCORES = {
         'package.json' => 1.0,
         'LICENSE.spdx' => 1.0,
+        'Cargo.toml'   => 1.0,
         'DESCRIPTION'  => 0.9,
         'dist.ini'     => 0.8,
         'bower.json'   => 0.75
