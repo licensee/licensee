@@ -8,6 +8,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
       'licensee.gemspec' => 1.0,
       'test.cabal'       => 1.0,
       'package.json'     => 1.0,
+      'Cargo.toml'       => 1.0,
       'DESCRIPTION'      => 0.9,
       'dist.ini'         => 0.8,
       'bower.json'       => 0.75,
