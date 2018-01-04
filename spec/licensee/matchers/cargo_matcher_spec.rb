@@ -23,7 +23,8 @@ RSpec.describe Licensee::Matchers::Cargo do
     'double quoted key'  => ['"license"="mit"', 'mit'],
     'no whitespace'      => ["license='mit'", 'mit'],
     'leading whitespace' => [" license = 'mit'", 'mit'],
-    'other license'      => ['license = "Foo"', 'other']
+    'other license'      => ['license = "Foo"', 'other'],
+    'multiple licenses'  => ['license = "Apache-2.0/MIT"', 'other']
   }.each do |description, license_declaration_and_key|
     context "with a #{description}" do
       let(:content) { license_declaration_and_key[0] }
