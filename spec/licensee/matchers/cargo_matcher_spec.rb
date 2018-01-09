@@ -17,14 +17,16 @@ RSpec.describe Licensee::Matchers::Cargo do
   end
 
   {
-    'spdx name'          => ['license = "MIT"', 'mit'],
-    'single quotes'      => ["license = 'mit'", 'mit'],
-    'quoted key'         => ["'license' = 'mit'", 'mit'],
-    'double quoted key'  => ['"license"="mit"', 'mit'],
-    'no whitespace'      => ["license='mit'", 'mit'],
-    'leading whitespace' => [" license = 'mit'", 'mit'],
-    'other license'      => ['license = "Foo"', 'other'],
-    'multiple licenses'  => ['license = "Apache-2.0/MIT"', 'other']
+    'spdx name'                => ['license = "MIT"', 'mit'],
+    'single quotes'            => ["license = 'mit'", 'mit'],
+    'quoted key'               => ["'license' = 'mit'", 'mit'],
+    'double quoted key'        => ['"license"="mit"', 'mit'],
+    'no whitespace'            => ["license='mit'", 'mit'],
+    'leading whitespace'       => [" license = 'mit'", 'mit'],
+    'other license'            => ['license = "Foo"', 'other'],
+    'multiple licenses /'      => ['license = "Apache-2.0/MIT"', 'other'],
+    'multiple licenses OR'     => ['license = "Apache-2.0 OR MIT"', 'other'],
+    'multiple licenses parens' => ['license = "(Apache-2.0 OR MIT)"', 'other']
   }.each do |description, license_declaration_and_key|
     context "with a #{description}" do
       let(:content) { license_declaration_and_key[0] }
