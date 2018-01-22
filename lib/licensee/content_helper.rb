@@ -170,7 +170,7 @@ module Licensee
     # Single versus double quotes don't alter the meaning, and it's easier to
     # strip double quotes if we still want to allow possessives
     def normalize_quotes(string)
-      string.gsub(/\s'([\w -]+)'/, ' "\1"')
+      string.gsub(/\s'([\w -]*?\w)'/, ' "\1"')
     end
   end
 end
