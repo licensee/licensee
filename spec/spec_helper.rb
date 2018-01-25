@@ -5,6 +5,7 @@ require 'licensee'
 require 'open3'
 require 'tmpdir'
 require 'mustache'
+require 'yaml'
 
 require 'webmock/rspec'
 WebMock.disable_net_connect!
