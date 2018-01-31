@@ -28,7 +28,7 @@ module Licensee
     # A set of each word in the license, without duplicates
     def wordset
       @wordset ||= if content_normalized
-        content_normalized.scan(/[\w']+/).to_set
+        content_normalized.scan(/(?:\w(?:'s|(?<=s)')?)+/).to_set
       end
     end
 
@@ -92,6 +92,7 @@ module Licensee
         string = strip_cc0_optional(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         string = strip_markup(string)
+        string = normalize_quotes(string)
         strip_whitespace(string)
       end
 
@@ -183,6 +184,13 @@ module Licensee
 
     def strip(string, regex)
       string.gsub(regex, ' ').squeeze(' ').strip
+    end
+
+    # Replace all single quotes with double quotes
+    # Single versus double quotes don't alter the meaning, and it's easier to
+    # strip double quotes if we still want to allow possessives
+    def normalize_quotes(string)
+      string.gsub(/\s'([\w -]*?\w)'/, ' "\1"')
     end
   end
 end

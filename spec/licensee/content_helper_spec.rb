@@ -21,6 +21,9 @@ RSpec.describe Licensee::ContentHelper do
   The made
   * * * *
   up  license.
+
+  This license provided 'as is'. Please respect the contributors' wishes when
+  implementing the license's "software".
   -----------
 LICENSE
   end
@@ -28,11 +31,17 @@ LICENSE
   let(:mit) { Licensee::License.find('mit') }
 
   it 'creates the wordset' do
-    expect(subject.wordset).to eql(Set.new(%w[the made up license]))
+    wordset = Set.new(
+      %w[
+        the made up license this provided as is please respect
+        contributors' wishes when implementing license's software
+      ]
+    )
+    expect(subject.wordset).to eql(wordset)
   end
 
   it 'knows the length' do
-    expect(subject.length).to eql(20)
+    expect(subject.length).to eql(135)
   end
 
   context 'a very long license' do
@@ -44,17 +53,17 @@ LICENSE
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(999)
+    expect(subject.length_delta(mit)).to eql(884)
     expect(subject.length_delta(subject)).to eql(0)
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(2)
+    expect(subject.similarity(mit)).to be_within(1).of(11)
     expect(subject.similarity(subject)).to eql(100.0)
   end
 
   it 'calculates the hash' do
-    content_hash = '3c59634b9fae4396a76a978f3f6aa718ed790a9a'
+    content_hash = '916b978940ecf8070c96bd3aca9321768e7f4901'
     expect(subject.content_hash).to eql(content_hash)
   end
 
@@ -120,6 +129,19 @@ LICENSE
       expect(normalized_content).to_not match(/[*=_-]+/)
     end
 
+    it 'normalizes quotes' do
+      expect(normalized_content).to_not match("'as is'")
+    end
+
+    it 'preserves possessives' do
+      expect(normalized_content).to match("contributors'")
+      expect(normalized_content).to match("license's")
+    end
+
+    it 'preserves double quotes' do
+      expect(normalized_content).to match('"software"')
+    end
+
     Licensee::License.all(hidden: true).each do |license|
       context license.name do
         let(:stripped_content) { subject.content_without_title_and_version }
@@ -158,7 +180,10 @@ LICENSE
     end
 
     it 'normalize the content' do
-      expect(normalized_content).to eql 'the made up license.'
+      expected = 'the made up license. this license provided "as is". '
+      expected << "please respect the contributors' wishes when implementing "
+      expected << "the license's \"software\"."
+      expect(normalized_content).to eql(expected)
     end
 
     context 'a title in parenthesis' do

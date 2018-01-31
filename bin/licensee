@@ -28,7 +28,7 @@ MATCHED_FILE_METHODS = %i[
 project = Licensee.project(path, detect_packages: true, detect_readme: true)
 
 if project.license
-  puts "License: #{project.license.name}"
+  puts "License: #{project.license.name} (#{project.license.spdx_id})"
 elsif project.licenses
   puts "Licenses: #{project.licenses.map(&:name)}"
 else
