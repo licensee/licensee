@@ -16,13 +16,10 @@ module Licensee
     CC0_INFO = 'For more information, please see\s*' +
                '<http://creativecommons.org/publicdomain/zero/1.0/>\s*'.freeze
     CC0_INFO_REGEX = /#{CC0_INFO}/im
-    CC0_DISCLAIMER = %(CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES
-    NOT PROVIDE LEGAL SERVICES. DISTRIBUTION OF THIS DOCUMENT DOES NOT CREATE AN
-    ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON
-    AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE USE OF
-    THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED HEREUNDER, AND DISCLAIMS
-    LIABILITY FOR DAMAGES RESULTING FROM THE USE OF THIS DOCUMENT OR THE
-    INFORMATION OR WORKS PROVIDED HEREUNDER.).gsub(/\s+/m, '\s+').freeze
+    CC0_DISCLAIMER = Licensee::License
+                     .find('cc0-1.0').content
+                     .match(/CREATIVE COMMONS CORPORATION.*?\n\n/m)[0]
+                     .gsub(/\s+/m, '\s+').freeze
     CC0_DISCLAIMER_REGEX = /#{CC0_DISCLAIMER}/im
 
     # A set of each word in the license, without duplicates
