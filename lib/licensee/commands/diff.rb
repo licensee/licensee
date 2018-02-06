@@ -58,7 +58,7 @@ class LicenseeCLI < Thor
     if options[:license]
       error "#{options[:license]} is not a valid license"
     else
-      error "You must provide an expected license"
+      error 'You must provide an expected license'
     end
 
     error "Valid licenses: #{Licensee::License.all(hidden: true).map(&:key).join(', ')}"

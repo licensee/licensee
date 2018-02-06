@@ -23,7 +23,7 @@ class LicenseeCLI < Thor
     rows << if project.license
               ['License:', project.license.name]
             elsif !project.licenses.empty?
-              ["Licenses:", project.licenses.map(&:name)]
+              ['Licenses:', project.licenses.map(&:name)]
             else
               ['License:', set_color('None', :red)]
             end
@@ -31,7 +31,7 @@ class LicenseeCLI < Thor
     unless project.matched_files.empty?
       rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')]
     end
-    
+
     print_table rows
 
     project.matched_files.each do |matched_file|
@@ -62,9 +62,10 @@ class LicenseeCLI < Thor
 
     if project.license_file && (options[:license] || options[:diff])
       license = options[:license] || closest_license_key(project.license_file)
-      invoke(:diff, nil,
-        license: license, license_to_diff: project.license_file
-      ) if license
+      if license
+        invoke(:diff, nil,
+               license: license, license_to_diff: project.license_file)
+      end
     end
 
     exit !project.licenses.empty?
