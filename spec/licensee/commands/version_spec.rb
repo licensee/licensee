@@ -1,5 +1,5 @@
-RSpec.describe 'command line invocation' do
-  let(:command) { ['bundle', 'exec', 'bin/licensee', 'help'] }
+RSpec.describe 'version command' do
+  let(:command) { ['bundle', 'exec', 'bin/licensee', 'version'] }
   let(:arguments) { [] }
   let(:output) do
     Dir.chdir project_root do
@@ -11,11 +11,11 @@ RSpec.describe 'command line invocation' do
   let(:stderr) { output[1] }
   let(:status) { output[2] }
 
-  it 'Returns a zero exit code' do
-    expect(status.exitstatus).to eql(0)
+  it 'returns the version' do
+    expect(stdout).to include(Licensee::VERSION)
   end
 
-  it 'returns the help text' do
-    expect(stdout).to include('Licensee commands:')
+  it 'Returns a zero exit code' do
+    expect(status.exitstatus).to eql(0)
   end
 end

@@ -38,3 +38,16 @@ Layout/IndentHeredoc:
 
 Style/StructInheritance:
   Enabled: false
+
+Metrics/LineLength:
+  Exclude:
+    - bin/*
+    - lib/licensee/commands/*
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - lib/licensee/commands/*
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - lib/licensee/commands/*

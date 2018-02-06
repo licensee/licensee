@@ -12,6 +12,9 @@ module Licensee
 
     PREDICATE_FIELDS = %i[featured hidden].freeze
 
+    include Licensee::HashHelper
+    HASH_METHODS = members - %i[conditions permissions limitations spdx_id]
+
     class << self
       # Create a new LicenseMeta from YAML
       #

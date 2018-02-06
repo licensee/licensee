@@ -10,6 +10,11 @@ module Licensee
 
       attr_reader :content
 
+      include Licensee::HashHelper
+      HASH_METHODS = %i[
+        filename content content_hash content_normalized matcher matched_license
+      ].freeze
+
       ENCODING = Encoding::UTF_8
       ENCODING_OPTIONS = {
         invalid: :replace,
@@ -61,12 +66,24 @@ module Licensee
       alias match license
       alias path filename
 
+      def matched_license
+        license.key if license
+      end
+
       # Is this file a COPYRIGHT file with only a copyright statement?
       # If so, it can be excluded from determining if a project has >1 license
       def copyright?
         return false unless is_a?(LicenseFile)
         return false unless matcher.is_a?(Matchers::Copyright)
         filename =~ /\Acopyright(?:#{LicenseFile::OTHER_EXT_REGEX})?\z/i
+      end
+
+      def content_hash
+        nil
+      end
+
+      def content_normalized
+        nil
       end
     end
   end

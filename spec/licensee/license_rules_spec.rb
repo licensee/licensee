@@ -42,4 +42,19 @@ RSpec.describe Licensee::LicenseRules do
       expect(subject.permissions.first.label).to eql('Commercial use')
     end
   end
+
+  context 'to_h' do
+    let(:hash) { subject.to_h }
+    let(:expected) do
+      {
+        conditions:  subject.conditions.map(&:to_h),
+        permissions: subject.permissions.map(&:to_h),
+        limitations: subject.limitations.map(&:to_h)
+      }
+    end
+
+    it 'Converts to a hash' do
+      expect(hash).to eql(expected)
+    end
+  end
 end

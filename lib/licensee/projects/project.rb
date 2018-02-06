@@ -10,6 +10,9 @@ module Licensee
       alias detect_readme? detect_readme
       alias detect_packages? detect_packages
 
+      include Licensee::HashHelper
+      HASH_METHODS = %i[licenses matched_files].freeze
+
       def initialize(detect_packages: false, detect_readme: false)
         @detect_packages = detect_packages
         @detect_readme = detect_readme

@@ -94,7 +94,12 @@ module Licensee
     SOURCE_PREFIX = %r{https?://(?:www\.)?}i
     SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)}i
 
+    HASH_METHODS = %i[
+      key spdx_id meta url rules fields other? gpl? lgpl? cc?
+    ].freeze
+
     include Licensee::ContentHelper
+    include Licensee::HashHelper
     extend Forwardable
     def_delegators :meta, *LicenseMeta.helper_methods
 
