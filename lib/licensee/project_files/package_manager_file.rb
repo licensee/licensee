@@ -35,14 +35,6 @@ module Licensee
         FILENAMES_SCORES[filename] || 0.0
       end
 
-      def content_hash
-        nil
-      end
-
-      def content_normalized
-        nil
-      end
-
       private
 
       def extension

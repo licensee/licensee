@@ -11,7 +11,7 @@ module Licensee
       end
 
       def name
-        @name ||= self.class.to_s.split('::').last.to_sym
+        @name ||= self.class.to_s.split('::').last.downcase.to_sym
       end
 
       def match

@@ -1,7 +1,9 @@
 RSpec.describe Licensee::Rule do
   let(:groups) { %w[permissions conditions limitations] }
 
-  it 'stores the properties' do
+  it 'store
+end
+end                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        e properties' do
     rule = described_class.new(
       tag:         'tag',
       label:       'label',
@@ -53,5 +55,19 @@ RSpec.describe Licensee::Rule do
     rule = described_class.all.first
     expect(rule).to be_a(described_class)
     expect(rule.tag).to eql('commercial-use')
+  end
+
+  context 'to_h' do
+    let(:hash) { described_class.all.first.to_h }
+    let(:expected) do
+      {
+        tag:         "commercial-use",
+        label:       "Commercial use",
+        description: "This software and derivatives may be used for commercial purposes."
+      } end
+
+    it 'Converts to a hash' do
+      expect(hash).to eql(expected)
+    end
   end
 end

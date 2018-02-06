@@ -77,6 +77,14 @@ module Licensee
         return false unless matcher.is_a?(Matchers::Copyright)
         filename =~ /\Acopyright(?:#{LicenseFile::OTHER_EXT_REGEX})?\z/i
       end
+
+      def content_hash
+        nil
+      end
+
+      def content_normalized
+        nil
+      end
     end
   end
 end
