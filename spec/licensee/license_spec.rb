@@ -424,20 +424,20 @@ RSpec.describe Licensee::License do
 
   context 'to_h' do
     let(:hash) { mit.to_h }
-    let(:expected) {
+    let(:expected) do
       {
-        key: 'mit',
+        key:     'mit',
         spdx_id: 'MIT',
-        meta: mit.meta.to_h,
-        url: "http://choosealicense.com/licenses/mit/",
-        rules: mit.rules.to_h,
-        fields: mit.fields.map(&:to_h),
-        other: false,
-        gpl: false,
-        lgpl: false,
-        cc: false
+        meta:    mit.meta.to_h,
+        url:     'http://choosealicense.com/licenses/mit/',
+        rules:   mit.rules.to_h,
+        fields:  mit.fields.map(&:to_h),
+        other:   false,
+        gpl:     false,
+        lgpl:    false,
+        cc:      false
       }
-    }
+    end
 
     it 'Converts to a hash' do
       expect(hash).to eql(expected)

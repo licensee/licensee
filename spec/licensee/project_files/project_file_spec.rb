@@ -46,19 +46,19 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
 
   context 'to_h' do
     let(:hash) { subject.to_h }
-    let(:expected) {
+    let(:expected) do
       {
-        filename: "LICENSE.txt",
-        content: mit.content.to_s,
-        content_hash: nil,
+        filename:           'LICENSE.txt',
+        content:            mit.content.to_s,
+        content_hash:       nil,
         content_normalized: nil,
-        matcher: {
-          name: :exact,
+        matcher:            {
+          name:       :exact,
           confidence: 100
         },
-        matched_license: 'mit'
+        matched_license:    'mit'
       }
-    }
+    end
 
     it 'Converts to a hash' do
       expect(hash).to eql(expected)

@@ -30,17 +30,17 @@ RSpec.describe Licensee::HashHelper do
 
   let(:fixture) { HashHelperSpecFixture.new }
   let(:hash) { fixture.to_h }
-  let(:expected) {
+  let(:expected) do
     {
-      string: 'foo',
-      array: [1,2,3],
-      rule: Licensee::Rule.all.first.to_h,
-      rules: Licensee::Rule.all.map(&:to_h),
+      string:    'foo',
+      array:     [1, 2, 3],
+      rule:      Licensee::Rule.all.first.to_h,
+      rules:     Licensee::Rule.all.map(&:to_h),
       nil_value: nil
     }
-  }
+  end
 
-  it "calls to_h recursively" do
+  it 'calls to_h recursively' do
     expect(hash).to eql(expected)
   end
 

@@ -21,12 +21,14 @@ RSpec.describe Licensee::Matchers::Matcher do
 
     subject { MatcherSpecFixture.new(file) }
     let(:hash) { subject.to_h }
-    let(:expected) {{
-      confidence: 0,
-      name: :matcherspecfixture
-    }}
+    let(:expected) do
+      {
+        confidence: 0,
+        name:       :matcherspecfixture
+      }
+    end
 
-    it "converts to a hash" do
+    it 'converts to a hash' do
       expect(hash).to eql(expected)
     end
   end
