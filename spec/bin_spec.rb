@@ -84,4 +84,22 @@ RSpec.describe 'command line invocation' do
       expect(status.exitstatus).to eql(0)
     end
   end
+
+  context 'json' do
+    let(:subcommand) { 'detect' }
+    let(:arguments) { ['--json'] }
+    let(:expected) { JSON.parse fixture_contents('detect.json') }
+
+    it 'Returns a zero exit code' do
+      expect(status.exitstatus).to eql(0)
+    end
+
+    it 'returns valid JSON' do
+      expect { JSON.parse(stdout) }.to_not raise_error
+    end
+
+    it 'returns the expected output' do
+      expect(JSON.parse(stdout)).to eql(expected)
+    end
+  end
 end
