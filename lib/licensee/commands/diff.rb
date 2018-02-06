@@ -52,10 +52,15 @@ class LicenseeCLI < Thor
   end
 
   def expected_license
-    @expected_license ||= Licensee::License.find options[:license]
+    @expected_license ||= Licensee::License.find options[:license] if options[:license]
     return @expected_license if @expected_license
 
-    error "#{options[:license]} is not a valid license"
+    if options[:license]
+      error "#{options[:license]} is not a valid license"
+    else
+      error "You must provide an expected license"
+    end
+
     error "Valid licenses: #{Licensee::License.all(hidden: true).map(&:key).join(', ')}"
     exit 1
   end

@@ -22,13 +22,16 @@ class LicenseeCLI < Thor
     rows = []
     rows << if project.license
               ['License:', project.license.name]
-            elsif project.licenses
-              ['Licenses:', project.licenses.map(&:name)]
+            elsif !project.licenses.empty?
+              ["Licenses:", project.licenses.map(&:name)]
             else
               ['License:', set_color('None', :red)]
             end
 
-    rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')]
+    unless project.matched_files.empty?
+      rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')]
+    end
+    
     print_table rows
 
     project.matched_files.each do |matched_file|
