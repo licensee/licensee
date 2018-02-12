@@ -14,10 +14,7 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.example_status_persistence_file_path = 'spec/examples.txt'
   config.disable_monkey_patching!
-  config.warnings = true
-
   config.default_formatter = 'doc' if config.files_to_run.one?
-
   config.order = :random
   Kernel.srand config.seed
 end
@@ -51,10 +48,20 @@ def fixture_root_contents_from_api(fixture)
   end.to_json
 end
 
+def field_values
+  {
+    fullname:    'Ben Balter',
+    year:        '2018',
+    email:       'ben@github.invalid',
+    projecturl:  'http://github.invalid/benbalter/licensee',
+    login:       'benbalter',
+    project:     'Licensee',
+    description: 'Detects licenses'
+  }
+end
+
 def sub_copyright_info(license)
-  Mustache.render license.content_for_mustache, fullname: 'Ben Balter',
-                                                year:     '2016',
-                                                email:    'ben@github.invalid'
+  Mustache.render license.content_for_mustache, field_values
 end
 
 # Add random words to the end of a license to test similarity tollerances

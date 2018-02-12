@@ -12,6 +12,7 @@ module Licensee
     MARKDOWN_HEADING_REGEX = /\A\s*#+/
     VERSION_REGEX = /\Aversion.*$/i
     MARKUP_REGEX = /[#_*=~\[\]()`|>]+/
+    DEVELOPED_BY_REGEX = /\Adeveloped by:.*?\n\n/im
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -77,6 +78,7 @@ module Licensee
           string = strip_copyright(string)
         end
         string = strip_all_rights_reserved(string)
+        string = strip_developed_by(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         string = strip_markup(string)
         string = normalize_quotes(string)
@@ -160,6 +162,10 @@ module Licensee
 
     def strip_markup(string)
       strip(string, MARKUP_REGEX)
+    end
+
+    def strip_developed_by(string)
+      strip(string, DEVELOPED_BY_REGEX)
     end
 
     def strip(string, regex)

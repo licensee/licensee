@@ -7,7 +7,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   subject { described_class.new(content, filename) }
 
   it 'parses the attribution' do
-    expect(subject.attribution).to eql('Copyright (c) 2016 Ben Balter')
+    expect(subject.attribution).to eql('Copyright (c) 2018 Ben Balter')
   end
 
   context "when there's a random copyright-like line" do

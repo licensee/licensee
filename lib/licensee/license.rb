@@ -92,7 +92,7 @@ module Licensee
     }.freeze
 
     SOURCE_PREFIX = %r{https?://(?:www\.)?}i
-    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)}i
+    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i
 
     HASH_METHODS = %i[
       key spdx_id meta url rules fields other? gpl? lgpl? cc?
