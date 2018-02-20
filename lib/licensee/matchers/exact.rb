@@ -1,12 +1,6 @@
 module Licensee
   module Matchers
-    class Exact
-      attr_reader :file
-
-      def initialize(file)
-        @file = file
-      end
-
+    class Exact < Licensee::Matchers::Matcher
       def match
         return @match if defined? @match
         @match = Licensee.licenses(hidden: true).find do |license|

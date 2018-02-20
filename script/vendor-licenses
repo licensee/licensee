@@ -1,2 +1,4 @@
+#!/bin/sh
+
 rm -Rf vendor/choosealicense.com
 bower install github/choosealicense.com#gh-pages

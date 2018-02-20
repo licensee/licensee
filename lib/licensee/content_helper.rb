@@ -21,6 +21,7 @@ module Licensee
                      .match(/CREATIVE COMMONS CORPORATION.*?\n\n/m)[0]
                      .gsub(/\s+/m, '\s+').freeze
     CC0_DISCLAIMER_REGEX = /#{CC0_DISCLAIMER}/im
+    DEVELOPED_BY_REGEX = /\Adeveloped by:.*?\n\n/im
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -87,6 +88,7 @@ module Licensee
         end
         string = strip_all_rights_reserved(string)
         string = strip_cc0_optional(string)
+        string = strip_developed_by(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         string = strip_markup(string)
         string = normalize_quotes(string)
@@ -177,6 +179,10 @@ module Licensee
 
     def strip_markup(string)
       strip(string, MARKUP_REGEX)
+    end
+
+    def strip_developed_by(string)
+      strip(string, DEVELOPED_BY_REGEX)
     end
 
     def strip(string, regex)

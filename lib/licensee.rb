@@ -6,6 +6,7 @@ require 'yaml'
 
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
+  autoload :HashHelper, 'licensee/hash_helper'
   autoload :License, 'licensee/license'
   autoload :LicenseField, 'licensee/license_field'
   autoload :LicenseMeta, 'licensee/license_meta'

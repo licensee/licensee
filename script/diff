@@ -1,50 +1,5 @@
-#!/usr/bin/env ruby
+#!/bin/sh
 # Diffs STDIN against a known license
 # Example usage: cat LICENSE.md | be script/diff mit
 
-require 'licensee'
-require 'tmpdir'
-
-if STDIN.tty? || ARGV[0].to_s.empty?
-  puts 'USAGE: [LICENSE_CONTENT] | script/diff [LICENSE_ID]'
-  exit 1
-end
-
-text = STDIN.read
-license_file = Licensee::ProjectFiles::LicenseFile.new(text, 'LICENSE')
-license = Licensee::License.find(ARGV[0])
-
-if license.nil?
-  puts "#{ARGV[0]} is not a valid license"
-  licenses = Licensee::License.all(hidden: true).map(&:key).join(', ')
-  puts "Valid licenses: #{licenses}"
-  exit 1
-end
-
-puts "Comparing to #{license.name}:"
-
-left = license.content_normalized(wrap: 80)
-right = license_file.content_normalized(wrap: 80)
-
-puts "  Input length: #{license_file.length}"
-puts "  License length: #{license.length}"
-similarity = license.similarity(license_file)
-similarity = Licensee::ContentHelper.format_percent(similarity)
-puts "  Similarity: #{similarity}"
-
-if left == right
-  puts '  Exact match!'
-  exit
-end
-
-dir = Dir.mktmpdir
-path = File.expand_path 'LICENSE', dir
-
-Dir.chdir(dir) do
-  `git init`
-  File.write(path, left)
-  `git add LICENSE`
-  `git commit -m 'left'`
-  File.write(path, right)
-  puts `git diff --word-diff`
-end
+$STDIN | bundle exec bin/licensee --license $1

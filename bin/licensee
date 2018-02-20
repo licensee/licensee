@@ -1,64 +1,37 @@
 #!/usr/bin/env ruby
 
+require 'dotenv/load'
+require 'thor'
+require 'json'
+
 require_relative '../lib/licensee'
 
-path = ARGV[0] || Dir.pwd
+class LicenseeCLI < Thor
+  package_name 'Licensee'
+  class_option :remote, type: :boolean, desc: 'Assume PATH is a GitHub owner/repo path'
+  default_task :detect
 
-# Given a string or object, prepares it for output and human consumption
-def humanize(value, type = nil)
-  case type
-  when :license
-    value.name
-  when :matcher
-    value.class
-  when :confidence
-    Licensee::ContentHelper.format_percent(value)
-  when :method
-    value.to_s.tr('_', ' ').capitalize
-  else
-    value
+  private
+
+  def path
+    @path ||= if !options[:remote] || args.first =~ %r{^https://}
+      args.first || Dir.pwd
+    else
+      "https://github.com/#{args.first}"
+    end
+  end
+
+  def project
+    @project ||= Licensee.project(path,
+                                  detect_packages: options[:packages], detect_readme: options[:readme])
+  end
+
+  def remote?
+    path =~ %r{^https://}
   end
 end
 
-# Methods to call when displaying information about ProjectFiles
-MATCHED_FILE_METHODS = %i[
-  content_hash attribution confidence matcher license
-].freeze
+commands_dir = File.expand_path 'lib/licensee/commands/'
+Dir["#{commands_dir}/*.rb"].each { |c| require(c) }
 
-project = Licensee.project(path, detect_packages: true, detect_readme: true)
-
-if project.license
-  puts "License: #{project.license.name} (#{project.license.spdx_id})"
-elsif project.licenses
-  puts "Licenses: #{project.licenses.map(&:name)}"
-else
-  puts 'License: Not detected'
-end
-
-puts "Matched files: #{project.matched_files.map(&:filename)}"
-
-project.matched_files.each do |matched_file|
-  puts "#{matched_file.filename}:"
-
-  MATCHED_FILE_METHODS.each do |method|
-    next unless matched_file.respond_to? method
-    value = matched_file.public_send method
-    next if value.nil?
-    puts "  #{humanize(method, :method)}: #{humanize(value, method)}"
-  end
-
-  next unless matched_file.is_a? Licensee::ProjectFiles::LicenseFile
-  next unless matched_file.confidence != 100
-
-  matcher = Licensee::Matchers::Dice.new(matched_file)
-  licenses = matcher.licenses_by_similiarity
-  next if licenses.empty?
-  puts '  Closest licenses:'
-  licenses[0...3].each do |license, similarity|
-    spdx_id = license.meta['spdx-id']
-    percent = Licensee::ContentHelper.format_percent(similarity)
-    puts "    * #{spdx_id} similarity: #{percent}"
-  end
-end
-
-exit !project.licenses.empty?
+LicenseeCLI.start(ARGV)
