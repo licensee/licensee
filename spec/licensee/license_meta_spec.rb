@@ -107,4 +107,38 @@ RSpec.describe Licensee::LicenseMeta do
     expect(described_class.helper_methods).to_not include(:hidden)
     expect(described_class.helper_methods).to include(:title)
   end
+
+  context 'to_h' do
+    let(:hash) { subject.to_h }
+    let(:using) do
+      [
+        {
+          'Babel' => 'https://github.com/babel/babel/blob/master/LICENSE'
+        },
+        {
+          '.NET Core' => 'https://github.com/dotnet/corefx/blob/master/LICENSE.TXT'
+        },
+        {
+          'Rails' => 'https://github.com/rails/rails/blob/master/MIT-LICENSE'
+        }
+      ]
+    end
+    let(:expected) do
+      {
+        title:       'MIT License',
+        source:      'https://opensource.org/licenses/MIT',
+        description: subject.description.to_s,
+        how:         subject.how.to_s,
+        using:       using,
+        featured:    true,
+        hidden:      false,
+        nickname:    nil,
+        note:        nil
+      }
+    end
+
+    it 'Converts to a hash' do
+      expect(hash).to eql(expected)
+    end
+  end
 end

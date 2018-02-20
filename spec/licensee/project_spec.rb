@@ -275,5 +275,19 @@
         expect(subject.license).to eql(mit)
       end
     end
+
+    context 'to_h' do
+      let(:hash) { subject.to_h }
+      let(:expected) do
+        {
+          licenses:      subject.licenses.map(&:to_h),
+          matched_files: subject.matched_files.map(&:to_h)
+        }
+      end
+
+      it 'Converts to a hash' do
+        expect(hash).to eql(expected)
+      end
+    end
   end
 end

@@ -1,6 +1,6 @@
 RSpec.describe Licensee::License do
-  let(:license_count) { 34 }
-  let(:hidden_license_count) { 22 }
+  let(:license_count) { 35 }
+  let(:hidden_license_count) { 23 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
@@ -419,6 +419,28 @@ RSpec.describe Licensee::License do
       it 'finds by title' do
         expect(described_class.find_by_title(text)).to eql(license)
       end
+    end
+  end
+
+  context 'to_h' do
+    let(:hash) { mit.to_h }
+    let(:expected) do
+      {
+        key:     'mit',
+        spdx_id: 'MIT',
+        meta:    mit.meta.to_h,
+        url:     'http://choosealicense.com/licenses/mit/',
+        rules:   mit.rules.to_h,
+        fields:  mit.fields.map(&:to_h),
+        other:   false,
+        gpl:     false,
+        lgpl:    false,
+        cc:      false
+      }
+    end
+
+    it 'Converts to a hash' do
+      expect(hash).to eql(expected)
     end
   end
 

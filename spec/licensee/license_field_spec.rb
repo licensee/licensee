@@ -1,12 +1,14 @@
 RSpec.describe Licensee::LicenseField do
+  let(:expected_count) { 7 }
+
   context 'class' do
     it 'returns all license fields' do
-      expect(described_class.all.count).to eql(7)
+      expect(described_class.all.count).to eql(expected_count)
       expect(described_class.all.first).to be_a(Licensee::LicenseField)
     end
 
     it 'returns all license field keys' do
-      expect(described_class.keys.count).to eql(7)
+      expect(described_class.keys.count).to eql(expected_count)
       expect(described_class.keys.first).to be_a(String)
       expect(described_class.keys.first).to eql('fullname')
     end
@@ -75,5 +77,12 @@ RSpec.describe Licensee::LicenseField do
   it 'returns the label for #to_s' do
     field = described_class.new('foo', 'bar')
     expect(field.to_s).to eql('Foo')
+  end
+
+  context 'spec_helper' do
+    it 'substitutes all fields' do
+      expected = described_class.keys.sort
+      expect(field_values.keys.map(&:to_s).sort).to eql(expected)
+    end
   end
 end

@@ -43,4 +43,25 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
       expect(subject[:dir]).to eql(Dir.pwd)
     end
   end
+
+  context 'to_h' do
+    let(:hash) { subject.to_h }
+    let(:expected) do
+      {
+        filename:           'LICENSE.txt',
+        content:            mit.content.to_s,
+        content_hash:       nil,
+        content_normalized: nil,
+        matcher:            {
+          name:       :exact,
+          confidence: 100
+        },
+        matched_license:    'mit'
+      }
+    end
+
+    it 'Converts to a hash' do
+      expect(hash).to eql(expected)
+    end
+  end
 end
