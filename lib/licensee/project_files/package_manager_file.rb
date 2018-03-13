@@ -23,7 +23,8 @@ module Licensee
         'DESCRIPTION'      => 0.9,
         'dist.ini'         => 0.8,
         'bower.json'       => 0.75,
-        'elm-package.json' => 0.7
+        'elm-package.json' => 0.7,
+        'haxelib.json'     => 0.7
       }.freeze
 
       def possible_matchers
