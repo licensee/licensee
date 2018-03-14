@@ -37,7 +37,7 @@ Because it's not legally binding. A license is a legal contract. You give up cer
 
 Most popular licenses today *require* that the license itself be distributed along side the software. Simply putting the letters "MIT" or "GPL" in a configuration file doesn't really meet that requirement. Those files are designed to be read by computers (who can't enter into contracts), not humans (who can). It's great metadata, but that's about it.
 
-From a practical standpoint, every language has its own package manager (some even have multiple). That means that if you want to detect the license of an arbitrary project, you'll have to implement [100s](https://github.com/github/linguist/tree/master/samples) of package-manager-specific detection strategies. The LICENSE file is a platform-agnostic and unambiguous way to communicate license intention.
+From a practical standpoint, every language has its own package manager (some even have multiple). That means that if you want to detect the license of an arbitrary project, you'll have to implement [100s](https://github.com/github/linguist/tree/master/samples) of package-manager-specific detection strategies. The LICENSE file is a platform-agnostic and a better indicator, although it does not clarify some things, like whether you are using GPL-3.0-only or GPL-3.0-or-later.
 
 #### What about looking to see if the author said something in the readme?
 
@@ -45,6 +45,6 @@ You could make an argument that, when linked or sufficiently identified, the ter
 
 #### What about checking every single file for a copyright header?
 
-Because that's silly in the context of how software is developed today. You wouldn't put a copyright notice on each page of a book. Besides, it's a lot of work, as there's no standardized, cross-platform way to describe a project's license within a comment.
+It's a lot of work, as there's no standardized, cross-platform way to describe a project's license within a comment.
 
-Checking the actual text into version control is definitive, so that's what this project looks at.
+Checking the actual text into version control is mostly definitive, with GNU licenses as a notable exception, so that's what this project looks at.
