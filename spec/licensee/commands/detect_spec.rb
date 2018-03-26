@@ -13,19 +13,19 @@ RSpec.describe 'detect command' do
   let(:hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
   let(:expected) do
     {
-      'License'          => 'MIT License',
+      'License'          => 'MIT',
       'Matched files'    => 'LICENSE.md, licensee.gemspec',
       'LICENSE.md'       => {
         'Content hash' => hash,
         'Attribution'  => 'Copyright (c) 2014-2017 Ben Balter',
         'Confidence'   => '100.00%',
         'Matcher'      => 'Licensee::Matchers::Exact',
-        'License'      => 'MIT License'
+        'License'      => 'MIT'
       },
       'licensee.gemspec' => {
         'Confidence' => '90.00%',
         'Matcher'    => 'Licensee::Matchers::Gemspec',
-        'License'    => 'MIT License'
+        'License'    => 'MIT'
       }
     }
   end
