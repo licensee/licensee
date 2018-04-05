@@ -67,7 +67,7 @@ module Licensee
       alias path filename
 
       def matched_license
-        license.key if license
+        license.spdx_id if license
       end
 
       # Is this file a COPYRIGHT file with only a copyright statement?

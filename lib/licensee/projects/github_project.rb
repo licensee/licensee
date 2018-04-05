@@ -5,7 +5,7 @@
 # Only the root directory of a repository will be scanned because every
 # `#load_file(..)` call incurs a separate API request.
 
-require 'octokit'
+autoload :Octokit, 'octokit'
 
 module Licensee
   module Projects

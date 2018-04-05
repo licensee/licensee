@@ -56,7 +56,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
           name:       :exact,
           confidence: 100
         },
-        matched_license:    'mit'
+        matched_license:    'MIT'
       }
     end
 
