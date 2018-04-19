@@ -21,9 +21,9 @@ class LicenseeCLI < Thor
 
     rows = []
     rows << if project.license
-              ['License:', project.license.spdx_id]
+              ['License:', project.license.spdx_id_or_key]
             elsif !project.licenses.empty?
-              ['Licenses:', project.licenses.map(&:spdx_id)]
+              ['Licenses:', project.licenses.map(&:spdx_id_or_key)]
             else
               ['License:', set_color('None', :red)]
             end
@@ -77,7 +77,7 @@ class LicenseeCLI < Thor
   def humanize(value, type = nil)
     case type
     when :license
-      value.spdx_id
+      value.spdx_id_or_key
     when :matcher
       value.class
     when :confidence
