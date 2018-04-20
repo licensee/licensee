@@ -103,6 +103,12 @@ LICENSE
       expect(license.content_normalized).to_not include('* *')
     end
 
+    it 'normalizes http: to https:' do
+      license = Licensee::License.find('mpl-2.0')
+      expect(license.content).to include('http:')
+      expect(license.content_normalized).to_not include('http:')
+    end
+
     it 'wraps' do
       lines = mit.content_normalized(wrap: 40).split("\n")
       expect(lines.first.length).to be <= 40
