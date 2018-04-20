@@ -17,7 +17,7 @@ Metrics/BlockLength:
 Style/Documentation:
   Enabled: false
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
   AutoCorrect: true
 
