@@ -82,6 +82,7 @@ module Licensee
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         string = strip_markup(string)
         string = normalize_quotes(string)
+        string = normalize_https(string)
         strip_whitespace(string)
       end
 
@@ -177,6 +178,10 @@ module Licensee
     # strip double quotes if we still want to allow possessives
     def normalize_quotes(string)
       string.gsub(/\s'([\w -]*?\w)'/, ' "\1"')
+    end
+
+    def normalize_https(string)
+      string.gsub(/http:/, 'https:')
     end
   end
 end
