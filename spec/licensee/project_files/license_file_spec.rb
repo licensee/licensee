@@ -1,5 +1,6 @@
 RSpec.describe Licensee::ProjectFiles::LicenseFile do
   let(:filename) { 'LICENSE.txt' }
+  let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
   let(:content_hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
@@ -22,6 +23,14 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:content) { "\x91License\x93".force_encoding('windows-1251') }
 
     it "doesn't blow up " do
+      expect(subject.attribution).to be_nil
+    end
+  end
+
+  context 'with a non-templated license' do
+    let(:content) { sub_copyright_info(gpl) }
+
+    it "doesn't match" do
       expect(subject.attribution).to be_nil
     end
   end
@@ -215,7 +224,6 @@ Creative Commons Attribution-NonCommercial 4.0
   end
 
   context 'GPL' do
-    let(:gpl) { Licensee::License.find('gpl-3.0') }
     let(:content) { sub_copyright_info(gpl) }
 
     it 'knows its GPL' do
