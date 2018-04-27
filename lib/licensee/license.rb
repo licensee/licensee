@@ -228,6 +228,10 @@ module Licensee
       end
     end
 
+    def spdx_id_or_key
+      spdx_id || key
+    end
+
     private
 
     # Raw content of license file, including YAML front matter
