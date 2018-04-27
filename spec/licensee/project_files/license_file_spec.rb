@@ -35,6 +35,15 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     end
   end
 
+  context 'with a copyright file' do
+    let(:filename) { 'COPYRIGHT' }
+    let(:content) { 'Copyright (C) 2015 Ben Balter' }
+
+    it "doesn't match" do
+      expect(subject.attribution).to eql(content)
+    end
+  end
+
   it 'creates the wordset' do
     expect(subject.wordset.count).to eql(91)
     expect(subject.wordset.first).to eql('permission')
