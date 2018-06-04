@@ -1,6 +1,6 @@
 RSpec.describe Licensee::License do
-  let(:license_count) { 35 }
-  let(:hidden_license_count) { 23 }
+  let(:license_count) { 36 }
+  let(:hidden_license_count) { 24 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
@@ -11,6 +11,7 @@ RSpec.describe Licensee::License do
   let(:cc_by) { described_class.find('cc-by-4.0') }
   let(:unlicense) { described_class.find('unlicense') }
   let(:other) { described_class.find('other') }
+  let(:no_license) { described_class.find('no-license') }
   let(:gpl) { described_class.find('gpl-3.0') }
   let(:lgpl) { described_class.find('lgpl-3.0') }
   let(:content_hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
@@ -166,6 +167,11 @@ RSpec.describe Licensee::License do
 
   it 'exposes the SPDX ID' do
     expect(gpl.spdx_id).to eql('GPL-3.0')
+  end
+
+  it 'exposes special SPDX ID for pseudo licenses' do
+    expect(other.spdx_id).to eql('NOASSERTION')
+    expect(no_license.spdx_id).to eql('NONE')
   end
 
   context '#other?' do
