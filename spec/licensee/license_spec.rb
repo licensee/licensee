@@ -201,7 +201,7 @@ RSpec.describe Licensee::License do
     end
 
     it 'uses the default name when none exists' do
-      expect(other.name).to eql('Other')
+      expect(other.name).to eql('NOASSERTION')
     end
 
     it 'expoeses the nickname' do

@@ -25,7 +25,7 @@ RSpec.describe Licensee::ContentHelper do
   This license provided 'as is'. Please respect the contributors' wishes when
   implementing the license's "software".
   -----------
-LICENSE
+    LICENSE
   end
   subject { ContentHelperTestHelper.new(content) }
   let(:mit) { Licensee::License.find('mit') }
