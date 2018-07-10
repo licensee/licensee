@@ -51,7 +51,7 @@ class LicenseeCLI < Thor
 
       licenses = licenses_by_similiarity(matched_file)
       next if licenses.empty?
-      say '  Closest licenses:'
+      say '  Closest non-matching licenses:'
       rows = licenses[0...3].map do |license, similarity|
         spdx_id = license.meta['spdx-id']
         percent = Licensee::ContentHelper.format_percent(similarity)

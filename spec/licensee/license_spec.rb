@@ -1,6 +1,6 @@
 RSpec.describe Licensee::License do
-  let(:license_count) { 35 }
-  let(:hidden_license_count) { 23 }
+  let(:license_count) { 36 }
+  let(:hidden_license_count) { 24 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
@@ -201,7 +201,7 @@ RSpec.describe Licensee::License do
     end
 
     it 'uses the default name when none exists' do
-      expect(other.name).to eql('Other')
+      expect(other.name).to eql('NOASSERTION')
     end
 
     it 'expoeses the nickname' do
