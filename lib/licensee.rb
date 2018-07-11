@@ -1,7 +1,6 @@
 require_relative 'licensee/version'
 require 'forwardable'
 require 'pathname'
-require 'rugged'
 require 'yaml'
 
 module Licensee
