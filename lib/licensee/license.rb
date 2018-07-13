@@ -125,7 +125,7 @@ module Licensee
 
     # Returns the human-readable license name
     def name
-      title ? title : key.capitalize
+      title || spdx_id
     end
 
     def name_without_version
