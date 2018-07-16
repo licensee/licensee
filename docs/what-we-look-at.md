@@ -49,6 +49,6 @@ However, licensee does [optionally](https://github.com/benbalter/licensee/blob/m
 
 #### What about checking every single file for a copyright header?
 
-It's a lot of work, as there's no standardized, cross-platform way to describe a _project's_ license within a source file comment.
+It's a lot of work, as there's no standardized, cross-platform way to describe a _project's_ license within a source file comment. (Adding a [SPDX License Idenfifier](https://spdx.org/using-spdx-license-identifier) to source code comments can clarify what license applies to a single source file, but licensee reports on licenses at a project level.)
 
 Scanning every source file for potential legal notices is a useful part of a license compliance program, but there are [other tools](https://github.com/todogroup/awesome-oss-mgmt#licensing) that specialize in that.
