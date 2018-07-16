@@ -1,4 +1,6 @@
 #!/bin/sh
 
-rm -Rf vendor/choosealicense.com
-bower install github/choosealicense.com#gh-pages
+VENDOR_DIR=vendor/choosealicense.com
+rm -Rf $VENDOR_DIR
+mkdir -p $VENDOR_DIR
+curl -L https://api.github.com/repos/github/choosealicense.com/tarball |tar xf - --include='*/_data' --include='*/_licenses' --strip-components=1 -C $VENDOR_DIR
