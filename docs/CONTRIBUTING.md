@@ -46,7 +46,6 @@ To check if Licensee itself can properly detect a license, please:
 1. Clone the repository locally `git clone https://github.com/benbalter/licensee`
 2. `script/bootstrap`
 3. `script/git-repo [URL to your repository]`
-4. Alternate to (3) if you know the license you expect, you can ask Licensee to show you how the license file in your repository differs, e.g., if you expected Licensee to be under the ISC License: `bundle exec bin/licensee detect https://github.com/benbalter/licensee --remote --license=isc`
 
 If Licensee cannot detect the license locally, [open an issue](https://github.com/benbalter/licensee/issues/new) and include the output of `script/git-repo`.
 

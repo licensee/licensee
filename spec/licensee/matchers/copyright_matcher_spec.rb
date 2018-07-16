@@ -26,7 +26,8 @@ RSpec.describe Licensee::Matchers::Copyright do
     'Comma-separated date'  => 'Copyright (c) 2003, 2004 Ben Balter',
     'Hyphen-separated date' => 'Copyright (c) 2003-2004 Ben Balter',
     'ASCII-8BIT encoded'    => "Copyright \xC2\xA92015 Ben Balter`",
-    'No year'               => 'Copyright Ben Balter'
+    'No year'               => 'Copyright Ben Balter',
+    'Multiline'             => "Copyright Ben Balter\nCopyright Another Entity"
       .force_encoding('ASCII-8BIT')
   }.each do |description, notice|
     context "with a #{description} notice" do

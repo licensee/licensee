@@ -2,11 +2,11 @@
 
 ### Adjusting the confidence threshold
 
-If you'd like, you can make Licensee less stringent in its comparison, but risk getting false positives as a result. The confidence threshold is an integer between 1 and 100, with the default being 95, meaning that License is at least 95% confident that the file represents the matched license.
+If you'd like, you can make Licensee less stringent in its comparison, but risk getting false positives as a result. The confidence threshold is an integer between 1 and 100, with the default being 98, meaning that License is at least 98% confident that the file represents the matched license.
 
 ```ruby
 LICENSEE.confidence_threshold
-=> 95
+=> 98
 
 LICENSEE.confidence_threshold = 90
 => 90

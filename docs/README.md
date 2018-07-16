@@ -39,6 +39,12 @@ On Windows, the last line needs to include the Ruby interpreter:
 
     bundle exec ruby bin\licensee
 
+In a Docker Debian Stretch container, minimum dependencies are:
+
+```
+apt-get install -y ruby bundler cmake pkg-config git libssl-dev
+```
+
 ## Documentation
 
 See [the docs folder](/docs) for more information. You may be interested in:

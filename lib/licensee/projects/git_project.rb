@@ -5,6 +5,9 @@
 # Project files for this project type will contain the following keys:
 #  :name - the file's path relative to the repo root
 #  :oid  - the file's OID
+
+autoload :Rugged, 'rugged'
+
 module Licensee
   module Projects
     class GitProject < Licensee::Projects::Project
