@@ -21,13 +21,13 @@ RSpec.describe Licensee::Matchers::Dice do
   end
 
   it 'sorts licenses by similarity' do
-    expect(subject.licenses_by_similiarity[0]).to eql([gpl, 100.0])
-    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 95.73361082206036])
+    expect(subject.licenses_by_similarity[0]).to eql([gpl, 100.0])
+    expect(subject.licenses_by_similarity[1]).to eql([agpl, 95.73361082206036])
   end
 
   it 'returns a list of licenses above the confidence threshold' do
-    expect(subject.licenses_by_similiarity[0]).to eql([gpl, 100.0])
-    expect(subject.licenses_by_similiarity[1]).to eql([agpl, 95.73361082206036])
+    expect(subject.licenses_by_similarity[0]).to eql([gpl, 100.0])
+    expect(subject.licenses_by_similarity[1]).to eql([agpl, 95.73361082206036])
   end
 
   it 'returns the match confidence' do

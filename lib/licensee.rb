@@ -14,9 +14,10 @@ module Licensee
   autoload :Matchers, 'licensee/matchers'
   autoload :Projects, 'licensee/projects'
   autoload :ProjectFiles, 'licensee/project_files'
+  autoload :CodeOfConduct, 'licensee/code_of_conduct'
 
   # Over which percent is a match considered a match by default
-  CONFIDENCE_THRESHOLD = 98
+  CONFIDENCE_THRESHOLD = 90
 
   # Base domain from which to build license URLs
   DOMAIN = 'http://choosealicense.com'.freeze

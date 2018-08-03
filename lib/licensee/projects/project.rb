@@ -92,6 +92,16 @@ module Licensee
         end
       end
 
+      def code_of_conduct_file
+        return [] if files.empty? || files.nil?
+        content, name = find_file do |n|
+          Licensee::ProjectFiles::CodeOfConductFile.name_score(n)
+        end
+
+        return unless content && name
+        Licensee::ProjectFiles::CodeOfConductFile.new(content, name)
+      end
+
       private
 
       def lgpl?

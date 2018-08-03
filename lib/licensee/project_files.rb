@@ -1,8 +1,9 @@
 module Licensee
   module ProjectFiles
-    autoload :ProjectFile, 'licensee/project_files/project_file'
-    autoload :LicenseFile, 'licensee/project_files/license_file'
+    autoload :ProjectFile,        'licensee/project_files/project_file'
+    autoload :LicenseFile,        'licensee/project_files/license_file'
     autoload :PackageManagerFile, 'licensee/project_files/package_manager_file'
-    autoload :ReadmeFile, 'licensee/project_files/readme_file'
+    autoload :ReadmeFile,         'licensee/project_files/readme_file'
+    autoload :CodeOfConductFile,  'licensee/project_files/code_of_conduct_file'
   end
 end

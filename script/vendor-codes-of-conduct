@@ -1,0 +1,19 @@
+#!/bin/sh
+
+REPO="ContributorCovenant/contributor_covenant"
+DIR=vendor/contributor-covenant
+INCLUDE="*/content/version"
+
+rm -Rf $DIR
+mkdir -p $DIR
+
+curl -L "https://api.github.com/repos/$REPO/tarball" | tar xf - --include=$INCLUDE --strip-components=2 -C $DIR
+
+REPO="stumpsyn/policies"
+DIR=vendor/citizen-code-of-conduct
+
+rm -Rf $DIR
+mkdir -p $DIR
+INCLUDE="*/citizen_code_of_conduct.md"
+
+curl -L "https://api.github.com/repos/$REPO/tarball" | tar xf - --include=$INCLUDE --strip-components=1 -C $DIR

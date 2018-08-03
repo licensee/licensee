@@ -11,6 +11,18 @@ module Licensee
         end
       end
 
+      def potential_matches
+        @potential_matches ||= begin
+          if file.is_a?(Licensee::ProjectFiles::LicenseFile)
+            potential_licenses
+          elsif file.is_a?(Licensee::ProjectFiles::CodeOfConductFile)
+            Licensee::CodeOfConduct.all
+          else
+            []
+          end
+        end
+      end
+
       # Licenses that may be a match for this file.
       # To avoid false positives:
       #
@@ -30,17 +42,18 @@ module Licensee
         end
       end
 
-      def licenses_by_similiarity
-        @licenses_by_similiarity ||= begin
-          licenses = potential_licenses.map do |license|
-            [license, license.similarity(file)]
+      def matches_by_similarity
+        @matches_by_similarity ||= begin
+          matches = potential_matches.map do |potenial_match|
+            [potenial_match, potenial_match.similarity(file)]
           end
-          licenses.sort_by { |_, similarity| similarity }.reverse
+          matches.sort_by { |_, similarity| similarity }.reverse
         end
       end
+      alias licenses_by_similarity matches_by_similarity
 
       def matches
-        @matches ||= licenses_by_similiarity.select do |_, similarity|
+        @matches ||= matches_by_similarity.select do |_, similarity|
           similarity >= Licensee.confidence_threshold
         end
       end
