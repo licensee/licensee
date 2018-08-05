@@ -11,18 +11,6 @@ module Licensee
         end
       end
 
-      def potential_matches
-        @potential_matches ||= begin
-          if file.is_a?(Licensee::ProjectFiles::LicenseFile)
-            potential_licenses
-          elsif file.is_a?(Licensee::ProjectFiles::CodeOfConductFile)
-            Licensee::CodeOfConduct.all
-          else
-            []
-          end
-        end
-      end
-
       # Licenses that may be a match for this file.
       # To avoid false positives:
       #
