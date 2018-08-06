@@ -25,13 +25,7 @@ module Licensee
       private
 
       def potential_matches
-        if file.is_a?(Licensee::ProjectFiles::LicenseFile)
-          Licensee.licenses(hidden: true)
-        elsif file.is_a?(Licensee::ProjectFiles::CodeOfConductFile)
-          Licensee::CodeOfConduct.all
-        else
-          []
-        end
+        @potential_matches ||= Licensee.licenses(hidden: true)
       end
     end
   end
