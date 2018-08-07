@@ -36,6 +36,9 @@ Metrics/AbcSize:
 Layout/IndentHeredoc:
   Enabled: false
 
+Layout/ClosingHeredocIndentation:
+  Enabled: false
+
 Style/StructInheritance:
   Enabled: false
 

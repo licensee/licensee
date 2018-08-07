@@ -21,12 +21,12 @@ class LicenseeCLI < Thor
 
     rows = []
     rows << if project.license
-              ['License:', project.license.spdx_id]
-            elsif !project.licenses.empty?
-              ['Licenses:', project.licenses.map(&:spdx_id)]
-            else
-              ['License:', set_color('None', :red)]
-            end
+      ['License:', project.license.spdx_id]
+    elsif !project.licenses.empty?
+      ['Licenses:', project.licenses.map(&:spdx_id)]
+    else
+      ['License:', set_color('None', :red)]
+    end
 
     unless project.matched_files.empty?
       rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')]
@@ -51,7 +51,7 @@ class LicenseeCLI < Thor
 
       licenses = licenses_by_similiarity(matched_file)
       next if licenses.empty?
-      say '  Closest licenses:'
+      say '  Closest non-matching licenses:'
       rows = licenses[0...3].map do |license, similarity|
         spdx_id = license.meta['spdx-id']
         percent = Licensee::ContentHelper.format_percent(similarity)
