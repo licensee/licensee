@@ -20,7 +20,7 @@ module Licensee
       #    of the confidence threshold
       def potential_licenses
         @potential_licenses ||= begin
-          Licensee.licenses(hidden: true).select do |license|
+          potential_matches.select do |license|
             if license.creative_commons? && file.potential_false_positive?
               false
             else
@@ -32,8 +32,8 @@ module Licensee
 
       def matches_by_similarity
         @matches_by_similarity ||= begin
-          matches = potential_matches.map do |potenial_match|
-            [potenial_match, potenial_match.similarity(file)]
+          matches = potential_licenses.map do |potential_match|
+            [potential_match, potential_match.similarity(file)]
           end
           matches.sort_by { |_, similarity| similarity }.reverse
         end

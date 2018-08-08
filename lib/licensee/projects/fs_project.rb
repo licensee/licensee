@@ -10,14 +10,14 @@ module Licensee
     class FSProject < Licensee::Projects::Project
       def initialize(path, **args)
         if ::File.file?(path)
-          @pattern = ::File.basename(path)
-          @dir = ::File.dirname(path)
+          @pattern = File.basename(path)
+          @dir = File.expand_path File.dirname(path)
         else
           @pattern = '*'
-          @dir = path
+          @dir = File.expand_path(path)
         end
 
-        @root = args.delete(:search_root) || @dir
+        @root = File.expand_path(args.delete(:search_root) || @dir)
         unless valid_search_root?
           raise 'Search root must be the project path directory or its ancestor'
         end
