@@ -80,6 +80,7 @@ module Licensee
         string = strip_all_rights_reserved(string)
         string = strip_developed_by(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
+        string = normalize_lists(string)
         string = strip_markup(string)
         string = normalize_quotes(string)
         string = normalize_https(string)
@@ -182,6 +183,10 @@ module Licensee
 
     def normalize_https(string)
       string.gsub(/http:/, 'https:')
+    end
+
+    def normalize_lists(string)
+      string.gsub(/^\s*(\d\.|\*)/, '-')
     end
   end
 end
