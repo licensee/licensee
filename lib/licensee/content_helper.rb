@@ -11,7 +11,7 @@ module Licensee
     WHITESPACE_REGEX = /\s+/
     MARKDOWN_HEADING_REGEX = /\A\s*#+/
     VERSION_REGEX = /\Aversion.*$/i
-    MARKUP_REGEX = /[#_*=~\[\]()|>]+/
+    MARKUP_REGEX = /[#_*=~\[\]()`|>]+/
     DEVELOPED_BY_REGEX = /\Adeveloped by:.*?\n\n/im
     QUOTE_BEGIN_REGEX = /[`'"‘“]/
     QUOTE_END_REGEX = /['"’”]/
@@ -83,9 +83,9 @@ module Licensee
         string = strip_developed_by(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
         string = normalize_lists(string)
-        string = strip_markup(string)
         string = normalize_quotes(string)
         string = normalize_https(string)
+        string = strip_markup(string)
         strip_whitespace(string)
       end
 
