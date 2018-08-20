@@ -11,8 +11,6 @@ module Licensee
     }.freeze
 
     PREDICATE_FIELDS = %i[featured hidden].freeze
-    SPDX_LICENSE_URL_PREFIX = 'https://spdx.org/licenses/'.freeze
-    SPDX_LICENSE_URL_SUFFIX = '.html'.freeze
 
     include Licensee::HashHelper
     HASH_METHODS = members - %i[conditions permissions limitations spdx_id]
@@ -36,9 +34,6 @@ module Licensee
       def from_hash(hash)
         hash = DEFAULTS.merge(hash)
         hash['spdx_id'] = hash.delete('spdx-id')
-        hash['source'] = unless hash['spdx_id'].nil?
-          SPDX_LICENSE_URL_PREFIX + hash['spdx_id'] + SPDX_LICENSE_URL_SUFFIX
-        end
         ordered_array = hash.values_at(*members.map(&:to_s))
         new(*ordered_array)
       end
@@ -57,6 +52,10 @@ module Licensee
     def [](key)
       key = 'spdx_id' if key == 'spdx-id'
       super(key)
+    end
+
+    def source
+      "https://spdx.org/licenses/#{spdx_id}.html" if spdx_id
     end
   end
 end
