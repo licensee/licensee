@@ -58,9 +58,5 @@ module Licensee
       key = 'spdx_id' if key == 'spdx-id'
       super(key)
     end
-
-    def spdx_license_url(spdx_id)
-      return if spdx_id.nil?
-    end
   end
 end
