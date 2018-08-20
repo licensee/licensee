@@ -17,7 +17,7 @@ license.name
 => "MIT License"
 
 license.meta["source"]
-=> "http://opensource.org/licenses/MIT"
+=> "https://spdx.org/licenses/MIT.html"
 
 license.meta["description"]
 => "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."

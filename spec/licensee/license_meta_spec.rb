@@ -126,7 +126,7 @@ RSpec.describe Licensee::LicenseMeta do
     let(:expected) do
       {
         title:       'MIT License',
-        source:      'https://opensource.org/licenses/MIT',
+        source:      'https://spdx.org/licenses/MIT.html',
         description: subject.description.to_s,
         how:         subject.how.to_s,
         using:       using,
