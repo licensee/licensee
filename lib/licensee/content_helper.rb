@@ -13,6 +13,8 @@ module Licensee
     VERSION_REGEX = /\Aversion.*$/i
     MARKUP_REGEX = /[#_*=~\[\]()`|>]+/
     DEVELOPED_BY_REGEX = /\Adeveloped by:.*?\n\n/im
+    QUOTE_BEGIN_REGEX = /[`'"‘“]/
+    QUOTE_END_REGEX = /['"’”]/
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -80,9 +82,10 @@ module Licensee
         string = strip_all_rights_reserved(string)
         string = strip_developed_by(string)
         string, _partition, _instructions = string.partition(END_OF_TERMS_REGEX)
-        string = strip_markup(string)
+        string = normalize_lists(string)
         string = normalize_quotes(string)
         string = normalize_https(string)
+        string = strip_markup(string)
         strip_whitespace(string)
       end
 
@@ -173,15 +176,20 @@ module Licensee
       string.gsub(regex, ' ').squeeze(' ').strip
     end
 
-    # Replace all single quotes with double quotes
+    # Replace all enclosing quotes with double quotes
     # Single versus double quotes don't alter the meaning, and it's easier to
     # strip double quotes if we still want to allow possessives
     def normalize_quotes(string)
-      string.gsub(/\s'([\w -]*?\w)'/, ' "\1"')
+      string.gsub(/#{QUOTE_BEGIN_REGEX}+([\w -]*?\w)#{QUOTE_END_REGEX}+/,
+                  '"\1"')
     end
 
     def normalize_https(string)
       string.gsub(/http:/, 'https:')
+    end
+
+    def normalize_lists(string)
+      string.gsub(/^\s*(\d\.|\*)/, '-')
     end
   end
 end

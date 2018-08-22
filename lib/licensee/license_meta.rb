@@ -53,5 +53,9 @@ module Licensee
       key = 'spdx_id' if key == 'spdx-id'
       super(key)
     end
+
+    def source
+      "https://spdx.org/licenses/#{spdx_id}.html" if spdx_id
+    end
   end
 end
