@@ -29,6 +29,7 @@ module Licensee
           end
         end
       end
+      alias potential_licenses potential_matches
 
       def matches_by_similarity
         @matches_by_similarity ||= begin
