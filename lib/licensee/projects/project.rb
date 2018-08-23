@@ -156,5 +156,13 @@ module Licensee
     def load_file(_file)
       raise 'Not implemented'
     end
+
+    def path_relative_to_root(path)
+      return path if is_a?(GitProject) || path.nil?
+
+      root = Pathname.new(@dir)
+      path = Pathname.new(path)
+      path.relative_path_from(root).to_s
+    end
   end
 end
