@@ -18,9 +18,9 @@ module Licensee
       #    that begin with the title of a non-open source CC license variant
       # 2. The percentage change in file length may not exceed the inverse
       #    of the confidence threshold
-      def potential_licenses
-        @potential_licenses ||= begin
-          Licensee.licenses(hidden: true).select do |license|
+      def potential_matches
+        @potential_matches ||= begin
+          super.select do |license|
             if license.creative_commons? && file.potential_false_positive?
               false
             else
@@ -29,18 +29,20 @@ module Licensee
           end
         end
       end
+      alias potential_licenses potential_matches
 
-      def licenses_by_similiarity
-        @licenses_by_similiarity ||= begin
-          licenses = potential_licenses.map do |license|
-            [license, license.similarity(file)]
+      def matches_by_similarity
+        @matches_by_similarity ||= begin
+          matches = potential_matches.map do |potential_match|
+            [potential_match, potential_match.similarity(file)]
           end
-          licenses.sort_by { |_, similarity| similarity }.reverse
+          matches.sort_by { |_, similarity| similarity }.reverse
         end
       end
+      alias licenses_by_similarity matches_by_similarity
 
       def matches
-        @matches ||= licenses_by_similiarity.select do |_, similarity|
+        @matches ||= matches_by_similarity.select do |_, similarity|
           similarity >= Licensee.confidence_threshold
         end
       end

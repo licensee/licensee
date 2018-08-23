@@ -68,13 +68,13 @@ module Licensee
         return unless detect_readme?
         return @readme if defined? @readme
         @readme = begin
-          content, name = find_file do |n|
+          content, file = find_file do |n|
             Licensee::ProjectFiles::ReadmeFile.name_score(n)
           end
           content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
 
-          return unless content && name
-          Licensee::ProjectFiles::ReadmeFile.new(content, name)
+          return unless content && file
+          Licensee::ProjectFiles::ReadmeFile.new(content, file)
         end
       end
       alias readme readme_file
@@ -83,12 +83,12 @@ module Licensee
         return unless detect_packages?
         return @package_file if defined? @package_file
         @package_file = begin
-          content, name = find_file do |n|
+          content, file = find_file do |n|
             Licensee::ProjectFiles::PackageManagerFile.name_score(n)
           end
 
-          return unless content && name
-          Licensee::ProjectFiles::PackageManagerFile.new(content, name)
+          return unless content && file
+          Licensee::ProjectFiles::PackageManagerFile.new(content, file)
         end
       end
 
@@ -115,7 +115,7 @@ module Licensee
       def find_file(&block)
         return if files.empty? || files.nil?
         file = find_files(&block).first
-        [load_file(file), file[:name]] if file
+        [load_file(file), file] if file
       end
 
       # Given an array of LicenseFiles, ensures LGPL is the first entry,
@@ -147,14 +147,14 @@ module Licensee
           matched_files.reject(&:copyright?).map(&:license).uniq
         end
       end
-    end
 
-    def files
-      raise 'Not implemented'
-    end
+      def files
+        raise 'Not implemented'
+      end
 
-    def load_file(_file)
-      raise 'Not implemented'
+      def load_file(_file)
+        raise 'Not implemented'
+      end
     end
   end
 end
