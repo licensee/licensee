@@ -28,23 +28,34 @@ module Licensee
       private
 
       def files
-        @files ||= dir_files
-      rescue Octokit::NotFound
+        return @files if defined? @files_from_tree
+        @files = dir_files
+        return @files unless @files.empty?
         msg = "Could not load GitHub repo #{repo}, it may be private or deleted"
         raise RepoNotFound, msg
       end
 
       def load_file(file)
-        Octokit.contents(@repo, path:   file[:path],
-                                accept: 'application/vnd.github.v3.raw').to_s
+        client.contents(@repo, path:   file[:path],
+                               accept: 'application/vnd.github.v3.raw').to_s
       end
 
       def dir_files(path = nil)
         path = path.gsub('./', '') if path
-        files = Octokit.contents(@repo, path: path)
+        files = client.contents(@repo, path: path)
         files = files.select { |data| data[:type] == 'file' }
         files.each { |data| data[:dir] = File.dirname(data[:path]) }
         files.map(&:to_h)
+      rescue Octokit::NotFound
+        []
+      end
+
+      def client
+        @client ||= Octokit::Client.new access_token: access_token
+      end
+
+      def access_token
+        ENV['OCTOKIT_ACCESS_TOKEN']
       end
     end
   end
