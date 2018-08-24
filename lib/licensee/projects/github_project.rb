@@ -35,11 +35,12 @@ module Licensee
       end
 
       def load_file(file)
-        Octokit.contents(@repo, path:   file[:name],
-                                accept: 'application/vnd.github.v3.raw')
+        Octokit.contents(@repo, path:   file[:path],
+                                accept: 'application/vnd.github.v3.raw').to_s
       end
 
       def dir_files(path = nil)
+        path = path.gsub('./', '') if path
         files = Octokit.contents(@repo, path: path)
         files = files.select { |data| data[:type] == 'file' }
         files.each { |data| data[:dir] = File.dirname(data[:path]) }
