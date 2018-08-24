@@ -28,10 +28,10 @@ module Licensee
       private
 
       def files
-        @files ||= contents.map { |data| { name: data[:name], dir: '/' } }
+        @files ||= dir_files
       rescue Octokit::NotFound
-        raise RepoNotFound,
-              "Could not load GitHub repo #{repo}, it may be private or deleted"
+        msg = "Could not load GitHub repo #{repo}, it may be private or deleted"
+        raise RepoNotFound, msg
       end
 
       def load_file(file)
@@ -39,8 +39,11 @@ module Licensee
                                 accept: 'application/vnd.github.v3.raw')
       end
 
-      def contents
-        Octokit.contents(@repo).select { |data| data[:type] == 'file' }
+      def dir_files(path = nil)
+        files = Octokit.contents(@repo, path: path)
+        files = files.select { |data| data[:type] == 'file' }
+        files.each { |data| data[:dir] = File.dirname(data[:path]) }
+        files.map(&:to_h)
       end
     end
   end

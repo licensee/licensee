@@ -43,7 +43,8 @@ def fixture_root_contents_from_api(fixture)
   fixture_root_files(fixture).map do |file|
     {
       name: File.basename(file),
-      type: 'file'
+      type: 'file',
+      path: File.basename(file)
     }
   end.to_json
 end
