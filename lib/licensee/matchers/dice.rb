@@ -43,13 +43,19 @@ module Licensee
 
       def matches
         @matches ||= matches_by_similarity.select do |_, similarity|
-          similarity >= Licensee.confidence_threshold
+          similarity >= minimum_confidence
         end
       end
 
       # Confidence that the matched license is a match
       def confidence
         @confidence ||= match ? file.similarity(match) : 0
+      end
+
+      private
+      
+      def minimum_confidence
+        Licensee.confidence_threshold
       end
     end
   end
