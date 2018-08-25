@@ -53,7 +53,7 @@ module Licensee
       end
 
       private
-      
+
       def minimum_confidence
         Licensee.confidence_threshold
       end
