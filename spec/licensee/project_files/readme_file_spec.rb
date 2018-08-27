@@ -107,6 +107,14 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
+    context 'With trailing hashes' do
+      let(:content) { "## License ##\n\nhello world" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
     context 'Rdoc' do
       let(:content) { "== License:\n\nhello world" }
 
