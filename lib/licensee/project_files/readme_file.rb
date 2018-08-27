@@ -11,7 +11,7 @@ module Licensee
       UNDERLINE_REGEX = /\n[-=]+/m
       CONTENT_REGEX = /^
           (?:                                # Header lookbehind
-            [\#=]+\s#{TITLE_REGEX}           # Start of hashes or rdoc header
+            [\#=]+\s#{TITLE_REGEX}\s*[\#=]*  # Start of hashes or rdoc header
           |
             #{TITLE_REGEX}#{UNDERLINE_REGEX} # Start of underlined header
           )$
