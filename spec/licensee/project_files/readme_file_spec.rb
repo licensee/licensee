@@ -12,6 +12,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       'readme.txt'   => 0.9,
       'readme.mdown' => 0.9,
       'readme.rdoc'  => 0.9,
+      'readme.rst'   => 0.9,
       'LICENSE'      => 0.0
     }.each do |filename, expected_score|
       context "with a file named #{filename}" do
