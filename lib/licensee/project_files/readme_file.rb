@@ -1,7 +1,7 @@
 module Licensee
   module ProjectFiles
     class ReadmeFile < Licensee::ProjectFiles::LicenseFile
-      EXTENSIONS = %w[md markdown mdown txt rdoc].freeze
+      EXTENSIONS = %w[md markdown mdown txt rdoc rst].freeze
       SCORES = {
         /\AREADME\z/i                                       => 1.0,
         /\AREADME\.(#{Regexp.union(EXTENSIONS).source})\z/i => 0.9
