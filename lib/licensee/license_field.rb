@@ -51,5 +51,9 @@ module Licensee
       key.sub('fullname', 'full name').capitalize
     end
     alias to_s label
+
+    def raw_text
+      "[#{key}]"
+    end
   end
 end
