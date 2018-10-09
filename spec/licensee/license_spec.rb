@@ -44,6 +44,7 @@ RSpec.describe Licensee::License do
       it 'includes featured licenses' do
         expect(licenses).to include(mit)
         expect(licenses).to_not include(cc_by)
+        expect(licenses).to_not include(other)
       end
     end
 
@@ -53,7 +54,8 @@ RSpec.describe Licensee::License do
       it 'includes hidden licenses' do
         expect(licenses).to include(cc_by)
         expect(licenses).to include(mit)
-        expect(licenses.count).to eql(license_count)
+        expect(licenses).to_not include(other)
+        expect(licenses.count).to eql(license_count - pseudo_license_count)
       end
     end
 
@@ -63,6 +65,7 @@ RSpec.describe Licensee::License do
       it 'includes only featured licenses' do
         expect(licenses).to include(mit)
         expect(licenses).to_not include(cc_by)
+        expect(licenses).to_not include(other)
         expect(licenses.count).to eql(featured_license_count)
       end
     end
@@ -73,6 +76,7 @@ RSpec.describe Licensee::License do
       it 'includes only non-featured licenses' do
         expect(licenses).to include(unlicense)
         expect(licenses).to_not include(mit)
+        expect(licenses).to_not include(other)
         expect(licenses.count).to eql(non_featured_license_count)
       end
 
@@ -83,18 +87,21 @@ RSpec.describe Licensee::License do
           expect(licenses).to include(unlicense)
           expect(licenses).to include(cc_by)
           expect(licenses).to_not include(mit)
-          expect(licenses.count).to eql(license_count - featured_license_count)
+          expect(licenses).to_not include(other)
+          expected = license_count - featured_license_count
+          expected -= pseudo_license_count
+          expect(licenses.count).to eql(expected)
         end
       end
     end
 
-    context 'psudo licenses' do
+    context 'pseudo licenses' do
       let(:other) { Licensee::License.find('other') }
 
       context 'by default' do
         let(:arguments) { {} }
 
-        it "doesn't include psudo licenses" do
+        it "doesn't include pseudo licenses" do
           expect(licenses).to_not include(other)
         end
       end
@@ -102,13 +109,13 @@ RSpec.describe Licensee::License do
       context 'with hidden licenses' do
         let(:arguments) { { hidden: true } }
 
-        it 'includes psudo licenses' do
-          expect(licenses).to include(other)
+        it "doesn't include pseudo licenses" do
+          expect(licenses).to_not include(other)
         end
       end
 
       context 'when explicitly asked' do
-        let(:arguments) { { hidden: true, psuedo: true } }
+        let(:arguments) { { hidden: true, pseudo: true } }
 
         it 'includes psudo licenses' do
           expect(licenses).to include(other)
@@ -116,10 +123,28 @@ RSpec.describe Licensee::License do
       end
 
       context 'when explicitly excluded' do
-        let(:arguments) { { hidden: true, psuedo: false } }
+        let(:arguments) { { hidden: true, pseudo: false } }
 
         it "doesn'tincludes psudo licenses" do
           expect(licenses).to_not include(other)
+        end
+      end
+
+      context 'mispelled' do
+        context 'when explicitly asked' do
+          let(:arguments) { { hidden: true, psuedo: true } }
+
+          it 'includes psudo licenses' do
+            expect(licenses).to include(other)
+          end
+        end
+
+        context 'when explicitly excluded' do
+          let(:arguments) { { hidden: true, psuedo: false } }
+
+          it "doesn'tincludes psudo licenses" do
+            expect(licenses).to_not include(other)
+          end
         end
       end
     end
@@ -201,7 +226,8 @@ RSpec.describe Licensee::License do
     end
 
     it 'uses the default name when none exists' do
-      expect(other.name).to eql('NOASSERTION')
+      expect(other.name).to eql('Other')
+      expect(no_license.name).to eql('No license')
     end
 
     it 'expoeses the nickname' do
@@ -341,7 +367,7 @@ RSpec.describe Licensee::License do
   end
 
   context 'License.title_regex' do
-    Licensee::License.all(hidden: true, psuedo: false).each do |license|
+    Licensee::License.all(hidden: true, pseudo: false).each do |license|
       context "the #{license.title} license" do
         %i[title nickname key].each do |variation|
           next if license.send(variation).nil?
@@ -451,7 +477,7 @@ RSpec.describe Licensee::License do
   end
 
   context 'source regex' do
-    Licensee::License.all(hidden: true, psuedo: false).each do |license|
+    Licensee::License.all(hidden: true, pseudo: false).each do |license|
       context "the #{license.title} license" do
         let(:source) { URI.parse(license.source) }
 
