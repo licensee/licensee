@@ -177,7 +177,7 @@ module Licensee
     end
 
     def strip(string, regex)
-      string.gsub(regex, ' ').squeeze(' ').strip
+      string.gsub(regex, ' ').squeeze(' ').gsub(/ ([\.,])/, '\1').strip
     end
 
     # Replace all enclosing quotes with double quotes

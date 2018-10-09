@@ -23,7 +23,7 @@ RSpec.describe Licensee::ContentHelper do
   up  license.
 
   This license provided 'as is'. Please respect the contributors' wishes when
-  implementing the license's "software".
+  implementing the license's "software" a.k.a [project].
   -----------
     LICENSE
   end
@@ -35,13 +35,14 @@ RSpec.describe Licensee::ContentHelper do
       %w[
         the made up license this provided as is please respect
         contributors' wishes when implementing license's software
+        a k project
       ]
     )
     expect(subject.wordset).to eql(wordset)
   end
 
   it 'knows the length' do
-    expect(subject.length).to eql(135)
+    expect(subject.length).to eql(149)
   end
 
   context 'a very long license' do
@@ -53,17 +54,17 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(884)
+    expect(subject.length_delta(mit)).to eql(869)
     expect(subject.length_delta(subject)).to eql(0)
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(11)
+    expect(subject.similarity(mit)).to be_within(1).of(12)
     expect(subject.similarity(subject)).to eql(100.0)
   end
 
   it 'calculates the hash' do
-    content_hash = '916b978940ecf8070c96bd3aca9321768e7f4901'
+    content_hash = 'd2ebf80254713bfeef64124d539a298a1b9b1e24'
     expect(subject.content_hash).to eql(content_hash)
   end
 
@@ -135,6 +136,11 @@ RSpec.describe Licensee::ContentHelper do
       expect(normalized_content).to_not match(/[*=_-]+/)
     end
 
+    it 'removes whitespace after markup' do
+      expect(normalized_content).to_not match('project .')
+      expect(normalized_content).to match('project.')
+    end
+
     it 'normalizes quotes' do
       expect(normalized_content).to_not match("'as is'")
     end
@@ -188,7 +194,7 @@ RSpec.describe Licensee::ContentHelper do
     it 'normalize the content' do
       expected = 'the made up license. this license provided "as is". '
       expected << "please respect the contributors' wishes when implementing "
-      expected << "the license's \"software\"."
+      expected << "the license's \"software\" a.k.a project."
       expect(normalized_content).to eql(expected)
     end
 

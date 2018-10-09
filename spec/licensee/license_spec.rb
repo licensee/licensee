@@ -14,7 +14,7 @@ RSpec.describe Licensee::License do
   let(:no_license) { described_class.find('no-license') }
   let(:gpl) { described_class.find('gpl-3.0') }
   let(:lgpl) { described_class.find('lgpl-3.0') }
-  let(:content_hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
+  let(:content_hash) { '7470fc77619c8c2b04eba2a929facfd3ff853693' }
 
   let(:license_dir) do
     File.expand_path 'vendor/choosealicense.com/_licenses', project_root
