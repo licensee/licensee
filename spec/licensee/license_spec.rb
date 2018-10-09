@@ -54,8 +54,7 @@ RSpec.describe Licensee::License do
       it 'includes hidden licenses' do
         expect(licenses).to include(cc_by)
         expect(licenses).to include(mit)
-        expect(licenses).to_not include(other)
-        expect(licenses.count).to eql(license_count - pseudo_license_count)
+        expect(licenses.count).to eql(license_count)
       end
     end
 
@@ -87,10 +86,7 @@ RSpec.describe Licensee::License do
           expect(licenses).to include(unlicense)
           expect(licenses).to include(cc_by)
           expect(licenses).to_not include(mit)
-          expect(licenses).to_not include(other)
-          expected = license_count - featured_license_count
-          expected -= pseudo_license_count
-          expect(licenses.count).to eql(expected)
+          expect(licenses.count).to eql(license_count - featured_license_count)
         end
       end
     end
@@ -109,8 +105,8 @@ RSpec.describe Licensee::License do
       context 'with hidden licenses' do
         let(:arguments) { { hidden: true } }
 
-        it "doesn't include pseudo licenses" do
-          expect(licenses).to_not include(other)
+        it 'includes pseudo licenses' do
+          expect(licenses).to include(other)
         end
       end
 

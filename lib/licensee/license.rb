@@ -17,7 +17,7 @@ module Licensee
       def all(options = {})
         @all[options] ||= begin
           # TODO: Remove in next major version to avoid breaking change
-          options[:pseudo] ||= options[:psuedo]
+          options[:pseudo] ||= options[:psuedo] unless options[:psuedo].nil?
 
           options = DEFAULT_OPTIONS.merge(options)
           output = licenses.dup
@@ -35,7 +35,7 @@ module Licensee
       end
 
       def find(key, options = {})
-        options = { hidden: true, pseudo: true }.merge(options)
+        options = { hidden: true }.merge(options)
         keys_licenses(options)[key.downcase]
       end
       alias [] find
@@ -128,8 +128,8 @@ module Licensee
 
     # Returns the human-readable license name
     def name
-      return title || spdx_id unless pseudo_license?
-      key.tr('-', ' ').capitalize
+      return key.tr('-', ' ').capitalize if pseudo_license?
+      title || spdx_id
     end
 
     def name_without_version
