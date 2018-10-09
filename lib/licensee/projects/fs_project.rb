@@ -36,6 +36,7 @@ module Licensee
           relative_dir = Pathname.new(dir).relative_path_from(dir_path).to_s
           Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).map do |file|
             next unless ::File.file?(file)
+
             { name: ::File.basename(file), dir: relative_dir }
           end.compact
         end

@@ -23,6 +23,7 @@ module Licensee
       # returns a LicenseMeta with defaults set
       def from_yaml(yaml)
         return from_hash({}) if yaml.nil? || yaml.to_s.empty?
+
         from_hash YAML.safe_load(yaml)
       end
 

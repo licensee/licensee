@@ -24,6 +24,7 @@ module Licensee
           output.reject!(&:hidden?) unless options[:hidden]
           output.reject!(&:pseudo_license?) unless options[:pseudo]
           return output if options[:featured].nil?
+
           output.select { |l| l.featured? == options[:featured] }
         end
       end
@@ -129,6 +130,7 @@ module Licensee
     # Returns the human-readable license name
     def name
       return key.tr('-', ' ').capitalize if pseudo_license?
+
       title || spdx_id
     end
 
@@ -246,11 +248,13 @@ module Licensee
       unless File.exist?(path)
         raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
+
       @raw_content ||= File.read(path, encoding: 'utf-8')
     end
 
     def parts
       return unless raw_content
+
       @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
     end
 

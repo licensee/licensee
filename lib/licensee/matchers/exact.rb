@@ -3,6 +3,7 @@ module Licensee
     class Exact < Licensee::Matchers::Matcher
       def match
         return @match if defined? @match
+
         @match = potential_matches.find do |potential_match|
           potential_match.wordset == file.wordset
         end

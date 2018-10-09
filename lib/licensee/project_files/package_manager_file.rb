@@ -32,6 +32,7 @@ module Licensee
 
       def self.name_score(filename)
         return 1.0 if ['.gemspec', '.cabal'].include?(File.extname(filename))
+
         FILENAMES_SCORES[filename] || 0.0
       end
 
