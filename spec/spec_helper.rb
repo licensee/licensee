@@ -109,6 +109,7 @@ RSpec::Matchers.define :be_detected_as do |expected|
     license_file = Licensee::ProjectFiles::LicenseFile.new(actual, 'LICENSE')
     @actual = license_file.content_normalized(wrap: 80)
     return false unless license_file.license
+
     values_match? expected, license_file.license
   end
 

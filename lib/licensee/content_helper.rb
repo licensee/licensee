@@ -26,6 +26,7 @@ module Licensee
     # Number of characteres in the normalized content
     def length
       return 0 unless content_normalized
+
       content_normalized.length
     end
 
@@ -74,6 +75,7 @@ module Licensee
     # Returns a string
     def content_normalized(wrap: nil)
       return unless content
+
       @content_normalized ||= begin
         string = content_without_title_and_version.downcase
         while string =~ Matchers::Copyright::REGEX
@@ -99,6 +101,7 @@ module Licensee
     # Wrap text to the given line length
     def self.wrap(text, line_width = 80)
       return if text.nil?
+
       text = text.clone
       text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
 
@@ -125,6 +128,7 @@ module Licensee
       # families, but for sake of normalization, we can be less strict
       without_versions = licenses.map do |license|
         next if license.title == license.name_without_version
+
         Regexp.new Regexp.escape(license.name_without_version), 'i'
       end
       titles.concat(without_versions.compact)

@@ -34,6 +34,7 @@ module Licensee
 
         # use 'other' if array contains multiple licenses
         return 'other' unless licenses.size == 1
+
         licenses[0]
       end
 

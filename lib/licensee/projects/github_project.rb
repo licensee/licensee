@@ -20,6 +20,7 @@ module Licensee
       def initialize(github_url, **args)
         @repo = github_url[GITHUB_REPO_PATTERN, 1]
         raise ArgumentError, "Not a github URL: #{github_url}" unless @repo
+
         super(**args)
       end
 
@@ -29,8 +30,10 @@ module Licensee
 
       def files
         return @files if defined? @files_from_tree
+
         @files = dir_files
         return @files unless @files.empty?
+
         msg = "Could not load GitHub repo #{repo}, it may be private or deleted"
         raise RepoNotFound, msg
       end

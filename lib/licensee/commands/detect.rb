@@ -40,8 +40,10 @@ class LicenseeCLI < Thor
 
       MATCHED_FILE_METHODS.each do |method|
         next unless matched_file.respond_to? method
+
         value = matched_file.public_send method
         next if value.nil?
+
         rows << [humanize(method, :method), humanize(value, method)]
       end
       print_table rows, indent: 2
@@ -51,6 +53,7 @@ class LicenseeCLI < Thor
 
       licenses = licenses_by_similarity(matched_file)
       next if licenses.empty?
+
       say '  Closest non-matching licenses:'
       rows = licenses[0...3].map do |license, similarity|
         spdx_id = license.meta['spdx-id']

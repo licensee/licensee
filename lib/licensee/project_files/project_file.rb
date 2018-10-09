@@ -88,6 +88,7 @@ module Licensee
       def copyright?
         return false unless is_a?(LicenseFile)
         return false unless matcher.is_a?(Matchers::Copyright)
+
         filename =~ /\Acopyright(?:#{LicenseFile::OTHER_EXT_REGEX})?\z/i
       end
 

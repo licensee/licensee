@@ -21,6 +21,7 @@ module Licensee
       # Returns the matching License instance if a license can be detected
       def license
         return @license if defined? @license
+
         @license = if licenses_without_copyright.count == 1 || lgpl?
           licenses_without_copyright.first
         elsif licenses_without_copyright.count > 1
@@ -53,6 +54,7 @@ module Licensee
       def license_files
         @license_files ||= begin
           return [] if files.empty? || files.nil?
+
           files = find_files do |n|
             Licensee::ProjectFiles::LicenseFile.name_score(n)
           end
@@ -67,6 +69,7 @@ module Licensee
       def readme_file
         return unless detect_readme?
         return @readme if defined? @readme
+
         @readme = begin
           content, file = find_file do |n|
             Licensee::ProjectFiles::ReadmeFile.name_score(n)
@@ -74,6 +77,7 @@ module Licensee
           content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
 
           return unless content && file
+
           Licensee::ProjectFiles::ReadmeFile.new(content, file)
         end
       end
@@ -82,12 +86,14 @@ module Licensee
       def package_file
         return unless detect_packages?
         return @package_file if defined? @package_file
+
         @package_file = begin
           content, file = find_file do |n|
             Licensee::ProjectFiles::PackageManagerFile.name_score(n)
           end
 
           return unless content && file
+
           Licensee::ProjectFiles::PackageManagerFile.new(content, file)
         end
       end
@@ -96,6 +102,7 @@ module Licensee
 
       def lgpl?
         return false unless licenses.count == 2 && license_files.count == 2
+
         license_files[0].lgpl? && license_files[1].gpl?
       end
 
@@ -104,6 +111,7 @@ module Licensee
       # sorted by file score descending
       def find_files
         return [] if files.empty? || files.nil?
+
         found = files.map { |file| file.merge(score: yield(file[:name])) }
         found.select! { |file| file[:score] > 0 }
         found.sort { |a, b| b[:score] <=> a[:score] }
@@ -114,6 +122,7 @@ module Licensee
       # or nil, if no file scored > 0
       def find_file(&block)
         return if files.empty? || files.nil?
+
         file = find_files(&block).first
         [load_file(file), file] if file
       end
