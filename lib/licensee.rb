@@ -1,11 +1,11 @@
 require_relative 'licensee/version'
 require 'forwardable'
 require 'pathname'
-require 'rugged'
 require 'yaml'
 
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
+  autoload :HashHelper, 'licensee/hash_helper'
   autoload :License, 'licensee/license'
   autoload :LicenseField, 'licensee/license_field'
   autoload :LicenseTemplate, 'licensee/license_template'
@@ -52,7 +52,8 @@ module Licensee
     # Inverse of the confidence threshold, represented as a float
     # By default this will be 0.05
     def inverse_confidence_threshold
-      @inverse ||= (1 - Licensee.confidence_threshold / 100.0).round(2)
+      @inverse_confidence_threshold ||=
+        (1 - Licensee.confidence_threshold / 100.0).round(2)
     end
   end
 end

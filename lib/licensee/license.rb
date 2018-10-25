@@ -16,11 +16,15 @@ module Licensee
       # Returns an Array of License objects.
       def all(options = {})
         @all[options] ||= begin
+          # TODO: Remove in next major version to avoid breaking change
+          options[:pseudo] ||= options[:psuedo] unless options[:psuedo].nil?
+
           options = DEFAULT_OPTIONS.merge(options)
           output = licenses.dup
           output.reject!(&:hidden?) unless options[:hidden]
-          output.reject!(&:pseudo_license?) unless options[:psuedo]
+          output.reject!(&:pseudo_license?) unless options[:pseudo]
           return output if options[:featured].nil?
+
           output.select { |l| l.featured? == options[:featured] }
         end
       end
@@ -40,7 +44,7 @@ module Licensee
 
       # Given a license title or nickname, fuzzy match the license
       def find_by_title(title)
-        License.all(hidden: true, psuedo: false).find do |license|
+        License.all(hidden: true, pseudo: false).find do |license|
           title =~ /\A(the )?#{license.title_regex}( license)?\z/i
         end
       end
@@ -82,7 +86,7 @@ module Licensee
     DEFAULT_OPTIONS = {
       hidden:   false,
       featured: nil,
-      psuedo:   true
+      pseudo:   true
     }.freeze
 
     ALT_TITLE_REGEX = {
@@ -92,9 +96,14 @@ module Licensee
     }.freeze
 
     SOURCE_PREFIX = %r{https?://(?:www\.)?}i
-    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)}i
+    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i
+
+    HASH_METHODS = %i[
+      key spdx_id meta url rules fields other? gpl? lgpl? cc?
+    ].freeze
 
     include Licensee::ContentHelper
+    include Licensee::HashHelper
     extend Forwardable
     def_delegators :meta, *LicenseMeta.helper_methods
 
@@ -112,9 +121,17 @@ module Licensee
       @meta ||= LicenseMeta.from_yaml(yaml)
     end
 
+    def spdx_id
+      return meta.spdx_id if meta.spdx_id
+      return 'NOASSERTION' if key == 'other'
+      return 'NONE' if key == 'no-license'
+    end
+
     # Returns the human-readable license name
     def name
-      title ? title : key.capitalize
+      return key.tr('-', ' ').capitalize if pseudo_license?
+
+      title || spdx_id
     end
 
     def name_without_version
@@ -235,11 +252,13 @@ module Licensee
       unless File.exist?(path)
         raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
       end
+
       @raw_content ||= File.read(path, encoding: 'utf-8')
     end
 
     def parts
       return unless raw_content
+
       @parts ||= raw_content.match(/\A(---\n.*\n---\n+)?(.*)/m).to_a
     end
 

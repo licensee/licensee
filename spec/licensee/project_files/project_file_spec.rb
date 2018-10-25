@@ -4,7 +4,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
   let(:content) { mit.content }
   let(:possible_matchers) { [Licensee::Matchers::Exact] }
 
-  subject { described_class.new(content, filename) }
+  subject { Licensee::ProjectFiles::LicenseFile.new(content, filename) }
   before do
     allow(subject).to receive(:possible_matchers).and_return(possible_matchers)
   end
@@ -41,6 +41,27 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
 
     it 'stores additional metadata' do
       expect(subject[:dir]).to eql(Dir.pwd)
+    end
+  end
+
+  context 'to_h' do
+    let(:hash) { subject.to_h }
+    let(:expected) do
+      {
+        filename:           'LICENSE.txt',
+        content:            mit.content.to_s,
+        content_hash:       subject.content_hash,
+        content_normalized: subject.content_normalized,
+        matcher:            {
+          name:       :exact,
+          confidence: 100
+        },
+        matched_license:    'MIT'
+      }
+    end
+
+    it 'Converts to a hash' do
+      expect(hash).to eql(expected)
     end
   end
 end

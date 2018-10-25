@@ -23,7 +23,27 @@ Licensee automates the process of reading `LICENSE` files and compares their con
 
 ## Installation
 
-[`gem`](https://rubygems.org/pages/download)` install licensee` or add `gem 'licensee'` to your project's `Gemfile`.
+To use the latest released [gem](https://rubygems.org/pages/download) from [RubyGems](https://rubygems.org/):
+
+    gem install licensee
+
+To use licensee programmatically in your own Ruby project, add `gem 'licensee'` to your project's `Gemfile`.
+
+To run licensee directly from source:
+
+    gem install bundler
+    bundle install --path vendor/bundle
+    bundle exec bin/licensee
+
+On Windows, the last line needs to include the Ruby interpreter:
+
+    bundle exec ruby bin\licensee
+
+In a Docker Debian Stretch container, minimum dependencies are:
+
+```
+apt-get install -y ruby bundler cmake pkg-config git libssl-dev
+```
 
 ## Documentation
 

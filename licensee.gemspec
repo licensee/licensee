@@ -1,4 +1,4 @@
-require File.expand_path('../lib/licensee/version', __FILE__)
+require File.expand_path('lib/licensee/version', __dir__)
 
 Gem::Specification.new do |gem|
   gem.name    = 'licensee'
@@ -18,18 +18,20 @@ Gem::Specification.new do |gem|
   gem.bindir = 'bin'
   gem.executables << 'licensee'
 
+  gem.add_dependency('dotenv', '~> 2.0')
   gem.add_dependency('octokit', '~> 4.8.0')
   gem.add_dependency('rugged', '~> 0.24')
+  gem.add_dependency('thor', '~> 0.19')
 
   gem.add_development_dependency('coveralls', '~> 0.8')
   gem.add_development_dependency('mustache', '>= 0.9', '< 2.0')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('rake', '~> 10.3')
   gem.add_development_dependency('rspec', '~> 3.5')
-  gem.add_development_dependency('rubocop', '~> 0.35')
+  gem.add_development_dependency('rubocop', '~> 0.49')
   gem.add_development_dependency('webmock', '~> 3.1')
 
-  gem.required_ruby_version = '>= 2.1'
+  gem.required_ruby_version = '> 2.2'
 
   # ensure the gem is built out of versioned files
   gem.files = Dir[

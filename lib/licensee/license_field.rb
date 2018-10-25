@@ -39,6 +39,7 @@ module Licensee
       # Given a license body, returns an array of included LicneseFields
       def from_content(content)
         return [] unless content
+
         LicenseField.from_array content.scan(FIELD_REGEX).flatten
       end
     end
@@ -51,5 +52,9 @@ module Licensee
       key.sub('fullname', 'full name').capitalize
     end
     alias to_s label
+
+    def raw_text
+      "[#{key}]"
+    end
   end
 end

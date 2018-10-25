@@ -5,6 +5,9 @@
 # Project files for this project type will contain the following keys:
 #  :name - the file's path relative to the repo root
 #  :oid  - the file's OID
+
+autoload :Rugged, 'rugged'
+
 module Licensee
   module Projects
     class GitProject < Licensee::Projects::Project
@@ -56,9 +59,12 @@ module Licensee
       #  :name - the file's path relative to the repo root
       #  :oid  - the file's OID
       def files
-        @files ||= commit.tree.map do |entry|
-          next unless entry[:type] == :blob
-          { name: entry[:name], oid: entry[:oid] }
+        @files ||= files_from_tree(commit.tree)
+      end
+
+      def files_from_tree(tree, dir = '.')
+        tree.select { |e| e[:type] == :blob }.map do |entry|
+          entry.merge(dir: dir)
         end.compact
       end
     end

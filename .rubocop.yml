@@ -17,7 +17,7 @@ Metrics/BlockLength:
 Style/Documentation:
   Enabled: false
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
   AutoCorrect: true
 
@@ -36,5 +36,21 @@ Metrics/AbcSize:
 Layout/IndentHeredoc:
   Enabled: false
 
+Layout/ClosingHeredocIndentation:
+  Enabled: false
+
 Style/StructInheritance:
   Enabled: false
+
+Metrics/LineLength:
+  Exclude:
+    - bin/*
+    - lib/licensee/commands/*
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - lib/licensee/commands/*
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - lib/licensee/commands/*

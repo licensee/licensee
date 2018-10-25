@@ -1,25 +1,10 @@
-# Using Licensee
+## Using Licensee
 
-## Command line usage
+### Command line usage
 
-This gem includes an executable which can be run using the `licensee [PATH]` command,
-where `[PATH]` is:
+Licensee has an extensive command line interface. See [the command line documentation](command-line-usage.md) for more information.
 
-* A directory, for example: `licensee vendor/gems/activesupport`
-* A file, for example: `licensee LICENSE.txt`
-* A GitHub repository, for example: `licensee https://github.com/facebook/react`
-
-If you don't specify any arguments, `licensee` will just scan the current directory.
-
-In all cases, you'll get an output that looks like:
-
-```
-License: MIT
-Confidence: 98.42%
-Matcher: Licensee::GitMatcher
-```
-
-## License Ruby API
+### License Ruby API
 
 ```ruby
 license = Licensee.license "/path/to/a/project"
@@ -32,7 +17,7 @@ license.name
 => "MIT License"
 
 license.meta["source"]
-=> "http://opensource.org/licenses/MIT"
+=> "https://spdx.org/licenses/MIT.html"
 
 license.meta["description"]
 => "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
@@ -40,6 +25,8 @@ license.meta["description"]
 license.meta["permissions"]
 => ["commercial-use","modifications","distribution","private-use"]
 ```
+
+### Providing an access token
 
 If you wish to scan private GitHub repositories, or are hitting API rate limits, you can configure the embedded [Octokit](https://github.com/octokit/octokit.rb)
 client using environment variables, for example:
@@ -59,7 +46,7 @@ end
 license = Licensee.license "https://github.com/benbalter/licensee"
 ```
 
-## Advanced API usage
+### Advanced API usage
 
 You can gather more information by working with the project object, and the top level Licensee class.
 

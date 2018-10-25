@@ -3,8 +3,15 @@ module Licensee
     class Matcher
       attr_reader :file
 
+      include Licensee::HashHelper
+      HASH_METHODS = %i[name confidence].freeze
+
       def initialize(file)
         @file = file
+      end
+
+      def name
+        @name ||= self.class.to_s.split('::').last.downcase.to_sym
       end
 
       def match
@@ -17,8 +24,8 @@ module Licensee
 
       private
 
-      def licenses
-        License.all(hidden: true, psuedo: false)
+      def potential_matches
+        @potential_matches ||= Licensee.licenses(hidden: true)
       end
     end
   end

@@ -11,6 +11,8 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       'README.md'    => 0.9,
       'readme.txt'   => 0.9,
       'readme.mdown' => 0.9,
+      'readme.rdoc'  => 0.9,
+      'readme.rst'   => 0.9,
       'LICENSE'      => 0.0
     }.each do |filename, expected_score|
       context "with a file named #{filename}" do
@@ -92,6 +94,30 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
 
     context 'with trailing content that has a hashes-based header' do
       let(:content) { "# License\n\nhello world\n\n# Contributing" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
+    context 'With a trailing colon' do
+      let(:content) { "## License:\n\nhello world" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
+    context 'With trailing hashes' do
+      let(:content) { "## License ##\n\nhello world" }
+
+      it 'returns the license' do
+        expect(license).to eql('hello world')
+      end
+    end
+
+    context 'Rdoc' do
+      let(:content) { "== License:\n\nhello world" }
 
       it 'returns the license' do
         expect(license).to eql('hello world')

@@ -1,10 +1,10 @@
-# What we look at
+## What we look at
 
 Licensee works by taking a detected license file, and comparing the contents to a short list of known licenses.
 
-## Detecting the license file
+### Detecting the license file
 
-Licensee uses [a series of regular expressions](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/license_file.rb#L20-L30) to score files in the project's root as potential license files. Here's a few examples of files that would be detected:
+Licensee uses [a series of regular expressions](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/license_file.rb#L6-L43) to score files in the project's root as potential license files. Here's a few examples of files that would be detected:
 
 * `LICENSE`
 * `LICENCE`
@@ -14,35 +14,41 @@ Licensee uses [a series of regular expressions](https://github.com/benbalter/lic
 * `COPYRIGHT`
 * `UNLICENSE`
 
-## Known licenses
+If the project has multiple license files or a file named `license` or similar (as defined by the regular expressions linked above) that doesn't contain a only one well known license (see below) in its standard form, chances are Licensee won't detect the project's license.
 
-Licensee relies on the crowdsourced license content and metadata from [`choosealicense.com`](http://choosealicense.com).
+### Known licenses
 
-## What it doesn't look at
+Licensee relies on the crowdsourced license content and metadata from [`choosealicense.com`](https://choosealicense.com).
+
+### What it doesn't look at by default
 
 * The licensing of a project's dependencies
 * References to licenses in `README`, `README.md`, etc.
 * Every single possible license (just the most popular ones)
-* Compliance - If you're looking for this, take a look at [LicenseFinder](https://github.com/pivotal/LicenseFinder).
+* Compliance - [multiple tools](https://github.com/todogroup/awesome-oss-mgmt#licensing) and human review are needed to address all aspects
 
-## Huh? Why don't you look at X?
+### Huh? Why don't you look at X by default?
 
 Because reasons.
 
-### Why not just look at the "license" field of [insert package manager here]?
+#### Why not just look at the "license" field of [insert package manager here]?
 
-Because it's not legally binding. A license is a legal contract. You give up certain rights (e.g., the right to sue the author) in exchange for the right to use the software.
+The LICENSE file is platform-agnostic, and most popular licenses today *require* that the license itself be distributed along side the software. Simply putting the letters "MIT" or "GPL" in a configuration file doesn't really meet that requirement. Those files are designed to be read by computers (who can't enter into contracts), not humans (who can).
 
-Most popular licenses today *require* that the license itself be distributed along side the software. Simply putting the letters "MIT" or "GPL" in a configuration file doesn't really meet that requirement. Those files are designed to be read by computers (who can't enter into contracts), not humans (who can). It's great metadata, but that's about it.
+From a practical standpoint, every language has its own package manager (some even have multiple). That means that if you want to detect the license of an arbitrary project, you'll have to implement [100s](https://github.com/github/linguist/tree/master/samples) of package-manager-specific detection strategies.
 
-From a practical standpoint, every language has its own package manager (some even have multiple). That means that if you want to detect the license of an arbitrary project, you'll have to implement [100s](https://github.com/github/linguist/tree/master/samples) of package-manager-specific detection strategies. The LICENSE file is a platform-agnostic and unambiguous way to communicate license intention.
+However, licensee does [optionally](https://github.com/benbalter/licensee/blob/master/docs/customizing.md) look at license metadata of a [handful](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/package_manager_file.rb) of package manager files.
 
-### What about looking to see if the author said something in the readme?
+License metadata in package manager files can complement detection from `LICENSE` files through [license expressions](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) (e.g., is a `GPL-3.0` license `-only` or `or-later-versions`, or do multiple `LICENSE` files indicate disjunctive choice) but licensee currently does not parse these expressions.
 
-You could make an argument that, when linked or sufficiently identified, the terms of the license are incorporated by reference, or at least that the author's intent is there. There's a handful of reasons why this isn't ideal. For one, if you're using the MIT or BSD (ISC) license, along with a few others, there's templematic language, like the copyright notice, which would go unfilled.
+#### What about looking to see if the author said something in the readme?
 
-### What about checking every single file for a copyright header?
+There are lots of ways of saying a project or some portion of it is under a license in natural language, and that's what is often found in a `README` file. Licensee can't reliably parse natural language.
 
-Because that's silly in the context of how software is developed today. You wouldn't put a copyright notice on each page of a book. Besides, it's a lot of work, as there's no standardized, cross-platform way to describe a project's license within a comment.
+However, licensee does [optionally](https://github.com/benbalter/licensee/blob/master/docs/customizing.md) look for license indicators in `README` files. Just don't expect that it will detect most statements found in such files, and expect to review any that it finds.
 
-Checking the actual text into version control is definitive, so that's what this project looks at.
+#### What about checking every single file for a copyright header?
+
+It's a lot of work, as there's no standardized, cross-platform way to describe a _project's_ license within a source file comment. (Adding a [SPDX License Idenfifier](https://spdx.org/using-spdx-license-identifier) to source code comments can clarify what license applies to a single source file, but licensee reports on licenses at a project level.)
+
+Scanning every source file for potential legal notices is a useful part of a license compliance program, but there are [other tools](https://github.com/todogroup/awesome-oss-mgmt#licensing) that specialize in that.

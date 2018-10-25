@@ -1,6 +1,9 @@
 module Licensee
   # Exposes #conditions, #permissions, and #limitation arrays of LicenseRules
   class LicenseRules < Struct.new(:conditions, :permissions, :limitations)
+    include Licensee::HashHelper
+    HASH_METHODS = Rule.groups
+
     class << self
       def from_license(license)
         from_meta(license.meta)
@@ -9,7 +12,7 @@ module Licensee
       def from_meta(meta)
         rules = {}
         Rule.groups.each do |group|
-          rules[group] = meta[group].map do |tag|
+          rules[group] = (meta[group] || []).map do |tag|
             Rule.find_by_tag_and_group(tag, group)
           end
         end

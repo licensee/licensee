@@ -10,6 +10,11 @@ module Licensee
 
       attr_reader :content
 
+      include Licensee::HashHelper
+      HASH_METHODS = %i[
+        filename content content_hash content_normalized matcher matched_license
+      ].freeze
+
       ENCODING = Encoding::UTF_8
       ENCODING_OPTIONS = {
         invalid: :replace,
@@ -37,9 +42,23 @@ module Licensee
         @data = metadata || {}
       end
 
+      # TODO: In the next major release, filename should be the basename
+      # and path should be either the absolute path or the relative path to
+      # the project root, but maintaining the alias for backward compatability
       def filename
         @data[:name]
       end
+      alias path filename
+
+      def directory
+        @data[:dir] || '.'
+      end
+      alias dir directory
+
+      def path_relative_to_root
+        File.join(directory, filename)
+      end
+      alias relative_path path_relative_to_root
 
       def possible_matchers
         raise 'Not implemented'
@@ -59,14 +78,26 @@ module Licensee
       end
 
       alias match license
-      alias path filename
+
+      def matched_license
+        license.spdx_id if license
+      end
 
       # Is this file a COPYRIGHT file with only a copyright statement?
       # If so, it can be excluded from determining if a project has >1 license
       def copyright?
         return false unless is_a?(LicenseFile)
         return false unless matcher.is_a?(Matchers::Copyright)
-        filename =~ /\Acopyright(?:#{LicenseFile::NONSPDX_EXT_REGEX})?\z/i
+
+        filename =~ /\Acopyright(?:#{LicenseFile::OTHER_EXT_REGEX})?\z/i
+      end
+
+      def content_hash
+        nil
+      end
+
+      def content_normalized
+        nil
       end
     end
   end
