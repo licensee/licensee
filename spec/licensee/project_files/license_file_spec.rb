@@ -3,7 +3,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
-  let(:content_hash) { '46cdc03462b9af57968df67b450cc4372ac41f53' }
+  let(:content_hash) { 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3' }
 
   subject { described_class.new(content, filename) }
 

@@ -53,7 +53,7 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(884)
+    expect(subject.length_delta(mit)).to eql(885)
     expect(subject.length_delta(subject)).to eql(0)
   end
 

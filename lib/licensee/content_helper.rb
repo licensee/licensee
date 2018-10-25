@@ -13,10 +13,9 @@ module Licensee
       whitespace:          /\s+/,
       markdown_headings:   /\A\s*#+/,
       version:             /\Aversion.*$/i,
-      new_markup:          /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/,
+      markup:              /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/,
       url:                 %r{#{START_REGEX}https?://[^ ]+/},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
-      markup:              /[#_*=~\[\]()`|>]+/,
       developed_by:        /\Adeveloped by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /['"’”]/
