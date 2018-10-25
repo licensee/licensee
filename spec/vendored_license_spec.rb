@@ -45,14 +45,14 @@ RSpec.describe 'vendored licenses' do
         end
 
         context 'without the title' do
-          let(:content) do
-            wtfpl.send :strip_title
-            wtfpl.send :_content
+          let(:content_without_title) do
+            license_file.send :strip_title
+            license_file.send :_content
           end
 
           it 'detects the license' do
             skip if license.key == 'ncsa'
-            expect(content).to be_detected_as(license)
+            expect(content_without_title).to be_detected_as(license)
           end
         end
 

@@ -106,18 +106,19 @@ end
 RSpec::Matchers.define :be_detected_as do |expected|
   match do |actual|
     @expected_as_array = [expected.content_normalized(wrap: 80)]
-    license_file = Licensee::ProjectFiles::LicenseFile.new(actual, 'LICENSE')
-    @actual = license_file.content_normalized(wrap: 80)
-    return false unless license_file.license
+    @license_file = Licensee::ProjectFiles::LicenseFile.new(actual, 'LICENSE')
+    @actual = @license_file.content_normalized(wrap: 80)
+    return false unless @license_file.license
 
-    values_match? expected, license_file.license
+    values_match? expected, @license_file.license
   end
 
   failure_message do |actual|
     license_file = Licensee::ProjectFiles::LicenseFile.new(actual, 'LICENSE')
     license_name = expected.meta['spdx-id'] || expected.key
     similarity = expected.similarity(license_file)
-    msg = "Expected the content to match the #{license_name} license"
+    content = @license_file.content
+    msg = "Expected '#{content}' to match the #{license_name} license"
     msg << " (#{format_percent(similarity)} similarity"
     msg << "using the #{license_file.matcher} matcher)"
   end

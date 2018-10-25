@@ -4,17 +4,17 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
-    START_REGEX = /(?<=\A|<<endOptional>>)\s*/i
+    START_REGEX = /\A\s*/
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
+    ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
       hrs:                 /^\s*[=\-\*][=\-\* ]{2,}/,
-      alt_title:           License::ALT_TITLE_REGEX,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
       markdown_headings:   /\A\s*#+/,
       version:             /\Aversion.*$/i,
       new_markup:          /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/,
-      url:                 /#{START_REGEX}https?:\/\/[^ ]+/,
+      url:                 %r{#{START_REGEX}https?://[^ ]+/},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
       markup:              /[#_*=~\[\]()`|>]+/,
       developed_by:        /\Adeveloped by:.*?\n\n/im,
@@ -206,14 +206,16 @@ module Licensee
       end
       titles.concat(without_versions.compact)
 
-      /#{START_REGEX}\s*\(?(the )?#{Regexp.union titles}.*$/i
+      /#{START_REGEX}\(?(the )?#{Regexp.union titles}.*$/i
     end
 
     private
 
+    # rubocop:disable Naming/MemoizedInstanceVariableName
     def _content
       @_content ||= content.to_s.strip
     end
+    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def strip(regex_or_sym)
       return unless _content
@@ -238,7 +240,9 @@ module Licensee
     end
 
     def strip_title
-      strip(ContentHelper.title_regex) while _content =~ ContentHelper.title_regex
+      while _content =~ ContentHelper.title_regex
+        strip(ContentHelper.title_regex)
+      end
     end
 
     def strip_borders
