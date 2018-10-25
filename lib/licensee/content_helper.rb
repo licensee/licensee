@@ -5,8 +5,8 @@ module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
     START_REGEX = /(?<=\A|<<endOptional>>)\s*/i
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
     REGEXES = {
-      end_of_terms:        /^[\s#*_]*end of terms and conditions\s*$/i,
       hrs:                 /^\s*[=\-\*][=\-\* ]{2,}/,
       alt_title:           License::ALT_TITLE_REGEX,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
@@ -20,21 +20,21 @@ module Licensee
       developed_by:        /\Adeveloped by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /['"’”]/
-    }
+    }.freeze
     NORMALIZATIONS = {
-      lists: { from: /^\s*(\d\.|\*)/, to: '-' },
-      https: { from: /http:/, to: 'https:' },
-      ampersands: { from: "&", to: "and" },
-      dashes: { from: /[—–-]+/, to: '-' },
-      copyright: {
+      lists:      { from: /^\s*(\d\.|\*)/, to: '-' },
+      https:      { from: /http:/, to: 'https:' },
+      ampersands: { from: '&', to: 'and' },
+      dashes:     { from: /[—–-]+/, to: '-' },
+      copyright:  {
         from: /(?:copyright\ )?#{Matchers::Copyright::COPYRIGHT_SYMBOLS}/,
-        to: 'copyright'
+        to:   'copyright'
       },
-      quotes: {
+      quotes:     {
         from: /#{REGEXES[:quote_begin]}+([\w -]*?\w)#{REGEXES[:quote_end]}+/,
-        to: '"\1"'
+        to:   '"\1"'
       }
-    }
+    }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
     # See https://spdx.org/spdx-license-list/matching-guidelines
@@ -82,10 +82,10 @@ module Licensee
       'cent'            => 'percent',
       'owner'           => 'holder'
     }.freeze
-    STRIP_METHODS = %i(
+    STRIP_METHODS = %i[
       version hrs markdown_headings whitespace all_rights_reserved markup
       url developed_by
-    )
+    ].freeze
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -162,6 +162,12 @@ module Licensee
       end
     end
 
+    # Backwards compatibalize constants to avoid a breaking change
+    def self.const_missing(const)
+      key = const.to_s.downcase.gsub('_regex', '').to_sym
+      REGEXES[key] || super
+    end
+
     # Wrap text to the given line length
     def self.wrap(text, line_width = 80)
       return if text.nil?
@@ -215,7 +221,7 @@ module Licensee
       if regex_or_sym.is_a?(Symbol)
         if REGEXES[regex_or_sym]
           regex_or_sym = REGEXES[regex_or_sym]
-        elsif self.respond_to?("strip_#{regex_or_sym}", true)
+        elsif respond_to?("strip_#{regex_or_sym}", true)
           return send("strip_#{regex_or_sym}")
         else
           raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
@@ -245,11 +251,11 @@ module Licensee
     end
 
     def strip_end_of_terms
-      body, _partition, _instructions = _content.partition(REGEXES[:end_of_terms])
+      body, _partition, _instructions = _content.partition(END_OF_TERMS_REGEX)
       @_content = body
     end
 
-    NORMALIZATIONS.each do |key, op|
+    NORMALIZATIONS.each do |key, _op|
       define_method("normalize_#{key}") do
         normalize(key)
       end
