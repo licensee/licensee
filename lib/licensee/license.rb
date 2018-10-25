@@ -145,11 +145,11 @@ module Licensee
       title_regex ||= begin
         string = name.downcase.sub('*', 'u')
         string.sub!(/\Athe /i, '')
-        string.sub!(/ license\z/i, '')
         string.sub!(/,? version /, ' ')
         string.sub!(/v(\d+\.\d+)/, '\1')
         string = Regexp.escape(string)
-        string = string.sub(/ (\d+\\.\d+)/, ',?\ (?:version\ |v)?\1')
+        string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
+        string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
         string = string.sub(/\bgnu\\ /, '(?:GNU )?')
         Regexp.new string, 'i'
       end
