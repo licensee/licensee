@@ -8,15 +8,15 @@ module Licensee
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
-      hrs:                 /^\s*[=\-\*][=\-\* ]{2,}/,
+      hrs:                 /^\s*[=\-\*][=\-\*]{2,}\s*/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
-      markdown_headings:   /\A\s*#+/,
-      version:             /\Aversion.*$/i,
-      markup:              /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/,
-      url:                 %r{#{START_REGEX}https?://[^ ]+/},
+      markdown_headings:   /#{START_REGEX}#+/,
+      version:             /#{START_REGEX}version.*$/i,
+      markup:              /(?:[_*~`]+.*?[_*~`]+|^\s*[>-]|\[.*?\]\(.*?\))/,
+      url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
-      developed_by:        /\Adeveloped by:.*?\n\n/im,
+      developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /['"’”]/
     }.freeze
@@ -82,8 +82,8 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      version hrs markdown_headings whitespace all_rights_reserved markup
-      url developed_by
+      hrs markdown_headings borders markup title version url copyright
+      all_rights_reserved developed_by end_of_terms whitespace
     ].freeze
 
     # A set of each word in the license, without duplicates
@@ -130,26 +130,19 @@ module Licensee
     # content with attribution first to detect attribuion in LicenseFile
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
-        strip_markdown_headings
-        strip_hrs
-        strip_title
-        strip_version
+        @_content = nil
+        %w[markdown_headings hrs title version].each { |op| strip(op) }
         _content
       end
     end
 
     def content_normalized(wrap: nil)
       @content_normalized ||= begin
-        @_content = content_without_title_and_version.downcase
+        @_content = nil
+        @_content = _content.downcase
 
-        %i[
-          dashes quotes spelling copyright bullets ampersands lists https
-        ].each { |op| normalize(op) }
-
-        %i[
-          end_of_terms copyright all_rights_reserved developed_by
-          url borders markup whitespace
-        ].each { |op| strip(op) }
+        (NORMALIZATIONS.keys + %i[spelling bullets]).each { |op| normalize(op) }
+        STRIP_METHODS.each { |op| strip(op) }
 
         _content
       end
@@ -212,7 +205,7 @@ module Licensee
 
     # rubocop:disable Naming/MemoizedInstanceVariableName
     def _content
-      @_content ||= content.to_s.strip
+      @_content ||= content.dup.to_s.strip
     end
     # rubocop:enable Naming/MemoizedInstanceVariableName
 
@@ -245,7 +238,7 @@ module Licensee
     end
 
     def strip_borders
-      _content.gsub!(/^\*(.*?)\*$/, '\1')
+      normalize(/^[\*-](.*?)\*$/, '\1')
     end
 
     def strip_copyright
