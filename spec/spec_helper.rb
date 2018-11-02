@@ -136,5 +136,5 @@ RSpec::Matchers.define :be_detected_as do |expected|
 end
 
 def license_hashes
-  @license_hashese ||= JSON.parse(fixture_contents('license-hashes.json'))
+  @license_hashes ||= JSON.parse(fixture_contents('license-hashes.json'))
 end

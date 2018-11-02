@@ -215,13 +215,14 @@ module Licensee
       return unless _content
 
       if regex_or_sym.is_a?(Symbol)
-        if respond_to?("strip_#{regex_or_sym}", true)
-          return send("strip_#{regex_or_sym}")
-        elsif REGEXES[regex_or_sym]
-          regex_or_sym = REGEXES[regex_or_sym]
-        else
+        meth = "strip_#{regex_or_sym}"
+        return send(meth) if respond_to?(meth, true)
+
+        unless REGEXES[regex_or_sym]
           raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
         end
+
+        regex_or_sym = REGEXES[regex_or_sym]
       end
 
       @_content = _content.gsub(regex_or_sym, ' ').squeeze(' ').strip

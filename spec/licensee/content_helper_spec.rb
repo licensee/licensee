@@ -92,8 +92,8 @@ RSpec.describe Licensee::ContentHelper do
       title:               "The MIT License\nfoo",
       copyright:           "The MIT License\nCopyright 2018 Ben Balter\nFoo",
       end_of_terms:        "Foo\nend of terms and conditions\nbar",
-      block_markup:        "> Foo",
-      link_markup:         "[Foo](http://exmaple.com)"
+      block_markup:        '> Foo',
+      link_markup:         '[Foo](http://exmaple.com)'
     }.each do |field, fixture|
       context "#strip_#{field}" do
         let(:content) { fixture }
@@ -104,10 +104,10 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context "span markup" do
-      let(:content) { '_foo_ *foo* **foo** ~foo~'}
+    context 'span markup' do
+      let(:content) { '_foo_ *foo* **foo** ~foo~' }
 
-      it "strips span markup" do
+      it 'strips span markup' do
         expect(normalized_content).to eql('foo foo foo foo')
       end
     end
@@ -194,23 +194,23 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context "lists" do
-      let(:content) { "1. Foo\n * Bar"}
+    context 'lists' do
+      let(:content) { "1. Foo\n * Bar" }
 
       it 'normalizes lists' do
-        expect(subject.content_normalized).to eql("- foo - bar")
+        expect(subject.content_normalized).to eql('- foo - bar')
       end
     end
 
-    context "dashes" do
-      let(:content) { "Foo-Bar—–baz-buzz"}
+    context 'dashes' do
+      let(:content) { 'Foo-Bar—–baz-buzz' }
 
       it 'normalizes dashes' do
-        expect(subject.content_normalized).to eql("foo-bar-baz-buzz")
+        expect(subject.content_normalized).to eql('foo-bar-baz-buzz')
       end
     end
 
-    context "quotes" do
+    context 'quotes' do
       let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
 
       it 'normalizes quotes' do
