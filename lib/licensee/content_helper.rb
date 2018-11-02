@@ -206,7 +206,7 @@ module Licensee
 
     # rubocop:disable Naming/MemoizedInstanceVariableName
     def _content
-      @_content ||= content.dup.to_s.strip
+      @_content ||= content.to_s.dup.strip
     end
     # rubocop:enable Naming/MemoizedInstanceVariableName
 
