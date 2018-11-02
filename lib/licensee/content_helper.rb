@@ -138,8 +138,7 @@ module Licensee
 
     def content_normalized(wrap: nil)
       @content_normalized ||= begin
-        @_content = nil
-        @_content = _content.downcase
+        @_content = content_without_title_and_version.downcase
 
         (NORMALIZATIONS.keys + %i[spelling bullets]).each { |op| normalize(op) }
         STRIP_METHODS.each { |op| strip(op) }
