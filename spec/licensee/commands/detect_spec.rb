@@ -10,7 +10,7 @@ RSpec.describe 'detect command' do
   let(:stdout) { output[0] }
   let(:stderr) { output[1] }
   let(:status) { output[2] }
-  let(:hash) { 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3' }
+  let(:hash) { license_hashes['mit'] }
   let(:expected) do
     {
       'License'          => 'MIT',

@@ -91,7 +91,9 @@ RSpec.describe Licensee::ContentHelper do
       borders:             '*   Foo    *',
       title:               "The MIT License\nfoo",
       copyright:           "The MIT License\nCopyright 2018 Ben Balter\nFoo",
-      end_of_terms:        "Foo\nend of terms and conditions\nbar"
+      end_of_terms:        "Foo\nend of terms and conditions\nbar",
+      block_markup:        "> Foo",
+      link_markup:         "[Foo](http://exmaple.com)"
     }.each do |field, fixture|
       context "#strip_#{field}" do
         let(:content) { fixture }
@@ -102,12 +104,11 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'markup' do
-      let(:content) { "> foo\n_foo_ [bar](#baz) ~foo~ `bar` *baz*" }
+    context "span markup" do
+      let(:content) { '_foo_ *foo* **foo** ~foo~'}
 
-      it 'strips markup' do
-        skip 'failing'
-        expect(normalized_content).to eql('foo foo bar foo bar baz')
+      it "strips span markup" do
+        expect(normalized_content).to eql('foo foo foo foo')
       end
     end
   end
@@ -177,6 +178,46 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   context 'normalizing' do
+    context 'https' do
+      let(:content) { 'http://example.com' }
+
+      it 'normalized URL protocals' do
+        expect(subject.content_normalized).to eql('https://example.com')
+      end
+    end
+
+    context 'ampersands' do
+      let(:content) { 'Foo & Bar' }
+
+      it 'normalized ampersands' do
+        expect(subject.content_normalized).to eql('foo and bar')
+      end
+    end
+
+    context "lists" do
+      let(:content) { "1. Foo\n * Bar"}
+
+      it 'normalizes lists' do
+        expect(subject.content_normalized).to eql("- foo - bar")
+      end
+    end
+
+    context "dashes" do
+      let(:content) { "Foo-Bar—–baz-buzz"}
+
+      it 'normalizes dashes' do
+        expect(subject.content_normalized).to eql("foo-bar-baz-buzz")
+      end
+    end
+
+    context "quotes" do
+      let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
+
+      it 'normalizes quotes' do
+        expect(subject.content_normalized).to eql('"a" "b" "c" "d" "e"')
+      end
+    end
+
     it 'strips formatting from the MPL' do
       license = Licensee::License.find('mpl-2.0')
       expect(license.content_normalized).to_not include('* *')

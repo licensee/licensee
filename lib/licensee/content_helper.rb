@@ -8,27 +8,26 @@ module Licensee
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
-      hrs:                 /^\s*[=\-\*][=\-\*]{2,}\s*/,
+      hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
       markdown_headings:   /#{START_REGEX}#+/,
       version:             /#{START_REGEX}version.*$/i,
-      markup:              /(?:[_*~`]+.*?[_*~`]+|^\s*[>-]|\[.*?\]\(.*?\))/,
+      span_markup:         /[_*~]+(.*?)[_*~]+/,
+      link_markup:         /\[(.+?)\]\(.+?\)/,
+      block_markup:        /^\s*>/,
+      border_markup:       /^[\*-](.*?)[\*-]$/,
       url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
-      quote_end:           /['"’”]/
+      quote_end:           /[`'"’”]/
     }.freeze
     NORMALIZATIONS = {
-      lists:      { from: /^\s*(\d\.|\*)/, to: '-' },
+      lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
       https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
-      dashes:     { from: /[—–-]+/, to: '-' },
-      copyright:  {
-        from: /(?:copyright\ )?#{Matchers::Copyright::COPYRIGHT_SYMBOLS}/,
-        to:   'copyright'
-      },
+      dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
       quotes:     {
         from: /#{REGEXES[:quote_begin]}+([\w -]*?\w)#{REGEXES[:quote_end]}+/,
         to:   '"\1"'
@@ -82,7 +81,8 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      hrs markdown_headings borders markup title version url copyright
+      hrs markdown_headings borders title version url copyright
+      block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
     ].freeze
 
@@ -131,7 +131,7 @@ module Licensee
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
         @_content = nil
-        %w[markdown_headings hrs title version].each { |op| strip(op) }
+        %i[hrs markdown_headings title version].each { |op| strip(op) }
         _content
       end
     end
@@ -186,19 +186,21 @@ module Licensee
     end
 
     def self.title_regex
-      licenses = Licensee::License.all(hidden: true, psuedo: false)
-      titles = licenses.map(&:title_regex)
+      @title_regex ||= begin
+        licenses = Licensee::License.all(hidden: true, psuedo: false)
+        titles = licenses.map(&:title_regex)
 
-      # Title regex must include the version to support matching within
-      # families, but for sake of normalization, we can be less strict
-      without_versions = licenses.map do |license|
-        next if license.title == license.name_without_version
+        # Title regex must include the version to support matching within
+        # families, but for sake of normalization, we can be less strict
+        without_versions = licenses.map do |license|
+          next if license.title == license.name_without_version
 
-        Regexp.new Regexp.escape(license.name_without_version), 'i'
+          Regexp.new Regexp.escape(license.name_without_version), 'i'
+        end
+        titles.concat(without_versions.compact)
+
+        /#{START_REGEX}\(?(?:the )?#{Regexp.union titles}.*?$/i
       end
-      titles.concat(without_versions.compact)
-
-      /#{START_REGEX}\(?(the )?#{Regexp.union titles}.*$/i
     end
 
     private
@@ -213,22 +215,16 @@ module Licensee
       return unless _content
 
       if regex_or_sym.is_a?(Symbol)
-        if REGEXES[regex_or_sym]
-          regex_or_sym = REGEXES[regex_or_sym]
-        elsif respond_to?("strip_#{regex_or_sym}", true)
+        if respond_to?("strip_#{regex_or_sym}", true)
           return send("strip_#{regex_or_sym}")
+        elsif REGEXES[regex_or_sym]
+          regex_or_sym = REGEXES[regex_or_sym]
         else
           raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
         end
       end
 
       @_content = _content.gsub(regex_or_sym, ' ').squeeze(' ').strip
-    end
-
-    STRIP_METHODS.each do |sym|
-      define_method "strip_#{sym}" do
-        strip(sym)
-      end
     end
 
     def strip_title
@@ -238,7 +234,7 @@ module Licensee
     end
 
     def strip_borders
-      normalize(/^[\*-](.*?)\*$/, '\1')
+      normalize(REGEXES[:border_markup], '\1')
     end
 
     def strip_copyright
@@ -251,15 +247,18 @@ module Licensee
       @_content = body
     end
 
-    NORMALIZATIONS.each do |key, _op|
-      define_method("normalize_#{key}") do
-        normalize(key)
-      end
+    def strip_span_markup
+      normalize(REGEXES[:span_markup], '\1')
+    end
+
+    def strip_link_markup
+      normalize(REGEXES[:link_markup], '\1')
     end
 
     def normalize(from_or_key, to = nil)
       operation = { from: from_or_key, to: to } if to
       operation ||= NORMALIZATIONS[from_or_key]
+
       if operation
         @_content = _content.gsub operation[:from], operation[:to]
       elsif respond_to?("normalize_#{from_or_key}", true)

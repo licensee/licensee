@@ -134,3 +134,7 @@ RSpec::Matchers.define :be_detected_as do |expected|
 
   diffable
 end
+
+def license_hashes
+  @license_hashese ||= JSON.parse(fixture_contents('license-hashes.json'))
+end
