@@ -95,8 +95,8 @@ module Licensee
       'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
     }.freeze
 
-    SOURCE_PREFIX = %r{https?://(?:www\.)?}i
-    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i
+    SOURCE_PREFIX = %r{https?://(?:www\.)?}i.freeze
+    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i.freeze
 
     HASH_METHODS = %i[
       key spdx_id meta url rules fields other? gpl? lgpl? cc?

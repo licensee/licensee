@@ -5,7 +5,7 @@ module Licensee
 
       # rubocop:disable Metrics/LineLength
       COPYRIGHT_SYMBOLS = Regexp.union([/copyright/i, /\(c\)/i, "\u00A9", "\xC2\xA9"])
-      REGEX = /#{ContentHelper::START_REGEX}(?:portions )?(\s*#{COPYRIGHT_SYMBOLS}.*$)+$/i
+      REGEX = /#{ContentHelper::START_REGEX}(?:portions )?(\s*#{COPYRIGHT_SYMBOLS}.*$)+$/i.freeze
       # rubocop:enable Metrics/LineLength
 
       def match

@@ -4,8 +4,8 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
-    START_REGEX = /\A\s*/
-    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i
+    START_REGEX = /\A\s*/.freeze
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i.freeze
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,

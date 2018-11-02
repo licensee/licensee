@@ -351,4 +351,18 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
   end
+
+  context 'metaprogramming' do
+    it 'raises on invalid normalization' do
+      expect { subject.send(:normalize, :foo) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises on invalid strip' do
+      expect { subject.send(:strip, :foo) }.to raise_error(ArgumentError)
+    end
+
+    it 'backwards compatibalizes regexes' do
+      expect(described_class::WHITESPACE_REGEX).to eql(/\s+/)
+    end
+  end
 end
