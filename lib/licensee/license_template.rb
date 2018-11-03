@@ -26,11 +26,11 @@ module Licensee
     include ContentHelper
     attr_reader :spdx_id
 
-    VAR_REGEX = /var;name=\"(?<name>.+?)\"/
-    ORIGINAL_REGEX = /original=\"(?<original>.+?)\"/
-    MATCH_REGEX = /match=\"(?<match>.+?)\"/
-    FIELD_REGEX = /(?<field><<#{VAR_REGEX};#{ORIGINAL_REGEX};#{MATCH_REGEX}>>)/
-    OPTIONAL_REGEX = /<<beginoptional>>(?:\\ )?(.*?)<<endoptional>>(?:\\ )?\s*/
+    VAR_REGEX = /var;name=\"(?<name>.+?)\"/.freeze
+    ORIGINAL_REGEX = /original=\"(?<original>.+?)\"/.freeze
+    MATCH_REGEX = /match=\"(?<match>.+?)\"/.freeze
+    FIELD_REGEX = /(?<field><<#{VAR_REGEX};#{ORIGINAL_REGEX};#{MATCH_REGEX}>>)/.freeze
+    OPTIONAL_REGEX = /<<beginoptional>>(?:\\ )?(.*?)<<endoptional>>(?:\\ )?\s*/.freeze
 
     def initialize(spdx_id)
       @spdx_id = spdx_id
