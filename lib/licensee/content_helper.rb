@@ -4,37 +4,35 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
-    START_REGEX = /(?<=\A|<<endOptional>>)\s*/i
+    START_REGEX = /\A\s*/.freeze
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i.freeze
+    ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
-      end_of_terms:        /^[\s#*_]*end of terms and conditions\s*$/i,
-      hrs:                 /^\s*[=\-\*][=\-\* ]{2,}/,
-      alt_title:           License::ALT_TITLE_REGEX,
+      hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
-      markdown_headings:   /\A\s*#+/,
-      version:             /\Aversion.*$/i,
-      new_markup:          /(?:[_*~`]+.*?[_*~`]+|^\s*>|\[.*?\]\(.*?\))/,
-      url:                 /#{START_REGEX}https?:\/\/[^ ]+/,
+      markdown_headings:   /#{START_REGEX}#+/,
+      version:             /#{START_REGEX}version.*$/i,
+      span_markup:         /[_*~]+(.*?)[_*~]+/,
+      link_markup:         /\[(.+?)\]\(.+?\)/,
+      block_markup:        /^\s*>/,
+      border_markup:       /^[\*-](.*?)[\*-]$/,
+      url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
-      markup:              /[#_*=~\[\]()`|>]+/,
-      developed_by:        /\Adeveloped by:.*?\n\n/im,
+      developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
-      quote_end:           /['"’”]/
-    }
+      quote_end:           /[`'"’”]/
+    }.freeze
     NORMALIZATIONS = {
-      lists: { from: /^\s*(\d\.|\*)/, to: '-' },
-      https: { from: /http:/, to: 'https:' },
-      ampersands: { from: "&", to: "and" },
-      dashes: { from: /[—–-]+/, to: '-' },
-      copyright: {
-        from: /(?:copyright\ )?#{Matchers::Copyright::COPYRIGHT_SYMBOLS}/,
-        to: 'copyright'
-      },
-      quotes: {
+      lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
+      https:      { from: /http:/, to: 'https:' },
+      ampersands: { from: '&', to: 'and' },
+      dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
+      quotes:     {
         from: /#{REGEXES[:quote_begin]}+([\w -]*?\w)#{REGEXES[:quote_end]}+/,
-        to: '"\1"'
+        to:   '"\1"'
       }
-    }
+    }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
     # See https://spdx.org/spdx-license-list/matching-guidelines
@@ -82,10 +80,11 @@ module Licensee
       'cent'            => 'percent',
       'owner'           => 'holder'
     }.freeze
-    STRIP_METHODS = %i(
-      version hrs markdown_headings whitespace all_rights_reserved markup
-      url developed_by
-    )
+    STRIP_METHODS = %i[
+      hrs markdown_headings borders title version url copyright
+      block_markup span_markup link_markup
+      all_rights_reserved developed_by end_of_terms whitespace
+    ].freeze
 
     # A set of each word in the license, without duplicates
     def wordset
@@ -131,10 +130,8 @@ module Licensee
     # content with attribution first to detect attribuion in LicenseFile
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
-        strip_markdown_headings
-        strip_hrs
-        strip_title
-        strip_version
+        @_content = nil
+        %i[hrs markdown_headings title version].each { |op| strip(op) }
         _content
       end
     end
@@ -143,14 +140,8 @@ module Licensee
       @content_normalized ||= begin
         @_content = content_without_title_and_version.downcase
 
-        %i[
-          dashes quotes spelling copyright bullets ampersands lists https
-        ].each { |op| normalize(op) }
-
-        %i[
-          end_of_terms copyright all_rights_reserved developed_by
-          url borders markup whitespace
-        ].each { |op| strip(op) }
+        (NORMALIZATIONS.keys + %i[spelling bullets]).each { |op| normalize(op) }
+        STRIP_METHODS.each { |op| strip(op) }
 
         _content
       end
@@ -160,6 +151,12 @@ module Licensee
       else
         Licensee::ContentHelper.wrap(@content_normalized, wrap)
       end
+    end
+
+    # Backwards compatibalize constants to avoid a breaking change
+    def self.const_missing(const)
+      key = const.to_s.downcase.gsub('_regex', '').to_sym
+      REGEXES[key] || super
     end
 
     # Wrap text to the given line length
@@ -188,55 +185,56 @@ module Licensee
     end
 
     def self.title_regex
-      licenses = Licensee::License.all(hidden: true, psuedo: false)
-      titles = licenses.map(&:title_regex)
+      @title_regex ||= begin
+        licenses = Licensee::License.all(hidden: true, psuedo: false)
+        titles = licenses.map(&:title_regex)
 
-      # Title regex must include the version to support matching within
-      # families, but for sake of normalization, we can be less strict
-      without_versions = licenses.map do |license|
-        next if license.title == license.name_without_version
+        # Title regex must include the version to support matching within
+        # families, but for sake of normalization, we can be less strict
+        without_versions = licenses.map do |license|
+          next if license.title == license.name_without_version
 
-        Regexp.new Regexp.escape(license.name_without_version), 'i'
+          Regexp.new Regexp.escape(license.name_without_version), 'i'
+        end
+        titles.concat(without_versions.compact)
+
+        /#{START_REGEX}\(?(?:the )?#{Regexp.union titles}.*?$/i
       end
-      titles.concat(without_versions.compact)
-
-      /#{START_REGEX}\s*\(?(the )?#{Regexp.union titles}.*$/i
     end
 
     private
 
+    # rubocop:disable Naming/MemoizedInstanceVariableName
     def _content
-      @_content ||= content.to_s.strip
+      @_content ||= content.to_s.dup.strip
     end
+    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def strip(regex_or_sym)
       return unless _content
 
       if regex_or_sym.is_a?(Symbol)
-        if REGEXES[regex_or_sym]
-          regex_or_sym = REGEXES[regex_or_sym]
-        elsif self.respond_to?("strip_#{regex_or_sym}", true)
-          return send("strip_#{regex_or_sym}")
-        else
+        meth = "strip_#{regex_or_sym}"
+        return send(meth) if respond_to?(meth, true)
+
+        unless REGEXES[regex_or_sym]
           raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
         end
+
+        regex_or_sym = REGEXES[regex_or_sym]
       end
 
       @_content = _content.gsub(regex_or_sym, ' ').squeeze(' ').strip
     end
 
-    STRIP_METHODS.each do |sym|
-      define_method "strip_#{sym}" do
-        strip(sym)
+    def strip_title
+      while _content =~ ContentHelper.title_regex
+        strip(ContentHelper.title_regex)
       end
     end
 
-    def strip_title
-      strip(ContentHelper.title_regex) while _content =~ ContentHelper.title_regex
-    end
-
     def strip_borders
-      _content.gsub!(/^\*(.*?)\*$/, '\1')
+      normalize(REGEXES[:border_markup], '\1')
     end
 
     def strip_copyright
@@ -245,19 +243,22 @@ module Licensee
     end
 
     def strip_end_of_terms
-      body, _partition, _instructions = _content.partition(REGEXES[:end_of_terms])
+      body, _partition, _instructions = _content.partition(END_OF_TERMS_REGEX)
       @_content = body
     end
 
-    NORMALIZATIONS.each do |key, op|
-      define_method("normalize_#{key}") do
-        normalize(key)
-      end
+    def strip_span_markup
+      normalize(REGEXES[:span_markup], '\1')
+    end
+
+    def strip_link_markup
+      normalize(REGEXES[:link_markup], '\1')
     end
 
     def normalize(from_or_key, to = nil)
       operation = { from: from_or_key, to: to } if to
       operation ||= NORMALIZATIONS[from_or_key]
+
       if operation
         @_content = _content.gsub operation[:from], operation[:to]
       elsif respond_to?("normalize_#{from_or_key}", true)

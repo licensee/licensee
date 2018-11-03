@@ -3,7 +3,7 @@ module Licensee
     class Cargo < Licensee::Matchers::Package
       LICENSE_REGEX = %r{
         ^\s*[\'\"]?license[\'\"]?\s*=\s*[\'\"]([a-z\-0-9\. +()\/]+)[\'\"]\s*
-      }ix
+      }ix.freeze
 
       private
 

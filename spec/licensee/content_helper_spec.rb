@@ -29,6 +29,7 @@ RSpec.describe Licensee::ContentHelper do
   end
   subject { ContentHelperTestHelper.new(content) }
   let(:mit) { Licensee::License.find('mit') }
+  let(:normalized_content) { subject.content_normalized }
 
   it 'creates the wordset' do
     wordset = Set.new(
@@ -53,7 +54,7 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the length delta' do
-    expect(subject.length_delta(mit)).to eql(884)
+    expect(subject.length_delta(mit)).to eql(885)
     expect(subject.length_delta(subject)).to eql(0)
   end
 
@@ -78,9 +79,41 @@ RSpec.describe Licensee::ContentHelper do
     expect(percent).to eql('12.35%')
   end
 
-  context 'normalizing' do
-    let(:normalized_content) { subject.content_normalized }
+  context '#strip' do
+    {
+      version:             "The MIT License\nVersion 1.0\nfoo",
+      hrs:                 "The MIT License\n=====\n-----\n*******\nfoo",
+      markdown_headings:   "# The MIT License\n\nfoo",
+      whitespace:          "The MIT License\n\n   foo  ",
+      all_rights_reserved: "Copyright 2016 Ben Balter\n\nfoo",
+      urls:                "https://example.com\nfoo",
+      developed_by:        "Developed By: Ben Balter\n\nFoo",
+      borders:             '*   Foo    *',
+      title:               "The MIT License\nfoo",
+      copyright:           "The MIT License\nCopyright 2018 Ben Balter\nFoo",
+      end_of_terms:        "Foo\nend of terms and conditions\nbar",
+      block_markup:        '> Foo',
+      link_markup:         '[Foo](http://exmaple.com)'
+    }.each do |field, fixture|
+      context "#strip_#{field}" do
+        let(:content) { fixture }
 
+        it "strips #{field}" do
+          expect(normalized_content).to eql('foo')
+        end
+      end
+    end
+
+    context 'span markup' do
+      let(:content) { '_foo_ *foo* **foo** ~foo~' }
+
+      it 'strips span markup' do
+        expect(normalized_content).to eql('foo foo foo foo')
+      end
+    end
+  end
+
+  context 'integration fixture' do
     it 'strips copyright' do
       expect(normalized_content).to_not match 'Copyright'
       expect(normalized_content).to_not match 'Ben Balter'
@@ -96,22 +129,6 @@ RSpec.describe Licensee::ContentHelper do
       expect(normalized_content).to_not match '==='
       expect(normalized_content).to_not include '***'
       expect(normalized_content).to_not include '* *'
-    end
-
-    it 'strips formatting from the MPL' do
-      license = Licensee::License.find('mpl-2.0')
-      expect(license.content_normalized).to_not include('* *')
-    end
-
-    it 'normalizes http: to https:' do
-      license = Licensee::License.find('mpl-2.0')
-      expect(license.content).to include('http:')
-      expect(license.content_normalized).to_not include('http:')
-    end
-
-    it 'wraps' do
-      lines = mit.content_normalized(wrap: 40).split("\n")
-      expect(lines.first.length).to be <= 40
     end
 
     it 'squeezes whitespace' do
@@ -148,16 +165,93 @@ RSpec.describe Licensee::ContentHelper do
       expect(normalized_content).to match('"software"')
     end
 
+    it 'strips the title' do
+      expect(normalized_content).to_not match('MIT')
+    end
+
+    it 'normalize the content' do
+      expected = 'the made up license. this license provided "as is". '
+      expected << "please respect the contributors' wishes when implementing "
+      expected << "the license's \"software\"."
+      expect(normalized_content).to eql(expected)
+    end
+  end
+
+  context 'normalizing' do
+    context 'https' do
+      let(:content) { 'http://example.com' }
+
+      it 'normalized URL protocals' do
+        expect(subject.content_normalized).to eql('https://example.com')
+      end
+    end
+
+    context 'ampersands' do
+      let(:content) { 'Foo & Bar' }
+
+      it 'normalized ampersands' do
+        expect(subject.content_normalized).to eql('foo and bar')
+      end
+    end
+
+    context 'lists' do
+      let(:content) { "1. Foo\n * Bar" }
+
+      it 'normalizes lists' do
+        expect(subject.content_normalized).to eql('- foo - bar')
+      end
+    end
+
+    context 'dashes' do
+      let(:content) { 'Foo-Bar—–baz-buzz' }
+
+      it 'normalizes dashes' do
+        expect(subject.content_normalized).to eql('foo-bar-baz-buzz')
+      end
+    end
+
+    context 'quotes' do
+      let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
+
+      it 'normalizes quotes' do
+        expect(subject.content_normalized).to eql('"a" "b" "c" "d" "e"')
+      end
+    end
+
+    it 'strips formatting from the MPL' do
+      license = Licensee::License.find('mpl-2.0')
+      expect(license.content_normalized).to_not include('* *')
+    end
+
+    it 'normalizes http: to https:' do
+      license = Licensee::License.find('mpl-2.0')
+      expect(license.content).to include('http:')
+      expect(license.content_normalized).to_not include('http:')
+    end
+
+    it 'wraps' do
+      lines = mit.content_normalized(wrap: 40).split("\n")
+      expect(lines.first.length).to be <= 40
+    end
+
+    context 'spelling' do
+      let(:content) { 'licence' }
+
+      it 'normalizes' do
+        expect(subject.content_normalized).to eql('license')
+      end
+    end
+
     Licensee::License.all(hidden: true).each do |license|
       context license.name do
         let(:stripped_content) { subject.content_without_title_and_version }
 
         it 'strips the title' do
-          skip if license.key == 'ecl-2.0'
-          regex = Licensee::ContentHelper::REGEXES[:alt_title][license.key]
+          skip "Doesn't strip ECL title" if license.key == 'ecl-2.0'
+          regex = Licensee::License::ALT_TITLE_REGEX[license.key]
           regex ||= /\A#{license.name_without_version}/i
-          expect(license.content_normalized).to_not match(regex)
           expect(stripped_content).to_not match(regex)
+          expect(license.content_normalized).to_not match(regex)
         end
 
         it 'strips the version' do
@@ -180,17 +274,6 @@ RSpec.describe Licensee::ContentHelper do
           expect(license.content_normalized).to_not match(/How to apply/i)
         end
       end
-    end
-
-    it 'strips the title' do
-      expect(normalized_content).to_not match('MIT')
-    end
-
-    it 'normalize the content' do
-      expected = 'the made up license. this license provided "as is". '
-      expected << "please respect the contributors' wishes when implementing "
-      expected << "the license's \"software\"."
-      expect(normalized_content).to eql(expected)
     end
 
     context 'a title in parenthesis' do
@@ -274,6 +357,20 @@ RSpec.describe Licensee::ContentHelper do
           end
         end
       end
+    end
+  end
+
+  context 'metaprogramming' do
+    it 'raises on invalid normalization' do
+      expect { subject.send(:normalize, :foo) }.to raise_error(ArgumentError)
+    end
+
+    it 'raises on invalid strip' do
+      expect { subject.send(:strip, :foo) }.to raise_error(ArgumentError)
+    end
+
+    it 'backwards compatibalizes regexes' do
+      expect(described_class::WHITESPACE_REGEX).to eql(/\s+/)
     end
   end
 end
