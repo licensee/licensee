@@ -234,6 +234,14 @@ RSpec.describe Licensee::ContentHelper do
       expect(lines.first.length).to be <= 40
     end
 
+    context 'spelling' do
+      let(:content) { 'licence' }
+
+      it 'normalizes' do
+        expect(subject.content_normalized).to eql('license')
+      end
+    end
+
     Licensee::License.all(hidden: true).each do |license|
       context license.name do
         let(:stripped_content) { subject.content_without_title_and_version }
