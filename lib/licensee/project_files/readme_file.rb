@@ -7,8 +7,8 @@ module Licensee
         /\AREADME\.(#{Regexp.union(EXTENSIONS).source})\z/i => 0.9
       }.freeze
 
-      TITLE_REGEX = /licen[sc]e:?/i
-      UNDERLINE_REGEX = /\n[-=]+/m
+      TITLE_REGEX = /licen[sc]e:?/i.freeze
+      UNDERLINE_REGEX = /\n[-=]+/m.freeze
       CONTENT_REGEX = /^
           (?:                                # Header lookbehind
             [\#=]+\s#{TITLE_REGEX}\s*[\#=]*  # Start of hashes or rdoc header
@@ -25,7 +25,7 @@ module Licensee
           |
             \z                               # End of file
           )
-        /mix
+        /mix.freeze
 
       def possible_matchers
         super.push(Matchers::Reference)

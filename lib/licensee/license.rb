@@ -95,8 +95,8 @@ module Licensee
       'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
     }.freeze
 
-    SOURCE_PREFIX = %r{https?://(?:www\.)?}i
-    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i
+    SOURCE_PREFIX = %r{https?://(?:www\.)?}i.freeze
+    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i.freeze
 
     HASH_METHODS = %i[
       key spdx_id meta url rules fields other? gpl? lgpl? cc?
@@ -145,11 +145,11 @@ module Licensee
       title_regex ||= begin
         string = name.downcase.sub('*', 'u')
         string.sub!(/\Athe /i, '')
-        string.sub!(/ license\z/i, '')
         string.sub!(/,? version /, ' ')
         string.sub!(/v(\d+\.\d+)/, '\1')
         string = Regexp.escape(string)
-        string = string.sub(/ (\d+\\.\d+)/, ',?\ (?:version\ |v)?\1')
+        string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
+        string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
         string = string.sub(/\bgnu\\ /, '(?:GNU )?')
         Regexp.new string, 'i'
       end

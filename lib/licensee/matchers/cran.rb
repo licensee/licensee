@@ -5,9 +5,9 @@ module Licensee
 
       # While we could parse the DESCRIPTION file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.
-      LICENSE_FIELD_REGEX = /^license:\s*(.+)/i
-      PLUS_FILE_LICENSE_REGEX = /\s*\+\s*file\s+LICENSE$/i
-      GPL_VERSION_REGEX = /^GPL(?:-([23])|\s*\(\s*>=\s*([23])\s*\))$/i
+      LICENSE_FIELD_REGEX = /^license:\s*(.+)/i.freeze
+      PLUS_FILE_LICENSE_REGEX = /\s*\+\s*file\s+LICENSE$/i.freeze
+      GPL_VERSION_REGEX = /^GPL(?:-([23])|\s*\(\s*>=\s*([23])\s*\))$/i.freeze
 
       private
 

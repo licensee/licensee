@@ -3,7 +3,7 @@ module Licensee
     class Cabal < Licensee::Matchers::Package
       # While we could parse the cabal file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.
-      LICENSE_REGEX = /^\s*license\s*\:\s*([a-z\-0-9\.]+)\s*$/ix
+      LICENSE_REGEX = /^\s*license\s*\:\s*([a-z\-0-9\.]+)\s*$/ix.freeze
 
       private
 
