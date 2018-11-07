@@ -85,6 +85,7 @@ module Licensee
       block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
     ].freeze
+    attr_writer :content
 
     # A set of each word in the license, without duplicates
     def wordset

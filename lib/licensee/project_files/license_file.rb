@@ -49,7 +49,10 @@ module Licensee
       /xi.freeze
 
       def possible_matchers
-        [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
+        [
+          Matchers::Copyright, Matchers::Exact,
+          Matchers::FieldAware, Matchers::Dice
+        ]
       end
 
       def attribution

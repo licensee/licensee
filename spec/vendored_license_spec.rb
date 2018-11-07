@@ -21,7 +21,7 @@ RSpec.describe 'vendored licenses' do
       end
 
       it 'detects the license' do
-        skip if license.key == 'ncsa'
+        #skip if license.key == 'ncsa'
         expect(content).to be_detected_as(license)
       end
 
@@ -50,7 +50,7 @@ RSpec.describe 'vendored licenses' do
           end
 
           it 'detects the license' do
-            skip if license.key == 'ncsa'
+          #  skip if license.key == 'ncsa'
             expect(content_without_title).to be_detected_as(license)
           end
         end
@@ -61,7 +61,7 @@ RSpec.describe 'vendored licenses' do
           end
 
           it 'detects the license' do
-            skip if license.key == 'ncsa'
+          #  skip if license.key == 'ncsa'
             expect(content).to be_detected_as(license)
           end
         end
@@ -70,7 +70,7 @@ RSpec.describe 'vendored licenses' do
           let(:content) { content_rewrapped }
 
           it 'detects the license' do
-            skip if license.key == 'ncsa'
+          #  skip if license.key == 'ncsa'
             expect(content).to be_detected_as(license)
           end
         end
