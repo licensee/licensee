@@ -39,14 +39,9 @@ class LicenseeCLI < Thor
 
   def license_to_diff
     return options[:license_to_diff] if options[:license_to_diff]
-    return project.license_file if remote?
+    return project.license_file if remote? || STDIN.tty? && project.license_file
 
     @license_to_diff ||= begin
-      if STDIN.tty?
-        error 'You must pipe license contents to the command via STDIN'
-        exit 1
-      end
-
       Licensee::ProjectFiles::LicenseFile.new(STDIN.read, 'LICENSE')
     end
   end
