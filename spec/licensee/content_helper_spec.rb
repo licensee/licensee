@@ -93,7 +93,8 @@ RSpec.describe Licensee::ContentHelper do
       copyright:           "The MIT License\nCopyright 2018 Ben Balter\nFoo",
       end_of_terms:        "Foo\nend of terms and conditions\nbar",
       block_markup:        '> Foo',
-      link_markup:         '[Foo](http://exmaple.com)'
+      link_markup:         '[Foo](http://exmaple.com)',
+      comment_markup:      "/*\n* The MIT License\n* Foo\n*/"
     }.each do |field, fixture|
       context "#strip_#{field}" do
         let(:content) { fixture }

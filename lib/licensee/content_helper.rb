@@ -17,6 +17,7 @@ module Licensee
       link_markup:         /\[(.+?)\]\(.+?\)/,
       block_markup:        /^\s*>/,
       border_markup:       /^[\*-](.*?)[\*-]$/,
+      comment_markup:      %r{^\s*?[/\*]{1,2}},
       url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
@@ -131,7 +132,8 @@ module Licensee
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
         @_content = nil
-        %i[hrs markdown_headings title version].each { |op| strip(op) }
+        ops = %i[hrs comments markdown_headings title version]
+        ops.each { |op| strip(op) }
         _content
       end
     end
@@ -235,6 +237,14 @@ module Licensee
 
     def strip_borders
       normalize(REGEXES[:border_markup], '\1')
+    end
+
+    def strip_comments
+      lines = _content.split("\n")
+      return if lines.count == 1
+      return unless lines.all? { |line| line =~ REGEXES[:comment_markup] }
+
+      strip(:comment_markup)
     end
 
     def strip_copyright
