@@ -23,6 +23,7 @@ module Licensee
           output = licenses.dup
           output.reject!(&:hidden?) unless options[:hidden]
           output.reject!(&:pseudo_license?) unless options[:pseudo]
+          output.sort_by!(&:key)
           return output if options[:featured].nil?
 
           output.select { |l| l.featured? == options[:featured] }
