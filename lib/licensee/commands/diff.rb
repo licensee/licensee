@@ -53,7 +53,7 @@ class LicenseeCLI < Thor
     if options[:license]
       error "#{options[:license]} is not a valid license"
     else
-      error 'You must provide an expected license'
+      error 'Usage: provide a license to diff against with --license (spdx name)'
     end
 
     error "Valid licenses: #{Licensee::License.all(hidden: true).map(&:key).join(', ')}"
