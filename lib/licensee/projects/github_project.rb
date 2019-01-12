@@ -17,9 +17,10 @@ module Licensee
 
       class RepoNotFound < StandardError; end
 
-      def initialize(github_url, **args)
+      def initialize(github_url, revision: nil, **args)
         @repo = github_url[GITHUB_REPO_PATTERN, 1]
         raise ArgumentError, "Not a github URL: #{github_url}" unless @repo
+        @revision = revision
 
         super(**args)
       end
@@ -40,7 +41,8 @@ module Licensee
 
       def load_file(file)
         client.contents(@repo, path:   file[:path],
-                               accept: 'application/vnd.github.v3.raw').to_s
+                               accept: 'application/vnd.github.v3.raw',
+                               ref:    @revision).to_s
       end
 
       def dir_files(path = nil)

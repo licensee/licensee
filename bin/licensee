@@ -9,6 +9,7 @@ require_relative '../lib/licensee'
 class LicenseeCLI < Thor
   package_name 'Licensee'
   class_option :remote, type: :boolean, desc: 'Assume PATH is a GitHub owner/repo path'
+  class_option :ref, type: :string, desc: 'Optional ref specifies the desired git revision'
   default_task :detect
 
   private
@@ -23,7 +24,8 @@ class LicenseeCLI < Thor
 
   def project
     @project ||= Licensee.project(path,
-                                  detect_packages: options[:packages], detect_readme: options[:readme])
+                                  detect_packages: options[:packages], detect_readme: options[:readme],
+                                  revision: options[:ref])
   end
 
   def remote?
