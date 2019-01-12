@@ -77,7 +77,6 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-
     context 'BSD3' do
       let(:cabal_license) { 'BSD3' }
 
