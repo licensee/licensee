@@ -8,7 +8,8 @@
 module Licensee
   module Projects
     class FSProject < Licensee::Projects::Project
-      def initialize(path, **args)
+      def initialize(path, revision: nil, **args)
+        # revision isn't used by fs_project
         if ::File.file?(path)
           @pattern = File.basename(path)
           @dir = File.expand_path File.dirname(path)
