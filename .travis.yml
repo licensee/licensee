@@ -11,3 +11,12 @@ before_install:
   - git config --global user.name "Your Name"
   # workaround for https://github.com/travis-ci/travis-ci/issues/7204
   - test $TRAVIS_RUBY_VERSION ">" 2.3 && gem update --system || true
+env:
+  global:
+    - CC_TEST_REPORTER_ID=9da082993bb680f0d9e663cff086e60367af95df90bc229297e9e4636a1f9faa
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

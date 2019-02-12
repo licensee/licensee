@@ -206,11 +206,9 @@ module Licensee
 
     private
 
-    # rubocop:disable Naming/MemoizedInstanceVariableName
     def _content
       @_content ||= content.to_s.dup.strip
     end
-    # rubocop:enable Naming/MemoizedInstanceVariableName
 
     def strip(regex_or_sym)
       return unless _content
