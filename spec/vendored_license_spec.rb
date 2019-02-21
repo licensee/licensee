@@ -15,7 +15,8 @@ RSpec.describe 'vendored licenses' do
       let(:content) { content_with_copyright }
       let(:expected_hash) { license_hashes[license.key] }
       let(:hash_change_msg) do
-        msg = 'Did you update a vendored license? Run script/hash-licenses. '
+        msg = 'Did you update a vendored license? Run'
+        msg << '    bundle exec script/hash-licenses'
         msg << 'Changes in license hashes must be a MINOR (or MAJOR) bump.'
         msg
       end
