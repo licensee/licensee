@@ -22,6 +22,8 @@ module Licensee
           Rugged::Repository.new(repo)
         end
 
+        raise InvalidRepository if repository.head_unborn?
+
         @revision = revision
         super(**args)
       rescue Rugged::OSError, Rugged::RepositoryError
