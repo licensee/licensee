@@ -70,6 +70,8 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'LICENCE.docs'       => 0.80,
       'copying.image'      => 0.75,
       'COPYRIGHT.go'       => 0.75,
+      'COPYING.LESSER'     => 0.75,
+      'COPYING.LESSER.md'  => 0.75,
       'LICENSE-MIT'        => 0.70,
       'LICENSE_1_0.txt'    => 0.70,
       'COPYING-GPL'        => 0.65,
