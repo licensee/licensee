@@ -93,24 +93,6 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'LGPL scoring' do
-      {
-        'COPYING.lesser' => 1,
-        'copying.lesser' => 1,
-        'license.lesser' => 0,
-        'LICENSE.md'     => 0,
-        'FOO.md'         => 0
-      }.each do |filename, expected|
-        context "a file named #{filename}" do
-          let(:score) { described_class.lesser_gpl_score(filename) }
-
-          it 'scores the file' do
-            expect(score).to eql(expected)
-          end
-        end
-      end
-    end
-
     context 'preferred license regex' do
       %w[md markdown txt].each do |ext|
         it "matches .#{ext}" do
@@ -201,35 +183,6 @@ Creative Commons Attribution-NonCommercial 4.0
       it "knows it's a potential false positive" do
         expect(subject.content).to match(regex)
         expect(subject).to be_a_potential_false_positive
-      end
-    end
-  end
-
-  context 'LGPL' do
-    let(:lgpl) { Licensee::License.find('lgpl-3.0') }
-    let(:content) { sub_copyright_info(lgpl) }
-
-    context 'with a COPYING.lesser file' do
-      let(:filename) { 'COPYING.lesser' }
-
-      it 'knows when a license file is LGPL' do
-        expect(subject).to be_lgpl
-      end
-
-      context 'with non-lgpl content' do
-        let(:content) { sub_copyright_info(mit) }
-
-        it 'is not lgpl' do
-          expect(subject).to_not be_lgpl
-        end
-      end
-    end
-
-    context 'with a different file name' do
-      let(:filename) { 'COPYING' }
-
-      it 'is not lgpl' do
-        expect(subject).to_not be_lgpl
       end
     end
   end

@@ -68,7 +68,7 @@ module Licensee
       end
 
       def lgpl?
-        LicenseFile.lesser_gpl_score(filename) == 1 && license && license.lgpl?
+        license && license.lgpl?
       end
 
       def gpl?
@@ -85,11 +85,6 @@ module Licensee
 
       def self.name_score(filename)
         FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
-      end
-
-      # case-insensitive block to determine if the given file is LICENSE.lesser
-      def self.lesser_gpl_score(filename)
-        filename.casecmp('copying.lesser').zero? ? 1 : 0
       end
     end
   end
