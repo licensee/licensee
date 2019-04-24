@@ -1,0 +1,27 @@
+# Map of fixtures to expected licenses as an added integration test
+---
+apache-with-readme-notice: apache-2.0
+bsd-3-lists: bsd-3-clause
+bsd-plus-patents: other
+bsl: bsl-1.0
+case-sensitive: other
+cc-by-nc-sa: other
+cc-by-nd: other
+copyright-encoding: no-license
+crlf-license: gpl-3.0
+description-license: other
+fcpl-modified-mpl: other
+gemspec: 
+gpl3-without-instructions: gpl-3.0
+lgpl: lgpl-3.0
+license-folder: 
+license-in-parent-folder: mit
+license-with-readme-reference: mit
+markdown-gpl: gpl-2.0
+mit: mit
+mit-with-copyright: mit
+mpl-without-hrs: mpl-2.0
+multiple-license-files: other
+readme: mit
+webmock: 
+wrk-modified-apache: other
