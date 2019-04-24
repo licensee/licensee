@@ -6,12 +6,7 @@ RSpec.describe 'fixture test' do
       let(:path) { fixture_path(fixture) }
       let(:other) { Licensee::License.find('other') }
       let(:none) { Licensee::License.find('none') }
-      let(:expected) do
-        license_key = fixture_licenses[fixture]
-        return none unless license_key
-
-        Licensee::License.find(license_key)
-      end
+      let(:expectations) { fixture_licenses[fixture] }
 
       subject { Licensee.project(path, options) }
 
@@ -23,7 +18,24 @@ RSpec.describe 'fixture test' do
       end
 
       it 'detects the license' do
+        expected = if expectations["key"]
+          Licensee::License.find(expectations["key"])
+        else
+          none
+        end
+
         expect(subject.license).to eql(expected)
+      end
+
+      it "returns the expected hash" do
+        hash = subject.license_file&.content_hash
+        expect(hash).to eql(expectations["hash"])
+      end
+
+      it "uses the expected matcher" do
+        matcher = subject.license_file&.matcher&.name
+        matcher = matcher.to_s if matcher
+        expect(matcher).to eql(expectations["matcher"])
       end
     end
   end

@@ -57,7 +57,7 @@ def fixture_root_contents_from_api(fixture)
 end
 
 def fixture_licenses
-  @fixture_licenses ||= YAML.load_file(fixture_path('fixtures-license.yml'))
+  @fixture_licenses ||= YAML.load_file(fixture_path('fixtures.yml'))
 end
 
 def field_values
