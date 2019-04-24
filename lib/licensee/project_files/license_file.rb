@@ -8,7 +8,7 @@ module Licensee
       PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/.freeze
 
       # Regex to match any extension except .spdx or .header
-      OTHER_EXT_REGEX = %r{\.(?!spdx|header|gemspec?)[^./]+\z}i.freeze
+      OTHER_EXT_REGEX = %r{\.(?!spdx|header|gemspec)[^./]+\z}i.freeze
 
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
       LICENSE_REGEX = /(un)?licen[sc]e/i.freeze
