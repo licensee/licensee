@@ -132,7 +132,7 @@ module Licensee
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
         @_content = nil
-        ops = %i[hrs comments markdown_headings title version]
+        ops = %i[html hrs comments markdown_headings title version]
         ops.each { |op| strip(op) }
         _content
       end
@@ -261,6 +261,14 @@ module Licensee
 
     def strip_link_markup
       normalize(REGEXES[:link_markup], '\1')
+    end
+
+    def strip_html
+      return unless respond_to?(:filename) && filename
+      return unless File.extname(filename) =~ /\.html?/i
+
+      require 'reverse_markdown'
+      @_content = ReverseMarkdown.convert(_content, unknown_tags: :bypass)
     end
 
     def normalize(from_or_key, to = nil)

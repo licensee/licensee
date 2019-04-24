@@ -1,9 +1,14 @@
 class ContentHelperTestHelper
   include Licensee::ContentHelper
-  attr_accessor :content
+  attr_accessor :content, :data
 
-  def initialize(content = nil)
+  def initialize(content = nil, data = {})
     @content = content
+    @data = data
+  end
+
+  def filename
+    @data[:filename]
   end
 end
 
@@ -27,7 +32,8 @@ RSpec.describe Licensee::ContentHelper do
   -----------
     LICENSE
   end
-  subject { ContentHelperTestHelper.new(content) }
+  let(:filename) { 'license.md' }
+  subject { ContentHelperTestHelper.new(content, filename: filename) }
   let(:mit) { Licensee::License.find('mit') }
   let(:normalized_content) { subject.content_normalized }
 
@@ -110,6 +116,15 @@ RSpec.describe Licensee::ContentHelper do
 
       it 'strips span markup' do
         expect(normalized_content).to eql('foo foo foo foo')
+      end
+    end
+
+    context 'HTML' do
+      let(:content) { '<ul><li>foo</li></ul>' }
+      let(:filename) { 'license.html' }
+
+      it 'strips HTML' do
+        expect(normalized_content).to eql('- foo')
       end
     end
   end
