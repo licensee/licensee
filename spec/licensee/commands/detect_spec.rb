@@ -68,7 +68,9 @@ RSpec.describe 'detect command' do
     end
 
     it 'returns the expected output' do
-      expect(JSON.parse(stdout)).to eql(expected)
+      msg = '`licensee detect --json` output did not match expectations. '
+      msg << 'Run `script/dump-detect-json-fixture` and verify the output.'
+      expect(JSON.parse(stdout)).to eql(expected), msg
     end
   end
 

@@ -4,7 +4,7 @@ module Licensee
       include Licensee::ContentHelper
 
       # List of extensions to give preference to
-      PREFERRED_EXT = %w[md markdown txt].freeze
+      PREFERRED_EXT = %w[md markdown txt html].freeze
       PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/.freeze
 
       # Regex to match any extension except .spdx or .header

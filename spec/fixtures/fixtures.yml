@@ -52,6 +52,10 @@ gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
   hash: b22f1b1f953a38a8a11686587b98831858d6468b
+html:
+  key: epl-1.0
+  matcher: dice
+  hash: 5265922b5943810a3ad23c66c50a0828ba342bfd
 lgpl:
   key: lgpl-3.0
   matcher: exact

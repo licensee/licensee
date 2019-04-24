@@ -195,6 +195,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'HTML license file' do
+          let(:license) { Licensee::License.find('epl-1.0') }
+          let(:fixture) { 'html' }
+
+          it 'matches to GPL3' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do

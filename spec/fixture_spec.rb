@@ -6,20 +6,22 @@ RSpec.describe 'fixture test' do
       let(:path) { fixture_path(fixture) }
       let(:other) { Licensee::License.find('other') }
       let(:none) { Licensee::License.find('none') }
-      let(:expectations) { fixture_licenses[fixture] }
+      let(:expectations) { fixture_licenses[fixture] || {} }
+      let(:license_file) { subject.license_file }
+      let(:matcher) { license_file.matcher if license_file }
 
       subject { Licensee.project(path, options) }
 
       it 'has an expected license in fixtures-licenses.yml' do
-        msg = "Expected an entry in `#{fixture_path('fixtures-licenses.yml')}`"
-        msg << "` for the `#{fixture}` fixture. Please run "
+        msg = "Expected an entry in `#{fixture_path('fixtures-licenses.yml')}` "
+        msg << "for the `#{fixture}` fixture. Please run "
         msg << 'script/dump-fixture-licenses and confirm the output.'
         expect(fixture_licenses).to have_key(fixture), msg
       end
 
       it 'detects the license' do
-        expected = if expectations["key"]
-          Licensee::License.find(expectations["key"])
+        expected = if expectations['key']
+          Licensee::License.find(expectations['key'])
         else
           none
         end
@@ -27,15 +29,14 @@ RSpec.describe 'fixture test' do
         expect(subject.license).to eql(expected)
       end
 
-      it "returns the expected hash" do
-        hash = subject.license_file&.content_hash
-        expect(hash).to eql(expectations["hash"])
+      it 'returns the expected hash' do
+        hash = license_file ? license_file.content_hash : nil
+        expect(hash).to eql(expectations['hash'])
       end
 
-      it "uses the expected matcher" do
-        matcher = subject.license_file&.matcher&.name
-        matcher = matcher.to_s if matcher
-        expect(matcher).to eql(expectations["matcher"])
+      it 'uses the expected matcher' do
+        expected = matcher ? matcher.name.to_s : nil
+        expect(expected).to eql(expectations['matcher'])
       end
     end
   end
