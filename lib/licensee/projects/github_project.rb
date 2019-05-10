@@ -20,6 +20,7 @@ module Licensee
       def initialize(github_url, revision: nil, **args)
         @repo = github_url[GITHUB_REPO_PATTERN, 1]
         raise ArgumentError, "Not a github URL: #{github_url}" unless @repo
+
         @revision = revision
 
         super(**args)
@@ -40,9 +41,14 @@ module Licensee
       end
 
       def load_file(file)
-        client.contents(@repo, path:   file[:path],
-                               accept: 'application/vnd.github.v3.raw',
-                               ref:    @revision).to_s
+        pathname = file[:path]
+        accept = 'application/vnd.github.v3.raw'
+        ref = @revision
+        if @revision
+          client.contents(@repo, path: pathname, accept: accept, ref: ref).to_s
+        else
+          client.contents(@repo, path: pathname, accept: accept).to_s
+        end
       end
 
       def dir_files(path = nil)

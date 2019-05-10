@@ -43,9 +43,7 @@ module Licensee
       def commit
         @commit ||= if revision
           commit = repository.rev_parse(revision)
-          while !commit.is_a?(Rugged::Commit) do
-            commit = commit.target
-          end
+          commit = commit.target until commit.is_a?(Rugged::Commit)
           commit
         else
           repository.last_commit
