@@ -14,7 +14,8 @@ module Licensee
 
       include Licensee::HashHelper
       HASH_METHODS = %i[
-        filename content content_hash content_normalized matcher matched_license attribution
+        filename content content_hash content_normalized matcher matched_license
+        attribution
       ].freeze
 
       ENCODING = Encoding::UTF_8
