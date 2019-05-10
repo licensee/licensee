@@ -48,6 +48,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
     let(:hash) { subject.to_h }
     let(:expected) do
       {
+        attribution:        'Copyright (c) [year] [fullname]',
         filename:           'LICENSE.txt',
         content:            mit.content.to_s,
         content_hash:       subject.content_hash,
