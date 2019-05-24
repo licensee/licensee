@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::LicenseMeta do
   subject { Licensee::License.find('mit').meta }
 

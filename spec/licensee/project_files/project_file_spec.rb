@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::ProjectFiles::ProjectFile do
   let(:filename) { 'LICENSE.txt' }
   let(:mit) { Licensee::License.find('mit') }

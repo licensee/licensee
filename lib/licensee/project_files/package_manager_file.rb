@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   module ProjectFiles
     class PackageManagerFile < Licensee::ProjectFiles::ProjectFile

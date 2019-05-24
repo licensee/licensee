@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('lib/licensee/version', __dir__)
 
 Gem::Specification.new do |gem|
@@ -32,7 +34,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('simplecov', '~> 0.16')
   gem.add_development_dependency('webmock', '~> 3.1')
 
-  gem.required_ruby_version = '> 2.2'
+  gem.required_ruby_version = '> 2.3'
 
   # ensure the gem is built out of versioned files
   gem.files = Dir[

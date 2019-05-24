@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'fixture test' do
   fixtures.each do |fixture|
     let(:options) { { detect_packages: true, detect_readme: true } }
@@ -8,13 +10,14 @@ RSpec.describe 'fixture test' do
       let(:none) { Licensee::License.find('none') }
       let(:expectations) { fixture_licenses[fixture] || {} }
       let(:license_file) { subject.license_file }
-      let(:matcher) { license_file.matcher if license_file }
+      let(:matcher) { license_file&.matcher }
 
       subject { Licensee.project(path, options) }
 
       it 'has an expected license in fixtures-licenses.yml' do
-        msg = "Expected an entry in `#{fixture_path('fixtures-licenses.yml')}` "
-        msg << "for the `#{fixture}` fixture. Please run "
+        msg = 'Expected an entry in `'.dup
+        msg << fixture_path('fixtures-licenses.yml')
+        msg << "` for the `#{fixture}` fixture. Please run "
         msg << 'script/dump-fixture-licenses and confirm the output.'
         expect(fixture_licenses).to have_key(fixture), msg
       end

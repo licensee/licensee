@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Write current license hashes to spec/fixtures/license-hashes.json
 
 require 'json'

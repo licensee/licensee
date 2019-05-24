@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # GitHub project
 #
 # Analyses a remote GitHub repository for license information

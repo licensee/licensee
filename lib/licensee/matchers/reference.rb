@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   module Matchers
     # Matches README files that include a license by reference

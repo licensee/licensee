@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A project file is a file within a project that contains license information
 # Currently extended by LicenseFile, PackageManagerFile, and ReadmeFile
 #
@@ -33,7 +35,7 @@ module Licensee
       #
       # Returns a new Licensee::ProjectFile
       def initialize(content, metadata = {})
-        @content = content
+        @content = content.dup
         @content.force_encoding(ENCODING)
         unless @content.valid_encoding?
           @content.encode!(ENCODING, ENCODING_OPTIONS)
@@ -71,17 +73,17 @@ module Licensee
 
       # Returns the percent confident with the match
       def confidence
-        matcher && matcher.confidence
+        matcher&.confidence
       end
 
       def license
-        matcher && matcher.match
+        matcher&.match
       end
 
       alias match license
 
       def matched_license
-        license.spdx_id if license
+        license&.spdx_id
       end
 
       # Is this file a COPYRIGHT file with only a copyright statement?

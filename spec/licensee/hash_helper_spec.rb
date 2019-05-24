@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::HashHelper do
   class HashHelperSpecFixture
     include Licensee::HashHelper

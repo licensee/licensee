@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
   let(:content) { '' }
   let(:filename) { '' }

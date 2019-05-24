@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'detect command' do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'detect'] }
   let(:arguments) { [] }
@@ -68,7 +70,7 @@ RSpec.describe 'detect command' do
     end
 
     it 'returns the expected output' do
-      msg = '`licensee detect --json` output did not match expectations. '
+      msg = '`licensee detect --json` output did not match expectations. '.dup
       msg << 'Run `script/dump-detect-json-fixture` and verify the output.'
       expect(JSON.parse(stdout)).to eql(expected), msg
     end

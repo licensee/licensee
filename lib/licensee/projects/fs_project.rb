@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Filesystem-based project
 #
 # Analyze a folder on the filesystem for license information
