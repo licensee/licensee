@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ContentHelperTestHelper
   include Licensee::ContentHelper
   attr_accessor :content, :data
@@ -14,7 +16,7 @@ end
 
 RSpec.describe Licensee::ContentHelper do
   let(:content) do
-    <<-LICENSE.freeze.gsub(/^\s*/, '')
+    <<-LICENSE.gsub(/^\s*/, '')
   # The MIT License
 	=================
 
@@ -186,7 +188,7 @@ RSpec.describe Licensee::ContentHelper do
     end
 
     it 'normalize the content' do
-      expected = 'the made up license. this license provided "as is". '
+      expected = 'the made up license. this license provided "as is". '.dup
       expected << "please respect the contributors' wishes when implementing "
       expected << "the license's \"software\"."
       expect(normalized_content).to eql(expected)

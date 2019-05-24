@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'license-path command' do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'license-path'] }
   let(:arguments) { [project_root] }

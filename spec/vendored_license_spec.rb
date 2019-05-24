@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe 'vendored licenses' do
   let(:filename) { 'LICENSE.txt' }
   let(:license_file) do
     Licensee::ProjectFiles::LicenseFile.new(content, filename)
   end
-  let(:detected_license) { license_file.license if license_file }
+  let(:detected_license) { license_file&.license }
   let(:wtfpl) { Licensee::License.find('wtfpl') }
 
   Licensee.licenses(hidden: true).each do |license|
@@ -15,7 +17,7 @@ RSpec.describe 'vendored licenses' do
       let(:content) { content_with_copyright }
       let(:expected_hash) { license_hashes[license.key] }
       let(:hash_change_msg) do
-        msg = 'Did you update a vendored license? Run'
+        msg = 'Did you update a vendored license? Run'.dup
         msg << '    bundle exec script/hash-licenses'
         msg << 'Changes in license hashes must be a MINOR (or MAJOR) bump.'
         msg

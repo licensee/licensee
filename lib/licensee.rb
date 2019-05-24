@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'licensee/version'
 require 'forwardable'
 require 'pathname'
@@ -19,7 +21,7 @@ module Licensee
   CONFIDENCE_THRESHOLD = 98
 
   # Base domain from which to build license URLs
-  DOMAIN = 'http://choosealicense.com'.freeze
+  DOMAIN = 'http://choosealicense.com'
 
   class << self
     attr_writer :confidence_threshold

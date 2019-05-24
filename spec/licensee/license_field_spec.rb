@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::LicenseField do
   let(:expected_count) { 7 }
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Rule do
   let(:groups) { %w[permissions conditions limitations] }
   subject do

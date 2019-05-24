@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Matchers::Copyright do
-  let(:content) { 'Copyright 2015 Ben Balter' }
+  let(:content) { 'Copyright 2015 Ben Balter'.dup }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:mit) { Licensee::License.find('mit') }
   let(:no_license) { Licensee::License.find('no-license') }
@@ -28,7 +30,7 @@ RSpec.describe Licensee::Matchers::Copyright do
     'ASCII-8BIT encoded'    => "Copyright \xC2\xA92015 Ben Balter`",
     'No year'               => 'Copyright Ben Balter',
     'Multiline'             => "Copyright Ben Balter\nCopyright Another Entity"
-      .force_encoding('ASCII-8BIT')
+      .dup.force_encoding('ASCII-8BIT')
   }.each do |description, notice|
     context "with a #{description} notice" do
       let(:content) { notice }

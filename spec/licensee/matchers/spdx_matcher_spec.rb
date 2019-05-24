@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Matchers::Spdx do
   let(:content) { 'PackageLicenseDeclared: MIT' }
   let(:file) do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 require 'digest'
 
@@ -89,9 +91,7 @@ module Licensee
 
     # A set of each word in the license, without duplicates
     def wordset
-      @wordset ||= if content_normalized
-        content_normalized.scan(/(?:\w(?:'s|(?<=s)')?)+/).to_set
-      end
+      @wordset ||= content_normalized&.scan(/(?:\w(?:'s|(?<=s)')?)+/)&.to_set
     end
 
     # Number of characteres in the normalized content

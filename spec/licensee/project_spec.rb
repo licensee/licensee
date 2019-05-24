@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 [
   Licensee::Projects::FSProject,
   Licensee::Projects::GitProject,

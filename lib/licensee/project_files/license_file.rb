@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   module ProjectFiles
     class LicenseFile < Licensee::ProjectFiles::ProjectFile
@@ -72,11 +74,11 @@ module Licensee
       end
 
       def gpl?
-        license && license.gpl?
+        license&.gpl?
       end
 
       def license
-        if matcher && matcher.match
+        if matcher&.match
           matcher.match
         else
           License.find('other')

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Matchers::DistZilla do
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { 'license = MIT' }

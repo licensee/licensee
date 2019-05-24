@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   module ProjectFiles
     autoload :ProjectFile, 'licensee/project_files/project_file'
