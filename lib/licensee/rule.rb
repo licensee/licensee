@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   class Rule
     attr_reader :tag, :label, :description, :group

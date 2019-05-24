@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::LicenseRules do
   let(:mit) { Licensee::License.find('mit') }
   subject { mit.rules }

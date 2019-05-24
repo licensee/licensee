@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Git-based project
 #
 # Analyze a given (bare) Git repository for license information

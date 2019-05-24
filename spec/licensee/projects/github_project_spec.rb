@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Projects::GitHubProject do
   let(:repo) { 'benbalter/licensee' }
   let(:github_url) { "https://github.com/#{repo}" }

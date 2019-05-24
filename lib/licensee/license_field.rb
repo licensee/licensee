@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   class LicenseField < Struct.new(:name, :description)
     class << self

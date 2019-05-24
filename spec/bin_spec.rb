@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'command line invocation' do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'help'] }
   let(:arguments) { [] }

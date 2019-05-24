@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee do
   let(:project_path) { fixture_path('mit') }
   let(:license_path) { fixture_path('mit/LICENSE.txt') }

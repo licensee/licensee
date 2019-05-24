@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LicenseeCLI < Thor
   desc 'license-path [PATH]', "Returns the path to the given project's license file"
   def license_path(_path)

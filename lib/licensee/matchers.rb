@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   module Matchers
     autoload :Matcher,   'licensee/matchers/matcher'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LicenseeCLI < Thor
   # Methods to call when displaying information about ProjectFiles
   MATCHED_FILE_METHODS = %i[
