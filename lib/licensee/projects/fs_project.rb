@@ -10,10 +10,10 @@
 module Licensee
   module Projects
     class FSProject < Licensee::Projects::Project
-      # rubocop:disable UnusedMethodArgument
       def initialize(path, revision: nil, **args)
-        # (revision isn't used by fs_project)
-        # rubocop:enable UnusedMethodArgument
+        unless revision.nil?
+          raise ArgumentError, 'FSProject does not accept the revision argument'
+        end
 
         if ::File.file?(path)
           @pattern = File.basename(path)

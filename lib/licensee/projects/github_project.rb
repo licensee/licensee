@@ -19,11 +19,9 @@ module Licensee
 
       class RepoNotFound < StandardError; end
 
-      def initialize(github_url, revision: nil, **args)
+      def initialize(github_url, **args)
         @repo = github_url[GITHUB_REPO_PATTERN, 1]
         raise ArgumentError, "Not a github URL: #{github_url}" unless @repo
-
-        @revision = revision
 
         super(**args)
       end

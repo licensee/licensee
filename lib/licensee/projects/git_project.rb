@@ -17,9 +17,8 @@ module Licensee
 
       class InvalidRepository < ArgumentError; end
 
-      def initialize(repo, revision: nil, **args)
+      def initialize(repo, **args)
         @raw_repo = repo
-        @revision = revision
 
         raise InvalidRepository if repository.head_unborn?
 
