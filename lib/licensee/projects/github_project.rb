@@ -26,7 +26,7 @@ module Licensee
         super(**args)
       end
 
-      attr_reader :repo
+      attr_reader :repo, :revision
 
       private
 
