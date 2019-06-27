@@ -51,7 +51,7 @@ module Licensee
     end
 
     # Inverse of the confidence threshold, represented as a float
-    # By default this will be 0.05
+    # By default this will be 0.02
     def inverse_confidence_threshold
       @inverse_confidence_threshold ||=
         (1 - Licensee.confidence_threshold / 100.0).round(2)
