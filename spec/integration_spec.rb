@@ -167,7 +167,7 @@ RSpec.describe 'integration test' do
           end
         end
 
-        context 'CC0 as published on choosealicense.com 2013-2017' do
+        context 'CC0 as published on choosealicense.com 2013-2019' do
           let(:license) { Licensee::License.find('cc0-1.0') }
           let(:fixture) { 'cc0-cal2013' }
 
