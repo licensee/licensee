@@ -42,9 +42,23 @@ module Licensee
         @data = metadata || {}
       end
 
+      # TODO: In the next major release, filename should be the basename
+      # and path should be either the absolute path or the relative path to
+      # the project root, but maintaining the alias for backward compatability
       def filename
         @data[:name]
       end
+      alias path filename
+
+      def directory
+        @data[:dir] || '.'
+      end
+      alias dir directory
+
+      def path_relative_to_root
+        File.join(directory, filename)
+      end
+      alias relative_path path_relative_to_root
 
       def possible_matchers
         raise 'Not implemented'
@@ -64,7 +78,6 @@ module Licensee
       end
 
       alias match license
-      alias path filename
 
       def matched_license
         license.spdx_id if license
@@ -75,6 +88,7 @@ module Licensee
       def copyright?
         return false unless is_a?(LicenseFile)
         return false unless matcher.is_a?(Matchers::Copyright)
+
         filename =~ /\Acopyright(?:#{LicenseFile::OTHER_EXT_REGEX})?\z/i
       end
 

@@ -40,8 +40,10 @@ class LicenseeCLI < Thor
 
       MATCHED_FILE_METHODS.each do |method|
         next unless matched_file.respond_to? method
+
         value = matched_file.public_send method
         next if value.nil?
+
         rows << [humanize(method, :method), humanize(value, method)]
       end
       print_table rows, indent: 2
@@ -49,8 +51,9 @@ class LicenseeCLI < Thor
       next unless matched_file.is_a? Licensee::ProjectFiles::LicenseFile
       next if matched_file.confidence == 100
 
-      licenses = licenses_by_similiarity(matched_file)
+      licenses = licenses_by_similarity(matched_file)
       next if licenses.empty?
+
       say '  Closest non-matching licenses:'
       rows = licenses[0...3].map do |license, similarity|
         spdx_id = license.meta['spdx-id']
@@ -89,15 +92,15 @@ class LicenseeCLI < Thor
     end
   end
 
-  def licenses_by_similiarity(matched_file)
+  def licenses_by_similarity(matched_file)
     matcher = Licensee::Matchers::Dice.new(matched_file)
     potential_licenses = Licensee.licenses(hidden: true).select(&:wordset)
     matcher.instance_variable_set('@potential_licenses', potential_licenses)
-    matcher.licenses_by_similiarity
+    matcher.licenses_by_similarity
   end
 
   def closest_license_key(matched_file)
-    licenses = licenses_by_similiarity(matched_file)
+    licenses = licenses_by_similarity(matched_file)
     licenses.first.first.key unless licenses.empty?
   end
 end

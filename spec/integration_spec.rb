@@ -204,6 +204,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'BSD-3-Clause numbered and bulleted' do
+          let(:license) { Licensee::License.find('bsd-3-clause') }
+          let(:fixture) { 'bsd-3-lists' }
+
+          it 'determines the project is BSD-3-Clause' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do

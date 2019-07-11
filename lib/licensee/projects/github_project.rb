@@ -20,6 +20,7 @@ module Licensee
       def initialize(github_url, **args)
         @repo = github_url[GITHUB_REPO_PATTERN, 1]
         raise ArgumentError, "Not a github URL: #{github_url}" unless @repo
+
         super(**args)
       end
 
@@ -28,19 +29,36 @@ module Licensee
       private
 
       def files
-        @files ||= contents.map { |data| { name: data[:name], dir: '/' } }
-      rescue Octokit::NotFound
-        raise RepoNotFound,
-              "Could not load GitHub repo #{repo}, it may be private or deleted"
+        return @files if defined? @files_from_tree
+
+        @files = dir_files
+        return @files unless @files.empty?
+
+        msg = "Could not load GitHub repo #{repo}, it may be private or deleted"
+        raise RepoNotFound, msg
       end
 
       def load_file(file)
-        Octokit.contents(@repo, path:   file[:name],
-                                accept: 'application/vnd.github.v3.raw')
+        client.contents(@repo, path:   file[:path],
+                               accept: 'application/vnd.github.v3.raw').to_s
       end
 
-      def contents
-        Octokit.contents(@repo).select { |data| data[:type] == 'file' }
+      def dir_files(path = nil)
+        path = path.gsub('./', '') if path
+        files = client.contents(@repo, path: path)
+        files = files.select { |data| data[:type] == 'file' }
+        files.each { |data| data[:dir] = File.dirname(data[:path]) }
+        files.map(&:to_h)
+      rescue Octokit::NotFound
+        []
+      end
+
+      def client
+        @client ||= Octokit::Client.new access_token: access_token
+      end
+
+      def access_token
+        ENV['OCTOKIT_ACCESS_TOKEN']
       end
     end
   end

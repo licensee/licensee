@@ -79,6 +79,11 @@ RSpec.describe Licensee::LicenseField do
     expect(field.to_s).to eql('Foo')
   end
 
+  it 'returns the raw text' do
+    field = described_class.new('fullname')
+    expect(field.raw_text).to eql('[fullname]')
+  end
+
   context 'spec_helper' do
     it 'substitutes all fields' do
       expected = described_class.keys.sort

@@ -21,6 +21,12 @@ module Licensee
       def confidence
         raise 'Not implemented'
       end
+
+      private
+
+      def potential_matches
+        @potential_matches ||= Licensee.licenses(hidden: true, psuedo: false)
+      end
     end
   end
 end

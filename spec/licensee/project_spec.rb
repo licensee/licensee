@@ -27,7 +27,7 @@
         FileUtils.rm_rf File.expand_path '.git', path
       end
     elsif described_class == Licensee::Projects::GitHubProject
-      let(:path) do
+      before do
         stub_request(
           :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
         ).to_return(
@@ -43,9 +43,8 @@
             .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
             .to_return(status: 200, body: File.read(file))
         end
-
-        "https://github.com/#{stubbed_org}/#{fixture}"
       end
+      let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
     end
 
     if described_class == Licensee::Projects::GitProject
@@ -175,6 +174,25 @@
             `git add project.gemspec`
             `git commit -m 'add real gemspec'`
           end
+        end
+      end
+
+      if described_class == Licensee::Projects::GitHubProject
+        before do
+          stub_request(
+            :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
+          ).to_return(
+            status:  200,
+            body:    fixture_root_contents_from_api(fixture),
+            headers: { 'Content-Type' => 'application/json' }
+          )
+
+          file = fixture_path "#{fixture}/project.gemspec"
+          relative_path = File.basename(file)
+          parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
+          stub_request(:get, parts.join('/'))
+            .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+            .to_return(status: 200, body: File.read(file))
         end
       end
 

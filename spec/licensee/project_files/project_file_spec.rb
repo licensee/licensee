@@ -4,7 +4,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
   let(:content) { mit.content }
   let(:possible_matchers) { [Licensee::Matchers::Exact] }
 
-  subject { described_class.new(content, filename) }
+  subject { Licensee::ProjectFiles::LicenseFile.new(content, filename) }
   before do
     allow(subject).to receive(:possible_matchers).and_return(possible_matchers)
   end
@@ -50,8 +50,8 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
       {
         filename:           'LICENSE.txt',
         content:            mit.content.to_s,
-        content_hash:       nil,
-        content_normalized: nil,
+        content_hash:       subject.content_hash,
+        content_normalized: subject.content_normalized,
         matcher:            {
           name:       :exact,
           confidence: 100

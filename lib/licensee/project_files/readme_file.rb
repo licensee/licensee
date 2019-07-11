@@ -1,7 +1,7 @@
 module Licensee
   module ProjectFiles
     class ReadmeFile < Licensee::ProjectFiles::LicenseFile
-      EXTENSIONS = %w[md markdown mdown txt rdoc].freeze
+      EXTENSIONS = %w[md markdown mdown txt rdoc rst].freeze
       SCORES = {
         /\AREADME\z/i                                       => 1.0,
         /\AREADME\.(#{Regexp.union(EXTENSIONS).source})\z/i => 0.9
@@ -11,7 +11,7 @@ module Licensee
       UNDERLINE_REGEX = /\n[-=]+/m
       CONTENT_REGEX = /^
           (?:                                # Header lookbehind
-            [\#=]+\s#{TITLE_REGEX}           # Start of hashes or rdoc header
+            [\#=]+\s#{TITLE_REGEX}\s*[\#=]*  # Start of hashes or rdoc header
           |
             #{TITLE_REGEX}#{UNDERLINE_REGEX} # Start of underlined header
           )$

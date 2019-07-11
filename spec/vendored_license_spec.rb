@@ -5,6 +5,7 @@ RSpec.describe 'vendored licenses' do
   end
   let(:detected_license) { license_file.license if license_file }
   let(:wtfpl) { Licensee::License.find('wtfpl') }
+  let(:expected_hashes) { JSON.parse(fixture_contents('license-hashes.json')) }
 
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
@@ -13,10 +14,24 @@ RSpec.describe 'vendored licenses' do
     context "the #{license.name} license" do
       let(:content_with_copyright) { sub_copyright_info(license) }
       let(:content) { content_with_copyright }
+      let(:expected_hash) { expected_hashes[license.key] }
+      let(:hash_change_msg) do
+        msg = 'Did you update a vendored license? Run script/hash-licenses. '
+        msg << 'Changes in license hashes must be a MINOR (or MAJOR) bump.'
+        msg
+      end
 
       it 'detects the license' do
         skip if license.key == 'ncsa'
         expect(content).to be_detected_as(license)
+      end
+
+      it 'has a cached content hash' do
+        expect(expected_hash).to_not be_nil, hash_change_msg
+      end
+
+      it 'matches the expected content hash' do
+        expect(license.content_hash).to eql(expected_hash), hash_change_msg
       end
 
       context 'when modified' do
@@ -30,11 +45,14 @@ RSpec.describe 'vendored licenses' do
         end
 
         context 'without the title' do
-          let(:content) { wtfpl.send :strip_title, content_with_copyright }
+          let(:content_without_title) do
+            license_file.send :strip_title
+            license_file.send :_content
+          end
 
           it 'detects the license' do
             skip if license.key == 'ncsa'
-            expect(content).to be_detected_as(license)
+            expect(content_without_title).to be_detected_as(license)
           end
         end
 
