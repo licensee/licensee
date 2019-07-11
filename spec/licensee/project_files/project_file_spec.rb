@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::ProjectFiles::ProjectFile do
   let(:filename) { 'LICENSE.txt' }
   let(:mit) { Licensee::License.find('mit') }
@@ -48,6 +50,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
     let(:hash) { subject.to_h }
     let(:expected) do
       {
+        attribution:        'Copyright (c) [year] [fullname]',
         filename:           'LICENSE.txt',
         content:            mit.content.to_s,
         content_hash:       subject.content_hash,

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::ProjectFiles::LicenseFile do
   let(:filename) { 'LICENSE.txt' }
   let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
-  let(:content_hash) { 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3' }
+  let(:content_hash) { license_hashes['mit'] }
 
   subject { described_class.new(content, filename) }
 
@@ -20,7 +22,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   end
 
   context 'with an non-UTF-8-encoded license' do
-    let(:content) { "\x91License\x93".force_encoding('windows-1251') }
+    let(:content) { "\x91License\x93".dup.force_encoding('windows-1251') }
 
     it "doesn't blow up " do
       expect(subject.attribution).to be_nil

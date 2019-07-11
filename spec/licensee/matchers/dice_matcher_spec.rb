@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Matchers::Dice do
   let(:mit) { Licensee::License.find('mit') }
   let(:gpl) { Licensee::License.find('gpl-3.0') }

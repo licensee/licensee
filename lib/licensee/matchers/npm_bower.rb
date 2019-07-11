@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   module Matchers
     class NpmBower < Licensee::Matchers::Package
@@ -5,7 +7,7 @@ module Licensee
       # a lenient regex for speed and security. Moar parsing moar problems.
       LICENSE_REGEX = /
         \s*[\"\']license[\"\']\s*\:\s*[\'\"]([a-z\-0-9\.+ ()]+)[\'\"],?\s*
-      /ix
+      /ix.freeze
 
       private
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   # Exposes #conditions, #permissions, and #limitation arrays of LicenseRules
   class LicenseRules < Struct.new(:conditions, :permissions, :limitations)

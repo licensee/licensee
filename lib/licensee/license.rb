@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 
 module Licensee
@@ -23,6 +25,7 @@ module Licensee
           output = licenses.dup
           output.reject!(&:hidden?) unless options[:hidden]
           output.reject!(&:pseudo_license?) unless options[:pseudo]
+          output.sort_by!(&:key)
           return output if options[:featured].nil?
 
           output.select { |l| l.featured? == options[:featured] }
@@ -95,8 +98,8 @@ module Licensee
       'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
     }.freeze
 
-    SOURCE_PREFIX = %r{https?://(?:www\.)?}i
-    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i
+    SOURCE_PREFIX = %r{https?://(?:www\.)?}i.freeze
+    SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i.freeze
 
     HASH_METHODS = %i[
       key spdx_id meta url rules fields other? gpl? lgpl? cc?

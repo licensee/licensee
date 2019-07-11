@@ -1,0 +1,106 @@
+# Map of fixtures to expectation as an added integration test
+---
+apache-with-readme-notice:
+  key: apache-2.0
+  matcher: exact
+  hash: ab3901051663cb8ee5dea9ebdff406ad136910e3
+bsd-3-lists:
+  key: bsd-3-clause
+  matcher: 
+  hash: 
+bsd-plus-patents:
+  key: other
+  matcher: 
+  hash: 
+bsl:
+  key: bsl-1.0
+  matcher: exact
+  hash: ca8f916d00c234719956e932061f192abb2d5bf9
+case-sensitive:
+  key: other
+  matcher: 
+  hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+cc-by-nc-sa:
+  key: other
+  matcher: 
+  hash: 5327932ea9cfee2d8d1ab7d5e088e868413eadea
+cc-by-nd:
+  key: other
+  matcher: 
+  hash: a75ef554ca6941d195bbc1197f934d43a75b312d
+copyright-encoding:
+  key: no-license
+  matcher: copyright
+  hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+crlf-license:
+  key: gpl-3.0
+  matcher: exact
+  hash: b22f1b1f953a38a8a11686587b98831858d6468b
+description-license:
+  key: other
+  matcher: 
+  hash: ab0fb718684bbc67c7dfc2e9ab2175dab4fcb819
+fcpl-modified-mpl:
+  key: other
+  matcher: 
+  hash: '06942321efd22b697fc4600bf68c0b6b3399cb12'
+gemspec:
+  key: 
+  matcher: 
+  hash: 
+gpl3-without-instructions:
+  key: gpl-3.0
+  matcher: exact
+  hash: b22f1b1f953a38a8a11686587b98831858d6468b
+html:
+  key: epl-1.0
+  matcher: dice
+  hash: 5265922b5943810a3ad23c66c50a0828ba342bfd
+lgpl:
+  key: lgpl-3.0
+  matcher: exact
+  hash: bdb3c042bd84f914eacfbe4977c5e58352745809
+license-folder:
+  key: 
+  matcher: 
+  hash: 
+license-in-parent-folder:
+  key: mit
+  matcher: exact
+  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+license-with-readme-reference:
+  key: mit
+  matcher: exact
+  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+markdown-gpl:
+  key: gpl-2.0
+  matcher: dice
+  hash: a0de4ee2a7e6ef2c2f6283b09cc755af5de5a5cb
+mit:
+  key: mit
+  matcher: exact
+  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+mit-with-copyright:
+  key: mit
+  matcher: 
+  hash: 
+mpl-without-hrs:
+  key: mpl-2.0
+  matcher: exact
+  hash: b4db668fa7573bfdcae74eb51eafc961034f0a61
+multiple-license-files:
+  key: other
+  matcher: 
+  hash: 
+readme:
+  key: mit
+  matcher: 
+  hash: 
+webmock:
+  key: 
+  matcher: 
+  hash: 
+wrk-modified-apache:
+  key: other
+  matcher: 
+  hash: e733ea59fcc053841df5a1a3574a298d9ee3635e

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::ProjectFiles::ReadmeFile do
   let(:filename) { 'README.md' }
   let(:content) { '' }

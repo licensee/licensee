@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'detect command' do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'detect'] }
   let(:arguments) { [] }
@@ -10,7 +12,7 @@ RSpec.describe 'detect command' do
   let(:stdout) { output[0] }
   let(:stderr) { output[1] }
   let(:status) { output[2] }
-  let(:hash) { 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3' }
+  let(:hash) { license_hashes['mit'] }
   let(:expected) do
     {
       'License'          => 'MIT',
@@ -68,7 +70,9 @@ RSpec.describe 'detect command' do
     end
 
     it 'returns the expected output' do
-      expect(JSON.parse(stdout)).to eql(expected)
+      msg = '`licensee detect --json` output did not match expectations. '.dup
+      msg << 'Run `script/dump-detect-json-fixture` and verify the output.'
+      expect(JSON.parse(stdout)).to eql(expected), msg
     end
   end
 

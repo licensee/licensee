@@ -1,5 +1,7 @@
-require 'coveralls'
-Coveralls.wear!
+# frozen_string_literal: true
+
+require 'simplecov'
+SimpleCov.start
 
 require 'licensee'
 require 'open3'
@@ -27,6 +29,13 @@ def fixtures_base
   File.expand_path 'spec/fixtures', project_root
 end
 
+def fixtures
+  @fixtures ||= begin
+    dirs = Dir["#{fixtures_base}/*"].select { |e| File.directory?(e) }
+    dirs.map { |path| File.basename(path) }.sort_by { |k, _v| k }
+  end
+end
+
 def fixture_path(fixture)
   File.expand_path fixture, fixtures_base
 end
@@ -47,6 +56,10 @@ def fixture_root_contents_from_api(fixture)
       path: File.basename(file)
     }
   end.to_json
+end
+
+def fixture_licenses
+  @fixture_licenses ||= YAML.load_file(fixture_path('fixtures.yml'))
 end
 
 def field_values
@@ -133,4 +146,8 @@ RSpec::Matchers.define :be_detected_as do |expected|
   end
 
   diffable
+end
+
+def license_hashes
+  @license_hashes ||= JSON.parse(fixture_contents('license-hashes.json'))
 end

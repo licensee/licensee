@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # GitHub project
 #
 # Analyses a remote GitHub repository for license information
@@ -13,7 +15,7 @@ module Licensee
       # If there's any trailing data (e.g. `.git`) this pattern will ignore it:
       # we're going to use the API rather than clone the repo.
       GITHUB_REPO_PATTERN =
-        %r{https://github.com/([^\/]+\/([^\/]+(?=\.git)|[^\/]+)).*}
+        %r{https://github.com/([^\/]+\/([^\/]+(?=\.git)|[^\/]+)).*}.freeze
 
       class RepoNotFound < StandardError; end
 

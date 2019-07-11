@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Licensee::Project represents an open source project on disk
 # It is not used directly, but rather is extended by FSProject and GitProject
 # depending on the type of file system access available
@@ -113,7 +115,7 @@ module Licensee
         return [] if files.empty? || files.nil?
 
         found = files.map { |file| file.merge(score: yield(file[:name])) }
-        found.select! { |file| file[:score] > 0 }
+        found.select! { |file| file[:score].positive? }
         found.sort { |a, b| b[:score] <=> a[:score] }
       end
 
@@ -137,7 +139,7 @@ module Licensee
       # Returns an array of LicenseFiles with LPGL first
       def prioritize_lgpl(files)
         return files if files.empty?
-        return files unless files.first.license && files.first.license.gpl?
+        return files unless files.first.license&.gpl?
 
         lesser = files.find_index(&:lgpl?)
         files.unshift(files.delete_at(lesser)) if lesser

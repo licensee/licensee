@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../spec/spec_helper.rb'
+
+fixtures_licenses = {}
+options = { detect_packages: true, detect_readme: true }
+fixtures.each do |fixture|
+  path = fixture_path(fixture)
+  project = Licensee.project(path, options)
+  expectations = { 'key' => nil, 'matcher' => nil, 'hash' => nil }
+
+  expectations['key'] = project.license.key if project.license
+
+  if project.license_file
+    expectations['hash'] = project.license_file.content_hash
+
+    if project.license_file.matcher&.name
+      expectations['matcher'] = project.license_file.matcher.name.to_s
+    end
+  end
+
+  fixtures_licenses[fixture] = expectations
+end
+
+output = "# Map of fixtures to expectation as an added integration test\n"
+output << YAML.dump(fixtures_licenses)
+File.write fixture_path('fixtures.yml'), output

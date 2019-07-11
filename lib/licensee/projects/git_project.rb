@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Git-based project
 #
 # Analyze a given (bare) Git repository for license information
@@ -11,25 +13,31 @@ autoload :Rugged, 'rugged'
 module Licensee
   module Projects
     class GitProject < Licensee::Projects::Project
-      attr_reader :repository, :revision
+      attr_reader :revision
 
       class InvalidRepository < ArgumentError; end
 
       def initialize(repo, revision: nil, **args)
-        @repository = if repo.is_a? Rugged::Repository
-          repo
-        else
-          Rugged::Repository.new(repo)
-        end
-
+        @raw_repo = repo
         @revision = revision
+
+        raise InvalidRepository if repository.head_unborn?
+
         super(**args)
+      end
+
+      def repository
+        @repository ||= begin
+          return @raw_repo if @raw_repo.is_a? Rugged::Repository
+
+          Rugged::Repository.new(@raw_repo)
+        end
       rescue Rugged::OSError, Rugged::RepositoryError
         raise InvalidRepository
       end
 
       def close
-        @repository.close
+        repository.close
       end
 
       private

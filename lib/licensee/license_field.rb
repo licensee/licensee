@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   class LicenseField < Struct.new(:name, :description)
     class << self
@@ -45,7 +47,7 @@ module Licensee
     end
 
     alias key name
-    FIELD_REGEX = /\[(#{Regexp.union(LicenseField.keys)})\]/
+    FIELD_REGEX = /\[(#{Regexp.union(LicenseField.keys)})\]/.freeze
 
     # The human-readable field name
     def label

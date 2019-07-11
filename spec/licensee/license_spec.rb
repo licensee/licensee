@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::License do
-  let(:license_count) { 36 }
-  let(:hidden_license_count) { 24 }
+  let(:license_count) { 38 }
+  let(:hidden_license_count) { 26 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
@@ -14,7 +16,7 @@ RSpec.describe Licensee::License do
   let(:no_license) { described_class.find('no-license') }
   let(:gpl) { described_class.find('gpl-3.0') }
   let(:lgpl) { described_class.find('lgpl-3.0') }
-  let(:content_hash) { 'd64f3bb4282a97b37454b5bb96a8a264a3363dc3' }
+  let(:content_hash) { license_hashes['mit'] }
 
   let(:license_dir) do
     File.expand_path 'vendor/choosealicense.com/_licenses', project_root

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Licensee::Matchers::Exact do
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }

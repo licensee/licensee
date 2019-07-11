@@ -1,26 +1,28 @@
+# frozen_string_literal: true
+
 module Licensee
   module ProjectFiles
     class LicenseFile < Licensee::ProjectFiles::ProjectFile
       include Licensee::ContentHelper
 
       # List of extensions to give preference to
-      PREFERRED_EXT = %w[md markdown txt].freeze
-      PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/
+      PREFERRED_EXT = %w[md markdown txt html].freeze
+      PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/.freeze
 
       # Regex to match any extension except .spdx or .header
-      OTHER_EXT_REGEX = %r{\.(?!spdx|header|gemspec)[^./]+\z}i
+      OTHER_EXT_REGEX = %r{\.(?!spdx|header|gemspec)[^./]+\z}i.freeze
 
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
-      LICENSE_REGEX = /(un)?licen[sc]e/i
+      LICENSE_REGEX = /(un)?licen[sc]e/i.freeze
 
       # Regex to match COPYING, COPYRIGHT, etc.
-      COPYING_REGEX = /copy(ing|right)/i
+      COPYING_REGEX = /copy(ing|right)/i.freeze
 
       # Regex to match OFL.
-      OFL_REGEX = /ofl/i
+      OFL_REGEX = /ofl/i.freeze
 
       # BSD + PATENTS patent file
-      PATENTS_REGEX = /patents/i
+      PATENTS_REGEX = /patents/i.freeze
 
       # Hash of Regex => score with which to score potential license files
       FILENAME_REGEXES = {
@@ -46,7 +48,7 @@ module Licensee
       # detected as CC-BY or CC-BY-SA which are 98%+ similar
       CC_FALSE_POSITIVE_REGEX = /
         ^(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
-      /xi
+      /xi.freeze
 
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
@@ -72,11 +74,11 @@ module Licensee
       end
 
       def gpl?
-        license && license.gpl?
+        license&.gpl?
       end
 
       def license
-        if matcher && matcher.match
+        if matcher&.match
           matcher.match
         else
           License.find('other')

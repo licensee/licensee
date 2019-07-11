@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'integration test' do
   [
     Licensee::Projects::FSProject,
@@ -210,6 +212,15 @@ RSpec.describe 'integration test' do
           let(:fixture) { 'bsd-3-lists' }
 
           it 'determines the project is BSD-3-Clause' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
+        context 'HTML license file' do
+          let(:license) { Licensee::License.find('epl-1.0') }
+          let(:fixture) { 'html' }
+
+          it 'matches to GPL3' do
             expect(subject.license).to eql(license)
           end
         end

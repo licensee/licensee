@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Licensee
   class LicenseMeta < Struct.new(
     :title, :spdx_id, :source, :description, :how, :conditions, :permissions,
