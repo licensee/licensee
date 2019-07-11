@@ -255,6 +255,7 @@ module Licensee
 
     def strip_cc0_optional
       return unless _content.include? 'cc0 1.0'
+
       strip(REGEXES[:cc_legal_code])
       strip(REGEXES[:cc0_info])
       strip(REGEXES[:cc0_disclaimer])
