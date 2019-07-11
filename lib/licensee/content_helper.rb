@@ -13,11 +13,7 @@ module Licensee
     CC0_INFO = 'For more information, please see\s*' +
                '<http://creativecommons.org/publicdomain/zero/1.0/>\s*'.freeze
     CC0_INFO_REGEX = /#{CC0_INFO}/im
-    CC0_DISCLAIMER = Licensee::License
-                     .find('cc0-1.0').content
-                     .match(/CREATIVE COMMONS CORPORATION.*?\n\n/m)[0]
-                     .gsub(/\s+/m, '\s+').freeze
-    CC0_DISCLAIMER_REGEX = /#{CC0_DISCLAIMER}/im
+    CC0_DISCLAIMER_REGEX = /CREATIVE COMMONS CORPORATION.*?\n\n/im
     REGEXES = {
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
@@ -261,7 +257,7 @@ module Licensee
     end
 
     def strip_cc0_optional
-      return unless _content.include? 'cc0'
+      return unless _content.include? 'cc0 1.0'
       strip(CC_LEGAL_CODE_REGEX)
       strip(CC0_INFO_REGEX)
       strip(CC0_DISCLAIMER_REGEX)
