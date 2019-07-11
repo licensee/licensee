@@ -148,7 +148,8 @@ module Licensee
 
     def content_normalized(wrap: nil)
       @content_normalized ||= begin
-        @_content = strip_cc0_optional(content_without_title_and_version.downcase)
+        @_content = content_without_title_and_version.downcase
+        strip_cc0_optional
 
         %i[
           dashes quotes spelling copyright bullets ampersands lists https
@@ -261,11 +262,11 @@ module Licensee
       strip(regex) while _content =~ regex
     end
 
-    def strip_cc0_optional(string)
-      return string unless string.include? 'cc0'
-      string = strip(string, CC_LEGAL_CODE_REGEX)
-      string = strip(string, CC0_INFO_REGEX)
-      strip(string, CC0_DISCLAIMER_REGEX)
+    def strip_cc0_optional
+      return unless _content.include? 'cc0'
+      strip(CC_LEGAL_CODE_REGEX)
+      strip(CC0_INFO_REGEX)
+      strip(CC0_DISCLAIMER_REGEX)
     end
 
     def strip_end_of_terms
