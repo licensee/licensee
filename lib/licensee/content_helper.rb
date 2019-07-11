@@ -9,11 +9,6 @@ module Licensee
     START_REGEX = /\A\s*/.freeze
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i.freeze
     ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
-    CC_LEGAL_CODE_REGEX = /^\s*Creative Commons Legal Code\s*$/i
-    CC0_INFO = 'For more information, please see\s*' +
-               '<http://creativecommons.org/publicdomain/zero/1.0/>\s*'.freeze
-    CC0_INFO_REGEX = /#{CC0_INFO}/im
-    CC0_DISCLAIMER_REGEX = /CREATIVE COMMONS CORPORATION.*?\n\n/im
     REGEXES = {
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
@@ -29,7 +24,10 @@ module Licensee
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
-      quote_end:           /[`'"’”]/
+      quote_end:           /[`'"’”]/,
+      cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
+      cc0_info:            /For more information, please see\s*\S+zero\S+/im,
+      cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im
     }.freeze
     NORMALIZATIONS = {
       lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
@@ -89,7 +87,7 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      hrs markdown_headings borders title version url copyright
+      cc0_optional hrs markdown_headings borders title version url copyright
       block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
     ].freeze
@@ -146,7 +144,6 @@ module Licensee
     def content_normalized(wrap: nil)
       @content_normalized ||= begin
         @_content = content_without_title_and_version.downcase
-        strip_cc0_optional
 
         (NORMALIZATIONS.keys + %i[spelling bullets]).each { |op| normalize(op) }
         STRIP_METHODS.each { |op| strip(op) }
@@ -258,9 +255,9 @@ module Licensee
 
     def strip_cc0_optional
       return unless _content.include? 'cc0 1.0'
-      strip(CC_LEGAL_CODE_REGEX)
-      strip(CC0_INFO_REGEX)
-      strip(CC0_DISCLAIMER_REGEX)
+      strip(REGEXES[:cc_legal_code])
+      strip(REGEXES[:cc0_info])
+      strip(REGEXES[:cc0_disclaimer])
     end
 
     def strip_end_of_terms
