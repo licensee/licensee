@@ -30,7 +30,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('rake', '~> 10.3')
   gem.add_development_dependency('rspec', '~> 3.5')
-  gem.add_development_dependency('rubocop', '~> 0.49')
+  gem.add_development_dependency('rubocop', '~> 0.69')
   gem.add_development_dependency('simplecov', '~> 0.16')
   gem.add_development_dependency('webmock', '~> 3.1')
 
