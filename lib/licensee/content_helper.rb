@@ -83,7 +83,7 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      hrs markdown_headings borders title version url copyright
+      hrs markdown_headings borders title version url copyright title
       block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
     ].freeze
