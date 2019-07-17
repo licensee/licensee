@@ -266,8 +266,7 @@ RSpec.describe Licensee::ContentHelper do
 
         it 'strips the title' do
           skip "Doesn't strip ECL title" if license.key == 'ecl-2.0'
-          regex = Licensee::License::ALT_TITLE_REGEX[license.key]
-          regex ||= /\A#{license.name_without_version}/i
+          regex = /\A#{license.name_without_version}/i
           expect(stripped_content).to_not match(regex)
           expect(license.content_normalized).to_not match(regex)
         end
