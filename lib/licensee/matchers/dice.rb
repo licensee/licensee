@@ -51,7 +51,7 @@ module Licensee
 
       # Confidence that the matched license is a match
       def confidence
-        @confidence ||= match ? file.similarity(match) : 0
+        @confidence ||= match ? match.similarity(file) : 0
       end
 
       private

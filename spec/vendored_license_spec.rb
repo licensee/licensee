@@ -26,6 +26,10 @@ RSpec.describe 'vendored licenses' do
         expect(content).to be_detected_as(license)
       end
 
+      it 'confidence and similarity scores are euqal' do
+        expect(license_file.confidence).to eq(license.similarity(license_file))
+      end
+
       it 'has a cached content hash' do
         expect(expected_hash).to_not be_nil, hash_change_msg
       end
