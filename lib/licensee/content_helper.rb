@@ -8,7 +8,6 @@ module Licensee
     DIGEST = Digest::SHA1
     START_REGEX = /\A\s*/.freeze
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i.freeze
-    ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
