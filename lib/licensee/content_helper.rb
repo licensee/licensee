@@ -93,20 +93,6 @@ module Licensee
       @wordset ||= content_normalized&.scan(/(?:\w(?:'s|(?<=s)')?)+/)&.to_set
     end
 
-    def wordset_fieldless
-      @wordset_fieldless ||= wordset - fields_normalized_set
-    end
-
-    # Returns an array of strings of substitutable fields in normalized content
-    def fields_normalized
-      @fields_normalized ||=
-        content_normalized.scan(LicenseField::FIELD_REGEX).flatten
-    end
-
-    def fields_normalized_set
-      @fields_normalized_set ||= fields_normalized.to_set
-    end
-
     # Number of characteres in the normalized content
     def length
       return 0 unless content_normalized
@@ -306,6 +292,20 @@ module Licensee
     def normalize_bullets
       normalize(REGEXES[:bullet], "\n\n* ")
       normalize(/\)\s+\(/, ')(')
+    end
+
+    def wordset_fieldless
+      @wordset_fieldless ||= wordset - fields_normalized_set
+    end
+
+    # Returns an array of strings of substitutable fields in normalized content
+    def fields_normalized
+      @fields_normalized ||=
+        content_normalized.scan(LicenseField::FIELD_REGEX).flatten
+    end
+
+    def fields_normalized_set
+      @fields_normalized_set ||= fields_normalized.to_set
     end
   end
 end
