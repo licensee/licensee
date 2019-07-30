@@ -138,24 +138,20 @@ module Licensee
     def title_regex
       return @title_regex if defined? @title_regex
 
-      title_regex = begin
-        string = name.downcase.sub('*', 'u')
-        string.sub!(/\Athe /i, '')
-        string.sub!(/,? version /, ' ')
-        string.sub!(/v(\d+\.\d+)/, '\1')
-        string = Regexp.escape(string)
-        string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
-        string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
-        string = string.sub(/\bgnu\\ /, '(?:GNU )?')
-        Regexp.new string, 'i'
-      end
+      string = name.downcase.sub('*', 'u')
+      string.sub!(/\Athe /i, '')
+      string.sub!(/,? version /, ' ')
+      string.sub!(/v(\d+\.\d+)/, '\1')
+      string = Regexp.escape(string)
+      string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
+      string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
+      string = string.sub(/\bgnu\\ /, '(?:GNU )?')
+      title_regex = Regexp.new string, 'i'
 
-      key_regex = begin
-        string = key.sub('-', '[- ]')
-        string.sub!('.', '\.')
-        string << '(?:\ licen[sc]e)?'
-        Regexp.new string, 'i'
-      end
+      string = key.sub('-', '[- ]')
+      string.sub!('.', '\.')
+      string << '(?:\ licen[sc]e)?'
+      key_regex = Regexp.new string, 'i'
 
       parts = [title_regex, key_regex]
       if meta.nickname
