@@ -160,6 +160,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'Unlicense without optional line' do
+          let(:license) { Licensee::License.find('unlicense') }
+          let(:fixture) { 'unlicense-noinfo' }
+
+          it 'returns unlicense' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'license + README reference' do
           let(:license) { Licensee::License.find('mit') }
           let(:fixture) { 'license-with-readme-reference' }

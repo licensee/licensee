@@ -96,6 +96,10 @@ readme:
   key: mit
   matcher: 
   hash: 
+unlicense-noinfo:
+  key: unlicense
+  matcher: exact
+  hash: 853b375edc61b9e823da0fa5fead97c9460c3e45
 webmock:
   key: 
   matcher: 

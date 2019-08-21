@@ -24,5 +24,4 @@ fixtures.each do |fixture|
 end
 
 output = "# Map of fixtures to expectation as an added integration test\n"
-output << YAML.dump(fixtures_licenses)
-File.write fixture_path('fixtures.yml'), output
+File.write fixture_path('fixtures.yml'), output + YAML.dump(fixtures_licenses)
