@@ -10,7 +10,6 @@ RSpec.describe 'vendored licenses' do
 
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
-    next if license.key == 'postgresql'
 
     context "the #{license.name} license" do
       let(:content_with_copyright) { sub_copyright_info(license) }
@@ -24,8 +23,11 @@ RSpec.describe 'vendored licenses' do
       end
 
       it 'detects the license' do
-        skip if license.key == 'ncsa'
         expect(content).to be_detected_as(license)
+      end
+
+      it 'confidence and similarity scores are euqal' do
+        expect(license_file.confidence).to eq(license.similarity(license_file))
       end
 
       it 'has a cached content hash' do
@@ -53,7 +55,6 @@ RSpec.describe 'vendored licenses' do
           end
 
           it 'detects the license' do
-            skip if license.key == 'ncsa'
             expect(content_without_title).to be_detected_as(license)
           end
         end
@@ -64,7 +65,6 @@ RSpec.describe 'vendored licenses' do
           end
 
           it 'detects the license' do
-            skip if license.key == 'ncsa'
             expect(content).to be_detected_as(license)
           end
         end
@@ -73,7 +73,6 @@ RSpec.describe 'vendored licenses' do
           let(:content) { content_rewrapped }
 
           it 'detects the license' do
-            skip if license.key == 'ncsa'
             expect(content).to be_detected_as(license)
           end
         end

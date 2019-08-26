@@ -88,6 +88,10 @@ mit:
   key: mit
   matcher: exact
   hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+mit-optional:
+  key: mit
+  matcher: exact
+  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
 mit-with-copyright:
   key: mit
   matcher: 

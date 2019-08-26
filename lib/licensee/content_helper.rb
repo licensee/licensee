@@ -27,7 +27,8 @@ module Licensee
       quote_end:           /[`'"’”]/,
       cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
       cc0_info:            /For more information, please see\s*\S+zero\S+/im,
-      cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im
+      cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,
+      mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
       lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
@@ -90,6 +91,7 @@ module Licensee
       cc0_optional hrs markdown_headings borders title version url copyright
       block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
+      mit_optional
     ].freeze
 
     # A set of each word in the license, without duplicates
@@ -118,8 +120,10 @@ module Licensee
     # Given another license or project file, calculates the similarity
     # as a percentage of words in common
     def similarity(other)
-      overlap = (wordset & other.wordset).size
-      total = wordset.size + other.wordset.size
+      wordset_fieldless = wordset - LicenseField.keys
+      fields_removed = wordset.size - wordset_fieldless.size
+      overlap = (wordset_fieldless & other.wordset).size
+      total = wordset_fieldless.size + other.wordset.size - fields_removed
       100.0 * (overlap * 2.0 / total)
     end
 
