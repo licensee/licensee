@@ -169,6 +169,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'MIT w/optional phrase' do
+          let(:license) { Licensee::License.find('mit') }
+          let(:fixture) { 'mit-optional' }
+
+          it 'returns mit' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'license + README reference' do
           let(:license) { Licensee::License.find('mit') }
           let(:fixture) { 'license-with-readme-reference' }

@@ -25,7 +25,8 @@ module Licensee
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /[`'"’”]/,
-      unlicense_info:      /For more information, please.*\S+unlicense\S+/i
+      unlicense_info:      /For more information, please.*\S+unlicense\S+/i,
+      mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
       lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
@@ -88,6 +89,7 @@ module Licensee
       unlicense_optional hrs markdown_headings borders title version url
       copyright block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
+      mit_optional
     ].freeze
 
     # A set of each word in the license, without duplicates
