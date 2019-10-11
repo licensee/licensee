@@ -187,7 +187,7 @@ module Licensee
     end
 
     def self.format_percent(float)
-      "#{format('%.2f', float)}%"
+      "#{format('%<float>.2f', float: float)}%"
     end
 
     def self.title_regex
