@@ -49,7 +49,9 @@ class LicenseeCLI < Thor
   end
 
   def expected_license
-    @expected_license ||= Licensee::License.find options[:license] if options[:license]
+    if options[:license]
+      @expected_license ||= Licensee::License.find options[:license]
+    end
     return @expected_license if @expected_license
 
     if options[:license]
