@@ -25,7 +25,7 @@ module Licensee
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /[`'"’”]/,
-      unlicense_info:      /For more information, please.*\S+unlicense\S+/i,
+      unlicense_info:      /For more information, please.*\S+unlicense\S+/im,
       mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
