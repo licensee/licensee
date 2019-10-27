@@ -90,7 +90,7 @@ module Licensee
     }.freeze
     STRIP_METHODS = %i[
       cc0_optional unlicense_optional hrs markdown_headings borders
-      copyright title version url block_markup span_markup link_markup
+      title version url copyright block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
       mit_optional
     ].freeze
