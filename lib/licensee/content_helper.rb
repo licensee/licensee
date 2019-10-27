@@ -28,6 +28,7 @@ module Licensee
       cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
       cc0_info:            /For more information, please see\s*\S+zero\S+/im,
       cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,
+      unlicense_info:      /For more information, please.*\S+unlicense\S+/im,
       mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
@@ -88,8 +89,8 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      cc0_optional hrs markdown_headings borders title version url copyright
-      block_markup span_markup link_markup
+      cc0_optional unlicense_optional hrs markdown_headings borders
+      copyright title version url block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
       mit_optional
     ].freeze
@@ -263,6 +264,12 @@ module Licensee
       strip(REGEXES[:cc_legal_code])
       strip(REGEXES[:cc0_info])
       strip(REGEXES[:cc0_disclaimer])
+    end
+      
+    def strip_unlicense_optional
+      return unless _content.include? 'unlicense'
+
+      strip(REGEXES[:unlicense_info])
     end
 
     def strip_end_of_terms
