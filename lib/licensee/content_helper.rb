@@ -24,6 +24,7 @@ module Licensee
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /[`'"’”]/,
+      unlicense_info:      /For more information, please.*\S+unlicense\S+/im,
       mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
@@ -84,8 +85,8 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      hrs markdown_headings borders title version url copyright title
-      block_markup span_markup link_markup
+      unlicense_optional hrs markdown_headings borders version url
+      copyright title block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
       mit_optional
     ].freeze
@@ -251,6 +252,12 @@ module Licensee
     def strip_copyright
       regex = Matchers::Copyright::REGEX
       strip(regex) while _content =~ regex
+    end
+
+    def strip_unlicense_optional
+      return unless _content.include? 'unlicense'
+
+      strip(REGEXES[:unlicense_info])
     end
 
     def strip_end_of_terms
