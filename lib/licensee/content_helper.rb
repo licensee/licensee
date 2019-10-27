@@ -265,7 +265,7 @@ module Licensee
       strip(REGEXES[:cc0_info])
       strip(REGEXES[:cc0_disclaimer])
     end
-      
+
     def strip_unlicense_optional
       return unless _content.include? 'unlicense'
 
