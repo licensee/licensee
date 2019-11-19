@@ -8,7 +8,6 @@ module Licensee
     DIGEST = Digest::SHA1
     START_REGEX = /\A\s*/.freeze
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i.freeze
-    ALT_TITLE_REGEX = License::ALT_TITLE_REGEX
     REGEXES = {
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
@@ -87,7 +86,7 @@ module Licensee
     }.freeze
     STRIP_METHODS = %i[
       unlicense_optional hrs markdown_headings borders title version url
-      copyright block_markup span_markup link_markup
+      copyright title block_markup span_markup link_markup
       all_rights_reserved developed_by end_of_terms whitespace
       mit_optional
     ].freeze
@@ -107,7 +106,8 @@ module Licensee
     # Number of characters that could be added/removed to still be
     # considered a potential match
     def max_delta
-      @max_delta ||= (length * Licensee.inverse_confidence_threshold).to_i
+      @max_delta ||= fields_normalized.size * 10 +
+                     (length * Licensee.inverse_confidence_threshold).to_i
     end
 
     # Given another license or project file, calculates the difference in length
@@ -118,10 +118,9 @@ module Licensee
     # Given another license or project file, calculates the similarity
     # as a percentage of words in common
     def similarity(other)
-      wordset_fieldless = wordset - LicenseField.keys
-      fields_removed = wordset.size - wordset_fieldless.size
       overlap = (wordset_fieldless & other.wordset).size
-      total = wordset_fieldless.size + other.wordset.size - fields_removed
+      total = wordset_fieldless.size + other.wordset.size -
+              fields_normalized_set.size
       100.0 * (overlap * 2.0 / total)
     end
 
@@ -302,6 +301,20 @@ module Licensee
     def normalize_bullets
       normalize(REGEXES[:bullet], "\n\n* ")
       normalize(/\)\s+\(/, ')(')
+    end
+
+    def wordset_fieldless
+      @wordset_fieldless ||= wordset - fields_normalized_set
+    end
+
+    # Returns an array of strings of substitutable fields in normalized content
+    def fields_normalized
+      @fields_normalized ||=
+        content_normalized.scan(LicenseField::FIELD_REGEX).flatten
+    end
+
+    def fields_normalized_set
+      @fields_normalized_set ||= fields_normalized.to_set
     end
   end
 end

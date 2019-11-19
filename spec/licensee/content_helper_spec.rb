@@ -102,7 +102,8 @@ RSpec.describe Licensee::ContentHelper do
       end_of_terms:        "Foo\nend of terms and conditions\nbar",
       block_markup:        '> Foo',
       link_markup:         '[Foo](http://exmaple.com)',
-      comment_markup:      "/*\n* The MIT License\n* Foo\n*/"
+      comment_markup:      "/*\n* The MIT License\n* Foo\n*/",
+      copyright_title:     "Copyright 2019 Ben Balter\nMIT License\nFoo"
     }.each do |field, fixture|
       context "#strip_#{field}" do
         let(:content) { fixture }
@@ -265,9 +266,7 @@ RSpec.describe Licensee::ContentHelper do
         let(:stripped_content) { subject.content_without_title_and_version }
 
         it 'strips the title' do
-          skip "Doesn't strip ECL title" if license.key == 'ecl-2.0'
-          regex = Licensee::License::ALT_TITLE_REGEX[license.key]
-          regex ||= /\A#{license.name_without_version}/i
+          regex = /\A#{license.name_without_version}/i
           expect(stripped_content).to_not match(regex)
           expect(license.content_normalized).to_not match(regex)
         end
