@@ -92,12 +92,6 @@ module Licensee
       pseudo:   true
     }.freeze
 
-    ALT_TITLE_REGEX = {
-      'bsd-2-clause'       => /bsd 2-clause(?: \"simplified\")?/i,
-      'bsd-3-clause'       => /bsd 3-clause(?: \"new\" or \"revised\")?/i,
-      'bsd-3-clause-clear' => /(?:clear bsd|bsd 3-clause(?: clear)?)/i
-    }.freeze
-
     SOURCE_PREFIX = %r{https?://(?:www\.)?}i.freeze
     SOURCE_SUFFIX = %r{(?:\.html?|\.txt|\/)(?:\?[^\s]*)?}i.freeze
 
@@ -144,20 +138,22 @@ module Licensee
     def title_regex
       return @title_regex if defined? @title_regex
 
-      title_regex = ALT_TITLE_REGEX[key]
-      title_regex ||= begin
-        string = name.downcase.sub('*', 'u')
-        string.sub!(/\Athe /i, '')
-        string.sub!(/,? version /, ' ')
-        string.sub!(/v(\d+\.\d+)/, '\1')
-        string = Regexp.escape(string)
-        string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
-        string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
-        string = string.sub(/\bgnu\\ /, '(?:GNU )?')
-        Regexp.new string, 'i'
-      end
+      string = name.downcase.sub('*', 'u')
+      string.sub!(/\Athe /i, '')
+      string.sub!(/,? version /, ' ')
+      string.sub!(/v(\d+\.\d+)/, '\1')
+      string = Regexp.escape(string)
+      string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
+      string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
+      string = string.sub(/\bgnu\\ /, '(?:GNU )?')
+      title_regex = Regexp.new string, 'i'
 
-      parts = [title_regex, key]
+      string = key.sub('-', '[- ]')
+      string.sub!('.', '\.')
+      string << '(?:\ licen[sc]e)?'
+      key_regex = Regexp.new string, 'i'
+
+      parts = [title_regex, key_regex]
       if meta.nickname
         parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?')
       end
