@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Cargo do
+  subject { described_class.new(file) }
+
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { 'license = "MIT"' }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'Cargo.toml') }
-  subject { described_class.new(file) }
 
   it 'stores the file' do
     expect(subject.file).to eql(file)
   end
 
   it 'has confidence' do
-    expect(subject.confidence).to eql(90)
+    expect(subject.confidence).to be(90)
   end
 
   it 'matches' do

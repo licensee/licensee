@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Projects::GitHubProject do
+  subject(:instance) { described_class.new(github_url) }
+
   let(:repo) { 'benbalter/licensee' }
   let(:github_url) { "https://github.com/#{repo}" }
   let(:mit) { Licensee::License.find('mit') }
   let(:readme_file) { File.read(fixture_path('mit/README.md')) }
   let(:license_file) { File.read(fixture_path('mit/LICENSE.txt')) }
-  subject(:instance) { described_class.new(github_url) }
 
   describe '#initialize' do
     context 'with a GitHub URI' do
-      it 'should set @repo' do
+      it 'sets @repo' do
         expect(instance.repo).to eq(repo)
       end
     end
@@ -18,7 +19,7 @@ RSpec.describe Licensee::Projects::GitHubProject do
     context 'with a GitHub git URI' do
       let(:github_url) { "https://github.com/#{repo}.git" }
 
-      it 'should set @repo, stripping the trailing extension' do
+      it 'sets @repo, stripping the trailing extension' do
         expect(instance.repo).to eq(repo)
       end
     end
@@ -26,7 +27,7 @@ RSpec.describe Licensee::Projects::GitHubProject do
     context 'with a non-GitHub URI' do
       let(:github_url) { "https://gitlab.com/#{repo}" }
 
-      it 'should raise an ArgumentError' do
+      it 'raises an ArgumentError' do
         expect { instance }.to raise_error(ArgumentError)
       end
     end
@@ -34,7 +35,7 @@ RSpec.describe Licensee::Projects::GitHubProject do
     context 'with a local folder' do
       let(:github_url) { fixture_path('mit') }
 
-      it 'should raise an ArgumentError' do
+      it 'raises an ArgumentError' do
         expect { instance }.to raise_error(ArgumentError)
       end
     end

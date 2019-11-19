@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Exact do
+  subject { described_class.new(file) }
+
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
-  subject { described_class.new(file) }
 
   it 'stores the file' do
     expect(subject.file).to eql(file)
@@ -15,7 +16,7 @@ RSpec.describe Licensee::Matchers::Exact do
   end
 
   it 'is confident' do
-    expect(subject.confidence).to eql(100)
+    expect(subject.confidence).to be(100)
   end
 
   context 'with extra words added' do

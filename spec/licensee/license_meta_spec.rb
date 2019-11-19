@@ -16,7 +16,7 @@ RSpec.describe Licensee::LicenseMeta do
 
       it 'responds to the field as a hash key' do
         if field['required']
-          expect(subject[name]).to_not be_nil
+          expect(subject[name]).not_to be_nil
         else
           expect { subject[name] }.not_to raise_error
         end
@@ -38,11 +38,12 @@ RSpec.describe Licensee::LicenseMeta do
     end
   end
 
-  context '#from_hash' do
+  describe '#from_hash' do
+    subject { described_class.from_hash(hash) }
+
     let(:hash) do
       { 'title' => 'Test license', 'description' => 'A test license' }
     end
-    subject { described_class.from_hash(hash) }
 
     it 'sets values' do
       expect(subject.title).to eql('Test license')
@@ -72,9 +73,10 @@ RSpec.describe Licensee::LicenseMeta do
     end
   end
 
-  context '#from_yaml' do
-    let(:yaml) { "title: Test license\ndescription: A test license" }
+  describe '#from_yaml' do
     subject { described_class.from_yaml(yaml) }
+
+    let(:yaml) { "title: Test license\ndescription: A test license" }
 
     it 'parses yaml' do
       expect(subject.title).to eql('Test license')
@@ -82,15 +84,15 @@ RSpec.describe Licensee::LicenseMeta do
     end
 
     it 'sets defaults' do
-      expect(subject.hidden).to eql(true)
-      expect(subject.featured).to eql(false)
+      expect(subject.hidden).to be(true)
+      expect(subject.featured).to be(false)
     end
 
     context 'nil yaml' do
       let(:yaml) { nil }
 
       it 'returns defaults' do
-        expect(subject.hidden).to eql(true)
+        expect(subject.hidden).to be(true)
       end
     end
 
@@ -98,15 +100,15 @@ RSpec.describe Licensee::LicenseMeta do
       let(:yaml) { '' }
 
       it 'returns defaults' do
-        expect(subject.featured).to eql(false)
+        expect(subject.featured).to be(false)
       end
     end
   end
 
   it 'returns the list of helper methods' do
-    expect(described_class.helper_methods.length).to eql(13)
+    expect(described_class.helper_methods.length).to be(13)
     expect(described_class.helper_methods).to include(:hidden?)
-    expect(described_class.helper_methods).to_not include(:hidden)
+    expect(described_class.helper_methods).not_to include(:hidden)
     expect(described_class.helper_methods).to include(:title)
   end
 

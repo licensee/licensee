@@ -31,7 +31,7 @@ RSpec.describe 'vendored licenses' do
       end
 
       it 'has a cached content hash' do
-        expect(expected_hash).to_not be_nil, hash_change_msg
+        expect(expected_hash).not_to be_nil, hash_change_msg
       end
 
       it 'matches the expected content hash' do
@@ -81,7 +81,7 @@ RSpec.describe 'vendored licenses' do
           let(:content) { content_with_random_words }
 
           it 'does not match the license' do
-            expect(content).to_not be_detected_as(license)
+            expect(content).not_to be_detected_as(license)
           end
         end
 
@@ -91,7 +91,7 @@ RSpec.describe 'vendored licenses' do
           end
 
           it 'does not match the license' do
-            expect(content).to_not be_detected_as(license)
+            expect(content).not_to be_detected_as(license)
           end
         end
       end

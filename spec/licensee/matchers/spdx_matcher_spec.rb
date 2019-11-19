@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Spdx do
+  subject { described_class.new(file) }
+
   let(:content) { 'PackageLicenseDeclared: MIT' }
   let(:file) do
     Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.spdx')
   end
   let(:mit) { Licensee::License.find('mit') }
   let(:other) { Licensee::License.find('other') }
-  subject { described_class.new(file) }
 
   it 'matches' do
     expect(subject.match).to eql(mit)
   end
 
   it 'has a confidence' do
-    expect(subject.confidence).to eql(90)
+    expect(subject.confidence).to be(90)
   end
 
   context 'no license field' do

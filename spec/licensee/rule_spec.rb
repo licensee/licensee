@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Rule do
-  let(:groups) { %w[permissions conditions limitations] }
   subject do
     described_class.new(
       description: 'description',
@@ -10,6 +9,8 @@ RSpec.describe Licensee::Rule do
       group:       'group'
     )
   end
+
+  let(:groups) { %w[permissions conditions limitations] }
 
   it 'stores properties' do
     expect(subject.tag).to eql('tag')
@@ -30,7 +31,7 @@ RSpec.describe Licensee::Rule do
 
   it 'determines the file path' do
     path = described_class.file_path
-    expect(File.exist?(path)).to eql(true)
+    expect(File.exist?(path)).to be(true)
   end
 
   it 'loads a rule by tag' do
@@ -52,7 +53,7 @@ RSpec.describe Licensee::Rule do
   end
 
   it 'loads all rules' do
-    expect(described_class.all.count).to eql(16)
+    expect(described_class.all.count).to be(16)
     rule = described_class.all.first
     expect(rule).to be_a(described_class)
     expect(rule.tag).to eql('commercial-use')

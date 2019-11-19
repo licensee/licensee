@@ -7,9 +7,9 @@ module Licensee
       # than the confidence threshold
       def match
         @match ||= if matches.empty?
-          nil
-        else
-          matches.first[0]
+                     nil
+                   else
+                     matches.first[0]
         end
       end
 

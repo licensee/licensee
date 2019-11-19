@@ -16,9 +16,9 @@ class LicenseeCLI < Thor
 
   def path
     @path ||= if !options[:remote] || args.first =~ %r{^https://}
-      args.first || Dir.pwd
-    else
-      "https://github.com/#{args.first}"
+                args.first || Dir.pwd
+              else
+                "https://github.com/#{args.first}"
     end
   end
 

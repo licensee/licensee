@@ -44,9 +44,9 @@ module Licensee
 
       def commit
         @commit ||= if revision
-          repository.lookup(revision)
-        else
-          repository.last_commit
+                      repository.lookup(revision)
+                    else
+                      repository.last_commit
         end
       end
 

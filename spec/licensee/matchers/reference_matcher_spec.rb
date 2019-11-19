@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Reference do
+  subject { described_class.new(file) }
+
   let(:content) { 'Copyright 2015 Ben Balter' }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:license) { Licensee::License.find('gpl-3.0') }
-
-  subject { described_class.new(file) }
 
   %i[title key nickname].each do |variation|
     context "with a license #{variation}" do
