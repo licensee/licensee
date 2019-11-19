@@ -30,12 +30,12 @@ cc-by-nd:
   hash: a75ef554ca6941d195bbc1197f934d43a75b312d
 cc0-cal2013:
   key: cc0-1.0
-  matcher: exact
-  hash: b63a17e410109ef621ceec93ccd4eddb746c8e05
+  matcher: dice
+  hash: 2aa555363d0d2ce0a924940fab198c38dd3ff30b
 cc0-cc:
   key: cc0-1.0
-  matcher: dice
-  hash: 168fc834a455f1be376e984e641fa3be67ef9f86
+  matcher: exact
+  hash: c07f7fdd02072b9b9ddafb29c7fe556ed4d31f6a
 copyright-encoding:
   key: no-license
   matcher: copyright
