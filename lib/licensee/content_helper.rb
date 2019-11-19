@@ -88,9 +88,23 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
-      cc0_optional unlicense_optional hrs markdown_headings borders title version url
-      copyright title block_markup span_markup link_markup
-      all_rights_reserved developed_by end_of_terms whitespace
+      cc0_optional
+      unlicense_optional
+      hrs
+      markdown_headings
+      borders
+      title
+      version
+      url
+      copyright
+      title
+      block_markup
+      span_markup
+      link_markup
+      all_rights_reserved
+      developed_by
+      end_of_terms
+      whitespace
       mit_optional
     ].freeze
 
@@ -258,7 +272,7 @@ module Licensee
     end
 
     def strip_cc0_optional
-      return unless _content.include? 'cc0 1.0'
+      return unless _content.include? 'associating cc0'
 
       strip(REGEXES[:cc_legal_code])
       strip(REGEXES[:cc0_info])
