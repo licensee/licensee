@@ -52,7 +52,7 @@ RSpec.describe Licensee::Rule do
   end
 
   it 'loads all rules' do
-    expect(described_class.all.count).to eql(16)
+    expect(described_class.all.count).to eql(17)
     rule = described_class.all.first
     expect(rule).to be_a(described_class)
     expect(rule.tag).to eql('commercial-use')
