@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::ProjectFiles::ReadmeFile do
+  subject { described_class.new(content, filename) }
+
   let(:filename) { 'README.md' }
   let(:content) { '' }
-  subject { described_class.new(content, filename) }
 
   context 'scoring names' do
     {

@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Gemspec do
+  subject { described_class.new(file) }
+
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { "s.license = 'mit'" }
   let(:file) do
     Licensee::ProjectFiles::LicenseFile.new(content, 'project.gemspec')
   end
-  subject { described_class.new(file) }
 
   it 'matches' do
     expect(subject.match).to eql(mit)
   end
 
   it 'has confidence' do
-    expect(subject.confidence).to eql(90)
+    expect(subject.confidence).to be(90)
   end
 
   {

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Dice do
+  subject { described_class.new(file) }
+
   let(:mit) { Licensee::License.find('mit') }
   let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:agpl) { Licensee::License.find('agpl-3.0') }
@@ -8,7 +10,6 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
   let(:content) { sub_copyright_info(gpl) }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
-  subject { described_class.new(file) }
 
   it 'stores the file' do
     expect(subject.file).to eql(file)
@@ -33,16 +34,16 @@ RSpec.describe Licensee::Matchers::Dice do
   end
 
   it 'returns the match confidence' do
-    expect(subject.confidence).to eql(100.0)
+    expect(subject.confidence).to be(100.0)
   end
 
   context 'without a match' do
     let(:content) { 'Not really a license' }
 
     it "doesn't match" do
-      expect(subject.match).to eql(nil)
+      expect(subject.match).to be(nil)
       expect(subject.matches).to be_empty
-      expect(subject.confidence).to eql(0)
+      expect(subject.confidence).to be(0)
     end
   end
 
@@ -52,10 +53,10 @@ RSpec.describe Licensee::Matchers::Dice do
     end
 
     it "doesn't match" do
-      expect(content).to_not be_detected_as(gpl)
-      expect(subject.match).to eql(nil)
+      expect(content).not_to be_detected_as(gpl)
+      expect(subject.match).to be(nil)
       expect(subject.matches).to be_empty
-      expect(subject.confidence).to eql(0)
+      expect(subject.confidence).to be(0)
     end
   end
 
@@ -74,11 +75,11 @@ RSpec.describe Licensee::Matchers::Dice do
       let(:content) { File.read(license_path) }
 
       it "doesn't match" do
-        expect(content).to_not be_detected_as(cc_by)
-        expect(content).to_not be_detected_as(cc_by_sa)
+        expect(content).not_to be_detected_as(cc_by)
+        expect(content).not_to be_detected_as(cc_by_sa)
         expect(subject.match).to be_nil
         expect(subject.matches).to be_empty
-        expect(subject.confidence).to eql(0)
+        expect(subject.confidence).to be(0)
       end
     end
   end

@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::NpmBower do
+  subject { described_class.new(file) }
+
   let(:content) { '"license": "mit"' }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:mit) { Licensee::License.find('mit') }
   let(:other) { Licensee::License.find('other') }
-
-  subject { described_class.new(file) }
 
   it 'matches' do
     expect(subject.match).to eql(mit)
   end
 
   it 'has a confidence' do
-    expect(subject.confidence).to eql(90)
+    expect(subject.confidence).to be(90)
   end
 
   {

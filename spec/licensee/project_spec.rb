@@ -6,13 +6,14 @@
   Licensee::Projects::GitHubProject
 ].each do |project_type|
   RSpec.describe project_type do
+    subject { described_class.new(path) }
+
     let(:stubbed_org) { '_licensee_test_fixture' }
     let(:mit) { Licensee::License.find('mit') }
     let(:other) { Licensee::License.find('other') }
     let(:fixture) { 'mit' }
     let(:path) { fixture_path(fixture) }
     let(:api_base) { 'https://api.github.com/repos' }
-    subject { described_class.new(path) }
 
     if described_class == Licensee::Projects::GitProject
       before do
@@ -46,13 +47,15 @@
             .to_return(status: 200, body: File.read(file))
         end
       end
+
       let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
     end
 
     if described_class == Licensee::Projects::GitProject
       context 'when initialized with a repo' do
-        let(:repo) { Rugged::Repository.new(path) }
         subject { described_class.new(repo) }
+
+        let(:repo) { Rugged::Repository.new(path) }
 
         it 'returns the repository' do
           expect(subject.repository).to be_a(Rugged::Repository)
@@ -61,6 +64,7 @@
 
       context 'when initialized with a revision' do
         let(:revision) { subject.repository.last_commit.oid }
+
         before do
           subject.instance_variable_set('@revision', revision)
         end
@@ -98,9 +102,9 @@
       let(:files) { subject.send(:files) }
 
       it 'returns the file list' do
-        expect(files.count).to eql(2)
+        expect(files.count).to be(2)
         license = files.find { |f| f[:name] == 'LICENSE.txt' }
-        expect(license).to_not be_nil
+        expect(license).not_to be_nil
 
         if described_class == Licensee::Projects::GitProject
           expect(files.first).to have_key(:oid)
@@ -123,7 +127,7 @@
 
           it 'looks for licenses in parent directories up to the search root' do
             # should not include the license in 'license-in-parent-folder' dir
-            expect(files.count).to eql(1)
+            expect(files.count).to be(1)
             expect(files.first[:name]).to eql('LICENSE.txt')
           end
         end
@@ -132,7 +136,7 @@
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
 
           it 'looks for licenses in current directory only' do
-            expect(files.count).to eql(0)
+            expect(files.count).to be(0)
           end
         end
       end
@@ -149,8 +153,9 @@
     end
 
     context 'readme detection' do
-      let(:fixture) { 'readme' }
       subject { described_class.new(path, detect_readme: true) }
+
+      let(:fixture) { 'readme' }
 
       it 'returns the readme' do
         expect(subject.readme_file).to be_a(Licensee::ProjectFiles::ReadmeFile)
@@ -164,6 +169,8 @@
     end
 
     context 'package manager detection' do
+      subject { described_class.new(path, detect_packages: true) }
+
       let(:fixture) { 'gemspec' }
 
       # Using a `.gemspec` extension in the fixture breaks `gem release`
@@ -202,8 +209,6 @@
         FileUtils.rm("#{fixture_path(fixture)}/project.gemspec")
       end
 
-      subject { described_class.new(path, detect_packages: true) }
-
       it 'returns the package file' do
         expected = Licensee::ProjectFiles::PackageManagerFile
         expect(subject.package_file).to be_a(expected)
@@ -232,19 +237,19 @@
       end
 
       it 'returns both licenses' do
-        expect(subject.licenses.count).to eql(2)
+        expect(subject.licenses.count).to be(2)
         expect(subject.licenses.first).to eql(Licensee::License.find('mpl-2.0'))
         expect(subject.licenses.last).to eql(mit)
       end
 
       it 'returns both matched_files' do
-        expect(subject.matched_files.count).to eql(2)
+        expect(subject.matched_files.count).to be(2)
         expect(subject.matched_files.first.filename).to eql('LICENSE')
         expect(subject.matched_files.last.filename).to eql('LICENSE.txt')
       end
 
       it 'returns both license_files' do
-        expect(subject.license_files.count).to eql(2)
+        expect(subject.license_files.count).to be(2)
         expect(subject.license_files.first.filename).to eql('LICENSE')
         expect(subject.license_files.last.filename).to eql('LICENSE.txt')
       end
@@ -260,29 +265,29 @@
       end
 
       it 'matched_file returns copying.lesser' do
-        expect(subject.matched_file).to_not be_nil
+        expect(subject.matched_file).not_to be_nil
         expect(subject.matched_file.filename).to eql('COPYING.lesser')
       end
 
       it 'license_file returns copying.lesser' do
-        expect(subject.license_file).to_not be_nil
+        expect(subject.license_file).not_to be_nil
         expect(subject.license_file.filename).to eql('COPYING.lesser')
       end
 
       it 'returns both licenses' do
-        expect(subject.licenses.count).to eql(2)
+        expect(subject.licenses.count).to be(2)
         expect(subject.licenses.first).to eql(lgpl)
         expect(subject.licenses.last).to eql(gpl)
       end
 
       it 'returns both matched_files' do
-        expect(subject.matched_files.count).to eql(2)
+        expect(subject.matched_files.count).to be(2)
         expect(subject.matched_files.first.filename).to eql('COPYING.lesser')
         expect(subject.matched_files.last.filename).to eql('LICENSE')
       end
 
       it 'returns both license_files' do
-        expect(subject.license_files.count).to eql(2)
+        expect(subject.license_files.count).to be(2)
         expect(subject.license_files.first.filename).to eql('COPYING.lesser')
         expect(subject.license_files.last.filename).to eql('LICENSE')
       end

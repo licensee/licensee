@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::ProjectFiles::LicenseFile do
+  subject { described_class.new(content, filename) }
+
   let(:filename) { 'LICENSE.txt' }
   let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
   let(:content_hash) { license_hashes['mit'] }
-
-  subject { described_class.new(content, filename) }
 
   it 'parses the attribution' do
     expect(subject.attribution).to eql('Copyright (c) 2018 Ben Balter')
@@ -47,7 +47,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   end
 
   it 'creates the wordset' do
-    expect(subject.wordset.count).to eql(91)
+    expect(subject.wordset.count).to be(91)
     expect(subject.wordset.first).to eql('permission')
   end
 
@@ -119,11 +119,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
 
       it 'does not match .md2' do
-        expect(described_class::PREFERRED_EXT_REGEX).to_not match('.md2')
+        expect(described_class::PREFERRED_EXT_REGEX).not_to match('.md2')
       end
 
       it 'does not match .md/foo' do
-        expect(described_class::PREFERRED_EXT_REGEX).to_not match('.md/foo')
+        expect(described_class::PREFERRED_EXT_REGEX).not_to match('.md/foo')
       end
     end
 
@@ -133,7 +133,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
 
       it 'does not match .md/foo' do
-        expect(described_class::OTHER_EXT_REGEX).to_not match('.md/foo')
+        expect(described_class::OTHER_EXT_REGEX).not_to match('.md/foo')
       end
     end
 
@@ -158,8 +158,8 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:regex) { Licensee::ProjectFiles::LicenseFile::CC_FALSE_POSITIVE_REGEX }
 
     it "knows MIT isn't a potential false positive" do
-      expect(subject.content).to_not match(regex)
-      expect(subject).to_not be_a_potential_false_positive
+      expect(subject.content).not_to match(regex)
+      expect(subject).not_to be_a_potential_false_positive
     end
 
     context 'a CC false positive without creative commons in the title' do
@@ -191,10 +191,10 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
 
     context 'CC-BY-ND with leading instructions' do
       let(:content) do
-        <<-LICENSE
-Creative Commons Corporation ("Creative Commons") is not a law firm
-======================================================================
-Creative Commons Attribution-NonCommercial 4.0
+        <<~LICENSE
+          Creative Commons Corporation ("Creative Commons") is not a law firm
+          ======================================================================
+          Creative Commons Attribution-NonCommercial 4.0
         LICENSE
       end
 
@@ -220,7 +220,7 @@ Creative Commons Attribution-NonCommercial 4.0
         let(:content) { sub_copyright_info(mit) }
 
         it 'is not lgpl' do
-          expect(subject).to_not be_lgpl
+          expect(subject).not_to be_lgpl
         end
       end
     end
@@ -229,7 +229,7 @@ Creative Commons Attribution-NonCommercial 4.0
       let(:filename) { 'COPYING' }
 
       it 'is not lgpl' do
-        expect(subject).to_not be_lgpl
+        expect(subject).not_to be_lgpl
       end
     end
   end
@@ -245,7 +245,7 @@ Creative Commons Attribution-NonCommercial 4.0
       let(:content) { sub_copyright_info(mit) }
 
       it 'is not GPL' do
-        expect(subject).to_not be_gpl
+        expect(subject).not_to be_gpl
       end
     end
   end

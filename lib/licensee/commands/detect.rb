@@ -23,11 +23,11 @@ class LicenseeCLI < Thor
 
     rows = []
     rows << if project.license
-      ['License:', project.license.spdx_id]
-    elsif !project.licenses.empty?
-      ['Licenses:', project.licenses.map(&:spdx_id)]
-    else
-      ['License:', set_color('None', :red)]
+              ['License:', project.license.spdx_id]
+            elsif !project.licenses.empty?
+              ['Licenses:', project.licenses.map(&:spdx_id)]
+            else
+              ['License:', set_color('None', :red)]
     end
 
     unless project.matched_files.empty?

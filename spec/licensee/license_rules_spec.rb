@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::LicenseRules do
-  let(:mit) { Licensee::License.find('mit') }
   subject { mit.rules }
+
+  let(:mit) { Licensee::License.find('mit') }
 
   Licensee::Rule.groups.each do |group|
     context "the #{group} rule group" do
@@ -37,8 +38,9 @@ RSpec.describe Licensee::LicenseRules do
   end
 
   context 'created from a hash' do
-    let(:hash) { { 'permissions' => Licensee::Rule.all } }
     subject { described_class.from_hash(hash) }
+
+    let(:hash) { { 'permissions' => Licensee::Rule.all } }
 
     it 'exposes the rules' do
       expect(subject.permissions.first.label).to eql('Commercial use')

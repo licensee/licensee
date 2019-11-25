@@ -18,6 +18,6 @@ RSpec.describe 'license-path command' do
   end
 
   it 'Returns a zero exit code' do
-    expect(status.exitstatus).to eql(0)
+    expect(status.exitstatus).to be(0)
   end
 end

@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Package do
+  subject { described_class.new(file) }
+
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { '' }
   let(:file) do
     Licensee::ProjectFiles::LicenseFile.new(content, 'project.gemspec')
   end
   let(:license_property) { 'mit' }
-  subject { described_class.new(file) }
+
   before do
     allow(subject).to receive(:license_property).and_return(license_property)
   end
@@ -17,7 +19,7 @@ RSpec.describe Licensee::Matchers::Package do
   end
 
   it 'has confidence' do
-    expect(subject.confidence).to eql(90)
+    expect(subject.confidence).to be(90)
   end
 
   context 'with a nil license property' do

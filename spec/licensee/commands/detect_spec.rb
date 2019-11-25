@@ -41,7 +41,7 @@ RSpec.describe 'detect command' do
       let(:arguments) { args }
 
       it 'Returns a zero exit code' do
-        expect(status.exitstatus).to eql(0)
+        expect(status.exitstatus).to be(0)
       end
 
       it 'returns the exected values' do
@@ -62,11 +62,11 @@ RSpec.describe 'detect command' do
     let(:expected) { JSON.parse fixture_contents('detect.json') }
 
     it 'Returns a zero exit code' do
-      expect(status.exitstatus).to eql(0)
+      expect(status.exitstatus).to be(0)
     end
 
     it 'returns valid JSON' do
-      expect { JSON.parse(stdout) }.to_not raise_error
+      expect { JSON.parse(stdout) }.not_to raise_error
     end
 
     it 'returns the expected output' do
@@ -80,7 +80,7 @@ RSpec.describe 'detect command' do
     let(:command) { ['bundle', 'exec', 'bin/licensee'] }
 
     it 'Returns a zero exit code' do
-      expect(status.exitstatus).to eql(0)
+      expect(status.exitstatus).to be(0)
     end
 
     it 'returns the exected values' do

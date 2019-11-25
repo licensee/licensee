@@ -6,14 +6,14 @@ RSpec.describe 'integration test' do
     Licensee::Projects::GitProject
   ].each do |project_type|
     context "with a #{project_type} project" do
+      subject { project_type.new(project_path, arguments) }
+
       let(:filename) { 'LICENSE' }
       let(:license) { Licensee::License.find('mit') }
       let(:other_license) { Licensee::License.find('other') }
       let(:content) { license.content }
       let(:license_path) { File.expand_path(filename, project_path) }
       let(:arguments) { {} }
-
-      subject { project_type.new(project_path, arguments) }
 
       context 'fixtures' do
         let(:fixture) { 'mit' }
@@ -22,6 +22,7 @@ RSpec.describe 'integration test' do
 
         if project_type == Licensee::Projects::GitProject
           before { git_init(project_path) }
+
           after { FileUtils.rm_rf(git_path) }
         end
 

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
+  subject { described_class.new(content, filename) }
+
   let(:content) { '' }
   let(:filename) { '' }
-  subject { described_class.new(content, filename) }
 
   context 'name scoring' do
     {
@@ -19,6 +20,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
     }.each do |filename, expected_score|
       context "a file named #{filename}" do
         let(:score) { described_class.name_score(filename) }
+
         it 'scores the file' do
           expect(score).to eql(expected_score)
         end

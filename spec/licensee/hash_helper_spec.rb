@@ -55,7 +55,7 @@ RSpec.describe Licensee::HashHelper do
   end
 
   it 'does not expose other methods' do
-    expect(hash).to_not have_key(:baz)
+    expect(hash).not_to have_key(:baz)
   end
 
   it 'calls to_h recursively' do
