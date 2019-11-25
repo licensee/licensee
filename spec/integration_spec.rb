@@ -161,6 +161,24 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'CC0 as published by CC' do
+          let(:license) { Licensee::License.find('cc0-1.0') }
+          let(:fixture) { 'cc0-cc' }
+
+          it 'returns cc0-1.0' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
+        context 'CC0 as published on choosealicense.com 2013-2019' do
+          let(:license) { Licensee::License.find('cc0-1.0') }
+          let(:fixture) { 'cc0-cal2013' }
+
+          it 'returns cc0-1.0' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'Unlicense without optional line' do
           let(:license) { Licensee::License.find('unlicense') }
           let(:fixture) { 'unlicense-noinfo' }
