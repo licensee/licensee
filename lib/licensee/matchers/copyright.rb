@@ -5,10 +5,10 @@ module Licensee
     class Copyright < Licensee::Matchers::Matcher
       attr_reader :file
 
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       COPYRIGHT_SYMBOLS = Regexp.union([/copyright/i, /\(c\)/i, "\u00A9", "\xC2\xA9"])
       REGEX = /#{ContentHelper::START_REGEX}(?:portions )?(\s*#{COPYRIGHT_SYMBOLS}.*$)+$/i.freeze
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
 
       def match
         # Note: must use content, and not content_normalized here
