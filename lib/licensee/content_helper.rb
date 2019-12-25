@@ -110,7 +110,7 @@ module Licensee
 
     # A set of each word in the license, without duplicates
     def wordset
-      @wordset ||= content_normalized&.scan(/(?:\w(?:'s|(?<=s)')?)+/)&.to_set
+      @wordset ||= content_normalized&.scan(/(?:[\w\/](?:'s|(?<=s)')?)+/)&.to_set
     end
 
     # Number of characteres in the normalized content
