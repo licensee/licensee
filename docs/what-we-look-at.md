@@ -6,7 +6,6 @@ Licensee works by taking a detected license file, and comparing the contents to 
 
 Licensee uses [a series of regular expressions](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/license_file.rb#L6-L43) to score files in the project's root as potential license files. Here's a few examples of files that would be detected:
 
-* `LICENSE`
 * `LICENCE`
 * `license.md`
 * `COPYING.txt`
