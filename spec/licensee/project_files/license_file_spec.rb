@@ -162,7 +162,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       expect(subject).not_to be_a_potential_false_positive
     end
 
-    context 'a CC false positive without creative commons in the title' do
+    context 'a CC false positive with creative commons in the title' do
       let(:content) { 'Creative Commons Attribution-NonCommercial 4.0' }
 
       it "knows it's a potential false positive" do
