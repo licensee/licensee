@@ -191,7 +191,7 @@ module Licensee
       text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
 
       text = text.split("\n").collect do |line|
-        if line.match?(REGEXES[:hrs])
+        if line =~ REGEXES[:hrs]
           line
         elsif line.length > line_width
           line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
@@ -300,7 +300,7 @@ module Licensee
 
     def strip_html
       return unless respond_to?(:filename) && filename
-      return unless File.extname(filename).match?(/\.html?/i)
+      return unless File.extname(filename) =~ /\.html?/i
 
       require 'reverse_markdown'
       @_content = ReverseMarkdown.convert(_content, unknown_tags: :bypass)

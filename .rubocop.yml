@@ -10,7 +10,6 @@ AllCops:
     - vendor/**/*
     - test/fixtures/**/*
     - test/functions.rb
-  TargetRubyVersion: 2.3
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table

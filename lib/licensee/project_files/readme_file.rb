@@ -35,7 +35,7 @@ module Licensee
 
       def self.name_score(filename)
         SCORES.each do |pattern, score|
-          return score if pattern.match?(filename)
+          return score if pattern =~ filename
         end
         0.0
       end
