@@ -120,7 +120,7 @@ RSpec.describe Licensee::LicenseMeta do
           'Babel' => 'https://github.com/babel/babel/blob/master/LICENSE'
         },
         {
-          '.NET Core' => 'https://github.com/dotnet/corefx/blob/master/LICENSE.TXT'
+          '.NET Core' => 'https://github.com/dotnet/runtime/blob/master/LICENSE.TXT'
         },
         {
           'Rails' => 'https://github.com/rails/rails/blob/master/MIT-LICENSE'
