@@ -8,6 +8,10 @@ bsd-3-lists:
   key: bsd-3-clause
   matcher: 
   hash: 
+bsd-3-noendorseslash:
+  key: bsd-3-clause
+  matcher: dice
+  hash: 11df3173c40b87a9da370f3420372a310259b273
 bsd-plus-patents:
   key: other
   matcher: 
