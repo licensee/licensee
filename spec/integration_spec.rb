@@ -74,6 +74,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'with multiple all rights reserved lines' do
+          let(:license) { Licensee::License.find('bsd-3-clause') }
+          let(:fixture) { 'multiple-arrs' }
+
+          it 'matches other' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'with CC-BY-NC-SA' do
           let(:fixture) { 'cc-by-nc-sa' }
 
