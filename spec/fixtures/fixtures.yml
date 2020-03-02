@@ -104,6 +104,10 @@ mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
   hash: b4db668fa7573bfdcae74eb51eafc961034f0a61
+multiple-arrs:
+  key: bsd-3-clause
+  matcher: exact
+  hash: fa22c672927af9c7334874561198799cbf4bdf31
 multiple-license-files:
   key: other
   matcher: 

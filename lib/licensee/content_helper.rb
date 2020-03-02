@@ -101,7 +101,6 @@ module Licensee
       block_markup
       span_markup
       link_markup
-      all_rights_reserved
       developed_by
       end_of_terms
       whitespace
@@ -267,7 +266,7 @@ module Licensee
     end
 
     def strip_copyright
-      regex = Matchers::Copyright::REGEX
+      regex = Regexp.union(Matchers::Copyright::REGEX, REGEXES[:all_rights_reserved])
       strip(regex) while _content =~ regex
     end
 
