@@ -6,31 +6,31 @@ apache-with-readme-notice:
   hash: ab3901051663cb8ee5dea9ebdff406ad136910e3
 bsd-3-lists:
   key: bsd-3-clause
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 bsd-3-noendorseslash:
   key: bsd-3-clause
   matcher: dice
   hash: 11df3173c40b87a9da370f3420372a310259b273
 bsd-plus-patents:
   key: other
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 bsl:
   key: bsl-1.0
   matcher: exact
   hash: ca8f916d00c234719956e932061f192abb2d5bf9
 case-sensitive:
   key: other
-  matcher: 
+  matcher:
   hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
 cc-by-nc-sa:
   key: other
-  matcher: 
+  matcher:
   hash: 5327932ea9cfee2d8d1ab7d5e088e868413eadea
 cc-by-nd:
   key: other
-  matcher: 
+  matcher:
   hash: a75ef554ca6941d195bbc1197f934d43a75b312d
 cc0-cal2013:
   key: cc0-1.0
@@ -50,16 +50,16 @@ crlf-license:
   hash: b22f1b1f953a38a8a11686587b98831858d6468b
 description-license:
   key: other
-  matcher: 
+  matcher:
   hash: ab0fb718684bbc67c7dfc2e9ab2175dab4fcb819
 fcpl-modified-mpl:
   key: other
-  matcher: 
+  matcher:
   hash: '06942321efd22b697fc4600bf68c0b6b3399cb12'
 gemspec:
-  key: 
-  matcher: 
-  hash: 
+  key:
+  matcher:
+  hash:
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
@@ -73,9 +73,9 @@ lgpl:
   matcher: exact
   hash: bdb3c042bd84f914eacfbe4977c5e58352745809
 license-folder:
-  key: 
-  matcher: 
-  hash: 
+  key:
+  matcher:
+  hash:
 license-in-parent-folder:
   key: mit
   matcher: exact
@@ -98,8 +98,8 @@ mit-optional:
   hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
 mit-with-copyright:
   key: mit
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
@@ -110,21 +110,25 @@ multiple-arrs:
   hash: fa22c672927af9c7334874561198799cbf4bdf31
 multiple-license-files:
   key: other
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 readme:
   key: mit
-  matcher: 
-  hash: 
+  matcher:
+  hash:
+readme-invalid-encoding:
+  key: mit
+  matcher:
+  hash:
 unlicense-noinfo:
   key: unlicense
   matcher: exact
   hash: 853b375edc61b9e823da0fa5fead97c9460c3e45
 webmock:
-  key: 
-  matcher: 
-  hash: 
+  key:
+  matcher:
+  hash:
 wrk-modified-apache:
   key: other
-  matcher: 
+  matcher:
   hash: e733ea59fcc053841df5a1a3574a298d9ee3635e
