@@ -24,7 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('octokit', '~> 4.17')
   gem.add_dependency('reverse_markdown', '~> 1.0')
   gem.add_dependency('rugged', '~> 0.24')
-  gem.add_dependency('thor', '~> 0.19')
+  gem.add_dependency('thor', '>= 0.19', '< 2.0')
 
   gem.add_development_dependency('mustache', '>= 0.9', '< 2.0')
   gem.add_development_dependency('pry', '~> 0.9')
