@@ -6,7 +6,7 @@ RSpec.describe 'integration test' do
     Licensee::Projects::GitProject
   ].each do |project_type|
     context "with a #{project_type} project" do
-      subject { project_type.new(project_path, arguments) }
+      subject { project_type.new(project_path, **arguments) }
 
       let(:filename) { 'LICENSE' }
       let(:license) { Licensee::License.find('mit') }
