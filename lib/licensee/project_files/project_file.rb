@@ -38,7 +38,7 @@ module Licensee
         @content = content.dup
         @content.force_encoding(ENCODING)
         unless @content.valid_encoding?
-          @content.encode!(ENCODING, ENCODING_OPTIONS)
+          @content.encode!(ENCODING, **ENCODING_OPTIONS)
         end
 
         metadata = { name: metadata } if metadata.is_a? String

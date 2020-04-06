@@ -38,12 +38,12 @@ module Licensee
 
     def project(path, **args)
       if path =~ %r{\Ahttps://github.com}
-        Licensee::Projects::GitHubProject.new(path, args)
+        Licensee::Projects::GitHubProject.new(path, **args)
       else
-        Licensee::Projects::GitProject.new(path, args)
+        Licensee::Projects::GitProject.new(path, **args)
       end
     rescue Licensee::Projects::GitProject::InvalidRepository
-      Licensee::Projects::FSProject.new(path, args)
+      Licensee::Projects::FSProject.new(path, **args)
     end
 
     def confidence_threshold
