@@ -34,7 +34,7 @@ License:        MIT License
 Matched files:  LICENSE.md, licensee.gemspec
 LICENSE.md:
   Content hash:  46cdc03462b9af57968df67b450cc4372ac41f53
-  Attribution:   Copyright (c) 2014-2017 Ben Balter
+  Attribution:   Copyright (c) 2014-2020 Ben Balter and Licensee contributors
   Confidence:    100.00%
   Matcher:       Licensee::Matchers::Exact
   License:       MIT License

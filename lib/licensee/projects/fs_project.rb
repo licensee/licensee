@@ -55,7 +55,7 @@ module Licensee
 
         return content if content.valid_encoding?
 
-        content.encode(ProjectFiles::ProjectFile::ENCODING, ProjectFiles::ProjectFile::ENCODING_OPTIONS)
+        content.encode(ProjectFiles::ProjectFile::ENCODING, **ProjectFiles::ProjectFile::ENCODING_OPTIONS)
       end
 
       # Returns true if @dir is @root or it's descendant
