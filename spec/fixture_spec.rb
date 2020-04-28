@@ -5,7 +5,7 @@ RSpec.describe 'fixture test' do
     let(:options) { { detect_packages: true, detect_readme: true } }
 
     context "the #{fixture} fixture" do
-      subject { Licensee.project(path, options) }
+      subject { Licensee.project(path, **options) }
 
       let(:path) { fixture_path(fixture) }
       let(:other) { Licensee::License.find('other') }

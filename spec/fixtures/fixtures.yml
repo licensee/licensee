@@ -116,6 +116,10 @@ readme:
   key: mit
   matcher: 
   hash: 
+readme-invalid-encoding:
+  key: mit
+  matcher: 
+  hash: 
 unlicense-noinfo:
   key: unlicense
   matcher: exact
