@@ -7,7 +7,7 @@ module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
     START_REGEX = /\A\s*/.freeze
-    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions\s*$/i.freeze
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions[\s#*_]*$/i.freeze
     REGEXES = {
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
