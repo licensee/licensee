@@ -102,6 +102,7 @@ RSpec.describe Licensee::ContentHelper do
       title:               "The MIT License\nfoo",
       copyright:           "The MIT License\nCopyright 2018 Ben Balter\nFoo",
       end_of_terms:        "Foo\nend of terms and conditions\nbar",
+      end_of_terms_hashes: "Foo\n# end of terms and conditions ####\nbar",
       block_markup:        '> Foo',
       link_markup:         '[Foo](http://exmaple.com)',
       comment_markup:      "/*\n* The MIT License\n* Foo\n*/",
