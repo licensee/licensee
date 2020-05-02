@@ -6,6 +6,7 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:mit) { Licensee::License.find('mit') }
   let(:gpl) { Licensee::License.find('gpl-3.0') }
   let(:agpl) { Licensee::License.find('agpl-3.0') }
+  let(:lgpl) { Licensee::License.find('lgpl-2.1') }
   let(:cc_by) { Licensee::License.find('cc-by-4.0') }
   let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
   let(:content) { sub_copyright_info(gpl) }
@@ -22,6 +23,7 @@ RSpec.describe Licensee::Matchers::Dice do
   it 'sorts licenses by similarity' do
     expect(subject.matches_by_similarity[0]).to eql([gpl, 100.0])
     expect(subject.matches_by_similarity[1]).to eql([agpl, 95.28301886792453])
+    expect(subject.matches_by_similarity[2]).to eql([lgpl, 39.33253873659118])
   end
 
   it 'returns the match confidence' do
