@@ -112,18 +112,11 @@ module Licensee
       @wordset ||= content_normalized&.scan(%r{(?:[\w\/](?:'s|(?<=s)')?)+})&.to_set
     end
 
-    # Number of characteres in the normalized content
+    # Number of characters in the normalized content
     def length
       return 0 unless content_normalized
 
       content_normalized.length
-    end
-
-    # Number of characters that could be added/removed to still be
-    # considered a potential match
-    def max_delta
-      @max_delta ||= fields_normalized.size * 10 +
-                     (length * Licensee.inverse_confidence_threshold).to_i
     end
 
     # Given another license or project file, calculates the difference in length
@@ -137,7 +130,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      100.0 * (overlap * 2.0 / total)
+      (overlap * 200.0) / (total + length_delta(other) / 10)
     end
 
     # SHA1 of the normalized content

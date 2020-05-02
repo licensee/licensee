@@ -55,21 +55,13 @@ RSpec.describe Licensee::ContentHelper do
     expect(subject.length).to be(135)
   end
 
-  context 'a very long license' do
-    let(:content) { 'license' * 1000 }
-
-    it 'returns the max delta' do
-      expect(subject.max_delta).to be(140)
-    end
-  end
-
   it 'knows the length delta' do
     expect(subject.length_delta(mit)).to be(885)
     expect(subject.length_delta(subject)).to be(0)
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(11)
+    expect(subject.similarity(mit)).to be_within(1).of(6)
     expect(subject.similarity(subject)).to be(100.0)
   end
 
