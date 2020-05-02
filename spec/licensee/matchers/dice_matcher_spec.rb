@@ -24,11 +24,6 @@ RSpec.describe Licensee::Matchers::Dice do
     expect(subject.matches_by_similarity[1]).to eql([agpl, 95.28301886792453])
   end
 
-  it 'returns a list of licenses above the confidence threshold' do
-    expect(subject.matches_by_similarity[0]).to eql([gpl, 100.0])
-    expect(subject.matches_by_similarity[1]).to eql([agpl, 95.28301886792453])
-  end
-
   it 'returns the match confidence' do
     expect(subject.confidence).to be(100.0)
   end
