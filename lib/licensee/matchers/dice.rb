@@ -26,7 +26,7 @@ module Licensee
             if license.creative_commons? && file.potential_false_positive?
               false
             else
-              license.wordset && license.length_delta(file) <= license.max_delta
+              license.wordset
             end
           end
         end
