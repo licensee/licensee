@@ -71,5 +71,13 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
         expect(possible_matchers).to eql([Licensee::Matchers::Cran])
       end
     end
+
+    context 'with nuspec file' do
+      let(:filename) { 'foo.nuspec' }
+
+      it 'returns the NuGet matcher' do
+        expect(possible_matchers).to eql([Licensee::Matchers::NuGet])
+      end
+    end
   end
 end
