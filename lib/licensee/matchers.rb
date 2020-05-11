@@ -12,6 +12,7 @@ module Licensee
     autoload :Exact,     'licensee/matchers/exact'
     autoload :Gemspec,   'licensee/matchers/gemspec'
     autoload :NpmBower,  'licensee/matchers/npm_bower'
+    autoload :NuGet,     'licensee/matchers/nuget'
     autoload :Package,   'licensee/matchers/package'
     autoload :Reference, 'licensee/matchers/reference'
     autoload :Spdx,      'licensee/matchers/spdx'

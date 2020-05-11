@@ -7,7 +7,8 @@ module Licensee
       MATCHERS_EXTENSIONS = {
         '.gemspec' => [Matchers::Gemspec],
         '.json'    => [Matchers::NpmBower],
-        '.cabal'   => [Matchers::Cabal]
+        '.cabal'   => [Matchers::Cabal],
+        '.nuspec'  => [Matchers::NuGet]
       }.freeze
 
       # Hash of Filename => [possible matchers]
@@ -33,7 +34,7 @@ module Licensee
       end
 
       def self.name_score(filename)
-        return 1.0 if ['.gemspec', '.cabal'].include?(File.extname(filename))
+        return 1.0 if ['.gemspec', '.cabal', '.nuspec'].include?(File.extname(filename))
 
         FILENAMES_SCORES[filename] || 0.0
       end
