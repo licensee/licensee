@@ -261,6 +261,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'Vim license file' do
+          let(:license) { Licensee::License.find('vim') }
+          let(:fixture) { 'vim' }
+
+          it 'matches to Vim' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do

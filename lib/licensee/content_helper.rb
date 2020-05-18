@@ -132,7 +132,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      (overlap * 200.0) / (total + length_delta(other) / 10)
+      (overlap * 200.0) / (total + fields_adjusted_length_delta(other) / 10)
     end
 
     # SHA1 of the normalized content
@@ -334,6 +334,12 @@ module Licensee
 
     def fields_normalized_set
       @fields_normalized_set ||= fields_normalized.to_set
+    end
+
+    def fields_adjusted_length_delta(other)
+      delta = length_delta(other)
+      adjusted_delta = delta - fields_normalized.size * 2
+      adjusted_delta.positive? ? adjusted_delta : delta
     end
   end
 end
