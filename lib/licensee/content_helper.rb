@@ -9,6 +9,7 @@ module Licensee
     START_REGEX = /\A\s*/.freeze
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions[\s#*_]*$/i.freeze
     REGEXES = {
+      bom:                 /#{START_REGEX}\xEF\xBB\xBF/,
       hrs:                 /^\s*[=\-\*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
@@ -88,6 +89,7 @@ module Licensee
       'owner'           => 'holder'
     }.freeze
     STRIP_METHODS = %i[
+      bom
       cc0_optional
       unlicense_optional
       hrs
