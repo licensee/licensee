@@ -9,6 +9,7 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:lgpl) { Licensee::License.find('lgpl-2.1') }
   let(:cc_by) { Licensee::License.find('cc-by-4.0') }
   let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
+  let(:vim) { Licensee::License.find('vim') }
   let(:content) { sub_copyright_info(gpl) }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
 
@@ -22,8 +23,8 @@ RSpec.describe Licensee::Matchers::Dice do
 
   it 'sorts licenses by similarity' do
     expect(subject.matches_by_similarity[0]).to eql([gpl, 100.0])
-    expect(subject.matches_by_similarity[1]).to eql([agpl, 95.28301886792453])
-    expect(subject.matches_by_similarity[2]).to eql([lgpl, 39.33253873659118])
+    expect(subject.matches_by_similarity[1]).to eql([agpl, 95.38300104931794])
+    expect(subject.matches_by_similarity[2]).to eql([lgpl, 42.36200256739409])
   end
 
   it 'returns the match confidence' do
@@ -73,6 +74,16 @@ RSpec.describe Licensee::Matchers::Dice do
         expect(subject.match).to be_nil
         expect(subject.matches).to be_empty
         expect(subject.confidence).to be(0)
+      end
+    end
+  end
+
+  context 'Vim long text' do
+    context 'Vim' do
+      let(:content) { vim.content.gsub(/\[project\]/, 'Vim') }
+
+      it 'matches' do
+        expect(content).to be_detected_as(vim)
       end
     end
   end

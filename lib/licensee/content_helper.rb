@@ -132,7 +132,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      (overlap * 200.0) / (total + length_delta(other) / 10)
+      (overlap * 200.0) / (total + length_delta(other) / 13)
     end
 
     # SHA1 of the normalized content
