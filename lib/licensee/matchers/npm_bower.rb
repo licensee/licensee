@@ -13,7 +13,10 @@ module Licensee
 
       def license_property
         match = @file.content.match LICENSE_REGEX
-        match[1].downcase if match && match[1]
+        return unless match && match[1]
+        return 'no-license' if match[1] == 'UNLICENSED'
+
+        match[1].downcase
       end
     end
   end
