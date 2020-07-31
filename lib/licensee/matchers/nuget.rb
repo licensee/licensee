@@ -6,15 +6,15 @@ module Licensee
       # While we could parse the nuspec file, prefer a lenient regex for speed and security.
       # Moar parsing moar problems.
       LICENSE_REGEX = %r{
-        <license\s*type\s*=\s*["']expression["']\s*>([a-z\-0-9\. +()]+)<\/license\s*>
+        <license\s*type\s*=\s*["']expression["']\s*>([a-z\-0-9. +()]+)</license\s*>
       }ix.freeze
 
-      LICENSE_URL_REGEX = %r{<licenseUrl>\s*(.*)\s*<\/licenseUrl>}i.freeze
+      LICENSE_URL_REGEX = %r{<licenseUrl>\s*(.*)\s*</licenseUrl>}i.freeze
 
-      NUGET_REGEX = %r{https?:\/\/licenses.nuget.org\/(.*)}i.freeze
-      OPENSOURCE_REGEX = %r{https?:\/\/(?:www\.)?opensource.org\/licenses\/(.*)}i.freeze
-      SPDX_REGEX = %r{https?:\/\/(?:www\.)?spdx.org\/licenses\/(.*?)(?:\.html|\.txt)?$}i.freeze
-      APACHE_REGEX = %r{https?:\/\/(?:www\.)?apache.org\/licenses\/(.*?)(?:\.html|\.txt)?$}i.freeze
+      NUGET_REGEX = %r{https?://licenses.nuget.org/(.*)}i.freeze
+      OPENSOURCE_REGEX = %r{https?://(?:www\.)?opensource.org/licenses/(.*)}i.freeze
+      SPDX_REGEX = %r{https?://(?:www\.)?spdx.org/licenses/(.*?)(?:\.html|\.txt)?$}i.freeze
+      APACHE_REGEX = %r{https?://(?:www\.)?apache.org/licenses/(.*?)(?:\.html|\.txt)?$}i.freeze
 
       private
 

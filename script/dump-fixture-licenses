@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative '../spec/spec_helper.rb'
+require_relative '../spec/spec_helper'
 
 fixtures_licenses = {}
 options = { detect_packages: true, detect_readme: true }
