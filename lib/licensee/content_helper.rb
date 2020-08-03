@@ -10,7 +10,7 @@ module Licensee
     END_OF_TERMS_REGEX = /^[\s#*_]*end of terms and conditions[\s#*_]*$/i.freeze
     REGEXES = {
       bom:                 /#{START_REGEX}\xEF\xBB\xBF/,
-      hrs:                 /^\s*[=\-\*]{3,}\s*$/,
+      hrs:                 /^\s*[=\-*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
       markdown_headings:   /#{START_REGEX}#+/,
@@ -18,10 +18,10 @@ module Licensee
       span_markup:         /[_*~]+(.*?)[_*~]+/,
       link_markup:         /\[(.+?)\]\(.+?\)/,
       block_markup:        /^\s*>/,
-      border_markup:       /^[\*-](.*?)[\*-]$/,
-      comment_markup:      %r{^\s*?[/\*]{1,2}},
+      border_markup:       /^[*-](.*?)[*-]$/,
+      comment_markup:      %r{^\s*?[/*]{1,2}},
       url:                 %r{#{START_REGEX}https?://[^ ]+\n},
-      bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[)\.])\s+/i,
+      bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       quote_begin:         /[`'"‘“]/,
       quote_end:           /[`'"’”]/,
@@ -111,7 +111,7 @@ module Licensee
 
     # A set of each word in the license, without duplicates
     def wordset
-      @wordset ||= content_normalized&.scan(%r{(?:[\w\/](?:'s|(?<=s)')?)+})&.to_set
+      @wordset ||= content_normalized&.scan(%r{(?:[\w/](?:'s|(?<=s)')?)+})&.to_set
     end
 
     # Number of characters in the normalized content

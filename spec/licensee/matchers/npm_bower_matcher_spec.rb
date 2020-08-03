@@ -7,6 +7,7 @@ RSpec.describe Licensee::Matchers::NpmBower do
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:mit) { Licensee::License.find('mit') }
   let(:other) { Licensee::License.find('other') }
+  let(:no_license) { Licensee::License.find('no-license') }
 
   it 'matches' do
     expect(subject.match).to eql(mit)
@@ -54,6 +55,14 @@ RSpec.describe Licensee::Matchers::NpmBower do
 
     it 'returns other' do
       expect(subject.match).to eql(other)
+    end
+  end
+
+  context 'UNLICENSED' do
+    let(:content) { "'license': 'UNLICENSED'" }
+
+    it 'returns none' do
+      expect(subject.match).to eql(no_license)
     end
   end
 end
