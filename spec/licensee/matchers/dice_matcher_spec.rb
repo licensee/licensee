@@ -42,7 +42,7 @@ RSpec.describe Licensee::Matchers::Dice do
 
   context 'stacked licenses' do
     let(:content) do
-      sub_copyright_info(mit) + "\n\n" + sub_copyright_info(gpl)
+      "#{sub_copyright_info(mit)}\n\n#{sub_copyright_info(gpl)}"
     end
 
     it "doesn't match" do
