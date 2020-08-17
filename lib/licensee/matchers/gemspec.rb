@@ -5,7 +5,7 @@ module Licensee
     class Gemspec < Licensee::Matchers::Package
       # a value is a string surrounded by any amount of whitespace
       # optionally ended with (non-captured) ".freeze"
-      VALUE_REGEX = /\s*[\'\"]([a-z\-0-9\.]+)[\'\"](?:\.freeze)?\s*/i.freeze
+      VALUE_REGEX = /\s*['"]([a-z\-0-9.]+)['"](?:\.freeze)?\s*/i.freeze
 
       # an array contains one or more values. all values, or array itself,
       # can be surrounded by any amount of whitespace.  do not capture
@@ -13,15 +13,15 @@ module Licensee
       ARRAY_REGEX = /\s*\[#{VALUE_REGEX}(?:,#{VALUE_REGEX})*\]\s*/i.freeze
 
       DECLARATION_REGEX = /
-        ^\s*[a-z0-9_]+\.([a-z0-9_]+)\s*\=#{VALUE_REGEX}$
+        ^\s*[a-z0-9_]+\.([a-z0-9_]+)\s*=#{VALUE_REGEX}$
       /ix.freeze
 
       LICENSE_REGEX = /
-        ^\s*[a-z0-9_]+\.license\s*\=#{VALUE_REGEX}$
+        ^\s*[a-z0-9_]+\.license\s*=#{VALUE_REGEX}$
       /ix.freeze
 
       LICENSE_ARRAY_REGEX = /
-        ^\s*[a-z0-9_]+\.licenses\s*\=#{ARRAY_REGEX}$
+        ^\s*[a-z0-9_]+\.licenses\s*=#{ARRAY_REGEX}$
       /ix.freeze
 
       private

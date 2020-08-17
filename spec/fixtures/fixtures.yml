@@ -4,6 +4,10 @@ apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
   hash: ab3901051663cb8ee5dea9ebdff406ad136910e3
+bom:
+  key: mit
+  matcher: exact
+  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
 bsd-3-lists:
   key: bsd-3-clause
   matcher: 
