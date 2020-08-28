@@ -56,7 +56,7 @@ module Licensee
 
       def attribution
         @attribution ||= begin
-          return unless copyright? || license.content =~ /\[fullname\]/
+          return unless copyright? || license.content&.include?('[fullname]')
 
           matches = Matchers::Copyright::REGEX
                     .match(content_without_title_and_version)

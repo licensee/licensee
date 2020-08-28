@@ -261,6 +261,15 @@ RSpec.describe 'integration test' do
             expect(subject.license).to eql(license)
           end
         end
+
+        context 'MIT with byte order mark' do
+          let(:license) { Licensee::License.find('mit') }
+          let(:fixture) { 'bom' }
+
+          it 'matches to MIT' do
+            expect(subject.license).to eql(license)
+          end
+        end
       end
 
       context 'with the license file stubbed' do
