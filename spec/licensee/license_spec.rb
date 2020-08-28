@@ -345,7 +345,7 @@ RSpec.describe Licensee::License do
     context 'muscache' do
       let(:license) do
         license = described_class.new 'MIT'
-        content = license.content + '[foo] [bar]'
+        content = "#{license.content}[foo] [bar]"
         license.instance_variable_set(:@content, content)
         license
       end

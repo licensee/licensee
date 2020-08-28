@@ -88,7 +88,7 @@ class LicenseeCLI < Thor
     when :confidence
       Licensee::ContentHelper.format_percent(value)
     when :method
-      value.to_s.tr('_', ' ').capitalize + ':'
+      "#{value.to_s.tr('_', ' ').capitalize}:"
     else
       value
     end
