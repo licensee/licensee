@@ -48,6 +48,10 @@ copyright-encoding:
   key: no-license
   matcher: copyright
   hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+crlf-bsd:
+  key: bsd-3-clause
+  matcher: exact
+  hash: fa22c672927af9c7334874561198799cbf4bdf31
 crlf-license:
   key: gpl-3.0
   matcher: exact

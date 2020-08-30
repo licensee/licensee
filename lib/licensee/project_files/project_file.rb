@@ -40,6 +40,7 @@ module Licensee
         unless @content.valid_encoding?
           @content.encode!(ENCODING, **ENCODING_OPTIONS)
         end
+        @content.encode!(ENCODING, universal_newline: true)
 
         metadata = { name: metadata } if metadata.is_a? String
         @data = metadata || {}
