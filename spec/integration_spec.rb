@@ -152,6 +152,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'A BSD license with CRLF line-endings' do
+          let(:license) { Licensee::License.find('bsd-3-clause') }
+          let(:fixture) { 'crlf-bsd' }
+
+          it 'matches' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'BSD + PATENTS' do
           let(:license) { Licensee::License.find('other') }
           let(:fixture) { 'bsd-plus-patents' }
