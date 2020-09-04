@@ -293,10 +293,11 @@ RSpec.describe 'integration test' do
 
         after { FileUtils.rm_rf(project_path) }
 
-        [
+        filenames = [
           'LICENSE.md', 'LICENSE.txt', 'LICENSE.md', 'LiCeNSe.Txt',
           'LICENSE-MIT', 'MIT-LICENSE', 'licence', 'unlicense'
-        ].each do |filename|
+        ]
+        filenames.each do |filename|
           context "with a #{filename} file" do
             let(:filename) { filename }
 
