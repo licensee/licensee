@@ -244,6 +244,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'Artistic with Markdown formatting' do
+          let(:license) { Licensee::License.find('artistic-2.0') }
+          let(:fixture) { 'markdown-artistic' }
+
+          it 'matches to Artistic' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'BSD-3-Clause numbered and bulleted' do
           let(:license) { Licensee::License.find('bsd-3-clause') }
           let(:fixture) { 'bsd-3-lists' }
