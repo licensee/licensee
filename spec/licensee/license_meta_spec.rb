@@ -115,17 +115,11 @@ RSpec.describe Licensee::LicenseMeta do
   context 'to_h' do
     let(:hash) { subject.to_h }
     let(:using) do
-      [
-        {
-          'Babel' => 'https://github.com/babel/babel/blob/master/LICENSE'
-        },
-        {
-          '.NET Core' => 'https://github.com/dotnet/runtime/blob/master/LICENSE.TXT'
-        },
-        {
-          'Rails' => 'https://github.com/rails/rails/blob/master/MIT-LICENSE'
-        }
-      ]
+      {
+        'Babel'     => 'https://github.com/babel/babel/blob/master/LICENSE',
+        '.NET Core' => 'https://github.com/dotnet/runtime/blob/master/LICENSE.TXT',
+        'Rails'     => 'https://github.com/rails/rails/blob/master/MIT-LICENSE'
+      }
     end
     let(:expected) do
       {
