@@ -93,6 +93,8 @@ RSpec.describe Licensee::ContentHelper do
       borders:             '*   Foo    *',
       title:               "The MIT License\nfoo",
       copyright:           "The MIT License\nCopyright 2018 Ben Balter\nFoo",
+      copyright_bullet:    "The MIT License\n* Copyright 2018 Ben Balter\nFoo",
+      copyright_italic:    "The MIT License\n_Copyright 2018 Ben Balter_\nFoo",
       end_of_terms:        "Foo\nend of terms and conditions\nbar",
       end_of_terms_hashes: "Foo\n# end of terms and conditions ####\nbar",
       block_markup:        '> Foo',
