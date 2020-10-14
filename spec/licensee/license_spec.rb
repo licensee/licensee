@@ -345,7 +345,7 @@ RSpec.describe Licensee::License do
     context 'muscache' do
       let(:license) do
         license = described_class.new 'MIT'
-        content = license.content + '[foo] [bar]'
+        content = "#{license.content}[foo] [bar]"
         license.instance_variable_set(:@content, content)
         license
       end
@@ -365,9 +365,10 @@ RSpec.describe Licensee::License do
   end
 
   context 'License.title_regex' do
+    namey = %i[title nickname key]
     described_class.all(hidden: true, pseudo: false).each do |license|
       context "the #{license.title} license" do
-        %i[title nickname key].each do |variation|
+        namey.each do |variation|
           next if license.send(variation).nil?
 
           context "the license #{variation}" do
@@ -475,21 +476,24 @@ RSpec.describe Licensee::License do
   end
 
   context 'source regex' do
+    schemes = %w[http https]
+    prefixes = ['www.', '']
+    suffixes = ['.html', '.htm', '.txt', '']
     described_class.all(hidden: true, pseudo: false).each do |license|
       context "the #{license.title} license" do
         let(:source) { URI.parse(license.source) }
 
-        %w[http https].each do |scheme|
+        schemes.each do |scheme|
           context "with a #{scheme}:// scheme" do
             before { source.scheme = scheme }
 
-            ['www.', ''].each do |prefix|
+            prefixes.each do |prefix|
               context "with '#{prefix}' before the host" do
                 before do
                   source.host = "#{prefix}#{source.host.sub(/\Awww\./, '')}"
                 end
 
-                ['.html', '.htm', '.txt', ''].each do |suffix|
+                suffixes.each do |suffix|
                   context "with '#{suffix}' after the path" do
                     before do
                       next if license.key == 'wtfpl'

@@ -15,7 +15,7 @@ bsd-3-lists:
 bsd-3-noendorseslash:
   key: bsd-3-clause
   matcher: dice
-  hash: 11df3173c40b87a9da370f3420372a310259b273
+  hash: ca28b4e030d0ec26cb01debe697105b6670c7521
 bsd-plus-patents:
   key: other
   matcher: 
@@ -48,6 +48,10 @@ copyright-encoding:
   key: no-license
   matcher: copyright
   hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
+crlf-bsd:
+  key: bsd-3-clause
+  matcher: exact
+  hash: fa22c672927af9c7334874561198799cbf4bdf31
 crlf-license:
   key: gpl-3.0
   matcher: exact
@@ -71,7 +75,7 @@ gpl3-without-instructions:
 html:
   key: epl-1.0
   matcher: dice
-  hash: 5265922b5943810a3ad23c66c50a0828ba342bfd
+  hash: b0a3248238c79a7e4aae7a0fb61e927ea5fc31d3
 lgpl:
   key: lgpl-3.0
   matcher: exact
@@ -88,10 +92,14 @@ license-with-readme-reference:
   key: mit
   matcher: exact
   hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+markdown-artistic:
+  key: artistic-2.0
+  matcher: dice
+  hash: fb7d858f0e6b9885b5ae4a7a763888f01624ebdf
 markdown-gpl:
   key: gpl-2.0
-  matcher: dice
-  hash: a0de4ee2a7e6ef2c2f6283b09cc755af5de5a5cb
+  matcher: exact
+  hash: f1dfb00b32ff9058e780f3ff9c528ed73594f3ba
 mit:
   key: mit
   matcher: exact
