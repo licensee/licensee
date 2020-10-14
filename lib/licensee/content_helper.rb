@@ -13,7 +13,7 @@ module Licensee
       hrs:                 /^\s*[=\-*]{3,}\s*$/,
       all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
       whitespace:          /\s+/,
-      markdown_headings:   /#{START_REGEX}#+/,
+      markdown_headings:   /^\s*#+/,
       version:             /#{START_REGEX}version.*$/i,
       span_markup:         /[_*~]+(.*?)[_*~]+/,
       link_markup:         /\[(.+?)\]\(.+?\)/,
@@ -101,7 +101,6 @@ module Licensee
       copyright
       title
       block_markup
-      span_markup
       link_markup
       developed_by
       end_of_terms
@@ -159,7 +158,7 @@ module Licensee
       @content_normalized ||= begin
         @_content = content_without_title_and_version.downcase
 
-        (NORMALIZATIONS.keys + %i[spelling bullets]).each { |op| normalize(op) }
+        (NORMALIZATIONS.keys + %i[spelling span_markup bullets]).each { |op| normalize(op) }
         STRIP_METHODS.each { |op| strip(op) }
 
         _content
@@ -286,7 +285,7 @@ module Licensee
       @_content = body
     end
 
-    def strip_span_markup
+    def normalize_span_markup
       normalize(REGEXES[:span_markup], '\1')
     end
 
