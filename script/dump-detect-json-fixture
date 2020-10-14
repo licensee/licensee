@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'json'
+require 'licensee'
+
+options = { detect_packages: true, detect_readme: true }
+project = Licensee.project('.', options)
+json = JSON.pretty_generate(project.to_h)
+File.write('./spec/fixtures/detect.json', json)
