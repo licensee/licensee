@@ -1,35 +1,35 @@
 # frozen_string_literal: true
 
-RSpec.describe Licensee::HashHelper do
-  class HashHelperSpecFixture
-    include Licensee::HashHelper
-    HASH_METHODS = %w[string array rule rules nil_value].freeze
+class HashHelperSpecFixture
+  include Licensee::HashHelper
+  HASH_METHODS = %w[string array rule rules nil_value].freeze
 
-    def string
-      'foo'
-    end
-
-    def array
-      [1, 2, 3]
-    end
-
-    def rule
-      rules.first
-    end
-
-    def rules
-      Licensee::Rule.all
-    end
-
-    def baz
-      'baz'
-    end
-
-    def nil_value
-      nil
-    end
+  def string
+    'foo'
   end
 
+  def array
+    [1, 2, 3]
+  end
+
+  def rule
+    rules.first
+  end
+
+  def rules
+    Licensee::Rule.all
+  end
+
+  def baz
+    'baz'
+  end
+
+  def nil_value
+    nil
+  end
+end
+
+RSpec.describe Licensee::HashHelper do
   let(:fixture) { HashHelperSpecFixture.new }
   let(:hash) { fixture.to_h }
   let(:expected) do

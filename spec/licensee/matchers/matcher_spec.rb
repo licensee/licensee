@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+class MatcherSpecFixture < Licensee::Matchers::Matcher
+  def confidence
+    0
+  end
+end
+
 RSpec.describe Licensee::Matchers::Matcher do
   subject { described_class.new(file) }
 
@@ -16,12 +22,6 @@ RSpec.describe Licensee::Matchers::Matcher do
   end
 
   context 'to_h' do
-    class MatcherSpecFixture < Licensee::Matchers::Matcher
-      def confidence
-        0
-      end
-    end
-
     subject { MatcherSpecFixture.new(file) }
 
     let(:hash) { subject.to_h }

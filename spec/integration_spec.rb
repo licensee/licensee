@@ -152,6 +152,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'A BSD license with CRLF line-endings' do
+          let(:license) { Licensee::License.find('bsd-3-clause') }
+          let(:fixture) { 'crlf-bsd' }
+
+          it 'matches' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'BSD + PATENTS' do
           let(:license) { Licensee::License.find('other') }
           let(:fixture) { 'bsd-plus-patents' }
@@ -235,6 +244,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'Artistic with Markdown formatting' do
+          let(:license) { Licensee::License.find('artistic-2.0') }
+          let(:fixture) { 'markdown-artistic' }
+
+          it 'matches to Artistic' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'BSD-3-Clause numbered and bulleted' do
           let(:license) { Licensee::License.find('bsd-3-clause') }
           let(:fixture) { 'bsd-3-lists' }
@@ -284,10 +302,11 @@ RSpec.describe 'integration test' do
 
         after { FileUtils.rm_rf(project_path) }
 
-        [
+        filenames = [
           'LICENSE.md', 'LICENSE.txt', 'LICENSE.md', 'LiCeNSe.Txt',
           'LICENSE-MIT', 'MIT-LICENSE', 'licence', 'unlicense'
-        ].each do |filename|
+        ]
+        filenames.each do |filename|
           context "with a #{filename} file" do
             let(:filename) { filename }
 
