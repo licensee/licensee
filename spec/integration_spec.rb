@@ -280,6 +280,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'Vim license file' do
+          let(:license) { Licensee::License.find('vim') }
+          let(:fixture) { 'vim' }
+
+          it 'matches to Vim' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'MIT with byte order mark' do
           let(:license) { Licensee::License.find('mit') }
           let(:fixture) { 'bom' }
