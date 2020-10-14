@@ -24,29 +24,29 @@
           {
             "tag": "commercial-use",
             "label": "Commercial use",
-            "description": "This software and derivatives may be used for commercial purposes."
+            "description": "The licensed material and derivatives may be used for commercial purposes."
           },
           {
             "tag": "modifications",
             "label": "Modification",
-            "description": "This software may be modified."
+            "description": "The licensed material may be modified."
           },
           {
             "tag": "distribution",
             "label": "Distribution",
-            "description": "This software may be distributed."
+            "description": "The licensed material may be distributed."
           },
           {
             "tag": "private-use",
             "label": "Private use",
-            "description": "This software may be used and modified in private."
+            "description": "The licensed material may be used and modified in private."
           }
         ],
         "conditions": [
           {
             "tag": "include-copyright",
             "label": "License and copyright notice",
-            "description": "A copy of the license and copyright notice must be included with the software."
+            "description": "A copy of the license and copyright notice must be included with the licensed material."
           }
         ],
         "limitations": [
@@ -58,7 +58,7 @@
           {
             "tag": "warranty",
             "label": "Warranty",
-            "description": "The license explicitly states that it does NOT provide any warranty."
+            "description": "This license explicitly states that it does NOT provide any warranty."
           }
         ]
       },
