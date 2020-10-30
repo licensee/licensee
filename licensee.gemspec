@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('rugged', '>= 0.24', '<2.0')
   gem.add_dependency('thor', '>= 0.19', '< 2.0')
 
+  gem.add_development_dependency('gem-release', '~> 2.0')
   gem.add_development_dependency('mustache', '>= 0.9', '< 2.0')
   gem.add_development_dependency('pry', '~> 0.9')
   gem.add_development_dependency('rspec', '~> 3.5')
