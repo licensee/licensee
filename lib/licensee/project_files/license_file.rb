@@ -56,11 +56,11 @@ module Licensee
 
       def attribution
         @attribution ||= begin
-          return unless copyright? || license.content&.include?('[fullname]')
-
-          matches = Matchers::Copyright::REGEX
-                    .match(content_without_title_and_version)
-          matches[0] if matches
+          if copyright? || license.content&.include?('[fullname]')
+            matches = Matchers::Copyright::REGEX
+                      .match(content_without_title_and_version)
+            matches[0] if matches
+          end
         end
       end
 

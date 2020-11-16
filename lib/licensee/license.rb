@@ -26,9 +26,11 @@ module Licensee
           output.reject!(&:hidden?) unless options[:hidden]
           output.reject!(&:pseudo_license?) unless options[:pseudo]
           output.sort_by!(&:key)
-          return output if options[:featured].nil?
-
-          output.select { |l| l.featured? == options[:featured] }
+          if options[:featured].nil?
+            output
+          else
+            output.select { |l| l.featured? == options[:featured] }
+          end
         end
       end
 
@@ -82,7 +84,7 @@ module Licensee
     # `other` - The project had a license, but we were not able to detect it
     # `no-license` - The project is not licensed (e.g., all rights reserved)
     #
-    # Note: A lack of detected license will be a nil license
+    # NOTE: A lack of detected license will be a nil license
     PSEUDO_LICENSES = %w[other no-license].freeze
 
     # Default options to use when retrieving licenses via #all

@@ -11,7 +11,7 @@ module Licensee
       # rubocop:enable Layout/LineLength
 
       def match
-        # Note: must use content, and not content_normalized here
+        # NOTE: must use content, and not content_normalized here
         if file.content.strip =~ /#{REGEX}+\z/i
           Licensee::License.find('no-license')
         end
