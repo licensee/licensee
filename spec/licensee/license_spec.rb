@@ -498,7 +498,7 @@ RSpec.describe Licensee::License do
                     before do
                       next if license.key == 'wtfpl'
 
-                      regex = /#{Licensee::License::SOURCE_SUFFIX}\z/
+                      regex = /#{Licensee::License::SOURCE_SUFFIX}\z/o
                       source.path = source.path.sub(regex, '')
                       source.path = "#{source.path}#{suffix}"
                     end

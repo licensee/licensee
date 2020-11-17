@@ -91,7 +91,7 @@ def add_random_words(string, count = 5)
 end
 
 # Init git dir
-# Note: we disable gpgsign and restore it to its original setting to avoid
+# NOTE: we disable gpgsign and restore it to its original setting to avoid
 # Signing commits during tests and slowing down / breaking specs
 def git_init(path)
   Dir.chdir path do
