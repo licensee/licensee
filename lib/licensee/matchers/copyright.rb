@@ -12,7 +12,7 @@ module Licensee
 
       def match
         # NOTE: must use content, and not content_normalized here
-        if file.content.strip =~ /#{REGEX}+\z/i
+        if file.content.strip =~ /#{REGEX}+\z/io
           Licensee::License.find('no-license')
         end
       rescue Encoding::CompatibilityError

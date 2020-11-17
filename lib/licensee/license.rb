@@ -175,8 +175,8 @@ module Licensee
       return @source_regex if defined? @source_regex
       return unless meta.source
 
-      source = meta.source.dup.sub(/\A#{SOURCE_PREFIX}/, '')
-      source = source.sub(/#{SOURCE_SUFFIX}\z/, '')
+      source = meta.source.dup.sub(/\A#{SOURCE_PREFIX}/o, '')
+      source = source.sub(/#{SOURCE_SUFFIX}\z/o, '')
 
       escaped_source = Regexp.escape(source)
       @source_regex = /#{SOURCE_PREFIX}#{escaped_source}(?:#{SOURCE_SUFFIX})?/i
