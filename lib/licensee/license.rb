@@ -4,6 +4,7 @@ require 'uri'
 
 module Licensee
   class InvalidLicense < ArgumentError; end
+
   class License
     @all = {}
     @keys_licenses = {}

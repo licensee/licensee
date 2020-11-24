@@ -80,8 +80,8 @@ end
 
 # Add random words to the end of a license to test similarity tollerances
 def add_random_words(string, count = 5)
-  words = string.dup.split(' ')
-  ipsum = File.read(fixture_path('ipsum.txt')).split(' ')
+  words = string.dup.split
+  ipsum = File.read(fixture_path('ipsum.txt')).split
   count.times do
     word = ipsum[Random.rand(ipsum.length)]
     index = Random.rand(words.length)
