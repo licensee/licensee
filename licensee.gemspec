@@ -32,7 +32,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rspec', '~> 3.5')
   gem.add_development_dependency('rubocop', '~> 1.0')
   gem.add_development_dependency('rubocop-performance', '~> 1.5')
-  gem.add_development_dependency('rubocop-rspec', '~> 1.36')
+  gem.add_development_dependency('rubocop-rspec', '~> 2.0')
   gem.add_development_dependency('simplecov', '~> 0.16')
   gem.add_development_dependency('webmock', '~> 3.1')
 
