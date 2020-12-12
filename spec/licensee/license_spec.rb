@@ -490,7 +490,7 @@ RSpec.describe Licensee::License do
             prefixes.each do |prefix|
               context "with '#{prefix}' before the host" do
                 before do
-                  source.host = "#{prefix}#{source.host.sub(/\Awww\./, '')}"
+                  source.host = "#{prefix}#{source.host.delete_prefix('www.')}"
                 end
 
                 suffixes.each do |suffix|
