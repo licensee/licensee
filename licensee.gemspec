@@ -21,6 +21,8 @@ Gem::Specification.new do |gem|
   gem.executables << 'licensee'
 
   gem.add_dependency('dotenv', '~> 2.0')
+  # TODO: https://github.com/octokit/octokit.rb/issues/1315
+  gem.add_dependency('faraday', '< 1.2.0')
   gem.add_dependency('octokit', '~> 4.17')
   gem.add_dependency('reverse_markdown', '~> 1.0')
   gem.add_dependency('rugged', '>= 0.24', '<2.0')
