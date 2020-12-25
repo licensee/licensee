@@ -293,7 +293,7 @@ module Licensee
 
     def strip_html
       return unless respond_to?(:filename) && filename
-      return unless File.extname(filename) =~ /\.html?/i
+      return unless /\.html?/i.match?(File.extname(filename))
 
       require 'reverse_markdown'
       @_content = ReverseMarkdown.convert(_content, unknown_tags: :bypass)
