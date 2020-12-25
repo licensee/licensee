@@ -27,7 +27,7 @@ RSpec.describe 'fixture test' do
                      Licensee::License.find(expectations['key'])
                    else
                      none
-        end
+                   end
 
         expect(subject.license).to eql(expected)
       end

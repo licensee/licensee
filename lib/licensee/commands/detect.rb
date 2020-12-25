@@ -28,7 +28,7 @@ class LicenseeCLI < Thor
               ['Licenses:', project.licenses.map(&:spdx_id)]
             else
               ['License:', set_color('None', :red)]
-    end
+            end
 
     unless project.matched_files.empty?
       rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')]

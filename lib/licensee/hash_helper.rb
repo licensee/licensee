@@ -13,7 +13,7 @@ module Licensee
                       value.to_h
                     else
                       value
-        end
+                    end
       end
 
       hash
