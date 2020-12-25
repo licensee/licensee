@@ -240,9 +240,7 @@ module Licensee
     end
 
     def strip_title
-      while _content =~ ContentHelper.title_regex
-        strip(ContentHelper.title_regex)
-      end
+      strip(ContentHelper.title_regex) while _content =~ ContentHelper.title_regex
     end
 
     def strip_borders
