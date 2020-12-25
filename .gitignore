@@ -4,6 +4,7 @@ Gemfile.lock
 /spec/examples.txt
 /coverage
 .env
+.ruby-version
 
 vendor/html5shiv
 vendor/jquery
