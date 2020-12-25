@@ -26,7 +26,7 @@ module Licensee
       # Otherwise, returns `nil`
       def gpl_version(license_key)
         match = license_key.match GPL_VERSION_REGEX
-        match ? "gpl-#{(match[1] || match[2])}.0" : nil
+        match ? "gpl-#{match[1] || match[2]}.0" : nil
       end
 
       # Normalizes the license field value to an SPDX ID
