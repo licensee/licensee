@@ -9,9 +9,7 @@ module Licensee
       REGEX = /#{ContentHelper::START_REGEX}(?:portions )?([_*\-\s]*#{COPYRIGHT_SYMBOLS}.*$)+$/i.freeze
       def match
         # NOTE: must use content, and not content_normalized here
-        if /#{REGEX}+\z/io.match?(file.content.strip)
-          Licensee::License.find('no-license')
-        end
+        Licensee::License.find('no-license') if /#{REGEX}+\z/io.match?(file.content.strip)
       rescue Encoding::CompatibilityError
         nil
       end

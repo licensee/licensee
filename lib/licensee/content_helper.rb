@@ -231,9 +231,7 @@ module Licensee
         meth = "strip_#{regex_or_sym}"
         return send(meth) if respond_to?(meth, true)
 
-        unless REGEXES[regex_or_sym]
-          raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
-        end
+        raise ArgumentError, "#{regex_or_sym} is an invalid regex reference" unless REGEXES[regex_or_sym]
 
         regex_or_sym = REGEXES[regex_or_sym]
       end

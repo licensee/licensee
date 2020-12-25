@@ -30,9 +30,7 @@ class LicenseeCLI < Thor
               ['License:', set_color('None', :red)]
             end
 
-    unless project.matched_files.empty?
-      rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')]
-    end
+    rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')] unless project.matched_files.empty?
 
     print_table rows
 

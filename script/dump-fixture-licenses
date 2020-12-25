@@ -15,9 +15,7 @@ fixtures.each do |fixture|
   if project.license_file
     expectations['hash'] = project.license_file.content_hash
 
-    if project.license_file.matcher&.name
-      expectations['matcher'] = project.license_file.matcher.name.to_s
-    end
+    expectations['matcher'] = project.license_file.matcher.name.to_s if project.license_file.matcher&.name
   end
 
   fixtures_licenses[fixture] = expectations

@@ -106,9 +106,7 @@
         license = files.find { |f| f[:name] == 'LICENSE.txt' }
         expect(license).not_to be_nil
 
-        if described_class == Licensee::Projects::GitProject
-          expect(files.first).to have_key(:oid)
-        end
+        expect(files.first).to have_key(:oid) if described_class == Licensee::Projects::GitProject
       end
 
       it "returns a file's content" do
