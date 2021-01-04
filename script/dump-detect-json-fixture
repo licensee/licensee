@@ -5,6 +5,6 @@ require 'json'
 require 'licensee'
 
 options = { detect_packages: true, detect_readme: true }
-project = Licensee.project('.', **options)
+project = Licensee::Projects::FSProject.new('.', **options)
 json = JSON.pretty_generate(project.to_h)
 File.write('./spec/fixtures/detect.json', json)
