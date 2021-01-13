@@ -98,7 +98,7 @@ markdown-artistic:
   hash: fb7d858f0e6b9885b5ae4a7a763888f01624ebdf
 markdown-gpl:
   key: gpl-2.0
-  matcher: exact
+  matcher: dice
   hash: f1dfb00b32ff9058e780f3ff9c528ed73594f3ba
 mit:
   key: mit
@@ -124,6 +124,10 @@ multiple-license-files:
   key: other
   matcher: 
   hash: 
+pixar-modified-apache:
+  key: other
+  matcher: 
+  hash: 9bbf882ad31ae47e2b1aa835a61cf5fbcf4eb3e3
 readme:
   key: mit
   matcher: 

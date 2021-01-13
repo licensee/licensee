@@ -61,7 +61,7 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(6)
+    expect(subject.similarity(mit)).to be_within(1).of(4)
     expect(subject.similarity(subject)).to be(100.0)
   end
 
