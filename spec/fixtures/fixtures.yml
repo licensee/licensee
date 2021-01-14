@@ -3,7 +3,7 @@
 apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
-  hash: ab3901051663cb8ee5dea9ebdff406ad136910e3
+  hash: 4fc9d972c5cf945e6f5c8e5a36a000acbb0ba83a
 bom:
   key: mit
   matcher: exact
@@ -31,19 +31,19 @@ case-sensitive:
 cc-by-nc-sa:
   key: other
   matcher: 
-  hash: 5327932ea9cfee2d8d1ab7d5e088e868413eadea
+  hash: 4b0a1df66b0ffda1cdb3bc2a9801fdcaa3848a25
 cc-by-nd:
   key: other
   matcher: 
-  hash: a75ef554ca6941d195bbc1197f934d43a75b312d
+  hash: 6f58cb699f67193b34fd3e87b82d5cdca0ef7651
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
-  hash: 2aa555363d0d2ce0a924940fab198c38dd3ff30b
+  hash: 6d0ae8ccff205100b0cb7ace186ed0eb2972a374
 cc0-cc:
   key: cc0-1.0
   matcher: exact
-  hash: c07f7fdd02072b9b9ddafb29c7fe556ed4d31f6a
+  hash: bce5f30ec4b16825cd2e87cbe29ee727f6fe34a1
 copyright-encoding:
   key: no-license
   matcher: copyright
@@ -55,7 +55,7 @@ crlf-bsd:
 crlf-license:
   key: gpl-3.0
   matcher: exact
-  hash: b22f1b1f953a38a8a11686587b98831858d6468b
+  hash: 853525ea62291e92a9717977ab8e63c5f8c71905
 description-license:
   key: other
   matcher: 
@@ -63,7 +63,7 @@ description-license:
 fcpl-modified-mpl:
   key: other
   matcher: 
-  hash: '06942321efd22b697fc4600bf68c0b6b3399cb12'
+  hash: 32e47c0a28471035b46103a88995bba82f002ea0
 gemspec:
   key: 
   matcher: 
@@ -71,15 +71,15 @@ gemspec:
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
-  hash: b22f1b1f953a38a8a11686587b98831858d6468b
+  hash: 853525ea62291e92a9717977ab8e63c5f8c71905
 html:
   key: epl-1.0
   matcher: dice
-  hash: b0a3248238c79a7e4aae7a0fb61e927ea5fc31d3
+  hash: 90e5d3b137815542a4194f55c4f9dba66af22665
 lgpl:
   key: lgpl-3.0
   matcher: exact
-  hash: bdb3c042bd84f914eacfbe4977c5e58352745809
+  hash: 5bdc6fe24b6a02c493609dbb6c897d784cd11d63
 license-folder:
   key: 
   matcher: 
@@ -95,11 +95,11 @@ license-with-readme-reference:
 markdown-artistic:
   key: artistic-2.0
   matcher: dice
-  hash: fb7d858f0e6b9885b5ae4a7a763888f01624ebdf
+  hash: 72f3d4847fe4fa5411404366b9bf2a03ce3bf295
 markdown-gpl:
   key: gpl-2.0
   matcher: exact
-  hash: f1dfb00b32ff9058e780f3ff9c528ed73594f3ba
+  hash: fe2feacb31f87b98aed501de7c6f89447fed99e2
 mit:
   key: mit
   matcher: exact
@@ -115,7 +115,7 @@ mit-with-copyright:
 mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
-  hash: b4db668fa7573bfdcae74eb51eafc961034f0a61
+  hash: 1b4061d8d317c41f0e7e7a4a9070461eaae45063
 multiple-arrs:
   key: bsd-3-clause
   matcher: exact
@@ -124,6 +124,10 @@ multiple-license-files:
   key: other
   matcher: 
   hash: 
+pixar-modified-apache:
+  key: other
+  matcher: 
+  hash: d238280d2eb88ce973042f0ea920017cc1ddc337
 readme:
   key: mit
   matcher: 
@@ -139,7 +143,7 @@ unlicense-noinfo:
 vim:
   key: vim
   matcher: dice
-  hash: d66f1d3714fdcd834c5bf871fcb36c1aab4f7e38
+  hash: f2edeaaaa3b8dbbf5f746f4c7b049ebf8d43ded1
 webmock:
   key: 
   matcher: 
@@ -147,4 +151,4 @@ webmock:
 wrk-modified-apache:
   key: other
   matcher: 
-  hash: e733ea59fcc053841df5a1a3574a298d9ee3635e
+  hash: 71569f292f1e42875c0510af3c5e09dc428d4660

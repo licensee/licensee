@@ -110,7 +110,7 @@ module Licensee
 
     # A set of each word in the license, without duplicates
     def wordset
-      @wordset ||= content_normalized&.scan(%r{(?:[\w/](?:'s|(?<=s)')?)+})&.to_set
+      @wordset ||= content_normalized&.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+})&.to_set
     end
 
     # Number of characters in the normalized content
@@ -133,7 +133,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      (overlap * 200.0) / (total + fields_adjusted_length_delta(other) / 10)
+      (overlap * 200.0) / (total + fields_adjusted_length_delta(other) / 4)
     end
 
     # SHA1 of the normalized content
@@ -317,7 +317,7 @@ module Licensee
     end
 
     def normalize_bullets
-      normalize(REGEXES[:bullet], "\n\n* ")
+      normalize(REGEXES[:bullet], "\n\n- ")
       normalize(/\)\s+\(/, ')(')
     end
 
@@ -337,8 +337,8 @@ module Licensee
 
     def fields_adjusted_length_delta(other)
       delta = length_delta(other)
-      adjusted_delta = delta - fields_normalized.size * 2
-      adjusted_delta.positive? ? adjusted_delta : delta
+      adjusted_delta = delta - fields_normalized.size * 4
+      adjusted_delta.positive? ? adjusted_delta : 0
     end
   end
 end

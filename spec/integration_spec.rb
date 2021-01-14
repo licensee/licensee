@@ -107,6 +107,14 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'with Pixar Modified Apache 2.0' do
+          let(:fixture) { 'pixar-modified-apache' }
+
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
+          end
+        end
+
         context 'with FCPL Modified MPL' do
           let(:fixture) { 'fcpl-modified-mpl' }
 
