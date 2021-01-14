@@ -317,7 +317,7 @@ module Licensee
     end
 
     def normalize_bullets
-      normalize(REGEXES[:bullet], "\n\n* ")
+      normalize(REGEXES[:bullet], "\n\n- ")
       normalize(/\)\s+\(/, ')(')
     end
 
