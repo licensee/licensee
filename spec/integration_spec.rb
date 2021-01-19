@@ -205,6 +205,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'EUPL as published on choosealicense.com 2017-2019' do
+          let(:license) { Licensee::License.find('eupl-1.2') }
+          let(:fixture) { 'eupl-cal2017' }
+
+          it 'returns eupl-1.2' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'Unlicense without optional line' do
           let(:license) { Licensee::License.find('unlicense') }
           let(:fixture) { 'unlicense-noinfo' }

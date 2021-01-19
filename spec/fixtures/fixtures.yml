@@ -60,6 +60,10 @@ description-license:
   key: other
   matcher: 
   hash: ab0fb718684bbc67c7dfc2e9ab2175dab4fcb819
+eupl-cal2017:
+  key: eupl-1.2
+  matcher: exact
+  hash: b97d843d3cde9aa64a462a7cff810a0231417907
 fcpl-modified-mpl:
   key: other
   matcher: 
