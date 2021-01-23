@@ -41,7 +41,7 @@ RSpec.describe Licensee::ContentHelper do
     LICENSE
   end
   let(:filename) { 'license.md' }
-  let(:spdx_id) { 'mit' }
+  let(:spdx_id) { 'MIT' }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:normalized_content) { subject.content_normalized }
