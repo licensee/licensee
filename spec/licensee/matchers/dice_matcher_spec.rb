@@ -23,7 +23,7 @@ RSpec.describe Licensee::Matchers::Dice do
   it 'sorts licenses by similarity' do
     expect(subject.matches_by_similarity[0]).to eql([gpl, 100.0])
     expect(subject.matches_by_similarity[1]).to eql([agpl, 94.57364341085271])
-    expect(subject.matches_by_similarity[2]).to eql([lgpl, 26.778469028942386])
+    expect(subject.matches_by_similarity[2]).to eql([lgpl, 26.785714285714285])
   end
 
   it 'returns the match confidence' do

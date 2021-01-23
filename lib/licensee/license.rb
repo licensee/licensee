@@ -64,6 +64,11 @@ module Licensee
         @license_files ||= Dir.glob("#{license_dir}/*.txt")
       end
 
+      def spdx_dir
+        dir = ::File.dirname(__FILE__)
+        ::File.expand_path '../../vendor/license-list-XML/src', dir
+      end
+
       private
 
       def licenses

@@ -12,10 +12,14 @@ class ContentHelperTestHelper
   def filename
     @data[:filename]
   end
+
+  def spdx_id
+    @data[:spdx_id]
+  end
 end
 
 RSpec.describe Licensee::ContentHelper do
-  subject { ContentHelperTestHelper.new(content, filename: filename) }
+  subject { ContentHelperTestHelper.new(content, filename: filename, spdx_id: spdx_id) }
 
   let(:content) do
     <<-LICENSE.gsub(/^\s*/, '')
@@ -37,6 +41,7 @@ RSpec.describe Licensee::ContentHelper do
     LICENSE
   end
   let(:filename) { 'license.md' }
+  let(:spdx_id) { 'mit' }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:normalized_content) { subject.content_normalized }

@@ -133,7 +133,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      (overlap * 200.0) / (total + fields_adjusted_length_delta(other) / 4)
+      (overlap * 200.0) / (total + variation_adjusted_length_delta(other) / 4)
     end
 
     # SHA1 of the normalized content
@@ -335,9 +335,21 @@ module Licensee
       @fields_normalized_set ||= fields_normalized.to_set
     end
 
-    def fields_adjusted_length_delta(other)
+    def spdx_alt_segments
+      @spdx_alt_segments ||= begin
+        path = File.expand_path "#{spdx_id}.xml", Licensee::License.spdx_dir
+        raw_xml = File.read(path, encoding: 'utf-8')
+        text = raw_xml.match(%r{<text>(.*)</text>}m)[1]
+        text.gsub!(%r{<copyrightText>.*?</copyrightText>}m, '')
+        text.gsub!(%r{<titleText>.*?</titleText>}m, '')
+        text.gsub!(%r{<optional.*?>.*?</optional>}m, '')
+        text.scan(/<alt .*?>/m).size
+      end
+    end
+
+    def variation_adjusted_length_delta(other)
       delta = length_delta(other)
-      adjusted_delta = delta - fields_normalized.size * 4
+      adjusted_delta = delta - [fields_normalized.size, spdx_alt_segments].max * 4
       adjusted_delta.positive? ? adjusted_delta : 0
     end
   end
