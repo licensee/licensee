@@ -66,8 +66,8 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(4)
-    expect(subject.similarity(subject)).to be(100.0)
+    expect(mit.similarity(subject)).to be_within(1).of(4)
+    expect(mit.similarity(mit)).to be(100.0)
   end
 
   it 'calculates the hash' do
