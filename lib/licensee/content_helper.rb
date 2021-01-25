@@ -133,7 +133,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      (overlap * 200.0) / (total + fields_adjusted_length_delta(other) / 4)
+      (overlap * 200.0) / (total + variation_adjusted_length_delta(other) / 4)
     end
 
     # SHA1 of the normalized content
@@ -335,9 +335,9 @@ module Licensee
       @fields_normalized_set ||= fields_normalized.to_set
     end
 
-    def fields_adjusted_length_delta(other)
+    def variation_adjusted_length_delta(other)
       delta = length_delta(other)
-      adjusted_delta = delta - fields_normalized.size * 4
+      adjusted_delta = delta - [fields_normalized.size, spdx_alt_segments].max * 4
       adjusted_delta.positive? ? adjusted_delta : 0
     end
   end

@@ -12,10 +12,14 @@ class ContentHelperTestHelper
   def filename
     @data[:filename]
   end
+
+  def spdx_id
+    @data[:spdx_id]
+  end
 end
 
 RSpec.describe Licensee::ContentHelper do
-  subject { ContentHelperTestHelper.new(content, filename: filename) }
+  subject { ContentHelperTestHelper.new(content, filename: filename, spdx_id: spdx_id) }
 
   let(:content) do
     <<-LICENSE.gsub(/^\s*/, '')
@@ -37,6 +41,7 @@ RSpec.describe Licensee::ContentHelper do
     LICENSE
   end
   let(:filename) { 'license.md' }
+  let(:spdx_id) { 'MIT' }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:normalized_content) { subject.content_normalized }
@@ -61,8 +66,8 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(4)
-    expect(subject.similarity(subject)).to be(100.0)
+    expect(mit.similarity(subject)).to be_within(1).of(4)
+    expect(mit.similarity(mit)).to be(100.0)
   end
 
   it 'calculates the hash' do
