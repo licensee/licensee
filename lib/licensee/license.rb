@@ -56,8 +56,7 @@ module Licensee
       end
 
       def license_dir
-        dir = ::File.dirname(__FILE__)
-        ::File.expand_path '../../vendor/choosealicense.com/_licenses', dir
+        ::File.expand_path '../../vendor/choosealicense.com/_licenses', __dir__
       end
 
       def license_files
@@ -65,8 +64,7 @@ module Licensee
       end
 
       def spdx_dir
-        dir = ::File.dirname(__FILE__)
-        ::File.expand_path '../../vendor/license-list-XML/src', dir
+        ::File.expand_path '../../vendor/license-list-XML/src', __dir__
       end
 
       private
