@@ -70,6 +70,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'copying.txt'         => 0.85,
       'LICENSE.php'         => 0.80,
       'LICENCE.docs'        => 0.80,
+      'license.xml'         => 0.80,
       'copying.image'       => 0.75,
       'COPYRIGHT.go'        => 0.75,
       'LICENSE-MIT'         => 0.70,
@@ -83,7 +84,12 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'ofl'                 => 0.40,
       'not-the-ofl'         => 0.00,
       'README.txt'          => 0.00,
-      '.pip-license-ignore' => 0.00
+      '.pip-license-ignore' => 0.00,
+      'license-checks.xml'  => 0.00,
+      'license_test.go'     => 0.00,
+      'licensee.gemspec'    => 0.00,
+      'LICENSE.spdx'        => 0.00
+
     }.each do |filename, expected|
       context "a file named #{filename}" do
         let(:score) { described_class.name_score(filename) }
