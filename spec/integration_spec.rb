@@ -315,6 +315,24 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'CC-BY-SA no CC licensor statement license file' do
+          let(:license) { Licensee::License.find('cc-by-sa-4.0') }
+          let(:fixture) { 'cc-by-sa-nocclicensor' }
+
+          it 'matches to CC-BY-SA' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
+        context 'CC-BY-SA markdown links file' do
+          let(:license) { Licensee::License.find('cc-by-sa-4.0') }
+          let(:fixture) { 'cc-by-sa-mdlinks' }
+
+          it 'matches to CC-BY-SA' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'MIT with byte order mark' do
           let(:license) { Licensee::License.find('mit') }
           let(:fixture) { 'bom' }

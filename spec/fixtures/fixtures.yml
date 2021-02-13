@@ -35,11 +35,19 @@ case-sensitive:
 cc-by-nc-sa:
   key: other
   matcher: 
-  hash: 4b0a1df66b0ffda1cdb3bc2a9801fdcaa3848a25
+  hash: 3ad70003760333cf1606d91bac2ebd2b25ac6edc
 cc-by-nd:
   key: other
   matcher: 
-  hash: 6f58cb699f67193b34fd3e87b82d5cdca0ef7651
+  hash: ba8c0a77f29b6c35fd4404edd7b82a910922e84a
+cc-by-sa-mdlinks:
+  key: cc-by-sa-4.0
+  matcher: dice
+  hash: f8ec528a1b3fced37be381e4bf7f561bd6d5aaa5
+cc-by-sa-nocclicensor:
+  key: cc-by-sa-4.0
+  matcher: dice
+  hash: 92a75740772f7bf9e4081705d9e6d300ada13487
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
@@ -67,7 +75,7 @@ description-license:
 eupl-cal2017:
   key: eupl-1.2
   matcher: exact
-  hash: b97d843d3cde9aa64a462a7cff810a0231417907
+  hash: 6a2d4fd9a73b301155daefa1524bf3287f808571
 fcpl-modified-mpl:
   key: other
   matcher: 
