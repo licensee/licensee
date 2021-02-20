@@ -47,7 +47,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   end
 
   it 'creates the wordset' do
-    expect(subject.wordset.count).to be(92)
+    expect(subject.wordset.count).to be(93)
     expect(subject.wordset.first).to eql('permission')
   end
 

@@ -49,7 +49,7 @@ RSpec.describe Licensee::ContentHelper do
   it 'creates the wordset' do
     wordset = Set.new(
       %w[
-        the made up license this provided as is please respect
+        the made up license this provided as is' please respect
         contributors' wishes when implementing license's software
       ]
     )
@@ -71,7 +71,7 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'calculates the hash' do
-    content_hash = '916b978940ecf8070c96bd3aca9321768e7f4901'
+    content_hash = '9b4bed43726cf39e17b11c2942f37be232f5709a'
     expect(subject.content_hash).to eql(content_hash)
   end
 
@@ -174,7 +174,7 @@ RSpec.describe Licensee::ContentHelper do
     end
 
     it 'normalizes quotes' do
-      expect(normalized_content).not_to match("'as is'")
+      expect(normalized_content).not_to match('"as is"')
     end
 
     it 'preserves possessives' do
@@ -182,18 +182,14 @@ RSpec.describe Licensee::ContentHelper do
       expect(normalized_content).to match("license's")
     end
 
-    it 'preserves double quotes' do
-      expect(normalized_content).to match('"software"')
-    end
-
     it 'strips the title' do
       expect(normalized_content).not_to match('MIT')
     end
 
     it 'normalize the content' do
-      expected = 'the made up license. this license provided "as is". '.dup
+      expected = "the made up license. this license provided 'as is'. ".dup
       expected << "please respect the contributors' wishes when implementing "
-      expected << "the license's \"software\"."
+      expected << "the license's 'software'."
       expect(normalized_content).to eql(expected)
     end
   end
@@ -235,7 +231,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
 
       it 'normalizes quotes' do
-        expect(subject.content_normalized).to eql('"a" "b" "c" "d" "e"')
+        expect(subject.content_normalized).to eql("'a' 'b' 'c' 'd' 'e'")
       end
     end
 
