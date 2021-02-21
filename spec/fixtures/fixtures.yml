@@ -3,15 +3,15 @@
 apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
-  hash: 4fc9d972c5cf945e6f5c8e5a36a000acbb0ba83a
+  hash: bec905d850e7f5dc2e2db78a950d4a9db560a0b8
 bom:
   key: mit
   matcher: exact
-  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 bsd-3-authorowner:
   key: bsd-3-clause
   matcher: dice
-  hash: ea4ae6375177749e70ad0b9b629c210df008d412
+  hash: 2e6f215833d1a3d10e6194d479dbb2b4be2f64d7
 bsd-3-lists:
   key: bsd-3-clause
   matcher: 
@@ -19,7 +19,7 @@ bsd-3-lists:
 bsd-3-noendorseslash:
   key: bsd-3-clause
   matcher: dice
-  hash: ca28b4e030d0ec26cb01debe697105b6670c7521
+  hash: cc09daf7c96498abafdb708f3578654d6d5b2a3b
 bsd-plus-patents:
   key: other
   matcher: 
@@ -27,7 +27,7 @@ bsd-plus-patents:
 bsl:
   key: bsl-1.0
   matcher: exact
-  hash: ca8f916d00c234719956e932061f192abb2d5bf9
+  hash: 27e28f20b57048cf04be07e1532b6fb501a0753b
 case-sensitive:
   key: other
   matcher: 
@@ -35,27 +35,27 @@ case-sensitive:
 cc-by-nc-sa:
   key: other
   matcher: 
-  hash: 3ad70003760333cf1606d91bac2ebd2b25ac6edc
+  hash: 2b2df1271efb79dcaf80f0828069b1c85da63eec
 cc-by-nd:
   key: other
   matcher: 
-  hash: ba8c0a77f29b6c35fd4404edd7b82a910922e84a
+  hash: 4fb176dcd047bc77f15d7b42824d1a5793bdc865
 cc-by-sa-mdlinks:
   key: cc-by-sa-4.0
   matcher: dice
-  hash: f8ec528a1b3fced37be381e4bf7f561bd6d5aaa5
+  hash: 4b0a634a0db5015914cbdde602672b2addfd66e9
 cc-by-sa-nocclicensor:
   key: cc-by-sa-4.0
   matcher: dice
-  hash: 92a75740772f7bf9e4081705d9e6d300ada13487
+  hash: 4f55d11c9d6fa6710a4c7b41bcbb801966283d45
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
-  hash: 6d0ae8ccff205100b0cb7ace186ed0eb2972a374
+  hash: 06f73ef48851a6f6d0bcd179faa65145c76d5562
 cc0-cc:
   key: cc0-1.0
   matcher: exact
-  hash: bce5f30ec4b16825cd2e87cbe29ee727f6fe34a1
+  hash: 94c8187ec82b2b4a69fb990f80833fbe6e3c95e7
 copyright-encoding:
   key: no-license
   matcher: copyright
@@ -63,11 +63,11 @@ copyright-encoding:
 crlf-bsd:
   key: bsd-3-clause
   matcher: exact
-  hash: fa22c672927af9c7334874561198799cbf4bdf31
+  hash: a961b19cc6921d510e29a13b0ba1a826fcffe41c
 crlf-license:
   key: gpl-3.0
   matcher: exact
-  hash: 853525ea62291e92a9717977ab8e63c5f8c71905
+  hash: 7d4cdf499d39e2e1ce27b2878e22872f0f5a74dd
 description-license:
   key: other
   matcher: 
@@ -75,11 +75,11 @@ description-license:
 eupl-cal2017:
   key: eupl-1.2
   matcher: exact
-  hash: 6a2d4fd9a73b301155daefa1524bf3287f808571
+  hash: 7425a276b011dea63591fe8876146f2451cfd777
 fcpl-modified-mpl:
   key: other
   matcher: 
-  hash: 32e47c0a28471035b46103a88995bba82f002ea0
+  hash: 97b12cefc05cdb701e4ae9a59e7c11f25cdb8edc
 gemspec:
   key: 
   matcher: 
@@ -87,15 +87,15 @@ gemspec:
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
-  hash: 853525ea62291e92a9717977ab8e63c5f8c71905
+  hash: 7d4cdf499d39e2e1ce27b2878e22872f0f5a74dd
 html:
   key: epl-1.0
   matcher: dice
-  hash: 90e5d3b137815542a4194f55c4f9dba66af22665
+  hash: cc33ea9c29348d147e633c02c5696e76c722b00e
 lgpl:
   key: lgpl-3.0
   matcher: exact
-  hash: 5bdc6fe24b6a02c493609dbb6c897d784cd11d63
+  hash: 2f434698bab479f8f6c5043f2796767287f40495
 license-folder:
   key: 
   matcher: 
@@ -103,27 +103,27 @@ license-folder:
 license-in-parent-folder:
   key: mit
   matcher: exact
-  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 license-with-readme-reference:
   key: mit
   matcher: exact
-  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 markdown-artistic:
   key: artistic-2.0
   matcher: dice
-  hash: 72f3d4847fe4fa5411404366b9bf2a03ce3bf295
+  hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
 markdown-gpl:
   key: gpl-2.0
   matcher: exact
-  hash: fe2feacb31f87b98aed501de7c6f89447fed99e2
+  hash: 74e2c1e8b8ff13e284dd222f214b79e9f4d3590b
 mit:
   key: mit
   matcher: exact
-  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 mit-optional:
   key: mit
   matcher: exact
-  hash: d64f3bb4282a97b37454b5bb96a8a264a3363dc3
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 mit-with-copyright:
   key: mit
   matcher: 
@@ -131,11 +131,11 @@ mit-with-copyright:
 mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
-  hash: 1b4061d8d317c41f0e7e7a4a9070461eaae45063
+  hash: 820048a1dbef5dfac65547bd9eb935beb76b2257
 multiple-arrs:
   key: bsd-3-clause
   matcher: exact
-  hash: fa22c672927af9c7334874561198799cbf4bdf31
+  hash: a961b19cc6921d510e29a13b0ba1a826fcffe41c
 multiple-license-files:
   key: other
   matcher: 
@@ -143,7 +143,7 @@ multiple-license-files:
 pixar-modified-apache:
   key: other
   matcher: 
-  hash: d238280d2eb88ce973042f0ea920017cc1ddc337
+  hash: efb005bb5924d60314b2aaedb4fceef92c5d5631
 readme:
   key: mit
   matcher: 
@@ -155,11 +155,11 @@ readme-invalid-encoding:
 unlicense-noinfo:
   key: unlicense
   matcher: exact
-  hash: 853b375edc61b9e823da0fa5fead97c9460c3e45
+  hash: 859a7d829d402dd6e047293d87979dacc1b88f37
 vim:
   key: vim
   matcher: dice
-  hash: f2edeaaaa3b8dbbf5f746f4c7b049ebf8d43ded1
+  hash: 6e1bfd854c9ad8626d61367ccfecc9f96e54ce92
 webmock:
   key: 
   matcher: 
@@ -167,4 +167,4 @@ webmock:
 wrk-modified-apache:
   key: other
   matcher: 
-  hash: 71569f292f1e42875c0510af3c5e09dc428d4660
+  hash: '09df4f164a92a0464452178cf1e4eb58c3f25c01'
