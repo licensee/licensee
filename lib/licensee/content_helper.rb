@@ -23,8 +23,6 @@ module Licensee
       url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
-      quote_begin:         /[`'"‘“]/,
-      quote_end:           /[`'"’”]/,
       cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
       cc0_info:            /For more information, please see\s*\S+zero\S+/im,
       cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,
@@ -36,10 +34,7 @@ module Licensee
       https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
-      quotes:     {
-        from: /#{REGEXES[:quote_begin]}+([\w -]*?\w)#{REGEXES[:quote_end]}+/,
-        to:   '"\1"'
-      }
+      quote:      { from: /[`'"‘“’”]/, to: "'" }
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
