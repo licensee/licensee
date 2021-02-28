@@ -15,7 +15,7 @@ RSpec.describe 'fixture test' do
       let(:matcher) { license_file&.matcher }
 
       it 'has an expected license in fixtures-licenses.yml' do
-        msg = 'Expected an entry in `'.dup
+        msg = +'Expected an entry in `'
         msg << fixture_path('fixtures-licenses.yml')
         msg << "` for the `#{fixture}` fixture. Please run "
         msg << 'script/dump-fixture-licenses and confirm the output.'
