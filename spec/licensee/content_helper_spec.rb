@@ -12,10 +12,14 @@ class ContentHelperTestHelper
   def filename
     @data[:filename]
   end
+
+  def spdx_id
+    @data[:spdx_id]
+  end
 end
 
 RSpec.describe Licensee::ContentHelper do
-  subject { ContentHelperTestHelper.new(content, filename: filename) }
+  subject { ContentHelperTestHelper.new(content, filename: filename, spdx_id: spdx_id) }
 
   let(:content) do
     <<-LICENSE.gsub(/^\s*/, '')
@@ -37,6 +41,7 @@ RSpec.describe Licensee::ContentHelper do
     LICENSE
   end
   let(:filename) { 'license.md' }
+  let(:spdx_id) { 'MIT' }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:normalized_content) { subject.content_normalized }
@@ -44,7 +49,7 @@ RSpec.describe Licensee::ContentHelper do
   it 'creates the wordset' do
     wordset = Set.new(
       %w[
-        the made up license this provided as is please respect
+        the made up license this provided as is' please respect
         contributors' wishes when implementing license's software
       ]
     )
@@ -61,12 +66,12 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'knows the similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(6)
-    expect(subject.similarity(subject)).to be(100.0)
+    expect(mit.similarity(subject)).to be_within(1).of(4)
+    expect(mit.similarity(mit)).to be(100.0)
   end
 
   it 'calculates the hash' do
-    content_hash = '916b978940ecf8070c96bd3aca9321768e7f4901'
+    content_hash = '9b4bed43726cf39e17b11c2942f37be232f5709a'
     expect(subject.content_hash).to eql(content_hash)
   end
 
@@ -169,7 +174,7 @@ RSpec.describe Licensee::ContentHelper do
     end
 
     it 'normalizes quotes' do
-      expect(normalized_content).not_to match("'as is'")
+      expect(normalized_content).not_to match('"as is"')
     end
 
     it 'preserves possessives' do
@@ -177,18 +182,14 @@ RSpec.describe Licensee::ContentHelper do
       expect(normalized_content).to match("license's")
     end
 
-    it 'preserves double quotes' do
-      expect(normalized_content).to match('"software"')
-    end
-
     it 'strips the title' do
       expect(normalized_content).not_to match('MIT')
     end
 
     it 'normalize the content' do
-      expected = 'the made up license. this license provided "as is". '.dup
+      expected = "the made up license. this license provided 'as is'. ".dup
       expected << "please respect the contributors' wishes when implementing "
-      expected << "the license's \"software\"."
+      expected << "the license's 'software'."
       expect(normalized_content).to eql(expected)
     end
   end
@@ -230,7 +231,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
 
       it 'normalizes quotes' do
-        expect(subject.content_normalized).to eql('"a" "b" "c" "d" "e"')
+        expect(subject.content_normalized).to eql("'a' 'b' 'c' 'd' 'e'")
       end
     end
 

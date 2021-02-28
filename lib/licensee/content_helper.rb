@@ -23,8 +23,6 @@ module Licensee
       url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
-      quote_begin:         /[`'"‘“]/,
-      quote_end:           /[`'"’”]/,
       cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
       cc0_info:            /For more information, please see\s*\S+zero\S+/im,
       cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,
@@ -36,10 +34,7 @@ module Licensee
       https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
-      quotes:     {
-        from: /#{REGEXES[:quote_begin]}+([\w -]*?\w)#{REGEXES[:quote_end]}+/,
-        to:   '"\1"'
-      }
+      quote:      { from: /[`'"‘“’”]/, to: "'" }
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
@@ -110,7 +105,7 @@ module Licensee
 
     # A set of each word in the license, without duplicates
     def wordset
-      @wordset ||= content_normalized&.scan(%r{(?:[\w/](?:'s|(?<=s)')?)+})&.to_set
+      @wordset ||= content_normalized&.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+})&.to_set
     end
 
     # Number of characters in the normalized content
@@ -133,7 +128,7 @@ module Licensee
       overlap = (wordset_fieldless & other.wordset).size
       total = wordset_fieldless.size + other.wordset.size -
               fields_normalized_set.size
-      (overlap * 200.0) / (total + fields_adjusted_length_delta(other) / 10)
+      (overlap * 200.0) / (total + variation_adjusted_length_delta(other) / 4)
     end
 
     # SHA1 of the normalized content
@@ -313,7 +308,7 @@ module Licensee
     end
 
     def normalize_bullets
-      normalize(REGEXES[:bullet], "\n\n* ")
+      normalize(REGEXES[:bullet], "\n\n- ")
       normalize(/\)\s+\(/, ')(')
     end
 
@@ -331,10 +326,10 @@ module Licensee
       @fields_normalized_set ||= fields_normalized.to_set
     end
 
-    def fields_adjusted_length_delta(other)
+    def variation_adjusted_length_delta(other)
       delta = length_delta(other)
-      adjusted_delta = delta - fields_normalized.size * 2
-      adjusted_delta.positive? ? adjusted_delta : delta
+      adjusted_delta = delta - [fields_normalized.size, spdx_alt_segments].max * 4
+      adjusted_delta.positive? ? adjusted_delta : 0
     end
   end
 end

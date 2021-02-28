@@ -56,12 +56,15 @@ module Licensee
       end
 
       def license_dir
-        dir = ::File.dirname(__FILE__)
-        ::File.expand_path '../../vendor/choosealicense.com/_licenses', dir
+        ::File.expand_path '../../vendor/choosealicense.com/_licenses', __dir__
       end
 
       def license_files
         @license_files ||= Dir.glob("#{license_dir}/*.txt")
+      end
+
+      def spdx_dir
+        ::File.expand_path '../../vendor/license-list-XML/src', __dir__
       end
 
       private
@@ -258,6 +261,18 @@ module Licensee
 
     def yaml
       @yaml ||= parts[1] if parts
+    end
+
+    def spdx_alt_segments
+      @spdx_alt_segments ||= begin
+        path = File.expand_path "#{spdx_id}.xml", Licensee::License.spdx_dir
+        raw_xml = File.read(path, encoding: 'utf-8')
+        text = raw_xml.match(%r{<text>(.*)</text>}m)[1]
+        text.gsub!(%r{<copyrightText>.*?</copyrightText>}m, '')
+        text.gsub!(%r{<titleText>.*?</titleText>}m, '')
+        text.gsub!(%r{<optional.*?>.*?</optional>}m, '')
+        text.scan(/<alt .*?>/m).size
+      end
     end
   end
 end

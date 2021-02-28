@@ -105,6 +105,14 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'with Pixar Modified Apache 2.0' do
+          let(:fixture) { 'pixar-modified-apache' }
+
+          it 'matches other' do
+            expect(subject.license).to eql(other_license)
+          end
+        end
+
         context 'with FCPL Modified MPL' do
           let(:fixture) { 'fcpl-modified-mpl' }
 
@@ -195,6 +203,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'EUPL as published on choosealicense.com 2017-2019' do
+          let(:license) { Licensee::License.find('eupl-1.2') }
+          let(:fixture) { 'eupl-cal2017' }
+
+          it 'returns eupl-1.2' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'Unlicense without optional line' do
           let(:license) { Licensee::License.find('unlicense') }
           let(:fixture) { 'unlicense-noinfo' }
@@ -263,6 +280,15 @@ RSpec.describe 'integration test' do
         context 'BSD-3-Clause no-endorsement name with slashes' do
           let(:license) { Licensee::License.find('bsd-3-clause') }
           let(:fixture) { 'bsd-3-noendorseslash' }
+
+          it 'determines the project is BSD-3-Clause' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
+        context 'BSD-3-Clause author/owner variant' do
+          let(:license) { Licensee::License.find('bsd-3-clause') }
+          let(:fixture) { 'bsd-3-authorowner' }
 
           it 'determines the project is BSD-3-Clause' do
             expect(subject.license).to eql(license)
