@@ -35,11 +35,19 @@ case-sensitive:
 cc-by-nc-sa:
   key: other
   matcher: 
-  hash: 5d747f4e7be13b08cefc3292e2a0601382564068
+  hash: 2b2df1271efb79dcaf80f0828069b1c85da63eec
 cc-by-nd:
   key: other
   matcher: 
-  hash: 6851607248206e722cca3f837c2ade07d2d765a7
+  hash: 4fb176dcd047bc77f15d7b42824d1a5793bdc865
+cc-by-sa-mdlinks:
+  key: cc-by-sa-4.0
+  matcher: dice
+  hash: 4b0a634a0db5015914cbdde602672b2addfd66e9
+cc-by-sa-nocclicensor:
+  key: cc-by-sa-4.0
+  matcher: dice
+  hash: 4f55d11c9d6fa6710a4c7b41bcbb801966283d45
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice

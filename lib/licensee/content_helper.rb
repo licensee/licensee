@@ -23,6 +23,8 @@ module Licensee
       url:                 %r{#{START_REGEX}https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
+      cc_dedication:       /The\s+text\s+of\s+the\s+Creative\s+Commons.*?Public\s+Domain\s+Dedication./im,
+      cc_wiki:             /wiki.creativecommons.org/i,
       cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
       cc0_info:            /For more information, please see\s*\S+zero\S+/im,
       cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,
@@ -85,10 +87,9 @@ module Licensee
     }.freeze
     STRIP_METHODS = %i[
       bom
+      cc_optional
       cc0_optional
       unlicense_optional
-      hrs
-      markdown_headings
       borders
       title
       version
@@ -96,7 +97,6 @@ module Licensee
       copyright
       title
       block_markup
-      link_markup
       developed_by
       end_of_terms
       whitespace
@@ -143,7 +143,7 @@ module Licensee
     def content_without_title_and_version
       @content_without_title_and_version ||= begin
         @_content = nil
-        ops = %i[html hrs comments markdown_headings title version]
+        ops = %i[html hrs comments markdown_headings link_markup title version]
         ops.each { |op| strip(op) }
         _content
       end
@@ -261,6 +261,13 @@ module Licensee
       strip(REGEXES[:cc_legal_code])
       strip(REGEXES[:cc0_info])
       strip(REGEXES[:cc0_disclaimer])
+    end
+
+    def strip_cc_optional
+      return unless _content.include? 'creative commons'
+
+      strip(REGEXES[:cc_dedication])
+      strip(REGEXES[:cc_wiki])
     end
 
     def strip_unlicense_optional

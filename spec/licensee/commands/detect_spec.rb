@@ -19,7 +19,7 @@ RSpec.describe 'detect command' do
       'Matched files'    => 'LICENSE.md, licensee.gemspec',
       'LICENSE.md'       => {
         'Content hash' => hash,
-        'Attribution'  => 'Copyright (c) 2014-2020 Ben Balter and Licensee contributors',
+        'Attribution'  => 'Copyright (c) 2014-2021 Ben Balter and Licensee contributors',
         'Confidence'   => '100.00%',
         'Matcher'      => 'Licensee::Matchers::Exact',
         'License'      => 'MIT'
