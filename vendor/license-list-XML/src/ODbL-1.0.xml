@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="false" licenseId="ODbL-1.0"
-            name="ODC Open Database License v1.0">
+            name="Open Data Commons Open Database License v1.0">
       <crossRefs>
          <crossRef>http://www.opendatacommons.org/licenses/odbl/1.0/</crossRef>
+	      <crossRef>https://opendatacommons.org/licenses/odbl/1-0/</crossRef>
       </crossRefs>
     <text>
       <titleText>
         <alt name="header1" match="#*"/>
-         <p>ODC Open Database License (ODbL)</p>
+         <p>Open Data Commons Open Database License (ODbL)</p>
       </titleText>
       <optional>
         <alt name="header2" match="#*"/>
