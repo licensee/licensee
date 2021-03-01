@@ -226,9 +226,7 @@ module Licensee
         meth = "strip_#{regex_or_sym}"
         return send(meth) if respond_to?(meth, true)
 
-        unless REGEXES[regex_or_sym]
-          raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
-        end
+        raise ArgumentError, "#{regex_or_sym} is an invalid regex reference" unless REGEXES[regex_or_sym]
 
         regex_or_sym = REGEXES[regex_or_sym]
       end
@@ -237,9 +235,7 @@ module Licensee
     end
 
     def strip_title
-      while _content =~ ContentHelper.title_regex
-        strip(ContentHelper.title_regex)
-      end
+      strip(ContentHelper.title_regex) while _content =~ ContentHelper.title_regex
     end
 
     def strip_borders
@@ -295,7 +291,7 @@ module Licensee
 
     def strip_html
       return unless respond_to?(:filename) && filename
-      return unless File.extname(filename) =~ /\.html?/i
+      return unless /\.html?/i.match?(File.extname(filename))
 
       require 'reverse_markdown'
       @_content = ReverseMarkdown.convert(_content, unknown_tags: :bypass)

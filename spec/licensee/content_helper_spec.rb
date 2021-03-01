@@ -187,7 +187,7 @@ RSpec.describe Licensee::ContentHelper do
     end
 
     it 'normalize the content' do
-      expected = "the made up license. this license provided 'as is'. ".dup
+      expected = +"the made up license. this license provided 'as is'. "
       expected << "please respect the contributors' wishes when implementing "
       expected << "the license's 'software'."
       expect(normalized_content).to eql(expected)

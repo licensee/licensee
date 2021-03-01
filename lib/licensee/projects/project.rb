@@ -28,7 +28,7 @@ module Licensee
                      licenses_without_copyright.first
                    elsif licenses_without_copyright.count > 1
                      Licensee::License.find('other')
-        end
+                   end
       end
 
       # Returns an array of detected Licenses

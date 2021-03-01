@@ -49,7 +49,7 @@ module Licensee
                       repository.lookup(revision)
                     else
                       repository.last_commit
-        end
+                    end
       end
 
       MAX_LICENSE_SIZE = 64 * 1024

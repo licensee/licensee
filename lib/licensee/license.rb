@@ -160,9 +160,7 @@ module Licensee
       key_regex = Regexp.new string, 'i'
 
       parts = [title_regex, key_regex]
-      if meta.nickname
-        parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?')
-      end
+      parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?') if meta.nickname
 
       @title_regex = Regexp.union parts
     end
@@ -250,9 +248,7 @@ module Licensee
     # Raw content of license file, including YAML front matter
     def raw_content
       return if pseudo_license?
-      unless File.exist?(path)
-        raise Licensee::InvalidLicense, "'#{key}' is not a valid license key"
-      end
+      raise Licensee::InvalidLicense, "'#{key}' is not a valid license key" unless File.exist?(path)
 
       @raw_content ||= File.read(path, encoding: 'utf-8')
     end

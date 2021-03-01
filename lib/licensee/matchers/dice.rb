@@ -10,7 +10,7 @@ module Licensee
                      nil
                    else
                      matches.first[0]
-        end
+                   end
       end
 
       # Licenses that may be a match for this file.

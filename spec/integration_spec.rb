@@ -40,9 +40,7 @@ RSpec.describe 'integration test' do
 
           before do
             File.write(file_path, 'bar')
-            if project_type == Licensee::Projects::GitProject
-              git_init(project_path)
-            end
+            git_init(project_path) if project_type == Licensee::Projects::GitProject
           end
 
           after { FileUtils.rm_rf(project_path) }
@@ -348,9 +346,7 @@ RSpec.describe 'integration test' do
 
         before do
           File.write(license_path, content)
-          if project_type == Licensee::Projects::GitProject
-            git_init(project_path)
-          end
+          git_init(project_path) if project_type == Licensee::Projects::GitProject
         end
 
         after { FileUtils.rm_rf(project_path) }

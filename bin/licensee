@@ -19,7 +19,7 @@ class LicenseeCLI < Thor
                 args.first || Dir.pwd
               else
                 "https://github.com/#{args.first}"
-    end
+              end
   end
 
   def project
