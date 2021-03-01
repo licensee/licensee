@@ -37,9 +37,7 @@ module Licensee
       def initialize(content, metadata = {})
         @content = content.dup
         @content.force_encoding(ENCODING)
-        unless @content.valid_encoding?
-          @content.encode!(ENCODING, **ENCODING_OPTIONS)
-        end
+        @content.encode!(ENCODING, **ENCODING_OPTIONS) unless @content.valid_encoding?
         @content.encode!(ENCODING, universal_newline: true)
 
         metadata = { name: metadata } if metadata.is_a? String

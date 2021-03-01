@@ -21,8 +21,5 @@ RSpec/FactoryBot/CreateList:
 
 # Below can be removed if/when licensee no longer supports ruby < 3.0
 
-Lint/RedundantDirGlobSort:
-  Enabled: false
-
 Style/RedundantFreeze:
   Enabled: false

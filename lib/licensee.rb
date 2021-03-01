@@ -37,7 +37,7 @@ module Licensee
     end
 
     def project(path, **args)
-      if path =~ %r{\Ahttps://github.com}
+      if %r{\Ahttps://github.com}.match?(path)
         Licensee::Projects::GitHubProject.new(path, **args)
       else
         Licensee::Projects::GitProject.new(path, **args)

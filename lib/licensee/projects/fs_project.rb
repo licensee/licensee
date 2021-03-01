@@ -20,9 +20,7 @@ module Licensee
         end
 
         @root = File.expand_path(args.delete(:search_root) || @dir)
-        unless valid_search_root?
-          raise 'Search root must be the project path directory or its ancestor'
-        end
+        raise 'Search root must be the project path directory or its ancestor' unless valid_search_root?
 
         super(**args)
       end
