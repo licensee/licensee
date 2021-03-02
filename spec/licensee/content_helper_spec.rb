@@ -70,6 +70,10 @@ RSpec.describe Licensee::ContentHelper do
     expect(mit.similarity(mit)).to be(100.0)
   end
 
+  it 'calculates simple delta for similarity' do
+    expect(subject.similarity(mit)).to be_within(1).of(3)
+  end
+
   it 'calculates the hash' do
     content_hash = '9b4bed43726cf39e17b11c2942f37be232f5709a'
     expect(subject.content_hash).to eql(content_hash)
