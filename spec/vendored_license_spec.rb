@@ -5,8 +5,6 @@ RSpec.describe 'vendored licenses' do
   let(:license_file) do
     Licensee::ProjectFiles::LicenseFile.new(content, filename)
   end
-  let(:detected_license) { license_file&.license }
-  let(:wtfpl) { Licensee::License.find('wtfpl') }
 
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
