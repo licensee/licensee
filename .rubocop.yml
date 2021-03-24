@@ -5,6 +5,7 @@ require:
   - rubocop-rspec
 
 AllCops:
+  TargetRubyVersion: 2.5
   NewCops: enable
   Exclude:
     - tmp/**/*
@@ -17,9 +18,4 @@ Layout/HashAlignment:
   EnforcedColonStyle: table
 
 RSpec/FactoryBot/CreateList:
-  Enabled: false
-
-# Below can be removed if/when licensee no longer supports ruby < 3.0
-
-Style/RedundantFreeze:
   Enabled: false
