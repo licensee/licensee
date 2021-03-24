@@ -238,9 +238,7 @@ module Licensee
     # Returns a string with `[fields]` replaced by `{{{fields}}}`
     # Does not mangle non-supported fields in the form of `[field]`
     def content_for_mustache
-      @content_for_mustache ||= begin
-        content.gsub(LicenseField::FIELD_REGEX, '{{{\1}}}')
-      end
+      @content_for_mustache ||= content.gsub(LicenseField::FIELD_REGEX, '{{{\1}}}')
     end
 
     private

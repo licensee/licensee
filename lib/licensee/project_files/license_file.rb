@@ -62,13 +62,11 @@ module Licensee
       end
 
       def attribution
-        @attribution ||= begin
-          if copyright? || license.content&.include?('[fullname]')
-            matches = Matchers::Copyright::REGEX
-                      .match(content_without_title_and_version)
-            matches[0] if matches
-          end
-        end
+        @attribution ||= if copyright? || license.content&.include?('[fullname]')
+                           matches = Matchers::Copyright::REGEX
+                                     .match(content_without_title_and_version)
+                           matches[0] if matches
+                         end
       end
 
       # Is this file likely to result in a creative commons false positive?
