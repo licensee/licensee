@@ -27,13 +27,11 @@ module Licensee
       end
 
       def repository
-        @repository ||= begin
-          if @raw_repo.is_a? Rugged::Repository
-            @raw_repo
-          else
-            Rugged::Repository.new(@raw_repo)
-          end
-        end
+        @repository ||= if @raw_repo.is_a? Rugged::Repository
+                          @raw_repo
+                        else
+                          Rugged::Repository.new(@raw_repo)
+                        end
       rescue Rugged::OSError, Rugged::RepositoryError
         raise InvalidRepository
       end
