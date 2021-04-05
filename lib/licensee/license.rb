@@ -145,6 +145,7 @@ module Licensee
       return @title_regex if defined? @title_regex
 
       string = name.downcase.sub('*', 'u')
+      simple_title_regex = Regexp.new string, 'i'
       string.sub!(/\Athe /i, '')
       string.sub!(/,? version /, ' ')
       string.sub!(/v(\d+\.\d+)/, '\1')
@@ -159,7 +160,7 @@ module Licensee
       string << '(?:\ licen[sc]e)?'
       key_regex = Regexp.new string, 'i'
 
-      parts = [title_regex, key_regex]
+      parts = [simple_title_regex, title_regex, key_regex]
       parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?') if meta.nickname
 
       @title_regex = Regexp.union parts
