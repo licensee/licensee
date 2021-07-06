@@ -300,7 +300,7 @@ RSpec.describe Licensee::License do
   end
 
   it 'knows equality' do
-    expect(mit).to eql(mit)
+    expect(described_class.find('mit')).to eql(mit)
     expect(gpl).not_to eql(mit)
   end
 
