@@ -27,7 +27,7 @@ RSpec.describe Licensee::Matchers::Dice do
   end
 
   it 'returns the match confidence' do
-    expect(subject.confidence).to be(100.0)
+    expect(subject.confidence).to eq(100.0)
   end
 
   context 'without a match' do
