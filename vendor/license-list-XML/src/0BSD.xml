@@ -3,10 +3,14 @@
    <license isOsiApproved="true" licenseId="0BSD" name="BSD Zero Clause License">
       <crossRefs>
          <crossRef>http://landley.net/toybox/license.html</crossRef>
+         <crossRef>https://opensource.org/licenses/0BSD</crossRef>
       </crossRefs>
     <text>
+      <titleText>
+         <p><alt name="title" match="(BSD Zero[ -]Clause|Zero[ -]Clause BSD)( License)?( \(0BSD\))?">BSD Zero Clause License</alt></p>
+      </titleText>
       <copyrightText>
-         <p>Copyright (C) 2006 by Rob Landley &lt;rob@landley.net&gt;</p>
+         <p>Copyright (C) YEAR by AUTHOR EMAIL</p>
       </copyrightText>
 
       <p>Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is
