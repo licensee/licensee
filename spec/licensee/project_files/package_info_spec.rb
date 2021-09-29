@@ -31,7 +31,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
   context 'matchers' do
     let(:possible_matchers) { subject.possible_matchers }
 
-    context 'with a gemspec ' do
+    context 'with a gemspec' do
       let(:filename) { 'project.gemspec' }
 
       it 'returns the gemspec matcher' do
@@ -39,7 +39,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
       end
     end
 
-    context 'with cabal file ' do
+    context 'with cabal file' do
       let(:filename) { 'test.cabal' }
 
       it 'returns the cabal matcher' do
