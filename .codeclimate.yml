@@ -1,4 +1,0 @@
-version: "2"
-plugins:
-  shellcheck:
-    enabled: true
