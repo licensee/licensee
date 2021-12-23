@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.email    = 'ben.balter@github.com'
   gem.homepage = 'https://github.com/benbalter/licensee'
   gem.license  = 'MIT'
+  gem.metadata['rubygems_mfa_required'] = 'true'
 
   gem.bindir = 'bin'
   gem.executables << 'licensee'

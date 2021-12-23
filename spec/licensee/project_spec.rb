@@ -116,11 +116,12 @@
 
       if described_class == Licensee::Projects::FSProject
         context 'with search root argument' do
+          subject { described_class.new(path, search_root: search_root) }
+
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
           let(:path) { fixture_path(fixture) }
           let(:license_folder) { 'license-in-parent-folder/license-folder' }
           let(:search_root) { fixture_path(license_folder) }
-          let(:subject) { described_class.new(path, search_root: search_root) }
           let(:files) { subject.send(:files) }
 
           it 'looks for licenses in parent directories up to the search root' do
