@@ -95,7 +95,7 @@ class LicenseeCLI < Thor
   def licenses_by_similarity(matched_file)
     matcher = Licensee::Matchers::Dice.new(matched_file)
     potential_licenses = Licensee.licenses(hidden: true).select(&:wordset)
-    matcher.instance_variable_set('@potential_licenses', potential_licenses)
+    matcher.instance_variable_set(:@potential_licenses, potential_licenses)
     matcher.licenses_by_similarity
   end
 
