@@ -2,7 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="true" licenseId="Apache-2.0" name="Apache License 2.0">
       <crossRefs>
-         <crossRef>http://www.apache.org/licenses/LICENSE-2.0</crossRef>
+         <crossRef>https://www.apache.org/licenses/LICENSE-2.0</crossRef>
          <crossRef>https://opensource.org/licenses/Apache-2.0</crossRef>
       </crossRefs>
       <notes>This license was released January 2004</notes>

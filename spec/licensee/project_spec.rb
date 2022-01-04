@@ -66,7 +66,7 @@
         let(:revision) { subject.repository.last_commit.oid }
 
         before do
-          subject.instance_variable_set('@revision', revision)
+          subject.instance_variable_set(:@revision, revision)
         end
 
         it 'returns the commit' do

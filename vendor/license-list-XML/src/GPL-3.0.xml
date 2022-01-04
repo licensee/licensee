@@ -28,7 +28,7 @@
       <p>
         You should have received a copy of the GNU General
         Public License along with this program. If not, see
-        &lt;http<optional spacing="none">s</optional>://www.gnu.org/licenses/&gt;.
+        &lt;https://www.gnu.org/licenses/&gt;.
       </p>
     </standardLicenseHeader>
     <text>
@@ -40,7 +40,7 @@
     </titleText>
     <p>
       Copyright © 2007 Free Software Foundation, Inc.
-      &lt;http<optional spacing="none">s</optional>://fsf.org/&gt;
+      &lt;https://fsf.org/&gt;
     </p>
     <p>
       Everyone is permitted to copy and distribute verbatim copies
@@ -813,7 +813,7 @@
       <p>
         You should have received a copy of the GNU General
 	Public License along with this program. If not, see
-	&lt;http<optional spacing="none">s</optional>://www.gnu.org/licenses/&gt;.
+	&lt;https://www.gnu.org/licenses/&gt;.
       </p>
       <p>
         Also add information on how to contact you by electronic and paper mail.
@@ -841,7 +841,7 @@
         programmer) or school, if any, to sign a “copyright disclaimer”
         for the program, if necessary. For more information on
 	this, and how to apply and follow the GNU GPL, see
-	&lt;http<optional spacing="none">s</optional>://www.gnu.org/licenses/&gt;.
+	&lt;https://www.gnu.org/licenses/&gt;.
       </p>
       <p>
         The GNU General Public License does not permit incorporating
@@ -850,7 +850,7 @@
         linking proprietary applications with the library. If this
         is what you want to do, use the GNU Lesser General Public
 	License instead of this License. But first, please read
-	&lt;http<optional spacing="none">s</optional>://www.gnu.org/<alt match="philosophy|licenses" name="philicenses">licenses</alt>/why-not-lgpl.html&gt;.
+	&lt;https://www.gnu.org/<alt match="philosophy|licenses" name="philicenses">licenses</alt>/why-not-lgpl.html&gt;.
       </p>
     </optional>
     </text>
