@@ -39,11 +39,15 @@ On Windows, the last line needs to include the Ruby interpreter:
 
     bundle exec ruby bin\licensee
 
-In a Docker Debian Stretch container, minimum dependencies are:
+## Docker
 
-```
-apt-get install -y ruby bundler cmake pkg-config git libssl-dev
-```
+Licensee also comes with a Dockerfile if you prefer to run Licensee within a Docker container:
+
+1. `git clone https://github.com/licensee/licensee && cd licensee`
+2. `docker build . --tag licensee`
+3. `docker run licensee [COMMAND]` (see [command line usage](./command-line-usage.md))
+
+*Example (detecting the license of `rails/rails` on GitHub):* `docker run licensee detect rails/rails --remote`
 
 ## Documentation
 
