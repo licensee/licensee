@@ -1,30 +1,33 @@
 ---
-layout: license
-title: New BSD
-category: BSD
-tab-slug: bsd-3
-hide-from-license-list: true
-permalink: /licenses/bsd-3-clause/
+title: BSD 3-Clause "New" or "Revised" License
+spdx-id: BSD-3-Clause
+hidden: false
 
-how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders. Replace {organization} with the organization, if any, that sponsors this work.
+description: A permissive license similar to the <a href="/licenses/bsd-2-clause/">BSD 2-Clause License</a>, but with a 3rd clause that prohibits others from using the name of the copyright holder or its contributors to promote derived products without written consent.
 
-source: http://opensource.org/licenses/BSD-3-Clause
+how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.
 
-required:
-  - include-copyright
+using:
+  Flutter: https://github.com/flutter/flutter/blob/master/LICENSE
+  LevelDB: https://github.com/google/leveldb/blob/master/LICENSE
+  Quill: https://github.com/quilljs/quill/blob/develop/LICENSE
 
-permitted:
+permissions:
   - commercial-use
   - modifications
   - distribution
-  - sublicense
   - private-use
 
-forbidden:
-  - no-liability
-  - trademark-use
+conditions:
+  - include-copyright
+
+limitations:
+  - liability
+  - warranty
 
 ---
+
+BSD 3-Clause License
 
 Copyright (c) [year], [fullname]
 All rights reserved.
@@ -32,16 +35,16 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
 
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
-* Neither the name of [project] nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE

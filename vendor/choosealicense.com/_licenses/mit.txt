@@ -1,32 +1,34 @@
 ---
-layout: license
 title: MIT License
-category: MIT
-permalink: /licenses/mit/
-source: http://opensource.org/licenses/MIT
-
+spdx-id: MIT
 featured: true
+hidden: false
 
-description: A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty.
+description: A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code.
 
 how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.
 
-required:
-  - include-copyright
+using:
+  Babel: https://github.com/babel/babel/blob/master/LICENSE
+  .NET Core: https://github.com/dotnet/runtime/blob/master/LICENSE.TXT
+  Rails: https://github.com/rails/rails/blob/master/MIT-LICENSE
 
-permitted:
+permissions:
   - commercial-use
   - modifications
   - distribution
-  - sublicense
   - private-use
 
-forbidden:
-  - no-liability
+conditions:
+  - include-copyright
+
+limitations:
+  - liability
+  - warranty
 
 ---
 
-The MIT License (MIT)
+MIT License
 
 Copyright (c) [year] [fullname]
 

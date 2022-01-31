@@ -1,0 +1,6 @@
+#!/bin/sh
+# Runs the licensee command against a remote git repo
+# Usage: script/git-repo benbalter/licensee
+# or script/git-repo https://github.com/benbalter/licensee
+
+bundle exec bin/licensee detect $1 --remote

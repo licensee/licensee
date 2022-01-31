@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Write current license hashes to spec/fixtures/license-hashes.json
+
+require 'json'
+require_relative '../lib/licensee'
+
+licenses = Licensee::License.all(hidden: true, pseudo: false)
+hashes   = licenses.map { |l| [l.key, l.content_hash] }.to_h
+content  = JSON.pretty_generate(hashes)
+path     = File.expand_path '../spec/fixtures/license-hashes.json', __dir__
+
+File.write(path, content)

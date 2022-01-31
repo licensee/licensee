@@ -1,3 +1,7 @@
-rm -Rf vendor/choosealicense.com
-bower install github/choosealicense.com#gh-pages
-rm -f vendor/choosealicense.com/_licenses/no-license.txt
+#!/bin/sh
+
+VENDOR_DIR=vendor/choosealicense.com
+rm -Rf $VENDOR_DIR
+mkdir -p $VENDOR_DIR
+[[ $(tar --version | head -n 1) =~ bsdtar.* ]] || taropt='--wildcards'
+curl -L https://api.github.com/repos/github/choosealicense.com/tarball |tar zxf - -C $VENDOR_DIR $taropt --strip-components=1 */_data/* */_licenses/*

@@ -1,31 +1,31 @@
 ---
-layout: license
-title: Public Domain (Unlicense)
-category: Public Domain Dedication
-tab-slug: unlicense
-permalink: /licenses/unlicense/
-class: license-types
-filename: UNLICENSE
+title: The Unlicense
+spdx-id: Unlicense
+hidden: false
 
-source: http://unlicense.org/UNLICENSE
-
-description: Because copyright is automatic in most countries, <a href="http://unlicense.org">the Unlicense</a> is a template to waive copyright interest in software you've written and dedicate it to the public domain. Use the Unlicense to opt out of copyright entirely. It also includes the no-warranty statement from the MIT/X11 license.
+description: A license with no conditions whatsoever which dedicates works to the public domain. Unlicensed works, modifications, and larger works may be distributed under different terms and without source code.
 
 how: Create a text file (typically named UNLICENSE or UNLICENSE.txt) in the root of your source code and copy the text of the license disclaimer into the file.
 
-required:
+using:
+  scoop: https://github.com/lukesampson/scoop/blob/master/LICENSE
+  kakoune: https://github.com/mawww/kakoune/blob/master/UNLICENSE
+  RDF.rb: https://github.com/ruby-rdf/rdf/blob/master/UNLICENSE
 
-permitted:
+permissions:
   - private-use
   - commercial-use
   - modifications
   - distribution
-  - sublicense
 
-forbidden:
-  - no-liability
+conditions: []
+
+limitations:
+  - liability
+  - warranty
 
 ---
+
 This is free and unencumbered software released into the public domain.
 
 Anyone is free to copy, modify, publish, use, compile, sell, or
@@ -49,4 +49,4 @@ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
-For more information, please refer to <http://unlicense.org>
+For more information, please refer to <https://unlicense.org>

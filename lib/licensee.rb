@@ -1,46 +1,60 @@
-require 'uri'
+# frozen_string_literal: true
+
+require_relative 'licensee/version'
+require 'forwardable'
+require 'pathname'
 require 'yaml'
-require 'rugged'
-require 'levenshtein'
 
-require_relative "licensee/license"
-require_relative "licensee/licenses"
-require_relative "licensee/license_file"
-require_relative "licensee/project"
-require_relative "licensee/matcher"
-require_relative "licensee/matchers/exact_matcher"
-require_relative "licensee/matchers/git_matcher"
-require_relative "licensee/matchers/levenshtein_matcher"
+module Licensee
+  autoload :ContentHelper, 'licensee/content_helper'
+  autoload :HashHelper, 'licensee/hash_helper'
+  autoload :License, 'licensee/license'
+  autoload :LicenseField, 'licensee/license_field'
+  autoload :LicenseMeta, 'licensee/license_meta'
+  autoload :LicenseRules, 'licensee/license_rules'
+  autoload :Rule, 'licensee/rule'
+  autoload :Matchers, 'licensee/matchers'
+  autoload :Projects, 'licensee/projects'
+  autoload :ProjectFiles, 'licensee/project_files'
 
-class Licensee
-
-  # Over watch percent is a match considered a match
-  CONFIDENCE_THRESHOLD = 90
+  # Over which percent is a match considered a match by default
+  CONFIDENCE_THRESHOLD = 98
 
   # Base domain from which to build license URLs
-  DOMAIN = "http://choosealicense.com"
+  DOMAIN = 'http://choosealicense.com'
 
   class << self
+    attr_writer :confidence_threshold
 
     # Returns an array of Licensee::License instances
-    def licenses
-      @licenses ||= Licensee::Licenses.list
+    def licenses(options = {})
+      Licensee::License.all(options)
     end
 
-    # Returns the license for a given git repo
+    # Returns the license for a given path
     def license(path)
-      Licensee::Project.new(path).license
+      Licensee.project(path).license
     end
 
-    # Diffs the project license and the known license
-    def diff(path)
-      Licensee::Project.new(path).license_file.diff
+    def project(path, **args)
+      if %r{\Ahttps://github.com}.match?(path)
+        Licensee::Projects::GitHubProject.new(path, **args)
+      else
+        Licensee::Projects::GitProject.new(path, **args)
+      end
+    rescue Licensee::Projects::GitProject::InvalidRepository
+      Licensee::Projects::FSProject.new(path, **args)
     end
 
-    # Array of matchers to use, in order of preference
-    # The order should be decending order of anticipated speed to match
-    def matchers
-      [Licensee::ExactMatcher, Licensee::GitMatcher, Licensee::LevenshteinMatcher]
+    def confidence_threshold
+      @confidence_threshold ||= CONFIDENCE_THRESHOLD
+    end
+
+    # Inverse of the confidence threshold, represented as a float
+    # By default this will be 0.02
+    def inverse_confidence_threshold
+      @inverse_confidence_threshold ||=
+        (1 - (Licensee.confidence_threshold / 100.0)).round(2)
     end
   end
 end

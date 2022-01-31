@@ -1,12 +1,38 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require_relative "../lib/licensee"
-license = Licensee::Project.new(Dir.pwd).license_file
+require 'dotenv/load'
+require 'thor'
+require 'json'
 
-if license
-  puts "License: #{license.match ? license.match.meta['title'] : 'no license'}"
-  puts "Confidence: #{license.confidence}%"
-  puts "Method: #{license.matcher.class}"
-else
-  puts "Unknown"
+require_relative '../lib/licensee'
+
+class LicenseeCLI < Thor
+  package_name 'Licensee'
+  class_option :remote, type: :boolean, desc: 'Assume PATH is a GitHub owner/repo path'
+  default_task :detect
+
+  private
+
+  def path
+    @path ||= if !options[:remote] || args.first =~ %r{^https://}
+                args.first || Dir.pwd
+              else
+                "https://github.com/#{args.first}"
+              end
+  end
+
+  def project
+    @project ||= Licensee.project(path,
+                                  detect_packages: options[:packages], detect_readme: options[:readme])
+  end
+
+  def remote?
+    path =~ %r{^https://}
+  end
 end
+
+commands_dir = File.expand_path '../lib/licensee/commands/', __dir__
+Dir["#{commands_dir}/*.rb"].sort.each { |c| require(c) }
+
+LicenseeCLI.start(ARGV)
