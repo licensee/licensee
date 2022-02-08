@@ -22,6 +22,8 @@ project.license
 => #<Licensee::Licensee key="mit">
 ```
 
+**Note:** The package manager metadata matchers have a confidence of 90%, so you must set the confidence_threshold to 90 or lower for them to work.
+
 ### Matching project README license references
 
 Licensee supports the ability to take into account human readable references to licenses within the project's README, disabled by default. [There are reasons you may not want to use this](what-we-look-at.md). You can explicitly instruct licensee to take this information into account as follows:
@@ -31,3 +33,5 @@ project = Licensee.project("path/to/project", detect_readme: true)
 project.license
 => #<Licensee::Licensee key="mit">
 ```
+
+**Note:** The README license reference matchers have a confidence of 90%, so you must set the confidence_threshold to 90 or lower for them to work.
