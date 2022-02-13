@@ -47,7 +47,7 @@ module Licensee
     def confidence_threshold
       @confidence_threshold ||= CONFIDENCE_THRESHOLD
     end
-    
+
     def confidence_threshold=(value)
       @confidence_threshold = value
       @inverse_confidence_threshold = nil
