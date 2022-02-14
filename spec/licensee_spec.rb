@@ -54,6 +54,12 @@ RSpec.describe Licensee do
       it 'lets the user override the confidence threshold' do
         expect(described_class.confidence_threshold).to be(50)
       end
+
+      it 'resets inverse confidence threshold when confidence threshold changes' do
+        expect(described_class.inverse_confidence_threshold).to be(0.5)
+        described_class.confidence_threshold = Licensee::CONFIDENCE_THRESHOLD
+        expect(described_class.inverse_confidence_threshold).to be(0.02)
+      end
     end
   end
 end

@@ -24,8 +24,6 @@ module Licensee
   DOMAIN = 'http://choosealicense.com'
 
   class << self
-    attr_writer :confidence_threshold
-
     # Returns an array of Licensee::License instances
     def licenses(options = {})
       Licensee::License.all(options)
@@ -48,6 +46,11 @@ module Licensee
 
     def confidence_threshold
       @confidence_threshold ||= CONFIDENCE_THRESHOLD
+    end
+
+    def confidence_threshold=(value)
+      @confidence_threshold = value
+      @inverse_confidence_threshold = nil
     end
 
     # Inverse of the confidence threshold, represented as a float
