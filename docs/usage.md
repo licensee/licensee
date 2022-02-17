@@ -26,6 +26,8 @@ license.meta["permissions"]
 => ["commercial-use","modifications","distribution","private-use"]
 ```
 
+Consider handling multiple conflicting license matches. See [what we look at](what-we-look-at.md).
+
 ### Providing an access token
 
 If you wish to scan private GitHub repositories, or are hitting API rate limits, you can configure the embedded [Octokit](https://github.com/octokit/octokit.rb)
