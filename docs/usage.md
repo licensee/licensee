@@ -24,6 +24,16 @@ license.meta["description"]
 
 license.meta["permissions"]
 => ["commercial-use","modifications","distribution","private-use"]
+
+```
+
+Consider handling multiple conflicting license matches. See [what we look at](what-we-look-at.md).
+
+```ruby
+project = Licensee.project "/path/to/a/project"
+
+project.licenses
+=> # an array of all matching licenses
 ```
 
 ### Providing an access token

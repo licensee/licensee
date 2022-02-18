@@ -14,7 +14,7 @@ Licensee uses [a series of regular expressions](https://github.com/benbalter/lic
 * `COPYRIGHT`
 * `UNLICENSE`
 
-If the project has multiple license files or a file named `license` or similar (as defined by the regular expressions linked above) that doesn't contain a only one well known license (see below) in its standard form, chances are Licensee won't detect the project's license.
+:warning: If the project has multiple license matches (e.g. a package file match, a file named license or similar that matches the regular expressions) that don't only match one well known license (see below), Licensee won't return a license for the project, but all matches are returned in the licenses array.
 
 ### Known licenses
 
