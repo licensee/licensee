@@ -1,0 +1,23 @@
+name: Push to Rubygems
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+        
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Push
+        run: |
+          bundle exec gem release --push --key ${{ secrets.RUBYGEMS_API_KEY }}
