@@ -34,7 +34,7 @@ RSpec.describe Licensee::Matchers::Dice do
     let(:content) { 'Not really a license' }
 
     it "doesn't match" do
-      expect(subject.match).to be(nil)
+      expect(subject.match).to be_nil
       expect(subject.matches).to be_empty
       expect(subject.confidence).to be(0)
     end
@@ -47,7 +47,7 @@ RSpec.describe Licensee::Matchers::Dice do
 
     it "doesn't match" do
       expect(content).not_to be_detected_as(gpl)
-      expect(subject.match).to be(nil)
+      expect(subject.match).to be_nil
       expect(subject.matches).to be_empty
       expect(subject.confidence).to be(0)
     end
