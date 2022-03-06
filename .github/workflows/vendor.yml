@@ -1,4 +1,4 @@
-name: CI
+name: Vendor
 
 on:
   schedule: 
@@ -6,7 +6,7 @@ on:
   repository_dispatch: {}
 
 jobs:
-  test:
+  vendor:
     runs-on: ubuntu-latest
 
     steps:
