@@ -1,0 +1,199 @@
+current directory: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/ext/rugged
+/opt/hostedtoolcache/Ruby/3.1.1/x64/bin/ruby -I /opt/hostedtoolcache/Ruby/3.1.1/x64/lib/ruby/3.1.0 -r ./siteconf20220306-1664-w1pnq0.rb extconf.rb
+checking for gmake... no
+checking for make... yes
+checking for cmake... yes
+checking for pkg-config... yes
+-- The C compiler identification is GNU 9.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIM
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIM - Success
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIMESPEC
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIMESPEC - Failed
+-- Performing Test HAVE_STRUCT_STAT_MTIME_NSEC
+-- Performing Test HAVE_STRUCT_STAT_MTIME_NSEC - Failed
+-- Performing Test HAVE_STRUCT_STAT_NSEC
+-- Performing Test HAVE_STRUCT_STAT_NSEC - Success
+-- Looking for futimens
+-- Looking for futimens - found
+-- Performing Test IS_WALL_SUPPORTED
+-- Performing Test IS_WALL_SUPPORTED - Success
+-- Performing Test IS_WEXTRA_SUPPORTED
+-- Performing Test IS_WEXTRA_SUPPORTED - Success
+-- Performing Test IS_WDOCUMENTATION_SUPPORTED
+-- Performing Test IS_WDOCUMENTATION_SUPPORTED - Failed
+-- Performing Test IS_WNO_DOCUMENTATION_DEPRECATED_SYNC_SUPPORTED
+-- Performing Test IS_WNO_DOCUMENTATION_DEPRECATED_SYNC_SUPPORTED - Success
+-- Performing Test IS_WNO_MISSING_FIELD_INITIALIZERS_SUPPORTED
+-- Performing Test IS_WNO_MISSING_FIELD_INITIALIZERS_SUPPORTED - Success
+-- Performing Test IS_WMISSING_DECLARATIONS_SUPPORTED
+-- Performing Test IS_WMISSING_DECLARATIONS_SUPPORTED - Success
+-- Performing Test IS_WSTRICT_ALIASING_SUPPORTED
+-- Performing Test IS_WSTRICT_ALIASING_SUPPORTED - Success
+-- Performing Test IS_WSTRICT_PROTOTYPES_SUPPORTED
+-- Performing Test IS_WSTRICT_PROTOTYPES_SUPPORTED - Success
+-- Performing Test IS_WDECLARATION_AFTER_STATEMENT_SUPPORTED
+-- Performing Test IS_WDECLARATION_AFTER_STATEMENT_SUPPORTED - Success
+-- Performing Test IS_WSHIFT_COUNT_OVERFLOW_SUPPORTED
+-- Performing Test IS_WSHIFT_COUNT_OVERFLOW_SUPPORTED - Success
+-- Performing Test IS_WUNUSED_CONST_VARIABLE_SUPPORTED
+-- Performing Test IS_WUNUSED_CONST_VARIABLE_SUPPORTED - Success
+-- Performing Test IS_WUNUSED_FUNCTION_SUPPORTED
+-- Performing Test IS_WUNUSED_FUNCTION_SUPPORTED - Success
+-- Performing Test IS_WINT_CONVERSION_SUPPORTED
+-- Performing Test IS_WINT_CONVERSION_SUPPORTED - Success
+-- Performing Test IS_WC11_EXTENSIONS_SUPPORTED
+-- Performing Test IS_WC11_EXTENSIONS_SUPPORTED - Failed
+-- Performing Test IS_WC99_C11_COMPAT_SUPPORTED
+-- Performing Test IS_WC99_C11_COMPAT_SUPPORTED - Success
+-- Performing Test IS_WFORMAT_SUPPORTED
+-- Performing Test IS_WFORMAT_SUPPORTED - Success
+-- Performing Test IS_WFORMAT_SECURITY_SUPPORTED
+-- Performing Test IS_WFORMAT_SECURITY_SUPPORTED - Success
+-- Checking prototype qsort_r for GIT_QSORT_R_BSD
+-- Checking prototype qsort_r for GIT_QSORT_R_BSD - False
+-- Checking prototype qsort_r for GIT_QSORT_R_GNU
+-- Checking prototype qsort_r for GIT_QSORT_R_GNU - True
+-- Looking for qsort_s
+-- Looking for qsort_s - not found
+-- Looking for getentropy
+-- Looking for getentropy - found
+-- Looking for clock_gettime in rt
+-- Looking for clock_gettime in rt - found
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+-- http-parser version 2 was not found or disabled; using bundled 3rd-party sources.
+-- Performing Test IS_WIMPLICIT_FALLTHROUGH_1_SUPPORTED
+-- Performing Test IS_WIMPLICIT_FALLTHROUGH_1_SUPPORTED - Success
+-- Found PCRE: /usr/lib/x86_64-linux-gnu/libpcre.so  
+-- Looking for dirent.h
+-- Looking for dirent.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for inttypes.h
+-- Looking for inttypes.h - found
+-- Looking for sys/stat.h
+-- Looking for sys/stat.h - found
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for unistd.h
+-- Looking for unistd.h - found
+-- Looking for windows.h
+-- Looking for windows.h - not found
+-- Looking for bcopy
+-- Looking for bcopy - found
+-- Looking for memmove
+-- Looking for memmove - found
+-- Looking for strerror
+-- Looking for strerror - found
+-- Looking for strtoll
+-- Looking for strtoll - found
+-- Looking for strtoq
+-- Looking for strtoq - found
+-- Looking for _strtoi64
+-- Looking for _strtoi64 - not found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of long long
+-- Check size of long long - done
+-- Check size of unsigned long long
+-- Check size of unsigned long long - done
+-- Performing Test IS_WNO_UNUSED_FUNCTION_SUPPORTED
+-- Performing Test IS_WNO_UNUSED_FUNCTION_SUPPORTED - Success
+-- Performing Test IS_WNO_IMPLICIT_FALLTHROUGH_SUPPORTED
+-- Performing Test IS_WNO_IMPLICIT_FALLTHROUGH_SUPPORTED - Success
+-- LIBSSH2 not found. Set CMAKE_PREFIX_PATH if it is installed outside of the default search path.
+-- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.11") 
+-- Checking for module 'heimdal-gssapi'
+--   No package 'heimdal-gssapi' found
+-- Could NOT find GSSAPI (missing: GSSAPI_LIBRARIES GSSAPI_INCLUDE_DIR) 
+-- Enabled features:
+ * nanoseconds, support nanosecond precision file mtimes and ctimes
+ * futimens, futimens support
+ * threadsafe, threadsafe support
+ * HTTPS, using OpenSSL
+ * SHA, using CollisionDetection
+ * http-parser, http-parser support (bundled)
+ * regex, using bundled PCRE
+ * zlib, using system zlib
+ * ntlmclient, NTLM authentication support for Unix
+
+-- Disabled features:
+ * debugpool, debug pool allocator
+ * debugalloc, debug strict allocators
+ * debugopen, path validation in open
+ * SSH, SSH transport support
+ * SPNEGO, SPNEGO authentication support
+ * iconv, iconv encoding conversion support
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build
+ -- /usr/bin/make
+checking for -lgit2... yes
+checking for git2.h... yes
+creating Makefile
+
+current directory: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/ext/rugged
+make DESTDIR\= clean
+
+current directory: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/ext/rugged
+make DESTDIR\=
+compiling rugged.c
+rugged.c: In function ‘rugged_exception_raise’:
+rugged.c:324:6: warning: function might be candidate for attribute ‘noreturn’ [-Wsuggest-attribute=noreturn]
+  324 | void rugged_exception_raise(void)
+      |      ^~~~~~~~~~~~~~~~~~~~~~
+rugged.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+compiling rugged_allocator.c
+compiling rugged_backend.c
+compiling rugged_blame.c
+compiling rugged_blob.c
+compiling rugged_branch.c
+compiling rugged_branch_collection.c
+compiling rugged_commit.c
+compiling rugged_config.c
+compiling rugged_cred.c
+compiling rugged_diff.c
+compiling rugged_diff_delta.c
+compiling rugged_diff_hunk.c
+compiling rugged_diff_line.c
+compiling rugged_index.c
+compiling rugged_note.c
+compiling rugged_object.c
+compiling rugged_patch.c
+compiling rugged_rebase.c
+compiling rugged_reference.c
+compiling rugged_reference_collection.c
+compiling rugged_remote.c
+compiling rugged_remote_collection.c
+compiling rugged_repo.c
+compiling rugged_revwalk.c
+compiling rugged_settings.c
+compiling rugged_signature.c
+compiling rugged_submodule.c
+compiling rugged_submodule_collection.c
+compiling rugged_tag.c
+compiling rugged_tag_collection.c
+compiling rugged_tree.c
+linking shared-object rugged/rugged.so
+
+current directory: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/ext/rugged
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 rugged.so ./.gem.20220306-1664-o6ase7/rugged

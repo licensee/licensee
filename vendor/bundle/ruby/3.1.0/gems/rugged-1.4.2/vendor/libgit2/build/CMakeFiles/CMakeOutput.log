@@ -1,0 +1,844 @@
+The system is: Linux - 5.11.0-1028-azure - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: -fPIC
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/3.22.2/CompilerIdC/a.out"
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_5ebd9/fast && /usr/bin/make  -f CMakeFiles/cmTC_5ebd9.dir/build.make CMakeFiles/cmTC_5ebd9.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc   -fPIC    -v -o CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake-3.22/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+OFFLOAD_TARGET_NAMES=nvptx-none:hsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) 
+COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/9/cc1 -quiet -v -imultiarch x86_64-linux-gnu /usr/local/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -version -fPIC -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cckXpse0.s
+GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)
+	compiled by GNU C version 9.3.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/lib/gcc/x86_64-linux-gnu/9/include
+ /usr/local/include
+ /usr/include/x86_64-linux-gnu
+ /usr/include
+End of search list.
+GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)
+	compiled by GNU C version 9.3.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: bbf13931d8de1abe14040c9909cb6969
+COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o /tmp/cckXpse0.s
+GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+Linking C executable cmTC_5ebd9
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5ebd9.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC   -v CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -o cmTC_5ebd9 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper
+OFFLOAD_TARGET_NAMES=nvptx-none:hsa
+OFFLOAD_TARGET_DEFAULT=1
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr,hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'cmTC_5ebd9' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/cczZgPXq.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_5ebd9 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'cmTC_5ebd9' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Parsed C implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/lib/gcc/x86_64-linux-gnu/9/include]
+    add: [/usr/local/include]
+    add: [/usr/include/x86_64-linux-gnu]
+    add: [/usr/include]
+  end of search list found
+  collapse include dir [/usr/lib/gcc/x86_64-linux-gnu/9/include] ==> [/usr/lib/gcc/x86_64-linux-gnu/9/include]
+  collapse include dir [/usr/local/include] ==> [/usr/local/include]
+  collapse include dir [/usr/include/x86_64-linux-gnu] ==> [/usr/include/x86_64-linux-gnu]
+  collapse include dir [/usr/include] ==> [/usr/include]
+  implicit include dirs: [/usr/lib/gcc/x86_64-linux-gnu/9/include;/usr/local/include;/usr/include/x86_64-linux-gnu;/usr/include]
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/make -f Makefile cmTC_5ebd9/fast && /usr/bin/make  -f CMakeFiles/cmTC_5ebd9.dir/build.make CMakeFiles/cmTC_5ebd9.dir/build]
+  ignore line: [make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc   -fPIC    -v -o CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake-3.22/Modules/CMakeCCompilerABI.c]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
+  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/cc1 -quiet -v -imultiarch x86_64-linux-gnu /usr/local/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -version -fPIC -fasynchronous-unwind-tables -fstack-protector-strong -Wformat -Wformat-security -fstack-clash-protection -fcf-protection -o /tmp/cckXpse0.s]
+  ignore line: [GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 9.3.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"]
+  ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/9/include]
+  ignore line: [ /usr/local/include]
+  ignore line: [ /usr/include/x86_64-linux-gnu]
+  ignore line: [ /usr/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C17 (Ubuntu 9.3.0-17ubuntu1~20.04) version 9.3.0 (x86_64-linux-gnu)]
+  ignore line: [	compiled by GNU C version 9.3.0  GMP version 6.2.0  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: bbf13931d8de1abe14040c9909cb6969]
+  ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [ as -v --64 -o CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o /tmp/cckXpse0.s]
+  ignore line: [GNU assembler version 2.34 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.34]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+  ignore line: [Linking C executable cmTC_5ebd9]
+  ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5ebd9.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc -fPIC   -v CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -o cmTC_5ebd9 ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper]
+  ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none:hsa]
+  ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04' --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c ada c++ go brig d fortran objc obj-c++ gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32 m64 mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none=/build/gcc-9-HskZEa/gcc-9-9.3.0/debian/tmp-nvptx/usr hsa --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-o' 'cmTC_5ebd9' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/9/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper -plugin-opt=-fresolution=/tmp/cczZgPXq.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_5ebd9 /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/9 -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/9/../../.. CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/9/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cczZgPXq.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-pie] ==> ignore
+    arg [-znow] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_5ebd9] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..]
+    arg [CMakeFiles/cmTC_5ebd9.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--pop-state] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--push-state] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--pop-state] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o] ==> obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o]
+  collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/Scrt1.o] ==> [/usr/lib/x86_64-linux-gnu/Scrt1.o]
+  collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crti.o] ==> [/usr/lib/x86_64-linux-gnu/crti.o]
+  collapse obj [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/crtn.o] ==> [/usr/lib/x86_64-linux-gnu/crtn.o]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9] ==> [/usr/lib/gcc/x86_64-linux-gnu/9]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/9/../../..] ==> [/usr/lib]
+  implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+  implicit objs: [/usr/lib/x86_64-linux-gnu/Scrt1.o;/usr/lib/x86_64-linux-gnu/crti.o;/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o;/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o;/usr/lib/x86_64-linux-gnu/crtn.o]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/9;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_9dc3b/fast && /usr/bin/make  -f CMakeFiles/cmTC_9dc3b.dir/build.make CMakeFiles/cmTC_9dc3b.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9dc3b.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -fPIC  -o CMakeFiles/cmTC_9dc3b.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_9dc3b
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9dc3b.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC  CMakeFiles/cmTC_9dc3b.dir/CheckIncludeFile.c.o -o cmTC_9dc3b 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_227ab/fast && /usr/bin/make  -f CMakeFiles/cmTC_227ab.dir/build.make CMakeFiles/cmTC_227ab.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_227ab.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_227ab.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_227ab
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_227ab.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_227ab.dir/CheckFunctionExists.c.o -o cmTC_227ab  -lpthread 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Performing C SOURCE FILE Test HAVE_STRUCT_STAT_ST_MTIM succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_24df6/fast && /usr/bin/make  -f CMakeFiles/cmTC_24df6.dir/build.make CMakeFiles/cmTC_24df6.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_24df6.dir/src.c.o
+/usr/bin/cc -DHAVE_STRUCT_STAT_ST_MTIM  -fPIC  -o CMakeFiles/cmTC_24df6.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_24df6
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_24df6.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC  CMakeFiles/cmTC_24df6.dir/src.c.o -o cmTC_24df6 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+
+#include <sys/types.h>
+#include <sys/stat.h>
+
+int main()
+{
+  (void)sizeof(((struct stat *)0)->st_mtim);
+  return 0;
+}
+
+Performing C SOURCE FILE Test HAVE_STRUCT_STAT_NSEC succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_24a3e/fast && /usr/bin/make  -f CMakeFiles/cmTC_24a3e.dir/build.make CMakeFiles/cmTC_24a3e.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_24a3e.dir/src.c.o
+/usr/bin/cc -DHAVE_STRUCT_STAT_NSEC  -fPIC  -o CMakeFiles/cmTC_24a3e.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_24a3e
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_24a3e.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC  CMakeFiles/cmTC_24a3e.dir/src.c.o -o cmTC_24a3e 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+
+#include <sys/stat.h>
+
+int main()
+{
+  (void)sizeof(((struct stat *)0)->st_mtim.tv_nsec);
+  return 0;
+}
+
+Determining if the function futimens exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_682f5/fast && /usr/bin/make  -f CMakeFiles/cmTC_682f5.dir/build.make CMakeFiles/cmTC_682f5.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_682f5.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=futimens -o CMakeFiles/cmTC_682f5.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_682f5
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_682f5.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=futimens CMakeFiles/cmTC_682f5.dir/CheckFunctionExists.c.o -o cmTC_682f5 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Performing C SOURCE FILE Test IS_WALL_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_c7381/fast && /usr/bin/make  -f CMakeFiles/cmTC_c7381.dir/build.make CMakeFiles/cmTC_c7381.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c7381.dir/src.c.o
+/usr/bin/cc -DIS_WALL_SUPPORTED  -D_GNU_SOURCE -fPIC    -Wall -o CMakeFiles/cmTC_c7381.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_c7381
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c7381.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC  CMakeFiles/cmTC_c7381.dir/src.c.o -o cmTC_c7381 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WEXTRA_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_f2045/fast && /usr/bin/make  -f CMakeFiles/cmTC_f2045.dir/build.make CMakeFiles/cmTC_f2045.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f2045.dir/src.c.o
+/usr/bin/cc -DIS_WEXTRA_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall    -Wextra -o CMakeFiles/cmTC_f2045.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_f2045
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f2045.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall  CMakeFiles/cmTC_f2045.dir/src.c.o -o cmTC_f2045 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WNO_DOCUMENTATION_DEPRECATED_SYNC_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_f97d6/fast && /usr/bin/make  -f CMakeFiles/cmTC_f97d6.dir/build.make CMakeFiles/cmTC_f97d6.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f97d6.dir/src.c.o
+/usr/bin/cc -DIS_WNO_DOCUMENTATION_DEPRECATED_SYNC_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra    -Wno-documentation-deprecated-sync -o CMakeFiles/cmTC_f97d6.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_f97d6
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f97d6.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra  CMakeFiles/cmTC_f97d6.dir/src.c.o -o cmTC_f97d6 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WNO_MISSING_FIELD_INITIALIZERS_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_db54e/fast && /usr/bin/make  -f CMakeFiles/cmTC_db54e.dir/build.make CMakeFiles/cmTC_db54e.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_db54e.dir/src.c.o
+/usr/bin/cc -DIS_WNO_MISSING_FIELD_INITIALIZERS_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync    -Wno-missing-field-initializers -o CMakeFiles/cmTC_db54e.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_db54e
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_db54e.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync  CMakeFiles/cmTC_db54e.dir/src.c.o -o cmTC_db54e 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WMISSING_DECLARATIONS_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_ceb4b/fast && /usr/bin/make  -f CMakeFiles/cmTC_ceb4b.dir/build.make CMakeFiles/cmTC_ceb4b.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ceb4b.dir/src.c.o
+/usr/bin/cc -DIS_WMISSING_DECLARATIONS_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers    -Wmissing-declarations -o CMakeFiles/cmTC_ceb4b.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_ceb4b
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ceb4b.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers  CMakeFiles/cmTC_ceb4b.dir/src.c.o -o cmTC_ceb4b 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WSTRICT_ALIASING_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_e04f5/fast && /usr/bin/make  -f CMakeFiles/cmTC_e04f5.dir/build.make CMakeFiles/cmTC_e04f5.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e04f5.dir/src.c.o
+/usr/bin/cc -DIS_WSTRICT_ALIASING_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations    -Wstrict-aliasing -o CMakeFiles/cmTC_e04f5.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_e04f5
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e04f5.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations  CMakeFiles/cmTC_e04f5.dir/src.c.o -o cmTC_e04f5 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WSTRICT_PROTOTYPES_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_41dc9/fast && /usr/bin/make  -f CMakeFiles/cmTC_41dc9.dir/build.make CMakeFiles/cmTC_41dc9.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_41dc9.dir/src.c.o
+/usr/bin/cc -DIS_WSTRICT_PROTOTYPES_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing    -Wstrict-prototypes -o CMakeFiles/cmTC_41dc9.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_41dc9
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_41dc9.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing  CMakeFiles/cmTC_41dc9.dir/src.c.o -o cmTC_41dc9 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WDECLARATION_AFTER_STATEMENT_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_320bf/fast && /usr/bin/make  -f CMakeFiles/cmTC_320bf.dir/build.make CMakeFiles/cmTC_320bf.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_320bf.dir/src.c.o
+/usr/bin/cc -DIS_WDECLARATION_AFTER_STATEMENT_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes    -Wdeclaration-after-statement -o CMakeFiles/cmTC_320bf.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_320bf
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_320bf.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes  CMakeFiles/cmTC_320bf.dir/src.c.o -o cmTC_320bf 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WSHIFT_COUNT_OVERFLOW_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_35a47/fast && /usr/bin/make  -f CMakeFiles/cmTC_35a47.dir/build.make CMakeFiles/cmTC_35a47.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_35a47.dir/src.c.o
+/usr/bin/cc -DIS_WSHIFT_COUNT_OVERFLOW_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement    -Wshift-count-overflow -o CMakeFiles/cmTC_35a47.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_35a47
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_35a47.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement  CMakeFiles/cmTC_35a47.dir/src.c.o -o cmTC_35a47 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WUNUSED_CONST_VARIABLE_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_f8a9e/fast && /usr/bin/make  -f CMakeFiles/cmTC_f8a9e.dir/build.make CMakeFiles/cmTC_f8a9e.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f8a9e.dir/src.c.o
+/usr/bin/cc -DIS_WUNUSED_CONST_VARIABLE_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow    -Wunused-const-variable -o CMakeFiles/cmTC_f8a9e.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_f8a9e
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f8a9e.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow  CMakeFiles/cmTC_f8a9e.dir/src.c.o -o cmTC_f8a9e 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WUNUSED_FUNCTION_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_ce15b/fast && /usr/bin/make  -f CMakeFiles/cmTC_ce15b.dir/build.make CMakeFiles/cmTC_ce15b.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ce15b.dir/src.c.o
+/usr/bin/cc -DIS_WUNUSED_FUNCTION_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable    -Wunused-function -o CMakeFiles/cmTC_ce15b.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_ce15b
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ce15b.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable  CMakeFiles/cmTC_ce15b.dir/src.c.o -o cmTC_ce15b 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WINT_CONVERSION_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_2ddff/fast && /usr/bin/make  -f CMakeFiles/cmTC_2ddff.dir/build.make CMakeFiles/cmTC_2ddff.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_2ddff.dir/src.c.o
+/usr/bin/cc -DIS_WINT_CONVERSION_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function    -Wint-conversion -o CMakeFiles/cmTC_2ddff.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_2ddff
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2ddff.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function  CMakeFiles/cmTC_2ddff.dir/src.c.o -o cmTC_2ddff 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WC99_C11_COMPAT_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_9b97d/fast && /usr/bin/make  -f CMakeFiles/cmTC_9b97d.dir/build.make CMakeFiles/cmTC_9b97d.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9b97d.dir/src.c.o
+/usr/bin/cc -DIS_WC99_C11_COMPAT_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion    -Wc99-c11-compat -o CMakeFiles/cmTC_9b97d.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_9b97d
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9b97d.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion  CMakeFiles/cmTC_9b97d.dir/src.c.o -o cmTC_9b97d 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WFORMAT_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_3a21f/fast && /usr/bin/make  -f CMakeFiles/cmTC_3a21f.dir/build.make CMakeFiles/cmTC_3a21f.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3a21f.dir/src.c.o
+/usr/bin/cc -DIS_WFORMAT_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat    -Wformat -o CMakeFiles/cmTC_3a21f.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_3a21f
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3a21f.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat  CMakeFiles/cmTC_3a21f.dir/src.c.o -o cmTC_3a21f 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WFORMAT_SECURITY_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_7c02f/fast && /usr/bin/make  -f CMakeFiles/cmTC_7c02f.dir/build.make CMakeFiles/cmTC_7c02f.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7c02f.dir/src.c.o
+/usr/bin/cc -DIS_WFORMAT_SECURITY_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat    -Wformat-security -o CMakeFiles/cmTC_7c02f.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_7c02f
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c02f.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat  CMakeFiles/cmTC_7c02f.dir/src.c.o -o cmTC_7c02f 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Determining if the prototype qsort_r exists for GIT_QSORT_R_GNU passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_5c052/fast && /usr/bin/make  -f CMakeFiles/cmTC_5c052.dir/build.make CMakeFiles/cmTC_5c052.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5c052.dir/CheckPrototypeDefinition.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_5c052.dir/CheckPrototypeDefinition.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c: In function ‘qsort_r’:
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:20: warning: unused parameter ‘base’ [-Wunused-parameter]
+   14 | void qsort_r(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *arg) {
+      |              ~~~~~~^~~~
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:33: warning: unused parameter ‘nmemb’ [-Wunused-parameter]
+   14 | void qsort_r(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *arg) {
+      |                          ~~~~~~~^~~~~
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:47: warning: unused parameter ‘size’ [-Wunused-parameter]
+   14 | void qsort_r(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *arg) {
+      |                                        ~~~~~~~^~~~
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:59: warning: unused parameter ‘compar’ [-Wunused-parameter]
+   14 | void qsort_r(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *arg) {
+      |                                                     ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:110: warning: unused parameter ‘arg’ [-Wunused-parameter]
+   14 | void qsort_r(void *base, size_t nmemb, size_t size, int (*compar)(const void *, const void *, void *), void *arg) {
+      |                                                                                                        ~~~~~~^~~
+/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-documentation-deprecated-sync’
+Linking C executable cmTC_5c052
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c052.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_5c052.dir/CheckPrototypeDefinition.c.o -o cmTC_5c052 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function getentropy exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_60faf/fast && /usr/bin/make  -f CMakeFiles/cmTC_60faf.dir/build.make CMakeFiles/cmTC_60faf.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_60faf.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=getentropy -o CMakeFiles/cmTC_60faf.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_60faf
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_60faf.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=getentropy CMakeFiles/cmTC_60faf.dir/CheckFunctionExists.c.o -o cmTC_60faf 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function clock_gettime exists in the rt passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_c2452/fast && /usr/bin/make  -f CMakeFiles/cmTC_c2452.dir/build.make CMakeFiles/cmTC_c2452.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c2452.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=clock_gettime -o CMakeFiles/cmTC_c2452.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_c2452
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c2452.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=clock_gettime CMakeFiles/cmTC_c2452.dir/CheckFunctionExists.c.o -o cmTC_c2452   -L/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/time.h  -Wl,-rpath,/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/time.h -lrt 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Performing C SOURCE FILE Test IS_WIMPLICIT_FALLTHROUGH_1_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_d2f84/fast && /usr/bin/make  -f CMakeFiles/cmTC_d2f84.dir/build.make CMakeFiles/cmTC_d2f84.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d2f84.dir/src.c.o
+/usr/bin/cc -DIS_WIMPLICIT_FALLTHROUGH_1_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security    -Wimplicit-fallthrough=1 -o CMakeFiles/cmTC_d2f84.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d2f84
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d2f84.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_d2f84.dir/src.c.o -o cmTC_d2f84 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Determining if the include file dirent.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_bbc4a/fast && /usr/bin/make  -f CMakeFiles/cmTC_bbc4a.dir/build.make CMakeFiles/cmTC_bbc4a.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_bbc4a.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_bbc4a.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_bbc4a
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bbc4a.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_bbc4a.dir/CheckIncludeFile.c.o -o cmTC_bbc4a 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_f7588/fast && /usr/bin/make  -f CMakeFiles/cmTC_f7588.dir/build.make CMakeFiles/cmTC_f7588.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f7588.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_f7588.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_f7588
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7588.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_f7588.dir/CheckIncludeFile.c.o -o cmTC_f7588 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_e0f13/fast && /usr/bin/make  -f CMakeFiles/cmTC_e0f13.dir/build.make CMakeFiles/cmTC_e0f13.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e0f13.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_e0f13.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_e0f13
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0f13.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_e0f13.dir/CheckIncludeFile.c.o -o cmTC_e0f13 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/stat.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_317af/fast && /usr/bin/make  -f CMakeFiles/cmTC_317af.dir/build.make CMakeFiles/cmTC_317af.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_317af.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_317af.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_317af
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_317af.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_317af.dir/CheckIncludeFile.c.o -o cmTC_317af 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_fd6ad/fast && /usr/bin/make  -f CMakeFiles/cmTC_fd6ad.dir/build.make CMakeFiles/cmTC_fd6ad.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fd6ad.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_fd6ad.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_fd6ad
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fd6ad.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_fd6ad.dir/CheckIncludeFile.c.o -o cmTC_fd6ad 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file unistd.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_62b4e/fast && /usr/bin/make  -f CMakeFiles/cmTC_62b4e.dir/build.make CMakeFiles/cmTC_62b4e.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_62b4e.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_62b4e.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_62b4e
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_62b4e.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_62b4e.dir/CheckIncludeFile.c.o -o cmTC_62b4e 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function bcopy exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_4f879/fast && /usr/bin/make  -f CMakeFiles/cmTC_4f879.dir/build.make CMakeFiles/cmTC_4f879.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4f879.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=bcopy -o CMakeFiles/cmTC_4f879.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘bcopy’; expected ‘void(const void *, void *, long unsigned int)’ [-Wbuiltin-declaration-mismatch]
+/usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+    7 |   CHECK_FUNCTION_EXISTS(void);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+cc1: warning: unrecognized command line option ‘-Wno-documentation-deprecated-sync’
+Linking C executable cmTC_4f879
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4f879.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=bcopy CMakeFiles/cmTC_4f879.dir/CheckFunctionExists.c.o -o cmTC_4f879 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function memmove exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_fd332/fast && /usr/bin/make  -f CMakeFiles/cmTC_fd332.dir/build.make CMakeFiles/cmTC_fd332.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fd332.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=memmove -o CMakeFiles/cmTC_fd332.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+<command-line>: warning: conflicting types for built-in function ‘memmove’; expected ‘void *(void *, const void *, long unsigned int)’ [-Wbuiltin-declaration-mismatch]
+/usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c:7:3: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+    7 |   CHECK_FUNCTION_EXISTS(void);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+/usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c:1:1: note: ‘memmove’ is declared in header ‘<string.h>’
+  +++ |+#include <string.h>
+    1 | #ifdef CHECK_FUNCTION_EXISTS
+cc1: warning: unrecognized command line option ‘-Wno-documentation-deprecated-sync’
+Linking C executable cmTC_fd332
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fd332.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=memmove CMakeFiles/cmTC_fd332.dir/CheckFunctionExists.c.o -o cmTC_fd332 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function strerror exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_968f0/fast && /usr/bin/make  -f CMakeFiles/cmTC_968f0.dir/build.make CMakeFiles/cmTC_968f0.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_968f0.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=strerror -o CMakeFiles/cmTC_968f0.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_968f0
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_968f0.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=strerror CMakeFiles/cmTC_968f0.dir/CheckFunctionExists.c.o -o cmTC_968f0 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function strtoll exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_f576c/fast && /usr/bin/make  -f CMakeFiles/cmTC_f576c.dir/build.make CMakeFiles/cmTC_f576c.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f576c.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=strtoll -o CMakeFiles/cmTC_f576c.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f576c
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f576c.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=strtoll CMakeFiles/cmTC_f576c.dir/CheckFunctionExists.c.o -o cmTC_f576c 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the function strtoq exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_d715a/fast && /usr/bin/make  -f CMakeFiles/cmTC_d715a.dir/build.make CMakeFiles/cmTC_d715a.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d715a.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=strtoq -o CMakeFiles/cmTC_d715a.dir/CheckFunctionExists.c.o -c /usr/local/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d715a
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d715a.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=strtoq CMakeFiles/cmTC_d715a.dir/CheckFunctionExists.c.o -o cmTC_d715a 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_aaea3/fast && /usr/bin/make  -f CMakeFiles/cmTC_aaea3.dir/build.make CMakeFiles/cmTC_aaea3.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_aaea3.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_aaea3.dir/CheckIncludeFile.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_aaea3
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aaea3.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_aaea3.dir/CheckIncludeFile.c.o -o cmTC_aaea3 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of long long passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_23e08/fast && /usr/bin/make  -f CMakeFiles/cmTC_23e08.dir/build.make CMakeFiles/cmTC_23e08.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_23e08.dir/LONG_LONG.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_23e08.dir/LONG_LONG.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CheckTypeSize/LONG_LONG.c
+Linking C executable cmTC_23e08
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_23e08.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_23e08.dir/LONG_LONG.c.o -o cmTC_23e08 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining size of unsigned long long passed with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_b8fc6/fast && /usr/bin/make  -f CMakeFiles/cmTC_b8fc6.dir/build.make CMakeFiles/cmTC_b8fc6.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b8fc6.dir/UNSIGNED_LONG_LONG.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_b8fc6.dir/UNSIGNED_LONG_LONG.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CheckTypeSize/UNSIGNED_LONG_LONG.c
+Linking C executable cmTC_b8fc6
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b8fc6.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_b8fc6.dir/UNSIGNED_LONG_LONG.c.o -o cmTC_b8fc6 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+
+Performing C SOURCE FILE Test IS_WNO_UNUSED_FUNCTION_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_74f2d/fast && /usr/bin/make  -f CMakeFiles/cmTC_74f2d.dir/build.make CMakeFiles/cmTC_74f2d.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_74f2d.dir/src.c.o
+/usr/bin/cc -DIS_WNO_UNUSED_FUNCTION_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security    -Wno-unused-function -o CMakeFiles/cmTC_74f2d.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_74f2d
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_74f2d.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  CMakeFiles/cmTC_74f2d.dir/src.c.o -o cmTC_74f2d 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WNO_IMPLICIT_FALLTHROUGH_SUPPORTED succeeded with the following output:
+Change Dir: /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_52544/fast && /usr/bin/make  -f CMakeFiles/cmTC_52544.dir/build.make CMakeFiles/cmTC_52544.dir/build
+make[1]: Entering directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_52544.dir/src.c.o
+/usr/bin/cc -DIS_WNO_IMPLICIT_FALLTHROUGH_SUPPORTED  -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -Wno-unused-function    -Wno-implicit-fallthrough -o CMakeFiles/cmTC_52544.dir/src.c.o -c /home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_52544
+/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_52544.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -Wno-unused-function  CMakeFiles/cmTC_52544.dir/src.c.o -o cmTC_52544 
+make[1]: Leaving directory '/home/runner/work/licensee/licensee/vendor/bundle/ruby/3.1.0/gems/rugged-1.4.2/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main(void) { return 0; }
