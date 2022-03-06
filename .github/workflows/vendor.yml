@@ -1,0 +1,31 @@
+name: Vendor
+
+on:
+  schedule: 
+    - cron: "0 0 * * 0"
+  workflow_dispatch: {}
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true 
+
+      - name: Vendor Licenses
+        run: script/vendor-licenses
+
+      - name: Vendor SPDX
+        run: script/vendor-spdx
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+            commit-message: Update vendored licenses and SPDX
+            title: Update vendored licenses and SPDX
