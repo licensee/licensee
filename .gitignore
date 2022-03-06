@@ -5,6 +5,7 @@ Gemfile.lock
 /coverage
 .env
 .ruby-version
+.bundle/config
 
 vendor/html5shiv
 vendor/jquery
