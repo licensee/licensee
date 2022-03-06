@@ -10,12 +10,16 @@
     <text>
       <titleText>
          <p>Mozilla Public License Version 2.0</p>
+	 <optional><p>==================================</p></optional>
       </titleText>
 
       <list>
         <item>
-            <bullet>1.</bullet>
-          Definitions
+    		<p>
+			<bullet>1.</bullet>
+			Definitions
+		</p>
+		<optional><p>--------------</p></optional>
           <list>
                <item>
                   <bullet>1.1.</bullet>
@@ -116,9 +120,12 @@
             </item>
             </list>
         </item>
-        <item>
-            <bullet>2.</bullet>
-          License Grants and Conditions
+	<item>
+		<p>
+            		<bullet>2.</bullet>
+			License Grants and Conditions
+		</p>
+		<optional><p>--------------------------------</p></optional>
           <list>
                <item>
                   <bullet>2.1.</bullet>
@@ -207,9 +214,12 @@
                </item>
             </list>
         </item>
-        <item>
-            <bullet>3.</bullet>
-          Responsibilities
+	<item>
+		<p>
+            		<bullet>3.</bullet>
+		        Responsibilities
+		</p>
+		<optional><p>-------------------</p></optional>
           <list>
                <item>
                   <bullet>3.1.</bullet>
@@ -282,9 +292,12 @@
                </item>
             </list>
         </item>
-        <item>
-            <bullet>4.</bullet>
-          Inability to Comply Due to Statute or Regulation
+	<item>
+		<p>
+            		<bullet>4.</bullet>
+          		Inability to Comply Due to Statute or Regulation
+		</p>
+		<optional><p>---------------------------------------------------</p></optional>
             <p>If it is impossible for You to comply with any of the terms of this License with respect to
                  some or all of the Covered Software due to statute, judicial order, or regulation then
                  You must: (a) comply with the terms of this License to the maximum extent possible;
@@ -296,8 +309,11 @@
           </p>
         </item>
         <item>
-            <bullet>5.</bullet>
-          Termination
+		<p>
+			<bullet>5.</bullet>
+		        Termination
+		</p>
+		<optional><p>--------------</p></optional>
           <list>
                <item>
                   <bullet>5.1.</bullet>
@@ -328,9 +344,13 @@
             </item>
             </list>
         </item>
-        <item>
-            <bullet>6.</bullet>
-          Disclaimer of Warranty
+	<item>
+		<optional><p>************************************************************************</p></optional>
+		<p>
+	        	<bullet>6.</bullet>
+	          	Disclaimer of Warranty
+		</p>
+		<optional><p>*  -------------------------                                           *</p></optional>
             <p>Covered Software is provided under this License on an "as is" basis, without
                  warranty of any kind, either expressed, implied, or statutory, including, without
                  limitation, warranties that the Covered Software is free of defects, merchantable, fit
@@ -341,10 +361,15 @@
                  part of this License. No use of any Covered Software is authorized under this License
                  except under this disclaimer.
           </p>
+		<optional><p>************************************************************************</p></optional>
         </item>
         <item>
-            <bullet>7.</bullet>
-          Limitation of Liability
+		<optional><p>************************************************************************</p></optional>
+		<p>
+            		<bullet>7.</bullet>
+          		Limitation of Liability
+		</p>
+		<optional><p>*  --------------------------                                          *</p></optional>
             <p>Under no circumstances and under no legal theory, whether tort (including negligence),
                  contract, or otherwise, shall any Contributor, or anyone who distributes Covered
                  Software as permitted above, be liable to You for any direct, indirect, special,
@@ -357,10 +382,14 @@
                  Some jurisdictions do not allow the exclusion or limitation of incidental or
                  consequential damages, so this exclusion and limitation may not apply to You.
           </p>
+		<optional><p>************************************************************************</p></optional>
         </item>
-        <item>
-            <bullet>8.</bullet>
-          Litigation
+	<item>
+		<p>
+            		<bullet>8.</bullet>
+          		Litigation
+		</p>
+		<optional><p>-------------</p></optional>
             <p>Any litigation relating to this License may be brought only in the courts of a jurisdiction
                  where the defendant maintains its principal place of business and such litigation
                  shall be governed by laws of that jurisdiction, without reference to its
@@ -368,9 +397,12 @@
                  ability to bring cross-claims or counter-claims.
           </p>
         </item>
-        <item>
-            <bullet>9.</bullet>
-          Miscellaneous
+	<item>
+		<p>
+            		<bullet>9.</bullet>
+          		Miscellaneous
+		</p>
+		<optional><p>----------------</p></optional>
             <p>This License represents the complete agreement concerning the subject matter hereof. If any
                  provision of this License is held to be unenforceable, such provision shall be
                  reformed only to the extent necessary to make it enforceable. Any law or regulation
@@ -378,9 +410,12 @@
                  shall not be used to construe this License against a Contributor.
           </p>
         </item>
-        <item>
-            <bullet>10.</bullet>
-          Versions of the License
+	<item>
+		<p>
+            		<bullet>10.</bullet>
+          		Versions of the License
+		</p>
+		<optional><p>---------------------------</p></optional>
           <list>
                <item>
                   <bullet>10.1.</bullet>
@@ -421,7 +456,8 @@
 
       <optional>
          <p>Exhibit A - Source Code Form License Notice</p>
-         <standardLicenseHeader>
+         <optional><p>-------------------------------------------</p></optional>
+	 <standardLicenseHeader>
             <p>This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL
          was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.</p>
          </standardLicenseHeader>
@@ -430,7 +466,8 @@
          likely to look for such a notice.</p>
          <p>You may add additional accurate notices of copyright ownership.</p>
          <p>Exhibit B - "Incompatible With Secondary Licenses" Notice</p>
-         <p>This Source Code Form is "Incompatible With Secondary Licenses", as defined by the Mozilla
+         <optional><p>---------------------------------------------------------</p></optional>
+	 <p>This Source Code Form is "Incompatible With Secondary Licenses", as defined by the Mozilla
          Public License, v. 2.0.</p>
       </optional>
     </text>
