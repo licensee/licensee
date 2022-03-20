@@ -24,6 +24,12 @@ jobs:
       - name: Vendor SPDX
         run: script/vendor-spdx
 
+      - name: Update test fixture
+        run: script/dump-detect-json-fixture
+
+      - name: Update license hashes
+        run: script/hash-licenses
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
