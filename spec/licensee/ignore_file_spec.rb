@@ -29,7 +29,7 @@ RSpec.describe Licensee::IgnoreFile do
   end
 
   it 'parses paths' do
-    expect(ignore_file.ignored_paths).to eql(['licensee.gemspec', 'script/detect-license.sh'])
+    expect(ignore_file.ignored_paths).to eql(['licensee.gemspec', 'script/detect-license.sh', '.licensee-ignore'])
   end
 
   context 'with an ignored file' do
