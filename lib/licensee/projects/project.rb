@@ -67,18 +67,9 @@ module Licensee
 
       def readme_file
         return unless detect_readme?
-        return @readme if defined? @readme
+        return @readme_file if defined? @readme_file
 
-        @readme = begin
-          content, file = find_file do |n|
-            Licensee::ProjectFiles::ReadmeFile.name_score(n)
-          end
-          content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
-
-          return unless content && file
-
-          Licensee::ProjectFiles::ReadmeFile.new(content, file)
-        end
+        @readme_file = find_and_create(Licensee::ProjectFiles::ReadmeFile, :license_content)
       end
       alias readme readme_file
 
@@ -86,34 +77,28 @@ module Licensee
         return unless detect_packages?
         return @package_file if defined? @package_file
 
-        @package_file = begin
-          content, file = find_file do |n|
-            Licensee::ProjectFiles::PackageManagerFile.name_score(n)
-          end
-
-          return unless content && file
-
-          Licensee::ProjectFiles::PackageManagerFile.new(content, file)
-        end
+        @package_file = find_and_create(Licensee::ProjectFiles::PackageManagerFile)
       end
 
       def ignore_file
         return @ignore_file if defined? @ignore_file
 
+        # Needed to prevent an infinite loop when find_file tries to find the ignore file
         @ignore_file = nil
-        found = begin
-          content, file = find_file do |n|
-            Licensee::IgnoreFile.name_score(n)
-            Licensee::IgnoreFile.name_score(n)
-          end
 
-          Licensee::IgnoreFile.new(content, file) if content && file
-        end
-
-        @ignore_file = found || Licensee::IgnoreFile.default
+        @ignore_file = find_and_create(Licensee::IgnoreFile) || Licensee::IgnoreFile.default
       end
 
       private
+
+      # Given a content file class, finds that file using the name_score method and
+      # creates a new instance of that class from the matched file
+      def find_and_create(klass, content_method = nil)
+        content, file = find_file { |n| klass.name_score(n) }
+        content = klass.public_send(content_method, content) if content_method
+
+        klass.new(content, file) if content && file
+      end
 
       def lgpl?
         return false unless licenses.count == 2 && license_files.count == 2

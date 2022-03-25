@@ -54,7 +54,7 @@ module Licensee
     alias relative_path path_relative_to_root
 
     def ==(other)
-      content = other.content && filename == other.filename && directory == other.directory
+      %i[content filename directory].all? { |a| public_send(a) == other.public_send(a) }
     end
     alias eql? ==
   end
