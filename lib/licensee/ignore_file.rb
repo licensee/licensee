@@ -2,6 +2,9 @@
 
 module Licensee
   class IgnoreFile < ContentFile
+    include Licensee::HashHelper
+    HASH_METHODS = %i[ignored_paths].freeze
+
     FILENAME = '.licensee-ignore'
 
     # Default IgnoreFile to maintain bacckward compatability

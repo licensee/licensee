@@ -13,7 +13,7 @@ module Licensee
       alias detect_packages? detect_packages
 
       include Licensee::HashHelper
-      HASH_METHODS = %i[licenses matched_files].freeze
+      HASH_METHODS = %i[licenses matched_files ignore_file].freeze
 
       def initialize(detect_packages: false, detect_readme: false)
         @detect_packages = detect_packages

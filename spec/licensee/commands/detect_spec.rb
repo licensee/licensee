@@ -17,6 +17,7 @@ RSpec.describe 'detect command' do
     {
       'License'       => 'MIT',
       'Matched files' => 'LICENSE.md',
+      'Ignored files' => 'licensee.gemspec, .licensee-ignore',
       'LICENSE.md'    => {
         'Content hash' => hash,
         'Attribution'  => 'Copyright (c) 2014-2021 Ben Balter and Licensee contributors',

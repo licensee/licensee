@@ -328,7 +328,8 @@
       let(:expected) do
         {
           licenses:      subject.licenses.map(&:to_h),
-          matched_files: subject.matched_files.map(&:to_h)
+          matched_files: subject.matched_files.map(&:to_h),
+          ignore_file:   subject.ignore_file.to_h
         }
       end
 
