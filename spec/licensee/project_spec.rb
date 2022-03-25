@@ -182,7 +182,7 @@
       end
 
       it 'ignores ignored files' do
-        expect(subject.files).not_to include('licensee.gemspec')
+        expect(subject.licensee).not_to include('detect-license.sh')
       end
 
       it 'detects the license' do
