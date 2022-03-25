@@ -66,4 +66,16 @@ RSpec.describe Licensee::IgnoreFile do
       expect(ignore_file.ignored?(file)).to be true
     end
   end
+
+  context 'the default ignore file' do
+    subject(:ignore_file) { described_class.default }
+
+    ['license_test.go', 'license-checks.xml'].each do |filename|
+      let(:filename) { filename }
+
+      it "ignores #{filename}" do
+        expect(ignore_file.ignored?(file)).to be true
+      end
+    end
+  end
 end

@@ -52,5 +52,10 @@ module Licensee
       File.join(directory, filename)
     end
     alias relative_path path_relative_to_root
+
+    def ==(other)
+      content = other.content && filename == other.filename && directory == other.directory
+    end
+    alias eql? ==
   end
 end

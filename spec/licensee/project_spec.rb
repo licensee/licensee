@@ -98,8 +98,8 @@
       expect(subject.package_file).to be_nil
     end
 
-    it "doesn't err with no ignore file" do
-      expect(subject.ignore_file).to be_nil
+    it 'Returns the default ignore file when no ignore file is present' do
+      expect(subject.ignore_file).to eql(Licensee::IgnoreFile.default)
     end
 
     context 'reading files' do

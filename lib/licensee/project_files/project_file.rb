@@ -45,7 +45,7 @@ module Licensee
         return false unless is_a?(LicenseFile)
         return false unless matcher.is_a?(Matchers::Copyright)
 
-        filename =~ /\Acopyright(?:#{LicenseFile::OTHER_EXT_REGEX})?\z/io
+        filename =~ /\Acopyright(?:#{LicenseFile::ANY_EXT_REGEX})?\z/io
       end
 
       def content_hash

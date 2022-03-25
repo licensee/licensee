@@ -3,7 +3,13 @@
 module Licensee
   class IgnoreFile < ContentFile
     FILENAME = '.licensee-ignore'
-    DEFAULTS = %w[xml go gemspec].map { |ext| "**.#{ext}" }.freeze
+
+    # Default IgnoreFile to maintain bacckward compatability
+    DEFAULTS = %w[xml go].map { |ext| "*.#{ext}" }.freeze
+
+    def self.default
+      @default ||= new(DEFAULTS.join("\n"))
+    end
 
     def ignored?(file)
       ignored_paths.any? { |pattern| File.fnmatch(pattern, file[:name]) }

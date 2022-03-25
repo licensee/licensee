@@ -101,16 +101,16 @@ module Licensee
         return @ignore_file if defined? @ignore_file
 
         @ignore_file = nil
-        @ignore_file = begin
+        found = begin
           content, file = find_file do |n|
             Licensee::IgnoreFile.name_score(n)
             Licensee::IgnoreFile.name_score(n)
           end
 
-          return unless content && file
-
-          Licensee::IgnoreFile.new(content, file)
+          Licensee::IgnoreFile.new(content, file) if content && file
         end
+
+        @ignore_file = found || Licensee::IgnoreFile.default
       end
 
       private

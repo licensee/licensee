@@ -12,8 +12,8 @@ module Licensee
       # Regex to match any extension except .spdx or .header
       LICENSE_EXT_REGEX = %r{\.(?!spdx|header)[^./]+\z}i.freeze
 
-      # Regex to match any extension except a few unlikely as license
-      # texts with complex filenames
+      # No longer used. Replaced by default IgnoreFile
+      # Maintianed for backward compatability
       OTHER_EXT_REGEX = %r{\.(?!xml|go|gemspec)[^./]+\z}i.freeze
 
       # Regex to match any extension
@@ -33,22 +33,22 @@ module Licensee
 
       # Hash of Regex => score with which to score potential license files
       FILENAME_REGEXES = {
-        /\A#{LICENSE_REGEX}\z/                                => 1.00,  # LICENSE
-        /\A#{LICENSE_REGEX}#{PREFERRED_EXT_REGEX}\z/          => 0.95,  # LICENSE.md
-        /\A#{COPYING_REGEX}\z/                                => 0.90,  # COPYING
-        /\A#{COPYING_REGEX}#{PREFERRED_EXT_REGEX}\z/          => 0.85,  # COPYING.md
-        /\A#{LICENSE_REGEX}#{LICENSE_EXT_REGEX}\z/            => 0.80,  # LICENSE.textile
-        /\A#{COPYING_REGEX}#{ANY_EXT_REGEX}\z/                => 0.75,  # COPYING.textile
-        /\A#{LICENSE_REGEX}[-_][^.]*#{OTHER_EXT_REGEX}?\z/    => 0.70,  # LICENSE-MIT
-        /\A#{COPYING_REGEX}[-_][^.]*#{OTHER_EXT_REGEX}?\z/    => 0.65,  # COPYING-MIT
-        /\A\w+[-_]#{LICENSE_REGEX}[^.]*#{OTHER_EXT_REGEX}?\z/ => 0.60,  # MIT-LICENSE-MIT
-        /\A\w+[-_]#{COPYING_REGEX}[^.]*#{OTHER_EXT_REGEX}?\z/ => 0.55,  # MIT-COPYING
-        /\A#{OFL_REGEX}#{PREFERRED_EXT_REGEX}/                => 0.50,  # OFL.md
-        /\A#{OFL_REGEX}#{OTHER_EXT_REGEX}/                    => 0.45,  # OFL.textile
-        /\A#{OFL_REGEX}\z/                                    => 0.40,  # OFL
-        /\A#{PATENTS_REGEX}\z/                                => 0.35,  # PATENTS
-        /\A#{PATENTS_REGEX}#{OTHER_EXT_REGEX}\z/              => 0.30,  # PATENTS.txt
-        //                                                    => 0.00   # Catch all
+        /\A#{LICENSE_REGEX}\z/                              => 1.00,  # LICENSE
+        /\A#{LICENSE_REGEX}#{PREFERRED_EXT_REGEX}\z/        => 0.95,  # LICENSE.md
+        /\A#{COPYING_REGEX}\z/                              => 0.90,  # COPYING
+        /\A#{COPYING_REGEX}#{PREFERRED_EXT_REGEX}\z/        => 0.85,  # COPYING.md
+        /\A#{LICENSE_REGEX}#{LICENSE_EXT_REGEX}\z/          => 0.80,  # LICENSE.textile
+        /\A#{COPYING_REGEX}#{ANY_EXT_REGEX}\z/              => 0.75,  # COPYING.textile
+        /\A#{LICENSE_REGEX}[-_][^.]*#{ANY_EXT_REGEX}?\z/    => 0.70,  # LICENSE-MIT
+        /\A#{COPYING_REGEX}[-_][^.]*#{ANY_EXT_REGEX}?\z/    => 0.65,  # COPYING-MIT
+        /\A\w+[-_]#{LICENSE_REGEX}[^.]*#{ANY_EXT_REGEX}?\z/ => 0.60,  # MIT-LICENSE-MIT
+        /\A\w+[-_]#{COPYING_REGEX}[^.]*#{ANY_EXT_REGEX}?\z/ => 0.55,  # MIT-COPYING
+        /\A#{OFL_REGEX}#{PREFERRED_EXT_REGEX}/              => 0.50, # OFL.md
+        /\A#{OFL_REGEX}#{ANY_EXT_REGEX}/                    => 0.45, # OFL.textile
+        /\A#{OFL_REGEX}\z/                                  => 0.40,  # OFL
+        /\A#{PATENTS_REGEX}\z/                              => 0.35,  # PATENTS
+        /\A#{PATENTS_REGEX}#{ANY_EXT_REGEX}\z/              => 0.30, # PATENTS.txt
+        //                                                  => 0.00 # Catch all
       }.freeze
 
       # CC-NC and CC-ND are not open source licenses and should not be
