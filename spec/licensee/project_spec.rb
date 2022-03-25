@@ -174,7 +174,7 @@
     context 'ignore file' do
       subject { described_class.new(path, detect_readme: true) }
 
-      let(:fixture) { 'ignore_file' }
+      let(:fixture) { 'ignore-file' }
 
       it 'returns the ignore file' do
         expect(subject.ignore_file).to be_a(Licensee::IgnoreFile)
