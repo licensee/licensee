@@ -98,6 +98,10 @@
       expect(subject.package_file).to be_nil
     end
 
+    it "doesn't err with no ignore file" do
+      expect(subject.ignore_file).to be_nil
+    end
+
     context 'reading files' do
       let(:files) { subject.send(:files) }
 
@@ -163,6 +167,25 @@
 
       it 'returns the license' do
         expect(subject.license).to be_a(Licensee::License)
+        expect(subject.license).to eql(mit)
+      end
+    end
+
+    context 'ignore file' do
+      subject { described_class.new(path, detect_readme: true) }
+
+      let(:fixture) { 'ignore_file' }
+
+      it 'returns the ignore file' do
+        expect(subject.ignore_file).to be_a(Licensee::IgnoreFile)
+        expect(subject.ignore_file.filename).to eql('.licensee-ignore')
+      end
+
+      it 'ignores ignored files' do
+        expect(subject.files).not_to include('licensee.gemspec')
+      end
+
+      it 'detects the license' do
         expect(subject.license).to eql(mit)
       end
     end

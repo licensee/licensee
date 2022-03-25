@@ -97,6 +97,21 @@ module Licensee
         end
       end
 
+      def ignore_file
+        return @ignore_file if defined? @ignore_file
+
+        @ignore_file = nil
+        @ignore_file = begin
+          content, file = find_file do |n|
+            Licensee::IgnoreFile.name_score(n)
+          end
+
+          return unless content && file
+
+          Licensee::IgnoreFile.new(content, file)
+        end
+      end
+
       private
 
       def lgpl?
@@ -113,6 +128,7 @@ module Licensee
 
         found = files.map { |file| file.merge(score: yield(file[:name])) }
         found.select! { |file| file[:score].positive? }
+        found.reject! { |file| ignore_file.ignored?(file) } if ignore_file
         found.sort { |a, b| b[:score] <=> a[:score] }
       end
 

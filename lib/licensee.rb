@@ -16,6 +16,8 @@ module Licensee
   autoload :Matchers, 'licensee/matchers'
   autoload :Projects, 'licensee/projects'
   autoload :ProjectFiles, 'licensee/project_files'
+  autoload :IgnoreFile, 'licensee/ignore_file'
+  autoload :ContentFile, 'licensee/content_file'
 
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 98
