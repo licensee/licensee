@@ -3,6 +3,8 @@
 RSpec.describe Licensee::IgnoreFile do
   subject(:ignore_file) { described_class.new(content, file) }
 
+  let(:filename) { 'license.txt' }
+  let(:file) { { name: filename } }
   let(:content) do
     <<-CONTENT
       licensee.gemspec
@@ -10,21 +12,21 @@ RSpec.describe Licensee::IgnoreFile do
     CONTENT
   end
 
-  let(:file) { '.licensee-ignore' }
+  let(:ignore_file_path) { '.licensee-ignore' }
 
   it 'stores the content' do
     expect(ignore_file.content).to eql(content)
   end
 
   it 'detects ignore files' do
-    expect(described_class.name_score(file)).to be(1)
+    expect(described_class.name_score(ignore_file_path)).to be(1)
   end
 
   context 'with a non-matching filename' do
-    let(:file) { 'foo.txt' }
+    let(:filename) { 'foo.txt' }
 
     it 'does not detect ignore files' do
-      expect(described_class.name_score(file)).to be(0)
+      expect(described_class.name_score(filename)).to be(0)
     end
   end
 
@@ -36,7 +38,7 @@ RSpec.describe Licensee::IgnoreFile do
     let(:filename) { 'licensee.gemspec' }
 
     it 'is ignored' do
-      expect(ignore_file.ignored?(filename)).to be true
+      expect(ignore_file.ignored?(file)).to be true
     end
   end
 
@@ -44,7 +46,7 @@ RSpec.describe Licensee::IgnoreFile do
     let(:filename) { 'script/detect-license.sh' }
 
     it 'is ignored' do
-      expect(ignore_file.ignored?(filename)).to be true
+      expect(ignore_file.ignored?(file)).to be true
     end
   end
 
@@ -52,7 +54,16 @@ RSpec.describe Licensee::IgnoreFile do
     let(:filename) { 'LICENSE.txt' }
 
     it 'is ignored' do
-      expect(ignore_file.ignored?(filename)).to be false
+      expect(ignore_file.ignored?(file)).to be false
+    end
+  end
+
+  context 'with a glob pattern' do
+    let(:content) { '*.txt' }
+    let(:filename) { 'LICENSE.txt' }
+
+    it 'is ignored' do
+      expect(ignore_file.ignored?(file)).to be true
     end
   end
 end

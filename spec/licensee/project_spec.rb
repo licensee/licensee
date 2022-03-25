@@ -182,7 +182,7 @@
       end
 
       it 'ignores ignored files' do
-        expect(subject.licensee).not_to include('detect-license.sh')
+        expect(subject.license_files.map(&:filename)).not_to include('detect-license.sh')
       end
 
       it 'detects the license' do

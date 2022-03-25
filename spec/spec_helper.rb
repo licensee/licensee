@@ -45,7 +45,8 @@ def fixture_contents(fixture)
 end
 
 def fixture_root_files(fixture)
-  Dir["#{fixture_path(fixture)}/*"]
+  pattern = ['*', Licensee::IgnoreFile::FILENAME].map { |f| "#{fixture_path(fixture)}/#{f}" }
+  Dir["{#{pattern.join(',')}}"]
 end
 
 def fixture_root_contents_from_api(fixture)

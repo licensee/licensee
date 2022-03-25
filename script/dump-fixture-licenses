@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'licensee'
 require_relative '../spec/spec_helper'
 
 fixtures_licenses = {}

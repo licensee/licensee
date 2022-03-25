@@ -104,6 +104,7 @@ module Licensee
         @ignore_file = begin
           content, file = find_file do |n|
             Licensee::IgnoreFile.name_score(n)
+            Licensee::IgnoreFile.name_score(n)
           end
 
           return unless content && file
