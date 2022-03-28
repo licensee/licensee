@@ -52,17 +52,21 @@ module Licensee
       end
 
       def license_files
-        @license_files ||= if files.empty? || files.nil?
-                             []
-                           else
-                             files = find_files do |n|
-                               Licensee::ProjectFiles::LicenseFile.name_score(n)
-                             end
-                             files = files.map do |file|
-                               Licensee::ProjectFiles::LicenseFile.new(load_file(file), file)
-                             end
-                             prioritize_lgpl(files)
-                           end
+        @license_files ||= begin
+          files = find_files { |n| Licensee::ProjectFiles::LicenseFile.name_score(n) }
+
+          # If this is an FSProject and an explicit license path was provided,
+          # Filter out any files that don't match the explicit license path
+          if is_a?(Licensee::Projects::FSProject) && File.file?(@path)
+            files = files.select { |f| f[:dir] == '.' && File.basename(@path) == f[:name] }
+          end
+
+          files = files.map do |file|
+            Licensee::ProjectFiles::LicenseFile.new(load_file(file), file)
+          end
+
+          prioritize_lgpl(files)
+        end
       end
 
       def readme_file

@@ -130,8 +130,11 @@
 
           it 'looks for licenses in parent directories up to the search root' do
             # should not include the license in 'license-in-parent-folder' dir
-            expect(files.count).to be(1)
-            expect(files.first[:name]).to eql('LICENSE.txt')
+            expected = [
+              { name: '.keep', dir: '.' },
+              { name: 'LICENSE.txt', dir: '..' }
+            ]
+            expect(files).to eql(expected)
           end
         end
 
@@ -139,7 +142,8 @@
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
 
           it 'looks for licenses in current directory only' do
-            expect(files.count).to be(0)
+            expected = [{ name: '.keep', dir: '.' }]
+            expect(files).to eql(expected)
           end
         end
       end

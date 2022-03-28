@@ -17,7 +17,7 @@ RSpec.describe 'detect command' do
     {
       'License'       => 'MIT',
       'Matched files' => 'LICENSE.md',
-      'Ignored files' => 'licensee.gemspec, .licensee-ignore',
+      'Ignored files' => 'licensee.gemspec, .licensee.yml',
       'LICENSE.md'    => {
         'Content hash' => hash,
         'Attribution'  => 'Copyright (c) 2014-2021 Ben Balter and Licensee contributors',
@@ -41,14 +41,7 @@ RSpec.describe 'detect command' do
       end
 
       it 'returns the exected values' do
-        hash = expected.dup
-
-        if name == 'License path'
-          hash.delete('licensee.gemspec')
-          hash['Matched files'] = 'LICENSE.md'
-        end
-
-        expect(parsed_output).to eql(hash)
+        expect(parsed_output).to eql(expected)
       end
     end
   end
