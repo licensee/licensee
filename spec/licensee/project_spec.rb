@@ -98,8 +98,8 @@
       expect(subject.package_file).to be_nil
     end
 
-    it 'Returns the default ignore file when no ignore file is present' do
-      expect(subject.ignore_file).to eql(Licensee::IgnoreFile.default)
+    it 'Does not error when no config file is present' do
+      expect(subject.config_file).to be_nil
     end
 
     context 'reading files' do
@@ -171,14 +171,22 @@
       end
     end
 
-    context 'ignore file' do
+    context 'config file' do
       subject { described_class.new(path, detect_readme: true) }
 
-      let(:fixture) { 'ignore-file' }
+      let(:fixture) { 'config-file' }
+      let(:hash) { subject.to_h }
+      let(:expected) do
+        {
+          licenses:      subject.licenses.map(&:to_h),
+          matched_files: subject.matched_files.map(&:to_h),
+          config_file:   subject.config_file.to_h
+        }
+      end
 
-      it 'returns the ignore file' do
-        expect(subject.ignore_file).to be_a(Licensee::IgnoreFile)
-        expect(subject.ignore_file.filename).to eql('.licensee-ignore')
+      it 'returns the config file' do
+        expect(subject.config_file).to be_a(Licensee::ConfigFile)
+        expect(subject.config_file.filename).to eql('.licensee.yml')
       end
 
       it 'ignores ignored files' do
@@ -187,6 +195,10 @@
 
       it 'detects the license' do
         expect(subject.license).to eql(mit)
+      end
+
+      it 'return the config in the hash' do
+        expect(hash).to eql(expected)
       end
     end
 
@@ -329,7 +341,7 @@
         {
           licenses:      subject.licenses.map(&:to_h),
           matched_files: subject.matched_files.map(&:to_h),
-          ignore_file:   subject.ignore_file.to_h
+          config_file:   nil
         }
       end
 

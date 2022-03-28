@@ -13,7 +13,7 @@ module Licensee
       alias detect_packages? detect_packages
 
       include Licensee::HashHelper
-      HASH_METHODS = %i[licenses matched_files ignore_file].freeze
+      HASH_METHODS = %i[licenses matched_files config_file].freeze
 
       def initialize(detect_packages: false, detect_readme: false)
         @detect_packages = detect_packages
@@ -80,13 +80,13 @@ module Licensee
         @package_file = find_and_create(Licensee::ProjectFiles::PackageManagerFile)
       end
 
-      def ignore_file
-        return @ignore_file if defined? @ignore_file
+      def config_file
+        return @config_file if defined? @config_file
 
-        # Needed to prevent an infinite loop when find_file tries to find the ignore file
-        @ignore_file = nil
+        # Needed to prevent an infinite loop when find_file tries to find the config file
+        @config_file = nil
 
-        @ignore_file = find_and_create(Licensee::IgnoreFile) || Licensee::IgnoreFile.default
+        @config_file = find_and_create(Licensee::ConfigFile)
       end
 
       private
@@ -114,7 +114,7 @@ module Licensee
 
         found = files.map { |file| file.merge(score: yield(file[:name])) }
         found.select! { |file| file[:score].positive? }
-        found.reject! { |file| ignore_file.ignored?(file) } if ignore_file
+        found.reject! { |file| config_file.ignored?(file) } if config_file
         found.sort { |a, b| b[:score] <=> a[:score] }
       end
 

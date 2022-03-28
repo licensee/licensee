@@ -92,10 +92,10 @@
       "attribution": "Copyright (c) 2014-2021 Ben Balter and Licensee contributors"
     }
   ],
-  "ignore_file": {
+  "config_file": {
     "ignored_paths": [
       "licensee.gemspec",
-      ".licensee-ignore"
+      ".licensee.yml"
     ]
   }
 }

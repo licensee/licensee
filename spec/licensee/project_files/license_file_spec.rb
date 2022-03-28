@@ -85,6 +85,8 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'not-the-ofl'         => 0.00,
       'README.txt'          => 0.00,
       '.pip-license-ignore' => 0.00,
+      'license-checks.xml'  => 0.00,
+      'license_test.go'     => 0.00,
       'licensee.gemspec'    => 0.00,
       'LICENSE.spdx'        => 0.00
 

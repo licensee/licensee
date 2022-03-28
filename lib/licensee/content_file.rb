@@ -2,7 +2,7 @@
 
 # ContentFile is a file within the Project that contain Content
 # It allows the minimum initialization, path, encoding normalization logic
-# to be shared between ProjectFiles and IgnoreFiles
+# to be shared between ProjectFiles and ConfigFiles
 #
 # ContentFiles will have @content and (meta) @data attributes set upon initialization
 module Licensee
