@@ -71,13 +71,20 @@ This means your project is compatible with licensee 1.0 up until 2.0. You can al
 ```ruby
 spec.add_dependency 'licensee', '~> 1.1'
 ```
-## `.licensee-ignore` file
+## `.licensee.yml` file
 
-If Licensee is detecting a non-license file as a license, you can instruct licensee to ignore that file by adding a `.licensee-ignore` file to the root of your project, with one filename to ignore per line. `.licensee-ignore` files follow a similar glob pattern to `.gitignore` files, so you can also use wildcards to ignore multiple files at once.
+If Licensee is detecting a non-license file as a license, you can instruct licensee to ignore that file by adding a `.licensee.yml` file to the root of your project, listing files you'd like licensee to ignore under the `ignore` key. Example:
 
-To maintain backwards compatibility, if no `.licensee-ignore` file is specified, Licensee will use the following default:
+```yml
+ignore:
+  - script/detect-license.sh
+  - not-a-license.txt
+```
+
+Ignored files follow a similar glob pattern to `.gitignore` files, so you can also use wildcards to ignore multiple files at once. Example:
 
 ```gitignore
-*.xml
-*.go
+ignore:
+  - *.sh
+  - not-*.txt
 ```
