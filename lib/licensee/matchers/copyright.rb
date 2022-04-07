@@ -6,7 +6,9 @@ module Licensee
       attr_reader :file
 
       COPYRIGHT_SYMBOLS = Regexp.union([/copyright/i, /\(c\)/i, "\u00A9", "\xC2\xA9"])
-      REGEX = /#{ContentHelper::START_REGEX}([_*\-\s]*#{COPYRIGHT_SYMBOLS}.*$)+$/i.freeze
+      MAIN_LINE_REGEX = /[_*\-\s]*#{COPYRIGHT_SYMBOLS}.*$/i.freeze
+      OPTIONAL_LINE_REGEX = /[_*\-\s]*with Reserved Font Name.*$/i.freeze
+      REGEX = /#{ContentHelper::START_REGEX}(#{MAIN_LINE_REGEX}#{OPTIONAL_LINE_REGEX}*)+$/i.freeze
       def match
         # NOTE: must use content, and not content_normalized here
         Licensee::License.find('no-license') if /#{REGEX}+\z/io.match?(file.content.strip)
