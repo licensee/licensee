@@ -42,6 +42,14 @@ RSpec.describe Licensee::Matchers::Copyright do
     end
   end
 
+  context 'with arbitrary additional notice line' do
+    let(:content) { "(c) Ben Balter\nwith foo bar baz" }
+
+    it "doesn't match" do
+      expect(subject.match).to be_nil
+    end
+  end
+
   context 'with a license with a copyright notice' do
     let(:content) { sub_copyright_info(mit) }
 
