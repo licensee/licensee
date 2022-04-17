@@ -32,7 +32,7 @@ To use licensee programmatically in your own Ruby project, add `gem 'licensee'` 
 To run licensee directly from source:
 
     gem install bundler
-    bundle install --path vendor/bundle
+    bundle install
     bundle exec bin/licensee
 
 On Windows, the last line needs to include the Ruby interpreter:
