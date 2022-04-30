@@ -35,7 +35,11 @@ module Licensee
       #
       # Returns a new Licensee::ProjectFile
       def initialize(content, metadata = {})
-        @content = content.dup
+        if content.dup.starts_with('---\n') and content.dup[4..].contains('\n---') { # Jekyll header
+          @content = content.dup[(content[4..].find("\n---").map(|i| i + 8))..]
+        } else {
+          @content = content.dup
+        }
         @content.force_encoding(ENCODING)
         @content.encode!(ENCODING, **ENCODING_OPTIONS) unless @content.valid_encoding?
         @content.encode!(ENCODING, universal_newline: true)
