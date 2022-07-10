@@ -108,14 +108,66 @@ license-with-readme-reference:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+markdown-apache-v2.0:
+  key: apache-2.0
+  matcher: 
+  hash: 0255cf964dd9d86a51532886431d3aba7ee835f9
 markdown-artistic:
   key: artistic-2.0
   matcher: dice
   hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
+markdown-artistic-v2.0:
+  key: artistic-2.0
+  matcher: dice
+  hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
+markdown-bsd-2:
+  key: bsd-2-clause
+  matcher: 
+  hash: 4002e84a5fe87b0cc455988d7948338785a43261
+markdown-bsd-3:
+  key: bsd-3-clause
+  matcher: 
+  hash: 2b54587c1c39dfe23937e8c0c7c11a030e0d65ac
+markdown-epl-v1.0:
+  key: epl-1.0
+  matcher: dice
+  hash: 3598f6493d82b510757184a4ed0c2d8f7fe27db5
+markdown-gnu-agpl-v3.0:
+  key: agpl-3.0
+  matcher: dice
+  hash: b7d7dba26b59be32e525fc302e60c7ddfb7516d1
+markdown-gnu-gpl-v2.0:
+  key: gpl-2.0
+  matcher: dice
+  hash: a765308f08d02f5fefd6b7af85a60e324b8d58a5
+markdown-gnu-gpl-v3.0:
+  key: gpl-3.0
+  matcher: dice
+  hash: e5068437ea773268bfe0b27778cd65c23dd35766
+markdown-gnu-lgpl-v2.1:
+  key: lgpl-2.1
+  matcher: dice
+  hash: cb4d7c379ca9846ff50c718bc53ba69043d4b138
+markdown-gnu-lgpl-v3.0:
+  key: lgpl-3.0
+  matcher: 
+  hash: c91770d9f572eadd77670733e2fefaed4374e4e1
 markdown-gpl:
   key: gpl-2.0
   matcher: exact
   hash: 74e2c1e8b8ff13e284dd222f214b79e9f4d3590b
+markdown-mit:
+  key: mit
+  matcher: exact
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+markdown-mpl-v2.0:
+  key: mpl-2.0
+  matcher: dice
+  hash: 3ab6b00d07be49b38a5ecfc1031247b523cc11e4
+markdown-unlicense:
+  key: unlicense
+  matcher: exact
+  hash: 859a7d829d402dd6e047293d87979dacc1b88f37
 mit:
   key: mit
   matcher: exact
