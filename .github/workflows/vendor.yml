@@ -16,7 +16,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1
-          bundler-cache: true 
+          bundler-cache: true
+
+      - name: Install depenencies
+        run: bundle install
 
       - name: Vendor Licenses
         run: script/vendor-licenses
