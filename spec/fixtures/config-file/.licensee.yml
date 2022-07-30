@@ -1,0 +1,3 @@
+ignore:
+  - detect-license.sh
+  - foo/bar

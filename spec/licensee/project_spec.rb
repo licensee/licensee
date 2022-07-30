@@ -98,6 +98,10 @@
       expect(subject.package_file).to be_nil
     end
 
+    it 'Does not error when no config file is present' do
+      expect(subject.config_file).to be_nil
+    end
+
     context 'reading files' do
       let(:files) { subject.send(:files) }
 
@@ -126,8 +130,11 @@
 
           it 'looks for licenses in parent directories up to the search root' do
             # should not include the license in 'license-in-parent-folder' dir
-            expect(files.count).to be(1)
-            expect(files.first[:name]).to eql('LICENSE.txt')
+            expected = [
+              { name: '.keep', dir: '.' },
+              { name: 'LICENSE.txt', dir: '..' }
+            ]
+            expect(files).to eql(expected)
           end
         end
 
@@ -135,7 +142,8 @@
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
 
           it 'looks for licenses in current directory only' do
-            expect(files.count).to be(0)
+            expected = [{ name: '.keep', dir: '.' }]
+            expect(files).to eql(expected)
           end
         end
       end
@@ -164,6 +172,37 @@
       it 'returns the license' do
         expect(subject.license).to be_a(Licensee::License)
         expect(subject.license).to eql(mit)
+      end
+    end
+
+    context 'config file' do
+      subject { described_class.new(path, detect_readme: true) }
+
+      let(:fixture) { 'config-file' }
+      let(:hash) { subject.to_h }
+      let(:expected) do
+        {
+          licenses:      subject.licenses.map(&:to_h),
+          matched_files: subject.matched_files.map(&:to_h),
+          config_file:   subject.config_file.to_h
+        }
+      end
+
+      it 'returns the config file' do
+        expect(subject.config_file).to be_a(Licensee::ConfigFile)
+        expect(subject.config_file.filename).to eql('.licensee.yml')
+      end
+
+      it 'ignores ignored files' do
+        expect(subject.license_files.map(&:filename)).not_to include('detect-license.sh')
+      end
+
+      it 'detects the license' do
+        expect(subject.license).to eql(mit)
+      end
+
+      it 'return the config in the hash' do
+        expect(hash).to eql(expected)
       end
     end
 
@@ -305,7 +344,8 @@
       let(:expected) do
         {
           licenses:      subject.licenses.map(&:to_h),
-          matched_files: subject.matched_files.map(&:to_h)
+          matched_files: subject.matched_files.map(&:to_h),
+          config_file:   nil
         }
       end
 

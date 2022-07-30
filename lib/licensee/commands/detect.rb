@@ -30,6 +30,7 @@ class LicenseeCLI < Thor
               ['License:', set_color('None', :red)]
             end
 
+    rows << ['Ignored files:', project.config_file.ignored_paths.join(', ')] if project.config_file
     rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')] unless project.matched_files.empty?
 
     print_table rows

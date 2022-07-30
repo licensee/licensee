@@ -16,6 +16,8 @@ module Licensee
   autoload :Matchers, 'licensee/matchers'
   autoload :Projects, 'licensee/projects'
   autoload :ProjectFiles, 'licensee/project_files'
+  autoload :ConfigFile, 'licensee/config_file'
+  autoload :ContentFile, 'licensee/content_file'
 
   # Over which percent is a match considered a match by default
   CONFIDENCE_THRESHOLD = 98
@@ -34,7 +36,7 @@ module Licensee
       Licensee.project(path).license
     end
 
-    def project(path, **args)
+    def project(path, args = {})
       if %r{\Ahttps://github.com}.match?(path)
         Licensee::Projects::GitHubProject.new(path, **args)
       else

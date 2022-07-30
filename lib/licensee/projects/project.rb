@@ -13,7 +13,7 @@ module Licensee
       alias detect_packages? detect_packages
 
       include Licensee::HashHelper
-      HASH_METHODS = %i[licenses matched_files].freeze
+      HASH_METHODS = %i[licenses matched_files config_file].freeze
 
       def initialize(detect_packages: false, detect_readme: false)
         @detect_packages = detect_packages
@@ -52,33 +52,28 @@ module Licensee
       end
 
       def license_files
-        @license_files ||= if files.empty? || files.nil?
-                             []
-                           else
-                             files = find_files do |n|
-                               Licensee::ProjectFiles::LicenseFile.name_score(n)
-                             end
-                             files = files.map do |file|
-                               Licensee::ProjectFiles::LicenseFile.new(load_file(file), file)
-                             end
-                             prioritize_lgpl(files)
-                           end
+        @license_files ||= begin
+          files = find_files { |n| Licensee::ProjectFiles::LicenseFile.name_score(n) }
+
+          # If this is an FSProject and an explicit license path was provided,
+          # Filter out any files that don't match the explicit license path
+          if is_a?(Licensee::Projects::FSProject) && File.file?(@path)
+            files = files.select { |f| f[:dir] == '.' && File.basename(@path) == f[:name] }
+          end
+
+          files = files.map do |file|
+            Licensee::ProjectFiles::LicenseFile.new(load_file(file), file)
+          end
+
+          prioritize_lgpl(files)
+        end
       end
 
       def readme_file
         return unless detect_readme?
-        return @readme if defined? @readme
+        return @readme_file if defined? @readme_file
 
-        @readme = begin
-          content, file = find_file do |n|
-            Licensee::ProjectFiles::ReadmeFile.name_score(n)
-          end
-          content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
-
-          return unless content && file
-
-          Licensee::ProjectFiles::ReadmeFile.new(content, file)
-        end
+        @readme_file = find_and_create(Licensee::ProjectFiles::ReadmeFile, :license_content)
       end
       alias readme readme_file
 
@@ -86,18 +81,28 @@ module Licensee
         return unless detect_packages?
         return @package_file if defined? @package_file
 
-        @package_file = begin
-          content, file = find_file do |n|
-            Licensee::ProjectFiles::PackageManagerFile.name_score(n)
-          end
+        @package_file = find_and_create(Licensee::ProjectFiles::PackageManagerFile)
+      end
 
-          return unless content && file
+      def config_file
+        return @config_file if defined? @config_file
 
-          Licensee::ProjectFiles::PackageManagerFile.new(content, file)
-        end
+        # Needed to prevent an infinite loop when find_file tries to find the config file
+        @config_file = nil
+
+        @config_file = find_and_create(Licensee::ConfigFile)
       end
 
       private
+
+      # Given a content file class, finds that file using the name_score method and
+      # creates a new instance of that class from the matched file
+      def find_and_create(klass, content_method = nil)
+        content, file = find_file { |n| klass.name_score(n) }
+        content = klass.public_send(content_method, content) if content_method
+
+        klass.new(content, file) if content && file
+      end
 
       def lgpl?
         return false unless licenses.count == 2 && license_files.count == 2
@@ -113,6 +118,7 @@ module Licensee
 
         found = files.map { |file| file.merge(score: yield(file[:name])) }
         found.select! { |file| file[:score].positive? }
+        found.reject! { |file| config_file.ignored?(file) } if config_file
         found.sort { |a, b| b[:score] <=> a[:score] }
       end
 

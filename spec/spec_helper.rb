@@ -45,7 +45,8 @@ def fixture_contents(fixture)
 end
 
 def fixture_root_files(fixture)
-  Dir["#{fixture_path(fixture)}/*"]
+  pattern = File.join(fixture_path(fixture), '*')
+  Dir.glob(pattern, File::FNM_DOTMATCH).select { |f| File.file?(f) }
 end
 
 def fixture_root_contents_from_api(fixture)
