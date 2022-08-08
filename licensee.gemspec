@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('dotenv', '~> 2.0')
   gem.add_dependency('octokit', '~> 4.20')
-  gem.add_dependency('reverse_markdown', '~> 1.0')
+  gem.add_dependency('reverse_markdown', '>= 1', '< 3')
   gem.add_dependency('rugged', '>= 0.24', '<2.0')
   gem.add_dependency('thor', '>= 0.19', '< 2.0')
 
