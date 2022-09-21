@@ -216,7 +216,7 @@ module Licensee
     end
 
     def ==(other)
-      !other.nil? && key == other.key
+      other.is_a?(self.class) && key == other.key
     end
 
     def pseudo_license?
