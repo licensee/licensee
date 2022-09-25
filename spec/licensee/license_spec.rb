@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::License do
-  let(:license_count) { 43 }
-  let(:hidden_license_count) { 30 }
+  let(:license_count) { 46 }
+  let(:hidden_license_count) { 33 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
@@ -301,7 +301,12 @@ RSpec.describe Licensee::License do
 
   it 'knows equality' do
     expect(described_class.find('mit')).to eql(mit)
+    expect(described_class.find('mit')).to eq(mit)
     expect(gpl).not_to eql(mit)
+  end
+
+  it 'returns false when compared to a boolean' do
+    expect(described_class.find('mit')).not_to be(true)
   end
 
   it 'knows if a license is a pseudo license' do

@@ -36,9 +36,9 @@
         </item>
         <item>
             <bullet>4.</bullet>
-          Neither the name of
-            <alt match=".+" name="organizationClause4">the copyright holder</alt> nor the names of its
-            contributors may be used to endorse or promote products derived from this software without
+         <alt match="(The name of.+may not)|(Neither the name of.+nor the names of its contributors may)" name="organizationClause4">
+                 Neither the name of the copyright holder nor the names the copyright holder nor the names of its
+           contributors may</alt> be used to endorse or promote products derived from this software without
             specific prior written permission.
 
         </item>

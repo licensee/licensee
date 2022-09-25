@@ -7,7 +7,7 @@ fixtures_licenses = {}
 options = { detect_packages: true, detect_readme: true }
 fixtures.each do |fixture|
   path = fixture_path(fixture)
-  project = Licensee.project(path, options)
+  project = Licensee.project(path, **options)
   expectations = { 'key' => nil, 'matcher' => nil, 'hash' => nil }
 
   expectations['key'] = project.license.key if project.license

@@ -60,7 +60,7 @@ module Licensee
       end
 
       def access_token
-        ENV['OCTOKIT_ACCESS_TOKEN']
+        ENV.fetch('OCTOKIT_ACCESS_TOKEN', nil)
       end
     end
   end
