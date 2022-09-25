@@ -10,7 +10,7 @@
         <p>Copyright (c) &lt;year&gt; &lt;owner&gt;. </p>
       </copyrightText>
 
-        <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided
+        <p>Redistribution and use in source and binary forms, with or without modification, <alt match="are|is" name="tobe">are</alt> permitted provided
          that the following conditions are met:</p>
         <list>
             <item>
