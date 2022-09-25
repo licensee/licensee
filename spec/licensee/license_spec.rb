@@ -306,7 +306,7 @@ RSpec.describe Licensee::License do
   end
 
   it 'returns false when compared to a boolean' do
-    expect(described_class.find('mit')).not_to eq(true)
+    expect(described_class.find('mit')).not_to be(true)
   end
 
   it 'knows if a license is a pseudo license' do
