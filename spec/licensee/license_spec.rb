@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::License do
-  let(:license_count) { 46 }
-  let(:hidden_license_count) { 33 }
+  let(:license_count) { 47 }
+  let(:hidden_license_count) { 34 }
   let(:featured_license_count) { 3 }
   let(:pseudo_license_count) { 2 }
   let(:non_featured_license_count) do
