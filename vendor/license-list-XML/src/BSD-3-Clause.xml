@@ -4,7 +4,9 @@
             name="BSD 3-Clause &#34;New&#34; or &#34;Revised&#34; License">
       <crossRefs>
          <crossRef>https://opensource.org/licenses/BSD-3-Clause</crossRef>
+         <crossRef>https://www.eclipse.org/org/documents/edl-v10.php</crossRef>
       </crossRefs>
+      <notes>Note that the Eclipse Distribution License - v 1.0 (EDL 1.0) is a match to BSD-3-Clause, even though it uses a different name.</notes>
     <text>
       <copyrightText>
         <p>Copyright (c) &lt;year&gt; &lt;owner&gt;. </p>
