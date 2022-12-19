@@ -33,7 +33,7 @@ RSpec.describe 'fixture test' do
       end
 
       it 'returns the expected hash' do
-        hash = license_file ? license_file.content_hash : nil
+        hash = license_file&.content_hash
         expect(hash).to eql(expectations['hash'])
       end
 
