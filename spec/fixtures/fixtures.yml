@@ -8,37 +8,41 @@ bom:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+bsd-2-author:
+  key: bsd-2-clause
+  matcher: dice
+  hash: 309d3b93b58ad8858d916588206a1fccf2b358f6
 bsd-3-authorowner:
   key: bsd-3-clause
   matcher: dice
   hash: 2e6f215833d1a3d10e6194d479dbb2b4be2f64d7
 bsd-3-lists:
   key: bsd-3-clause
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 bsd-3-noendorseslash:
   key: bsd-3-clause
   matcher: dice
   hash: cc09daf7c96498abafdb708f3578654d6d5b2a3b
 bsd-plus-patents:
   key: other
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 bsl:
   key: bsl-1.0
   matcher: exact
   hash: 27e28f20b57048cf04be07e1532b6fb501a0753b
 case-sensitive:
   key: other
-  matcher: 
+  matcher:
   hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
 cc-by-nc-sa:
   key: other
-  matcher: 
+  matcher:
   hash: 2b2df1271efb79dcaf80f0828069b1c85da63eec
 cc-by-nd:
   key: other
-  matcher: 
+  matcher:
   hash: 4fb176dcd047bc77f15d7b42824d1a5793bdc865
 cc-by-sa-mdlinks:
   key: cc-by-sa-4.0
@@ -70,7 +74,7 @@ crlf-license:
   hash: 7d4cdf499d39e2e1ce27b2878e22872f0f5a74dd
 description-license:
   key: other
-  matcher: 
+  matcher:
   hash: ab0fb718684bbc67c7dfc2e9ab2175dab4fcb819
 eupl-cal2017:
   key: eupl-1.2
@@ -78,12 +82,12 @@ eupl-cal2017:
   hash: 7425a276b011dea63591fe8876146f2451cfd777
 fcpl-modified-mpl:
   key: other
-  matcher: 
+  matcher:
   hash: 97b12cefc05cdb701e4ae9a59e7c11f25cdb8edc
 gemspec:
-  key: 
-  matcher: 
-  hash: 
+  key:
+  matcher:
+  hash:
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
@@ -97,9 +101,9 @@ lgpl:
   matcher: exact
   hash: 2f434698bab479f8f6c5043f2796767287f40495
 license-folder:
-  key: 
-  matcher: 
-  hash: 
+  key:
+  matcher:
+  hash:
 license-in-parent-folder:
   key: mit
   matcher: exact
@@ -126,8 +130,8 @@ mit-optional:
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 mit-with-copyright:
   key: mit
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
@@ -138,20 +142,20 @@ multiple-arrs:
   hash: a961b19cc6921d510e29a13b0ba1a826fcffe41c
 multiple-license-files:
   key: other
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 pixar-modified-apache:
   key: other
-  matcher: 
+  matcher:
   hash: efb005bb5924d60314b2aaedb4fceef92c5d5631
 readme:
   key: mit
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 readme-invalid-encoding:
   key: mit
-  matcher: 
-  hash: 
+  matcher:
+  hash:
 unlicense-noinfo:
   key: unlicense
   matcher: exact
@@ -161,10 +165,10 @@ vim:
   matcher: dice
   hash: 6e1bfd854c9ad8626d61367ccfecc9f96e54ce92
 webmock:
-  key: 
-  matcher: 
-  hash: 
+  key:
+  matcher:
+  hash:
 wrk-modified-apache:
   key: other
-  matcher: 
+  matcher:
   hash: '09df4f164a92a0464452178cf1e4eb58c3f25c01'

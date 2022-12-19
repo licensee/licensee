@@ -341,7 +341,7 @@ module Licensee
       # Use that if it's present, otherwise, just return the simple delta.
       return delta unless respond_to?(:spdx_alt_segments, true)
 
-      adjusted_delta = delta - ([fields_normalized.size, spdx_alt_segments].max * 4)
+      adjusted_delta = delta - ([fields_normalized.size, spdx_alt_segments].max * 5)
       adjusted_delta.positive? ? adjusted_delta : 0
     end
   end
