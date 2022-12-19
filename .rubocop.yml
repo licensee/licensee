@@ -19,3 +19,6 @@ Layout/HashAlignment:
 
 RSpec/FactoryBot/CreateList:
   Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
