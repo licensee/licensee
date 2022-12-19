@@ -22,6 +22,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          rubygems: latest
 
       - name: Setup Git
         run: |
