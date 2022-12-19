@@ -295,6 +295,15 @@ RSpec.describe 'integration test' do
           end
         end
 
+        context 'BSD-2-Clause author variant' do
+          let(:license) { Licensee::License.find('bsd-2-clause') }
+          let(:fixture) { 'bsd-2-author' }
+
+          it 'determines the project is BSD-2-Clause' do
+            expect(subject.license).to eql(license)
+          end
+        end
+
         context 'HTML license file' do
           let(:license) { Licensee::License.find('epl-1.0') }
           let(:fixture) { 'html' }
