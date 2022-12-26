@@ -5,7 +5,7 @@ require:
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
   NewCops: enable
   Exclude:
     - tmp/**/*
@@ -18,7 +18,4 @@ Layout/HashAlignment:
   EnforcedColonStyle: table
 
 RSpec/FactoryBot/CreateList:
-  Enabled: false
-
-Style/SafeNavigation:
   Enabled: false
