@@ -124,10 +124,6 @@ markdown-artistic-v2.0:
   key: artistic-2.0
   matcher: dice
   hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
-markdown-bsd-2:
-  key: bsd-2-clause
-  matcher:
-  hash: 4002e84a5fe87b0cc455988d7948338785a43261
 markdown-bsd-3:
   key: bsd-3-clause
   matcher:
