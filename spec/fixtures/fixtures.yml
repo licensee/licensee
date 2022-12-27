@@ -148,6 +148,10 @@ markdown-epl-v1.0:
   key: epl-1.0
   matcher: dice
   hash: 3598f6493d82b510757184a4ed0c2d8f7fe27db5
+markdown-gfdl-1.3:
+  key: gfdl-1.3
+  matcher: dice
+  hash: fccaacd02277c1aff3ec015192f7c7a2fb7d0e0e
 markdown-gnu-agpl-v3.0:
   key: agpl-3.0
   matcher: dice
