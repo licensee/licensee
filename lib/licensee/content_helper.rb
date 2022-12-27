@@ -20,7 +20,7 @@ module Licensee
       block_markup:        /^\s*>/,
       border_markup:       /^[*-](.*?)[*-]$/,
       comment_markup:      %r{^\s*?[/*]{1,2}},
-      url:                 %r{#{START_REGEX}https?://[^ ]+\n},
+      url:                 %r{https?://[^ ]+\n},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       cc_dedication:       /The\s+text\s+of\s+the\s+Creative\s+Commons.*?Public\s+Domain\s+Dedication./im,
