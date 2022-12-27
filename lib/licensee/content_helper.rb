@@ -36,7 +36,8 @@ module Licensee
       https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
-      quote:      { from: /[`'"‘“’”]/, to: "'" }
+      quote:      { from: /[`'"‘“’”]/, to: "'" },
+      hypenated:  { from: /(\w+)-\n\s*(\w+)/, to: '\1-\2'}
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
