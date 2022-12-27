@@ -8,6 +8,10 @@ bom:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+bsd-2-author:
+  key: bsd-2-clause
+  matcher: dice
+  hash: 309d3b93b58ad8858d916588206a1fccf2b358f6
 bsd-3-authorowner:
   key: bsd-3-clause
   matcher: dice

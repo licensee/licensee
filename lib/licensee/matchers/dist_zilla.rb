@@ -19,6 +19,7 @@ module Licensee
                  .sub('_', '.')
                  .sub('Mozilla', 'MPL')
                  .sub(/^GPL-(\d)$/, 'GPL-\1.0')
+                 .sub(/^AGPL-(\d)$/, 'AGPL-\1.0')
       end
     end
   end

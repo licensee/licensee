@@ -74,7 +74,7 @@ module Licensee
       end
 
       def keys_licenses(options = {})
-        @keys_licenses[options] ||= all(options).map { |l| [l.key, l] }.to_h
+        @keys_licenses[options] ||= all(options).to_h { |l| [l.key, l] }
       end
     end
 

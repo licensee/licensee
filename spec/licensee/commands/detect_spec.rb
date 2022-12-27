@@ -59,7 +59,7 @@ RSpec.describe 'detect command' do
 
   context 'json' do
     let(:arguments) { ['--json'] }
-    let(:expected) { JSON.parse fixture_contents('detect.json') }
+    let(:expected) { JSON.parse(fixture_contents('detect.json')).tap { |h| h['matched_files'][1].delete('content') } }
 
     it 'Returns a zero exit code' do
       expect(status.exitstatus).to be(0)
@@ -72,7 +72,7 @@ RSpec.describe 'detect command' do
     it 'returns the expected output' do
       msg = +'`licensee detect --json` output did not match expectations. '
       msg << 'Run `script/dump-detect-json-fixture` and verify the output.'
-      expect(JSON.parse(stdout)).to eql(expected), msg
+      expect(JSON.parse(stdout).tap { |h| h['matched_files'][1].delete('content') }).to eql(expected), msg
     end
   end
 

@@ -20,7 +20,8 @@
       <p>Redistribution and use in source and binary forms, with or without modification, are permitted (subject
          to the limitations in the disclaimer below) provided that the following conditions are met:</p>
       <list>
-        <list>
+	<item>      
+	<list>
             <item>
                <bullet>*</bullet>
             Redistributions of source code must retain the above copyright notice, this list of
@@ -41,6 +42,7 @@
 
           </item>
         </list>
+	</item>
       </list>
       <p>NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS
          SOFTWARE IS PROVIDED BY
