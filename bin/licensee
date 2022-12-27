@@ -12,6 +12,10 @@ class LicenseeCLI < Thor
   class_option :remote, type: :boolean, desc: 'Assume PATH is a GitHub owner/repo path'
   default_task :detect
 
+  def self.exit_on_failure?
+    true
+  end
+
   private
 
   def path
