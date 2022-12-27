@@ -87,4 +87,12 @@ RSpec.describe 'detect command' do
       expect(parsed_output).to eql(expected)
     end
   end
+
+  context 'a non-existing command' do
+    let(:command) { ['bundle', 'exec', 'bin/licensee', 'oops'] }
+
+    it 'Returns a one exit code' do
+      expect(status.exitstatus).to be(1)
+    end
+  end
 end
