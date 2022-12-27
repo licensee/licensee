@@ -39,11 +39,11 @@ case-sensitive:
 cc-by-nc-sa:
   key: other
   matcher:
-  hash: c1c5bf7b6f130913568b20ed0441a6dbef5d6f11
+  hash: ddd3c1a5b2fdcf75550d3e436329ce815877d45e
 cc-by-nd:
   key: other
   matcher:
-  hash: a006cd136405570d81aafb4cfd19de78012bbbe4
+  hash: a2980a51e042b185055891102a5f1c5b0470f9df
 cc-by-sa-mdlinks:
   key: cc-by-sa-4.0
   matcher: dice
@@ -51,7 +51,7 @@ cc-by-sa-mdlinks:
 cc-by-sa-nocclicensor:
   key: cc-by-sa-4.0
   matcher: dice
-  hash: 9cf238d2d4dd703a149d8b5ae7d3f5a04206f772
+  hash: df0ef6638264b80816e11b475085ca9f9832400e
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
@@ -71,7 +71,7 @@ crlf-bsd:
 crlf-license:
   key: gpl-3.0
   matcher: exact
-  hash: 8a58f79072e5003456b8e2cdf35f3cf341e986c9
+  hash: 7d4cdf499d39e2e1ce27b2878e22872f0f5a74dd
 description-license:
   key: other
   matcher:
@@ -91,7 +91,7 @@ gemspec:
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
-  hash: 8a58f79072e5003456b8e2cdf35f3cf341e986c9
+  hash: 7d4cdf499d39e2e1ce27b2878e22872f0f5a74dd
 html:
   key: epl-1.0
   matcher: dice
@@ -99,7 +99,7 @@ html:
 lgpl:
   key: lgpl-3.0
   matcher: exact
-  hash: 10e041baf309a405a973d81c734172a4e3764c02
+  hash: 2f434698bab479f8f6c5043f2796767287f40495
 license-folder:
   key:
   matcher:
@@ -133,12 +133,12 @@ markdown-bsd-3:
   matcher:
   hash: 2b54587c1c39dfe23937e8c0c7c11a030e0d65ac
 markdown-cc-by-4.0:
-  key: cc-by-4.0
-  matcher: dice
+  key: other
+  matcher:
   hash: b72312bbcd6400de2c6103f2b9981e6239d89f36
 markdown-cc-by-sa-4.0:
-  key: cc-by-sa-4.0
-  matcher: dice
+  key: other
+  matcher:
   hash: 973d41ed4a3fca2a1205ace75835029d66c1e224
 markdown-cc0-1.0:
   key: cc0-1.0
@@ -151,11 +151,11 @@ markdown-epl-v1.0:
 markdown-gfdl-1.3:
   key: gfdl-1.3
   matcher: dice
-  hash: ef7a4cc391db1e929058385ac6dc5af1ce14ebe4
+  hash: c6a040e2589c864256f57c8b32685f815cd5d9a3
 markdown-gnu-agpl-v3.0:
   key: agpl-3.0
   matcher: dice
-  hash: 4895c72bfa4a04e55a039a8aea733d82c4dd3f58
+  hash: b7d7dba26b59be32e525fc302e60c7ddfb7516d1
 markdown-gnu-gpl-v2.0:
   key: gpl-2.0
   matcher: dice
@@ -163,7 +163,7 @@ markdown-gnu-gpl-v2.0:
 markdown-gnu-gpl-v3.0:
   key: gpl-3.0
   matcher: dice
-  hash: 8e629dcbad666c4ec4358d697ae0b5ad600080c4
+  hash: e5068437ea773268bfe0b27778cd65c23dd35766
 markdown-gnu-lgpl-v2.1:
   key: lgpl-2.1
   matcher: dice
@@ -171,7 +171,7 @@ markdown-gnu-lgpl-v2.1:
 markdown-gnu-lgpl-v3.0:
   key: lgpl-3.0
   matcher:
-  hash: c56f65f83024b8f870ebba11df33ec7f0460fae1
+  hash: c91770d9f572eadd77670733e2fefaed4374e4e1
 markdown-gpl:
   key: gpl-2.0
   matcher: exact

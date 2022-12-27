@@ -199,11 +199,11 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   context 'normalizing' do
-    context 'https' do
+    context 'strips urls' do
       let(:content) { 'http://example.com' }
 
-      it 'normalized URL protocals' do
-        expect(subject.content_normalized).to eql('https://example.com')
+      it 'strips urls' do
+        expect(subject.content_normalized).to eql('')
       end
     end
 
@@ -212,6 +212,14 @@ RSpec.describe Licensee::ContentHelper do
 
       it 'normalized ampersands' do
         expect(subject.content_normalized).to eql('foo and bar')
+      end
+    end
+
+    context 'hypenated across lines' do
+      let(:content) { "cc-\nlicensed" }
+
+      it 'normalized hypenated across lines' do
+        expect(subject.content_normalized).to eql('cclicensed')
       end
     end
 
@@ -242,12 +250,6 @@ RSpec.describe Licensee::ContentHelper do
     it 'strips formatting from the MPL' do
       license = Licensee::License.find('mpl-2.0')
       expect(license.content_normalized).not_to include('* *')
-    end
-
-    it 'normalizes http: to https:' do
-      license = Licensee::License.find('mpl-2.0')
-      expect(license.content).to include('http:')
-      expect(license.content_normalized).not_to include('http:')
     end
 
     it 'wraps' do

@@ -20,7 +20,7 @@ module Licensee
       block_markup:        /^\s*>/,
       border_markup:       /^[*-](.*?)[*-]$/,
       comment_markup:      %r{^\s*?[/*]{1,2}},
-      url:                 %r{https?://[^ ]+\n},
+      url:                 %r{https?://[^\s]+},
       bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
       developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
       cc_dedication:       /The\s+text\s+of\s+the\s+Creative\s+Commons.*?Public\s+Domain\s+Dedication./im,
@@ -33,11 +33,10 @@ module Licensee
     }.freeze
     NORMALIZATIONS = {
       lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
-      https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
       quote:      { from: /[`'"‘“’”]/, to: "'" },
-      hypenated:  { from: /(\w+)-\n\s*(\w+)/, to: '\1-\2'}
+      hyphenated: { from: /(\w+)-\n\s*(\w+)/, to: '\1\2' }
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
