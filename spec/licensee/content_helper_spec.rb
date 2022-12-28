@@ -219,7 +219,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "cc-\nlicensed" }
 
       it 'normalized hypenated across lines' do
-        expect(subject.content_normalized).to eql('cclicensed')
+        expect(subject.content_normalized).to eql('cc-licensed')
       end
     end
 

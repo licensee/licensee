@@ -36,7 +36,7 @@ module Licensee
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
       quote:      { from: /[`'"‘“’”]/, to: "'" },
-      hyphenated: { from: /(\w+)-\n\s*(\w+)/, to: '\1\2' }
+      hyphenated: { from: /(\w+)-\n\s*(\w+)/, to: '\1-\2' }
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison

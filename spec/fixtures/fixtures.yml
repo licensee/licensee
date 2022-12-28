@@ -39,11 +39,11 @@ case-sensitive:
 cc-by-nc-sa:
   key: other
   matcher:
-  hash: ddd3c1a5b2fdcf75550d3e436329ce815877d45e
+  hash: c1c5bf7b6f130913568b20ed0441a6dbef5d6f11
 cc-by-nd:
   key: other
   matcher:
-  hash: a2980a51e042b185055891102a5f1c5b0470f9df
+  hash: a006cd136405570d81aafb4cfd19de78012bbbe4
 cc-by-sa-mdlinks:
   key: cc-by-sa-4.0
   matcher: dice
@@ -51,7 +51,7 @@ cc-by-sa-mdlinks:
 cc-by-sa-nocclicensor:
   key: cc-by-sa-4.0
   matcher: dice
-  hash: df0ef6638264b80816e11b475085ca9f9832400e
+  hash: 9cf238d2d4dd703a149d8b5ae7d3f5a04206f772
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
@@ -129,12 +129,12 @@ markdown-bsd-3:
   matcher: dice
   hash: 2449fc8ece2fa342f2e82bbbf86f01d19329a531
 markdown-cc-by-4.0:
-  key: other
-  matcher:
+  key: cc-by-4.0
+  matcher: dice
   hash: b72312bbcd6400de2c6103f2b9981e6239d89f36
 markdown-cc-by-sa-4.0:
-  key: other
-  matcher:
+  key: cc-by-sa-4.0
+  matcher: dice
   hash: 973d41ed4a3fca2a1205ace75835029d66c1e224
 markdown-cc0-1.0:
   key: cc0-1.0
