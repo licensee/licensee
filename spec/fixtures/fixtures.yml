@@ -164,10 +164,6 @@ markdown-gnu-lgpl-v2.1:
   key: lgpl-2.1
   matcher: dice
   hash: cb4d7c379ca9846ff50c718bc53ba69043d4b138
-markdown-gnu-lgpl-v3.0:
-  key: lgpl-3.0
-  matcher:
-  hash: c91770d9f572eadd77670733e2fefaed4374e4e1
 markdown-gpl:
   key: gpl-2.0
   matcher: exact
