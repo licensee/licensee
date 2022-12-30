@@ -55,11 +55,11 @@ cc-by-sa-nocclicensor:
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
-  hash: 06f73ef48851a6f6d0bcd179faa65145c76d5562
+  hash: 1ec0b9707ba246e7f25ebcb08888badf0abaefae
 cc0-cc:
   key: cc0-1.0
   matcher: exact
-  hash: 94c8187ec82b2b4a69fb990f80833fbe6e3c95e7
+  hash: 34dbb82be40b15f7c521d4f2d1a36ebe76246936
 copyright-encoding:
   key: no-license
   matcher: copyright
