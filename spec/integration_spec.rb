@@ -252,7 +252,7 @@ RSpec.describe 'integration test' do
 
         context 'GPL2 with Markdown formatting' do
           let(:license) { Licensee::License.find('gpl-2.0') }
-          let(:fixture) { 'markdown-gpl' }
+          let(:fixture) { 'gpl-2.0_markdown_headings' }
 
           it 'matches to GPL2' do
             expect(subject.license).to eql(license)
@@ -261,7 +261,7 @@ RSpec.describe 'integration test' do
 
         context 'Artistic with Markdown formatting' do
           let(:license) { Licensee::License.find('artistic-2.0') }
-          let(:fixture) { 'markdown-artistic' }
+          let(:fixture) { 'artistic-2.0_markdown' }
 
           it 'matches to Artistic' do
             expect(subject.license).to eql(license)
