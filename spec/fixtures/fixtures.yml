@@ -1,9 +1,21 @@
 # Map of fixtures to expectation as an added integration test
 ---
+agpl-3.0_markdown:
+  key: agpl-3.0
+  matcher: dice
+  hash: b7d7dba26b59be32e525fc302e60c7ddfb7516d1
+apache-2.0_markdown:
+  key: other
+  matcher:
+  hash: 0255cf964dd9d86a51532886431d3aba7ee835f9
 apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
   hash: bec905d850e7f5dc2e2db78a950d4a9db560a0b8
+artistic-2.0_markdown:
+  key: artistic-2.0
+  matcher: dice
+  hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
 bom:
   key: mit
   matcher: exact
@@ -76,6 +88,10 @@ description-license:
   key: other
   matcher:
   hash: ab0fb718684bbc67c7dfc2e9ab2175dab4fcb819
+epl-1.0_markdown:
+  key: epl-1.0
+  matcher: dice
+  hash: 3598f6493d82b510757184a4ed0c2d8f7fe27db5
 eupl-cal2017:
   key: eupl-1.2
   matcher: exact
@@ -88,6 +104,22 @@ gemspec:
   key:
   matcher:
   hash:
+gfdl-1.3_markdown:
+  key: gfdl-1.3
+  matcher: dice
+  hash: fccaacd02277c1aff3ec015192f7c7a2fb7d0e0e
+gpl-2.0_markdown:
+  key: gpl-2.0
+  matcher: dice
+  hash: a765308f08d02f5fefd6b7af85a60e324b8d58a5
+gpl-2.0_markdown_headings:
+  key: gpl-2.0
+  matcher: exact
+  hash: 74e2c1e8b8ff13e284dd222f214b79e9f4d3590b
+gpl-3.0_markdown:
+  key: gpl-3.0
+  matcher: dice
+  hash: e5068437ea773268bfe0b27778cd65c23dd35766
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
@@ -100,6 +132,10 @@ lgpl:
   key: lgpl-3.0
   matcher: exact
   hash: 2f434698bab479f8f6c5043f2796767287f40495
+lgpl-2.1_markdown:
+  key: lgpl-2.1
+  matcher: dice
+  hash: cb4d7c379ca9846ff50c718bc53ba69043d4b138
 license-folder:
   key:
   matcher:
@@ -112,14 +148,6 @@ license-with-readme-reference:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
-markdown-artistic:
-  key: artistic-2.0
-  matcher: dice
-  hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
-markdown-gpl:
-  key: gpl-2.0
-  matcher: exact
-  hash: 74e2c1e8b8ff13e284dd222f214b79e9f4d3590b
 mit:
   key: mit
   matcher: exact
@@ -132,6 +160,14 @@ mit-with-copyright:
   key: mit
   matcher:
   hash:
+mit_markdown:
+  key: mit
+  matcher: exact
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+mpl-2.0_markdown:
+  key: mpl-2.0
+  matcher: dice
+  hash: 3ab6b00d07be49b38a5ecfc1031247b523cc11e4
 mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
@@ -157,6 +193,10 @@ readme-invalid-encoding:
   matcher:
   hash:
 unlicense-noinfo:
+  key: unlicense
+  matcher: exact
+  hash: 859a7d829d402dd6e047293d87979dacc1b88f37
+unlicense_markdown:
   key: unlicense
   matcher: exact
   hash: 859a7d829d402dd6e047293d87979dacc1b88f37
