@@ -83,8 +83,8 @@ module Licensee
       'whilst'          => 'while',
       'wilful'          => 'wilfull',
       'non-commercial'  => 'noncommercial',
-      'cent'            => 'percent',
-      'owner'           => 'holder'
+      'per cent'        => 'percent',
+      'copyright owner' => 'copyright holder'
     }.freeze
     STRIP_METHODS = %i[
       bom
