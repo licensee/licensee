@@ -223,6 +223,14 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
+    context 'lists with formatting bullets' do
+      let(:content) { "- **(a)** Foo\n * b) Bar" }
+
+      it 'normalizes lists' do
+        expect(subject.content_normalized).to eql('- foo - bar')
+      end
+    end
+
     context 'dashes' do
       let(:content) { 'Foo-Bar—–baz-buzz' }
 

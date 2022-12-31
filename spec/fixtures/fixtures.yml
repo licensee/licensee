@@ -100,6 +100,10 @@ lgpl:
   key: lgpl-3.0
   matcher: exact
   hash: 2f434698bab479f8f6c5043f2796767287f40495
+lgpl-3.0_markdown:
+  key: lgpl-3.0
+  matcher: exact
+  hash: f91734065bdeeefeb8541cb57724030eea2cc544
 license-folder:
   key:
   matcher:
@@ -115,7 +119,7 @@ license-with-readme-reference:
 markdown-artistic:
   key: artistic-2.0
   matcher: dice
-  hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
+  hash: a3684106623ab2f9791ad7297b6874e07ee71c81
 markdown-gpl:
   key: gpl-2.0
   matcher: exact
