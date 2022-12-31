@@ -7,7 +7,7 @@ agpl-3.0_markdown:
 apache-2.0_markdown:
   key: other
   matcher:
-  hash: 0255cf964dd9d86a51532886431d3aba7ee835f9
+  hash: 69c338e09a1a68ea2061708bafb2714cafd94bff
 apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
