@@ -32,11 +32,12 @@ module Licensee
       mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
-      lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
+      lists:      { from: /^\s*(?:\d\.|[*-])(?: [*_]{0,2}\(?[\da-z]\)[*_]{0,2})?\s+([^\n])/, to: '- \1' },
       https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
-      quote:      { from: /[`'"‘“’”]/, to: "'" }
+      quote:      { from: /[`'"‘“’”]/, to: "'" },
+      hyphenated: { from: /(\w+)-\s*\n\s*(\w+)/, to: '\1-\2' }
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
