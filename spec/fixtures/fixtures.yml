@@ -7,7 +7,7 @@ agpl-3.0_markdown:
 apache-2.0_markdown:
   key: apache-2.0
   matcher: dice
-  hash: 0b6213bf4bf883f67e804a39c23f92cb63c70f1d
+  hash: 62937105bf0baec879cc6cc96d2fc2ce4922fc6d
 apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
@@ -79,7 +79,7 @@ cc-by-sa-nocclicensor:
 cc0-1.0_markdown:
   key: cc0-1.0
   matcher: dice
-  hash: cc4b1a617d88655d5e89c6b791ad8185bd3acb1f
+  hash: 0df42ed381dc00ba7fe800ea65db52134eff9e90
 cc0-cal2013:
   key: cc0-1.0
   matcher: dice
