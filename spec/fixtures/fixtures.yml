@@ -3,11 +3,11 @@
 agpl-3.0_markdown:
   key: agpl-3.0
   matcher: dice
-  hash: b7d7dba26b59be32e525fc302e60c7ddfb7516d1
+  hash: f84aaf84faf0196e6a05f41d7a097778b238be59
 apache-2.0_markdown:
-  key: other
-  matcher:
-  hash: 0255cf964dd9d86a51532886431d3aba7ee835f9
+  key: apache-2.0
+  matcher: dice
+  hash: 0b6213bf4bf883f67e804a39c23f92cb63c70f1d
 apache-with-readme-notice:
   key: apache-2.0
   matcher: exact
@@ -15,7 +15,7 @@ apache-with-readme-notice:
 artistic-2.0_markdown:
   key: artistic-2.0
   matcher: dice
-  hash: 2c21400d21cbcc827e039eeea73cf95bc42183dd
+  hash: a3684106623ab2f9791ad7297b6874e07ee71c81
 bom:
   key: mit
   matcher: exact
@@ -107,7 +107,7 @@ description-license:
 epl-1.0_markdown:
   key: epl-1.0
   matcher: dice
-  hash: 3598f6493d82b510757184a4ed0c2d8f7fe27db5
+  hash: bae4ee4c336e237f3693b1ba153fc144364e683b
 eupl-cal2017:
   key: eupl-1.2
   matcher: exact
@@ -126,8 +126,8 @@ gfdl-1.3_markdown:
   hash: fccaacd02277c1aff3ec015192f7c7a2fb7d0e0e
 gpl-2.0_markdown:
   key: gpl-2.0
-  matcher: dice
-  hash: a765308f08d02f5fefd6b7af85a60e324b8d58a5
+  matcher: exact
+  hash: 32d258b04aadb94f8762547b9f26ac1c61a1b1f7
 gpl-2.0_markdown_headings:
   key: gpl-2.0
   matcher: exact
@@ -135,7 +135,7 @@ gpl-2.0_markdown_headings:
 gpl-3.0_markdown:
   key: gpl-3.0
   matcher: dice
-  hash: e5068437ea773268bfe0b27778cd65c23dd35766
+  hash: 858a252e4c484678585ddc38be7ede7deb140953
 gpl3-without-instructions:
   key: gpl-3.0
   matcher: exact
@@ -148,14 +148,14 @@ lgpl:
   key: lgpl-3.0
   matcher: exact
   hash: 2f434698bab479f8f6c5043f2796767287f40495
+lgpl-2.1_markdown:
+  key: lgpl-2.1
+  matcher: dice
+  hash: ad731153900d95393a8c718ccf9c35de074b8e4c
 lgpl-3.0_markdown:
   key: lgpl-3.0
   matcher: exact
   hash: f91734065bdeeefeb8541cb57724030eea2cc544
-lgpl-2.1_markdown:
-  key: lgpl-2.1
-  matcher: dice
-  hash: cb4d7c379ca9846ff50c718bc53ba69043d4b138
 license-folder:
   key:
   matcher:
@@ -168,14 +168,6 @@ license-with-readme-reference:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
-markdown-artistic:
-  key: artistic-2.0
-  matcher: dice
-  hash: a3684106623ab2f9791ad7297b6874e07ee71c81
-markdown-gpl:
-  key: gpl-2.0
-  matcher: exact
-  hash: 74e2c1e8b8ff13e284dd222f214b79e9f4d3590b
 mit:
   key: mit
   matcher: exact
@@ -194,8 +186,8 @@ mit_markdown:
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 mpl-2.0_markdown:
   key: mpl-2.0
-  matcher: dice
-  hash: 3ab6b00d07be49b38a5ecfc1031247b523cc11e4
+  matcher: exact
+  hash: 9d898bc8e265a13ed09bd9e09d64f66f8976fffe
 mpl-without-hrs:
   key: mpl-2.0
   matcher: exact
