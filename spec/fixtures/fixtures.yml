@@ -28,6 +28,10 @@ bsd-3-authorowner:
   key: bsd-3-clause
   matcher: dice
   hash: 2e6f215833d1a3d10e6194d479dbb2b4be2f64d7
+bsd-3-clause_markdown:
+  key: bsd-3-clause
+  matcher: dice
+  hash: 2449fc8ece2fa342f2e82bbbf86f01d19329a531
 bsd-3-lists:
   key: bsd-3-clause
   matcher:
