@@ -239,6 +239,14 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
+    context 'hyphenated across lines' do
+      let(:content) { "cc-\nlicensed" }
+
+      it 'normalized hyphenated across lines' do
+        expect(subject.content_normalized).to eql('cc-licensed')
+      end
+    end
+
     context 'quotes' do
       let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
 
