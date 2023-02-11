@@ -74,7 +74,7 @@ module Licensee
       end
 
       def keys_licenses(options = {})
-        @keys_licenses[options] ||= all(options).map { |l| [l.key, l] }.to_h
+        @keys_licenses[options] ||= all(options).to_h { |l| [l.key, l] }
       end
     end
 
@@ -151,7 +151,15 @@ module Licensee
       string.sub!(/v(\d+\.\d+)/, '\1')
       string = Regexp.escape(string)
       string = string.sub(/\\ licen[sc]e/i, '(?:\ licen[sc]e)?')
-      string = string.sub(/\\ (\d+\\.\d+)/, ',?\s+(?:version\ |v(?:\. )?)?\1')
+      version_match = string.match(/\d+\\.(\d+)/)
+      if version_match
+        vsub = if version_match[1] == '0'
+                 ',?\s+(?:version\ |v(?:\. )?)?\1(\2)?'
+               else
+                 ',?\s+(?:version\ |v(?:\. )?)?\1\2'
+               end
+        string = string.sub(/\\ (\d+)(\\.\d+)/, vsub)
+      end
       string = string.sub(/\bgnu\\ /, '(?:GNU )?')
       title_regex = Regexp.new string, 'i'
 

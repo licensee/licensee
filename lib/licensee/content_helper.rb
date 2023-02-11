@@ -32,11 +32,12 @@ module Licensee
       mit_optional:        /\(including the next paragraph\)/i
     }.freeze
     NORMALIZATIONS = {
-      lists:      { from: /^\s*(?:\d\.|\*)\s+([^\n])/, to: '- \1' },
+      lists:      { from: /^\s*(?:\d\.|[*-])(?: [*_]{0,2}\(?[\da-z]\)[*_]{0,2})?\s+([^\n])/, to: '- \1' },
       https:      { from: /http:/, to: 'https:' },
       ampersands: { from: '&', to: 'and' },
       dashes:     { from: /(?<!^)([—–-]+)(?!$)/, to: '-' },
-      quote:      { from: /[`'"‘“’”]/, to: "'" }
+      quote:      { from: /[`'"‘“’”]/, to: "'" },
+      hyphenated: { from: /(\w+)-\s*\n\s*(\w+)/, to: '\1-\2' }
     }.freeze
 
     # Legally equivalent words that schould be ignored for comparison
@@ -82,8 +83,8 @@ module Licensee
       'whilst'          => 'while',
       'wilful'          => 'wilfull',
       'non-commercial'  => 'noncommercial',
-      'cent'            => 'percent',
-      'owner'           => 'holder'
+      'per cent'        => 'percent',
+      'copyright owner' => 'copyright holder'
     }.freeze
     STRIP_METHODS = %i[
       bom
@@ -341,7 +342,7 @@ module Licensee
       # Use that if it's present, otherwise, just return the simple delta.
       return delta unless respond_to?(:spdx_alt_segments, true)
 
-      adjusted_delta = delta - ([fields_normalized.size, spdx_alt_segments].max * 4)
+      adjusted_delta = delta - ([fields_normalized.size, spdx_alt_segments].max * 5)
       adjusted_delta.positive? ? adjusted_delta : 0
     end
   end
