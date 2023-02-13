@@ -111,7 +111,7 @@ RSpec.describe Licensee::ContentHelper do
       comment_markup:      "/*\n* The MIT License\n* Foo\n*/",
       copyright_title:     "Copyright 2019 Ben Balter\nMIT License\nFoo"
     }.each do |field, fixture|
-      context "#strip_#{field}" do
+      describe "#strip_#{field}" do
         let(:content) { fixture }
 
         it "strips #{field}" do
