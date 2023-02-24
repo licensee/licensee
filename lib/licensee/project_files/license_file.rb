@@ -38,6 +38,7 @@ module Licensee
       # Hash of Regex => score with which to score potential license files
       FILENAME_REGEXES = {
         /\A#{LICENSE_REGEX}\z/                                => 1.00,  # LICENSE
+        /\A#{LICENSE_REGEX}#{LICENSE_EXT_REGEX}\z/            => 0.97,  # LICENSE.MIT
         /\A#{LICENSE_REGEX}#{PREFERRED_EXT_REGEX}\z/          => 0.95,  # LICENSE.md
         /\A#{COPYING_REGEX}\z/                                => 0.90,  # COPYING
         /\A#{COPYING_REGEX}#{PREFERRED_EXT_REGEX}\z/          => 0.85,  # COPYING.md
