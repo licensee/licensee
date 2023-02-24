@@ -9,6 +9,10 @@ module Licensee
       PREFERRED_EXT = %w[md markdown txt html].freeze
       PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/.freeze
 
+      # List of short license names that can be used as extensions
+      LICENSE_NAME_EXT = %w[AGPLv3 GPLv3 LGPLv3 MIT MPLv2].freeze
+      LICENSE_NAME_EXT_REGEX = /\.#{Regexp.union(LICENSE_NAME_EXT)}\z/.freeze
+
       # Regex to match any extension except .spdx or .header
       LICENSE_EXT_REGEX = %r{\.(?!spdx|header)[^./]+\z}i.freeze
 
