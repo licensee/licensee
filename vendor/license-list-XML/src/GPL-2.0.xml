@@ -2,7 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
   <license licenseId="GPL-2.0" isOsiApproved="true"
   name="GNU General Public License v2.0 only"
-  isDeprecated="true" deprecatedVersion="3.0">
+  deprecatedVersion="3.0">
     <obsoletedBys>
       <obsoletedBy>GPL-2.0-only</obsoletedBy>
       <obsoletedBy expression="GPL-2.0+">GPL-2.0-or-later</obsoletedBy>

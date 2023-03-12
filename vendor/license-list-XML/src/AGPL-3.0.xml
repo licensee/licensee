@@ -2,7 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
   <license licenseId="AGPL-3.0" isOsiApproved="true"
   name="GNU Affero General Public License v3.0"
-  isDeprecated="true" deprecatedVersion="3.0">
+  deprecatedVersion="3.0">
     <obsoletedBys>
       <obsoletedBy>AGPL-3.0-only</obsoletedBy>
       <obsoletedBy expression="AGPL-3.0+">AGPL-3.0-or-later</obsoletedBy>

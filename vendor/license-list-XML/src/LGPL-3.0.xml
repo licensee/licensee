@@ -2,7 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
   <license licenseId="LGPL-3.0" isOsiApproved="true"
   name="GNU Lesser General Public License v3.0 only"
-  isDeprecated="true" deprecatedVersion="3.0">
+  deprecatedVersion="3.0">
     <obsoletedBys>
       <obsoletedBy>LGPL-3.0-only</obsoletedBy>
       <obsoletedBy expression="LGPL-3.0+">LGPL-3.0-or-later</obsoletedBy>
