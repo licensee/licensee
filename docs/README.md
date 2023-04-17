@@ -13,7 +13,7 @@
 
 ## The solution
 
-Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using a several strategies (which we call "Matchers"). It attempts to determine a project's license in the following order:
+Licensee automates the process of reading `LICENSE` files and compares their contents to known licenses using several strategies (which we call "Matchers"). It attempts to determine a project's license in the following order:
 
 * If the license file has an explicit copyright notice, and nothing more (e.g., `Copyright (c) 2015 Ben Balter`), we'll assume the author intends to retain all rights, and thus the project isn't licensed.
 * If the license is an exact match to a known license. If we strip away whitespace and copyright notice, we might get lucky, and direct string comparison in Ruby is cheap.
