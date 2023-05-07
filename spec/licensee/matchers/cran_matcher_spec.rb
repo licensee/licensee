@@ -4,8 +4,6 @@ RSpec.describe Licensee::Matchers::Cran do
   subject { described_class.new(file) }
 
   let(:mit) { Licensee::License.find('mit') }
-  let(:gpl2) { Licensee::License.find('gpl-2.0') }
-  let(:gpl3) { Licensee::License.find('gpl-3.0') }
   let(:content) { "License: MIT + file LICENSE\nPackage: test" }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'DESCRIPTION') }
 
