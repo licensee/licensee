@@ -19,3 +19,5 @@ Layout/HashAlignment:
 
 RSpec/FactoryBot/CreateList:
   Enabled: false
+
+EnforcedStyle: gemspec
