@@ -21,4 +21,4 @@ RSpec/FactoryBot/CreateList:
   Enabled: false
 
 Gemspec/DevelopmentDependencies:
-  EnforcedStyle: gemspec
+  Enabled: false
