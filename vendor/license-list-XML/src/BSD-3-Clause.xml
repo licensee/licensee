@@ -17,21 +17,21 @@
         <list>
             <item>
                 <bullet>1.</bullet>
-                Redistributions of source code must retain the above copyright notice, this list of conditions
+               Redistributions of <alt match="source code|works" name="code">source code</alt> must retain the <alt match="above|original" name="above">above</alt> copyright notice, this list of conditions
                  and the following disclaimer.
             </item>
             <item>
                 <bullet>2.</bullet>
-                Redistributions in binary form must reproduce the above copyright notice, this list of conditions
+                Redistributions in binary form must reproduce the <alt match="above|original" name="above2">above</alt> copyright notice, this list of conditions
                  and the following disclaimer in the documentation and/or other materials provided with the
                  distribution.
             </item>
             <item>
                 <bullet>3.</bullet>
-                <alt match="(The name of.+may not)|(Neither the name of.+nor the names of its contributors may)|(The names of its contributors may not)|(None of the names of.+and any contributors may)" name="organizationClause3">
+                <alt match="(The name of.+may not)|(Neither the name of.+nor the names of its contributors may)|( Neither the name of.+nor the names of its authors and contributors may)|(Neither the name of.+nor the names of contributors may)|(Neither the name.+nor the names of contributors may)|(The names of its contributors may not)|(The names of any contributors may not)|(None of the names of.+and any contributors may)" name="organizationClause3">
                  Neither the name of the copyright holder nor the names of its contributors may</alt>
                  be used to endorse or promote products derived from this
-                 software without specific prior written permission.
+               <alt match="software|work" name="software">software</alt> without specific prior written permission.
             </item>
         </list>
         <p>THIS SOFTWARE IS PROVIDED <alt match=".*" name="copyrightHolderAsIs">BY THE COPYRIGHT HOLDERS AND
