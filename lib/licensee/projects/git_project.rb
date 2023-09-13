@@ -71,9 +71,9 @@ module Licensee
       end
 
       def files_from_tree(tree, dir = '.')
-        tree.select { |e| e[:type] == :blob }.map do |entry|
+        tree.select { |e| e[:type] == :blob }.filter_map do |entry|
           entry.merge(dir: dir)
-        end.compact
+        end
       end
     end
   end
