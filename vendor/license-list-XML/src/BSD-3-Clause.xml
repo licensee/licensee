@@ -6,7 +6,7 @@
          <crossRef>https://opensource.org/licenses/BSD-3-Clause</crossRef>
          <crossRef>https://www.eclipse.org/org/documents/edl-v10.php</crossRef>
       </crossRefs>
-      <notes>Note that the Eclipse Distribution License - v 1.0 (EDL 1.0) is a match to BSD-3-Clause, even though it uses a different name.</notes>
+      <notes>Note  for matching purposes, this license contains a number of equivalent variations, particularly in the third clause. See the XML file for more details. Also note that the Eclipse Distribution License - v 1.0 (EDL 1.0) is a match to BSD-3-Clause, even though it uses a different name.</notes>
     <text>
       <copyrightText>
         <p>Copyright (c) &lt;year&gt; &lt;owner&gt;. </p>
@@ -28,7 +28,7 @@
             </item>
             <item>
                 <bullet>3.</bullet>
-                <alt match="(The name of.+may not)|(Neither the names? of.+nor the names of its contributors may)|( Neither the name of.+nor the names of its authors and contributors may)|(Neither the name of.+nor the names of contributors may)|(Neither the name.+nor the names of contributors may)|(The names of its contributors may not)|(The names of any contributors may not)|(The names of the contributors may not)|(None of the names of.+and any contributors may)" name="organizationClause3">
+                <alt match="(The name of.+may not)|(Neither the names? of.+nor the names of its contributors may)|( Neither the name of.+nor the names of its authors and contributors may)|(Neither the name of.+nor the names of contributors may)|(Neither the name.+nor the names of contributors may)|(The names of its contributors may not)|(The names of any contributors may not)|(The names of the contributors may not)|(None of the names of.+and any contributors may)|(Neither my name .+ nor the names of contributors to this code may)" name="organizationClause3">
                  Neither the name of the copyright holder nor the names of its contributors may</alt>
                  be used to endorse or promote products derived from this
                <alt match="software|work" name="software">software</alt> without specific prior written permission.
