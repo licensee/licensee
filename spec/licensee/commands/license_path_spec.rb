@@ -2,7 +2,8 @@
 
 RSpec.describe 'license-path command' do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'license-path'] }
-  let(:arguments) { [project_root] }
+  let(:project_path) { fixture_path('mit_markdown') }
+  let(:arguments) { [project_path] }
   let(:output) do
     Dir.chdir project_root do
       Open3.capture3(*[command, arguments].flatten)
@@ -14,7 +15,7 @@ RSpec.describe 'license-path command' do
   let(:status) { output[2] }
 
   it 'returns the license path' do
-    expect(stdout).to match(File.join(project_root, 'LICENSE.md'))
+    expect(stdout).to match(File.join(project_path, 'LICENSE.md'))
   end
 
   it 'Returns a zero exit code' do
