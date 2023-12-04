@@ -28,11 +28,11 @@ RSpec.describe Licensee::LicenseMeta do
     described_class::PREDICATE_FIELDS.each do |field|
       context "the #{field}? method" do
         it 'responds' do
-          expect(subject).to respond_to("#{field}?".to_sym)
+          expect(subject).to respond_to(:"#{field}?")
         end
 
         it 'is boolean' do
-          expect(subject.send("#{field}?".to_sym)).to be(true).or be(false)
+          expect(subject.send(:"#{field}?")).to be(true).or be(false)
         end
       end
     end
