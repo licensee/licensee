@@ -43,12 +43,12 @@ module Licensee
 
       # Array of symbolized helper methods to expose on the License class
       def helper_methods
-        members - PREDICATE_FIELDS + PREDICATE_FIELDS.map { |f| "#{f}?".to_sym }
+        members - PREDICATE_FIELDS + PREDICATE_FIELDS.map { |f| "#{f}?" }
       end
     end
 
     PREDICATE_FIELDS.each do |field|
-      alias_method "#{field}?".to_sym, field
+      alias_method "#{field}?", field
     end
 
     # Backward compatibalize `#["spdx-id"]` calls to avoid a breaking change
