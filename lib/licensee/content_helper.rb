@@ -304,8 +304,8 @@ module Licensee
 
       if operation
         @_content = _content.gsub operation[:from], operation[:to]
-      elsif respond_to?("normalize_#{from_or_key}", true)
-        send("normalize_#{from_or_key}")
+      elsif respond_to?(:"normalize_#{from_or_key}", true)
+        send(:"normalize_#{from_or_key}")
       else
         raise ArgumentError, "#{from_or_key} is an invalid normalization"
       end
