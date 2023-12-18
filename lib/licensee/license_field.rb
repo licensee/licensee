@@ -22,7 +22,7 @@ module Licensee
         @all ||= begin
           path   = '../../vendor/choosealicense.com/_data/fields.yml'
           path   = File.expand_path path, __dir__
-          fields = YAML.safe_load File.read(path)
+          fields = YAML.safe_load_file(path)
           fields.map { |field| LicenseField.from_hash(field) }
         end
       end
@@ -47,7 +47,7 @@ module Licensee
     end
 
     alias key name
-    FIELD_REGEX = /\[(#{Regexp.union(LicenseField.keys)})\]/.freeze
+    FIELD_REGEX = /\[(#{Regexp.union(LicenseField.keys)})\]/
 
     # The human-readable field name
     def label
