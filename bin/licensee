@@ -37,6 +37,6 @@ class LicenseeCLI < Thor
 end
 
 commands_dir = File.expand_path '../lib/licensee/commands/', __dir__
-Dir["#{commands_dir}/*.rb"].sort.each { |c| require(c) }
+Dir["#{commands_dir}/*.rb"].each { |c| require(c) }
 
 LicenseeCLI.start(ARGV)
