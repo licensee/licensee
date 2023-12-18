@@ -109,7 +109,7 @@ end
 def meta_fields
   path = 'vendor/choosealicense.com/_data/meta.yml'
   path = File.expand_path(path, project_root)
-  YAML.safe_load(File.read(path))
+  YAML.safe_load_file(path)
 end
 
 RSpec::Matchers.define :be_an_existing_file do
