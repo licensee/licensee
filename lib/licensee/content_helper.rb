@@ -6,8 +6,8 @@ require 'digest'
 module Licensee
   module ContentHelper
     DIGEST = Digest::SHA1
-    START_REGEX = /\A\s*/.freeze
-    END_OF_TERMS_REGEX = /^[\s#*_]*end of (the )?terms and conditions[\s#*_]*$/i.freeze
+    START_REGEX = /\A\s*/
+    END_OF_TERMS_REGEX = /^[\s#*_]*end of (the )?terms and conditions[\s#*_]*$/i
     REGEXES = {
       bom:                 /#{START_REGEX}\xEF\xBB\xBF/,
       hrs:                 /^\s*[=\-*]{3,}\s*$/,

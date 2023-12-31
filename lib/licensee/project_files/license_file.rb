@@ -7,29 +7,29 @@ module Licensee
 
       # List of extensions to give preference to
       PREFERRED_EXT = %w[md markdown txt html].freeze
-      PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/.freeze
+      PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/
 
       # Regex to match any extension except .spdx or .header
-      LICENSE_EXT_REGEX = %r{\.(?!spdx|header)[^./]+\z}i.freeze
+      LICENSE_EXT_REGEX = %r{\.(?!spdx|header)[^./]+\z}i
 
       # Regex to match any extension except a few unlikely as license
       # texts with complex filenames
-      OTHER_EXT_REGEX = %r{\.(?!xml|go|gemspec)[^./]+\z}i.freeze
+      OTHER_EXT_REGEX = %r{\.(?!xml|go|gemspec)[^./]+\z}i
 
       # Regex to match any extension
-      ANY_EXT_REGEX = %r{\.[^./]+\z}i.freeze
+      ANY_EXT_REGEX = %r{\.[^./]+\z}i
 
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
-      LICENSE_REGEX = /(un)?licen[sc]e/i.freeze
+      LICENSE_REGEX = /(un)?licen[sc]e/i
 
       # Regex to match COPYING, COPYRIGHT, etc.
-      COPYING_REGEX = /copy(ing|right)/i.freeze
+      COPYING_REGEX = /copy(ing|right)/i
 
       # Regex to match OFL.
-      OFL_REGEX = /ofl/i.freeze
+      OFL_REGEX = /ofl/i
 
       # BSD + PATENTS patent file
-      PATENTS_REGEX = /patents/i.freeze
+      PATENTS_REGEX = /patents/i
 
       # Hash of Regex => score with which to score potential license files
       FILENAME_REGEXES = {
@@ -55,7 +55,7 @@ module Licensee
       # detected as CC-BY or CC-BY-SA which are 98%+ similar
       CC_FALSE_POSITIVE_REGEX = /
         ^(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
-      /xi.freeze
+      /xi
 
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]

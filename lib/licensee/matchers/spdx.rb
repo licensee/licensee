@@ -5,7 +5,7 @@ module Licensee
     class Spdx < Licensee::Matchers::Package
       # While we could parse the LICENSE.spdx file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.
-      LICENSE_REGEX = /PackageLicenseDeclared:\s*([a-z\-0-9. +()]+)\s*/i.freeze
+      LICENSE_REGEX = /PackageLicenseDeclared:\s*([a-z\-0-9. +()]+)\s*/i
 
       private
 
