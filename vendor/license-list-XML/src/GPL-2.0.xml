@@ -27,8 +27,8 @@
       <p>
         You should have received a copy of the GNU General Public License
         along with this program; if not, write to the Free Software Foundation,
-        Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301<optional spacing="after">,</optional>
-        USA.
+        Inc., <alt match=".{54,64}" name="freeSoftwareFoundationAddress">51
+        Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA</alt>.
       </p>
     </standardLicenseHeader>
     <text>
@@ -40,8 +40,8 @@
     </titleText>
     <p>
       Copyright (C) 1989, 1991 Free Software Foundation, Inc.<alt name="incComma" match=",|"/><br/>
-      51 Franklin Street, Fifth Floor, Boston, MA 02110-1301<optional spacing="after">,</optional>
-      USA
+      <alt match=".{54,64}" name="freeSoftwareFoundationAddress">51 Franklin
+      Street, Fifth Floor, Boston, MA 02110-1301, USA</alt>
     </p>
     <p>
       Everyone is permitted to copy and distribute verbatim copies
