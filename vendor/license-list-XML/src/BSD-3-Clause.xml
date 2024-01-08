@@ -28,7 +28,7 @@
             </item>
             <item>
                 <bullet>3.</bullet>
-                <alt match="(The name of.+may not)|(Neither the names? of.+nor the names of its contributors may)|( Neither the name of.+nor the names of its authors and contributors may)|(Neither the name of.+nor the names of contributors may)|(Neither the name.+nor the names of contributors may)|(The names of its contributors may not)|(The names of any contributors may not)|(The names of the contributors may not)|(None of the names of.+and any contributors may)|(Neither my name .+ nor the names of contributors to this code may)" name="organizationClause3">
+                <alt match="(The\s+name\s+of.+may\s+not)|(Neither\s+the\s+names?\s+of.+nor\s+the\s+names\s+of\s+its\s+contributors\s+may)|(Neither\s+the\s+names?\s+of.+nor\s+the\s+names\s+of\s+their\s+contributors\s+may)|(\s*Neither\s+the\s+name\s+of.+nor\s+the\s+names\s+of\s+its\s+authors\s+and\s+contributors\s+may)|(Neither\s+the\s+name\s+of.+nor\s+the\s+names\s+of\s+(specific\s+)?contributors,?\s+may)|(Neither\s+the\s+name.+nor\s+the\s+names\s+of\s+contributors\s+may)|(The\s+names\s+of\s+its\s+contributors\s+may\s+not)|(The\s+names\s+of\s+any\s+contributors\s+may\s+not)|(The\s+names\s+of\s+the\s+contributors\s+may\s+not)|(None\s+of\s+the\s+names\s+of.+and\s+any\s+contributors\s+may)|(Neither\s+my\s+name.+nor\s+the\s+names\s+of\s+contributors\s+to\s+this\s+code\s+may)" name="organizationClause3">
                  Neither the name of the copyright holder nor the names of its contributors may</alt>
                  be used to endorse or promote products derived from this
                <alt match="software|work" name="software">software</alt> without specific prior written permission.
