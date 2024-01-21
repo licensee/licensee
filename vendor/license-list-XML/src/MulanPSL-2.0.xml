@@ -2,7 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="true" licenseId="MulanPSL-2.0" name="Mulan Permissive Software License, Version 2" listVersionAdded="3.9">
       <crossRefs>
-         <crossRef>https://license.coscl.org.cn/MulanPSL2/</crossRef>
+         <crossRef>https://license.coscl.org.cn/MulanPSL2</crossRef>
       </crossRefs>
       <notes>Both the Chinese and English translations of this license have been included in the markup, because current examples of use appear to include both translations in license documents.</notes>
     <text>
