@@ -1,4 +1,4 @@
-FROM ruby:3.3.0@sha256:79fd4a27fc343abc7372e9082fcfae3750e24cdb519c1cfd89cfa7a4d48a5191
+FROM ruby:3.3.0@sha256:fb9d97f39ada3ff3ed0f1d04fc94efb59490c6c519f468b54a91e48de9ea0ec5
 
 WORKDIR /usr/src/app
 RUN git init
