@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
-   <license isOsiApproved="true" licenseId="0BSD" name="BSD Zero Clause License">
+    <license isOsiApproved="true" licenseId="0BSD"
+	name="BSD Zero Clause License" listVersionAdded="2.2">
       <crossRefs>
          <crossRef>http://landley.net/toybox/license.html</crossRef>
          <crossRef>https://opensource.org/licenses/0BSD</crossRef>
