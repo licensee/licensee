@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="false" licenseId="CC-BY-4.0"
-            name="Creative Commons Attribution 4.0 International">
+            name="Creative Commons Attribution 4.0 International" listVersionAdded="1.20">
       <crossRefs>
          <crossRef>https://creativecommons.org/licenses/by/4.0/legalcode</crossRef>
       </crossRefs>
@@ -26,8 +26,8 @@
          Our licenses are irrevocable. Licensors should read and understand the terms and conditions of the
          license they choose before applying it. Licensors should also secure all rights necessary before
          applying our licenses so that the public can reuse the material as expected. Licensors should clearly
-         mark any material not subject to the license. This includes other CC-licensed material, or material
-         used under an exception or limitation to copyright. More considerations for licensors<alt match=": wiki.creativecommons.org/Considerations_for_licensors|\." name="considerationsLicensors">: wiki.creativecommons.org/Considerations_for_licensors</alt></p>
+         mark any material not subject to the license. This includes other <alt match="CC-[ \t\r\n\f]{0,10}licensed" name="ccLicensed"/> material, or material
+         used under an exception or limitation to copyright. More considerations for licensors<alt match=":[ \t\r\n\f]{1,10}wiki\.creativecommons\.org/Considerations_for_licensors|\." name="considerationsLicensors">: wiki.creativecommons.org/Considerations_for_licensors</alt></p>
          <p>Considerations for the public: By using one of our public licenses, a licensor grants the public
          permission to use the licensed material under specified terms and conditions. If the licensor’s
          permission is not necessary for any reason–for example, because of any applicable exception or
@@ -36,7 +36,7 @@
          the licensed material may still be restricted for other reasons, including because others have
          copyright or other rights in the material. A licensor may make special requests, such as asking that
          all changes be marked or described. Although not required by our licenses, you are encouraged to
-         respect those requests where reasonable. <alt match="More considerations|More_considerations" name="spaceUnderscore">More considerations</alt> for the public<alt match=": wiki.creativecommons.org/Considerations_for_licensees|\." name="considerationsLicensees">: wiki.creativecommons.org/Considerations_for_licensees</alt></p>
+         respect those requests where reasonable. <alt match="More considerations|More_considerations" name="spaceUnderscore">More considerations</alt> for the public<alt match=":[ \t\r\n\f]{1,10}wiki\.creativecommons\.org/Considerations_for_licensees|\." name="considerationsLicensees">: wiki.creativecommons.org/Considerations_for_licensees</alt></p>
       </optional>
 
       <titleText>
@@ -48,7 +48,7 @@
          Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You
          such rights in consideration of benefits the Licensor receives from making the Licensed Material
          available under these terms and conditions.</p>
-      <p>Section 1 – Definitions.</p>
+      <p>Section 1 <alt match="-{1,2}" name="section1TitleHyphens"/> Definitions.</p>
         <list>
           <item>
             <bullet>a.</bullet>
@@ -123,7 +123,7 @@
                Your has a corresponding meaning.
           </item>
         </list>
-      <p>Section 2 – Scope.</p>
+      <p>Section 2 <alt match="-{1,2}" name="section2TitleHyphens"/> Scope.</p>
         <list>
           <item>
             <bullet>a.</bullet>
@@ -221,7 +221,7 @@
               </list>
           </item>
         </list>
-      <p>Section 3 – License Conditions.</p>
+      <p>Section 3 <alt match="-{1,2}" name="section3TitleHyphens"/> License Conditions.</p>
       <p>Your exercise of the Licensed Rights is expressly made subject to the following conditions.</p>
         <list>
           <item>
@@ -293,7 +293,7 @@
             </list>
           </item>
         </list>
-      <p>Section 4 – Sui Generis Database Rights.</p>
+      <p>Section 4 <alt match="-{1,2}" name="section4TitleHyphens"/> Sui Generis Database Rights.</p>
       <p>Where the Licensed Rights include Sui Generis Database Rights that apply to Your use of
          the Licensed Material:</p>
         <list>
@@ -318,7 +318,7 @@
          obligations under this Public License where the Licensed Rights include other
          Copyright and Similar Rights.
       </p>
-      <p>Section 5 – Disclaimer of Warranties and Limitation of Liability.</p>
+      <p>Section 5 <alt match="-{1,2}" name="section5TitleHyphens"/> Disclaimer of Warranties and Limitation of Liability.</p>
         <list>
           <item>
             <bullet>a.</bullet>
@@ -348,7 +348,7 @@
                and waiver of all liability.
           </item>
         </list>
-      <p>Section 6 – Term and Termination.</p>
+      <p>Section 6 <alt match="-{1,2}" name="section6TitleHyphens"/> Term and Termination.</p>
         <list>
           <item>
             <bullet>a.</bullet>
@@ -387,7 +387,7 @@
             Sections 1, 5, 6, 7, and 8 survive termination of this Public License.
           </item>
         </list>
-      <p>Section 7 – Other Terms and Conditions.</p>
+      <p>Section 7 <alt match="-{1,2}" name="section7TitleHyphens"/> Other Terms and Conditions.</p>
         <list>
           <item>
             <bullet>a.</bullet>
@@ -401,7 +401,7 @@
                License.
           </item>
         </list>
-      <p>Section 8 – Interpretation.</p>
+      <p>Section 8 <alt match="-{1,2}" name="section8TitleHyphens"/> Interpretation.</p>
         <list>
           <item>
             <bullet>a.</bullet>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
   <license licenseId="EUPL-1.2" isOsiApproved="true"
-  name="European Union Public License 1.2">
+  name="European Union Public License 1.2" listVersionAdded="2.7">
     <crossRefs>
       <crossRef>https://joinup.ec.europa.eu/page/eupl-text-11-12</crossRef>
       <crossRef>https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/eupl_v1.2_en.pdf</crossRef>

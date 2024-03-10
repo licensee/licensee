@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="false" licenseId="BSD-3-Clause-Clear"
-            name="BSD 3-Clause Clear License">
+            name="BSD 3-Clause Clear License" listVersionAdded="1.17">
       <crossRefs>
          <crossRef>http://labs.metacarta.com/license-explanation.html#license</crossRef>
       </crossRefs>

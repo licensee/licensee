@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
 	<license isOsiApproved="true" licenseId="EPL-2.0"
-		name="Eclipse Public License 2.0">
+		name="Eclipse Public License 2.0" listVersionAdded="2.7">
 		<crossRefs>
 			<crossRef>https://www.eclipse.org/legal/epl-2.0</crossRef>
 			<crossRef>https://www.opensource.org/licenses/EPL-2.0</crossRef>

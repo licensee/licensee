@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
-   <license isOsiApproved="true" licenseId="Unlicense" name="The Unlicense">
+   <license isOsiApproved="true" licenseId="Unlicense" name="The Unlicense" listVersionAdded="1.19">
       <crossRefs>
          <crossRef>https://unlicense.org/</crossRef>
       </crossRefs>

@@ -2,7 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="true" licenseId="MIT" name="MIT License">
       <crossRefs>
-         <crossRef>https://opensource.org/licenses/MIT</crossRef>
+         <crossRef>https://opensource.org/license/mit/</crossRef>
       </crossRefs>
     <text>
       <titleText>

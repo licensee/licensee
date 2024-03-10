@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="true" licenseId="UPL-1.0"
-            name="Universal Permissive License v1.0">
+            name="Universal Permissive License v1.0" listVersionAdded="2.1">
       <crossRefs>
          <crossRef>https://opensource.org/licenses/UPL</crossRef>
       </crossRefs>

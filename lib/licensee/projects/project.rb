@@ -119,10 +119,10 @@ module Licensee
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns a hash representing the top scoring file
       # or nil, if no file scored > 0
-      def find_file(&block)
+      def find_file(...)
         return if files.empty? || files.nil?
 
-        file = find_files(&block).first
+        file = find_files(...).first
         [load_file(file), file] if file
       end
 

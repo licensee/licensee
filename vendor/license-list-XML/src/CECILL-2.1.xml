@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="true" licenseId="CECILL-2.1"
-            name="CeCILL Free Software License Agreement v2.1">
+            name="CeCILL Free Software License Agreement v2.1" listVersionAdded="2.2">
       <crossRefs>
          <crossRef>http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html</crossRef>
       </crossRefs>
