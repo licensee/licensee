@@ -109,4 +109,20 @@ RSpec.describe Licensee::Projects::GitHubProject do
       expect { subject.license }.to raise_error(described_class::RepoNotFound)
     end
   end
+
+  context 'when initialized with a ref' do
+    let(:ref) { 'my-ref' }
+
+    before do
+      instance.instance_variable_set(:@ref, 'my-ref')
+    end
+
+    it 'returns the ref' do
+      expect(instance.ref).to eql(ref)
+    end
+
+    it 'returns query params' do
+      expect(instance.send(:query_params)).to eql({ ref: instance.ref })
+    end
+  end
 end

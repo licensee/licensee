@@ -15,7 +15,7 @@ module Licensee
       include Licensee::HashHelper
       HASH_METHODS = %i[licenses matched_files].freeze
 
-      def initialize(detect_packages: false, detect_readme: false)
+      def initialize(detect_packages: false, detect_readme: false, **)
         @detect_packages = detect_packages
         @detect_readme = detect_readme
       end
