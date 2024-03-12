@@ -28,7 +28,9 @@ class LicenseeCLI < Thor
 
   def project
     @project ||= Licensee.project(path,
-                                  detect_packages: options[:packages], detect_readme: options[:readme])
+                                  detect_packages: options[:packages],
+                                  detect_readme:   options[:readme],
+                                  ref:             options[:ref])
   end
 
   def remote?

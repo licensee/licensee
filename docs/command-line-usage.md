@@ -60,6 +60,7 @@ Options:
                                  # Default: 98
   [--license=LICENSE]            # The SPDX ID or key of the license to compare (implies --diff)
   [--diff], [--no-diff]          # Compare the license to the closest match
+  [--ref=REF]                    # The name of the commit/branch/tag to search (github.com PATHs only)
   [--remote], [--no-remote]      # Assume PATH is a GitHub owner/repo path
 ```
 
