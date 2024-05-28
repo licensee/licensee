@@ -54,7 +54,7 @@ module Licensee
     # Backward compatibalize `#["spdx-id"]` calls to avoid a breaking change
     def [](key)
       key = 'spdx_id' if key == 'spdx-id'
-      super(key)
+      super
     end
 
     def source
