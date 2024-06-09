@@ -196,6 +196,8 @@
 
       <optional>
          <p>END OF TERMS AND CONDITIONS</p>
+      </optional>
+      <optional>
          <p>APPENDIX: How to apply the Apache License to your work.</p>
          <p>To apply the Apache License to your work, attach the following boilerplate notice, with the fields
          enclosed by brackets "[]" replaced with your own identifying information. (Don't
