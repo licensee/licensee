@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
   gem.executables << 'licensee'
 
   gem.add_dependency('dotenv', '>= 2', '< 4')
-  gem.add_dependency('octokit', '>= 4.20', '< 9.0')
+  gem.add_dependency('octokit', '>= 4.20', '< 10.0')
   gem.add_dependency('reverse_markdown', '>= 1', '< 3')
   gem.add_dependency('rugged', '>= 0.24', '<2.0')
   gem.add_dependency('thor', '>= 0.19', '< 2.0')
