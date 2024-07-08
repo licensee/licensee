@@ -261,7 +261,7 @@ RSpec.describe Licensee::ContentHelper do
     end
 
     it 'normalizes http: to https:' do
-      license = Licensee::License.find('mpl-2.0')
+      license = Licensee::License.find('ofl-1.1')
       expect(license.content).to include('http:')
       expect(license.content_normalized).not_to include('http:')
     end
