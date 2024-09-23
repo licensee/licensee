@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@52753b7da854d5c07df37391a986c76ab4615999 # v1.191.0
+        uses: ruby/setup-ruby@f321cf5a4d1533575411f8752cf25b86478b0442 # v1.193.0
         with:
           ruby-version: 3.3
           bundler-cache: true 
@@ -42,7 +42,7 @@ jobs:
         run: bundle exec script/hash-licenses
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@d121e62763d8cc35b5fb1710e887d6e69a52d3a4 # v7.0.2
+        uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7.0.5
         with:
             commit-message: Update vendored licenses and SPDX
             title: Update vendored licenses and SPDX
