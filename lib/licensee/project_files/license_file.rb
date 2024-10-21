@@ -75,7 +75,7 @@ module Licensee
       end
 
       def lgpl?
-        LicenseFile.lesser_gpl_score(filename) == 1 && license && license.lgpl?
+        LicenseFile.lesser_gpl_score(filename) == 1 && license&.lgpl?
       end
 
       def gpl?
