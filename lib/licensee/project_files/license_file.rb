@@ -9,15 +9,15 @@ module Licensee
       PREFERRED_EXT = %w[md markdown txt html].freeze
       PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}\z/
 
-      # Regex to match any extension except .spdx or .header
-      LICENSE_EXT_REGEX = %r{\.(?!spdx|header)[^./]+\z}i
+      # Regex to match any extension and periods in version numbers except .spdx or .header
+      LICENSE_EXT_REGEX = %r{\.(?!spdx|header)([^./]|\.\d)+\z}i
 
-      # Regex to match any extension except a few unlikely as license
+      # Regex to match any extension and periods in version numbers except a few unlikely as license
       # texts with complex filenames
-      OTHER_EXT_REGEX = %r{\.(?!xml|go|gemspec)[^./]+\z}i
+      OTHER_EXT_REGEX = %r{\.(?!xml|go|gemspec)([^./]|\.\d)+\z}i
 
-      # Regex to match any extension
-      ANY_EXT_REGEX = %r{\.[^./]+\z}i
+      # Regex to match any extension and periods in version numbers
+      ANY_EXT_REGEX = %r{\.([^./]|\.\d)+\z}i
 
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
       LICENSE_REGEX = /(un)?licen[sc]e/i

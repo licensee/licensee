@@ -68,6 +68,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'copyRIGHT'           => 0.90,
       'COPYRIGHT.txt'       => 0.85,
       'copying.txt'         => 0.85,
+      'LICENSE.MPL-2.0'     => 0.80,
       'LICENSE.php'         => 0.80,
       'LICENCE.docs'        => 0.80,
       'license.xml'         => 0.80,
