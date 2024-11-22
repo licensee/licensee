@@ -22,8 +22,11 @@ module Licensee
       # Regex to match, LICENSE, LICENCE, unlicense, etc.
       LICENSE_REGEX = /(un)?licen[sc]e/i
 
-      # Regex to match COPYING, COPYRIGHT, etc.
-      COPYING_REGEX = /copy(ing|right)/i
+      # Regex to match COPYING
+      COPYING_REGEX = /copying/i
+
+      # Regex to match COPYRIGHT
+      COPYRIGHT_REGEX = /copyright/i
 
       # Regex to match OFL.
       OFL_REGEX = /ofl/i
@@ -46,8 +49,12 @@ module Licensee
         /\A#{OFL_REGEX}#{PREFERRED_EXT_REGEX}/                => 0.50,  # OFL.md
         /\A#{OFL_REGEX}#{OTHER_EXT_REGEX}/                    => 0.45,  # OFL.textile
         /\A#{OFL_REGEX}\z/                                    => 0.40,  # OFL
-        /\A#{PATENTS_REGEX}\z/                                => 0.35,  # PATENTS
-        /\A#{PATENTS_REGEX}#{OTHER_EXT_REGEX}\z/              => 0.30,  # PATENTS.txt
+        /\A#{COPYRIGHT_REGEX}\z/                              => 0.35,  # COPYRIGHT
+        /\A#{COPYRIGHT_REGEX}#{PREFERRED_EXT_REGEX}\z/        => 0.30,  # COPYRIGHT.txt
+        /\A#{COPYRIGHT_REGEX}#{OTHER_EXT_REGEX}\z/            => 0.25,  # COPYRIGHT.textile
+        /\A#{COPYRIGHT_REGEX}[-_][^.]*#{OTHER_EXT_REGEX}?\z/  => 0.20,  # COPYRIGHT-MIT
+        /\A#{PATENTS_REGEX}\z/                                => 0.15,  # PATENTS
+        /\A#{PATENTS_REGEX}#{OTHER_EXT_REGEX}\z/              => 0.10,  # PATENTS.txt
         //                                                    => 0.00   # Catch all
       }.freeze
 

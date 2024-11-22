@@ -65,19 +65,18 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'LICENSE.md'          => 0.95,
       'license.txt'         => 0.95,
       'COPYING'             => 0.90,
-      'copyRIGHT'           => 0.90,
-      'COPYRIGHT.txt'       => 0.85,
+      'copyRIGHT'           => 0.35,
+      'COPYRIGHT.txt'       => 0.30,
       'copying.txt'         => 0.85,
       'LICENSE.MPL-2.0'     => 0.80,
       'LICENSE.php'         => 0.80,
       'LICENCE.docs'        => 0.80,
       'license.xml'         => 0.80,
       'copying.image'       => 0.75,
-      'COPYRIGHT.go'        => 0.75,
       'LICENSE-MIT'         => 0.70,
       'LICENSE_1_0.txt'     => 0.70,
       'COPYING-GPL'         => 0.65,
-      'COPYRIGHT-BSD'       => 0.65,
+      'COPYRIGHT-BSD'       => 0.20,
       'MIT-LICENSE.txt'     => 0.60,
       'mit-license-foo.md'  => 0.60,
       'OFL.md'              => 0.50,
@@ -149,14 +148,6 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       %w[LICENSE licence unlicense LICENSE-MIT MIT-LICENSE].each do |license|
         it "matches #{license}" do
           expect(described_class::LICENSE_REGEX).to match(license)
-        end
-      end
-    end
-
-    context 'copying regex' do
-      %w[COPYING copyright].each do |copying|
-        it "matches #{copying}" do
-          expect(described_class::COPYING_REGEX).to match(copying)
         end
       end
     end
