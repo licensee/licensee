@@ -198,11 +198,11 @@ module Licensee
     end
 
     def gpl?
-      key == 'gpl-2.0' || key == 'gpl-3.0'
+      ['gpl-2.0', 'gpl-3.0'].include?(key)
     end
 
     def lgpl?
-      key == 'lgpl-2.1' || key == 'lgpl-3.0'
+      ['lgpl-2.1', 'lgpl-3.0'].include?(key)
     end
 
     # Is this license a Creative Commons license?
