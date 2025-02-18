@@ -51,6 +51,7 @@ module Licensee
       end
 
       MAX_LICENSE_SIZE = 64 * 1024
+      private_constant :MAX_LICENSE_SIZE
 
       # Retrieve a file's content from the Git database
       #
