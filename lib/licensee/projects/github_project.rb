@@ -47,8 +47,9 @@ module Licensee
         else
           # Only check if there are `LICENSES/` files if the repo exists.
           begin
-            @files.append(*dir_files("LICENSES"))
+            @files.append(*dir_files('LICENSES'))
           rescue Octokit::NotFound
+            # do nothing
           end
         end
 

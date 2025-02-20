@@ -172,11 +172,15 @@ licenses-dir:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
-licenses-dir-with-top-level-license:
+licenses-dir-with-license-ref:
+  key: mit
+  matcher: exact
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+licenses-dir-with-multiple-license-files:
   key: other
   matcher:
   hash:
-licenses-dir-with-multiple-license-files:
+licenses-dir-with-top-level-license:
   key: other
   matcher:
   hash:

@@ -100,14 +100,14 @@ module Licensee
       end
 
       def self.name_score(dir, filename)
-        if dir == "LICENSES" then
-          if filename =~ SPDX_REGEX then
+        if dir == 'LICENSES'
+          if filename.match? SPDX_REGEX
             1.0
           else
             0.0
           end
         else
-          FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
+          FILENAME_REGEXES.find { |regex, _| filename.match? regex }[1]
         end
       end
 

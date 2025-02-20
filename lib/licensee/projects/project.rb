@@ -70,7 +70,7 @@ module Licensee
         return @readme if defined? @readme
 
         @readme = begin
-          content, file = find_file do |dir, name|
+          content, file = find_file do |_dir, name|
             Licensee::ProjectFiles::ReadmeFile.name_score(name)
           end
           content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
@@ -87,7 +87,7 @@ module Licensee
         return @package_file if defined? @package_file
 
         @package_file = begin
-          content, file = find_file do |dir, name|
+          content, file = find_file do |_dir, name|
             Licensee::ProjectFiles::PackageManagerFile.name_score(name)
           end
 

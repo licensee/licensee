@@ -60,8 +60,8 @@ RSpec.describe Licensee::Projects::GitHubProject do
         .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
         .to_return(status: 200, body: mit_readme_file)
 
-      stub_request(:get, "https://api.github.com/repos/benbalter/licensee/contents/LICENSES")
-        .to_return(status:  404)
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES')
+        .to_return(status: 404)
     end
 
     it 'returns the license' do
@@ -138,16 +138,42 @@ RSpec.describe Licensee::Projects::GitHubProject do
   context 'when repo has LICENSES/ dir' do
     before do
       stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
-        .to_return(
+        .to_return_json(
           status:  200,
-          body:    fixture_contents('webmock-licenses-dir/top-level.json'),
+          body:    [
+            {
+              name:         'LICENSES',
+              path:         'LICENSES',
+              sha:          'sha1',
+              size:         0,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/tree/master/LICENSES',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/trees/sha1',
+              download_url: nil,
+              type:         'dir',
+              _links:       {}
+            }
+          ],
           headers: { 'Content-Type' => 'application/json' }
         )
 
-      stub_request(:get, "https://api.github.com/repos/benbalter/licensee/contents/LICENSES")
-        .to_return(
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES')
+        .to_return_json(
           status:  200,
-          body:    fixture_contents('webmock-licenses-dir/dir.json'),
+          body:    [
+            {
+              name:         'MIT.txt',
+              path:         'LICENSES/MIT.txt',
+              sha:          'sha1',
+              size:         1072,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSES/MIT.txt',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha1',
+              download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSES/MIT.txt',
+              type:         'file',
+              _links:       {}
+            }
+          ],
           headers: { 'Content-Type' => 'application/json' }
         )
 
@@ -165,16 +191,54 @@ RSpec.describe Licensee::Projects::GitHubProject do
   context 'when repo has LICENSES/ dir with multiple licenses' do
     before do
       stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
-        .to_return(
+        .to_return_json(
           status:  200,
-          body:    fixture_contents('webmock-licenses-dir-with-multiple-license-files/top-level.json'),
+          body:    [
+            {
+              name:         'LICENSES',
+              path:         'LICENSES',
+              sha:          'sha1',
+              size:         0,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/tree/master/LICENSES',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/trees/sha1',
+              download_url: nil,
+              type:         'dir',
+              _links:       {}
+            }
+          ],
           headers: { 'Content-Type' => 'application/json' }
         )
 
-      stub_request(:get, "https://api.github.com/repos/benbalter/licensee/contents/LICENSES")
-        .to_return(
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES')
+        .to_return_json(
           status:  200,
-          body:    fixture_contents('webmock-licenses-dir-with-multiple-license-files/dir.json'),
+          body:    [
+            {
+              name:         'MIT.txt',
+              path:         'LICENSES/MIT.txt',
+              sha:          'sha1',
+              size:         1072,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSES/MIT.txt',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha1',
+              download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSES/MIT.txt',
+              type:         'file',
+              _links:       {}
+            },
+            {
+              name:         'APACHE-2.0.txt',
+              path:         'LICENSES/APACHE-2.0.txt',
+              sha:          'sha2',
+              size:         1072,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/APACHE-2.0.txt?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSES/APACHE-2.0.txt',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha2',
+              download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSES/APACHE-2.0.txt',
+              type:         'file',
+              _links:       {}
+            }
+          ],
           headers: { 'Content-Type' => 'application/json' }
         )
 

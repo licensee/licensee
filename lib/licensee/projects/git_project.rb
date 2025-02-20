@@ -69,14 +69,14 @@ module Licensee
       #  :oid  - the file's OID
       #  :dir  - the directory path containing the file
       def files
-        if not defined? @files then
-          @files = files_from_tree(commit.tree)
+        return @files if defined? @files
 
-          licenses_dir = commit.tree.find { |e| e[:type] == :tree and e[:name] == "LICENSES" }
-          if licenses_dir then
-            @files.append(*files_from_tree(repository.lookup(licenses_dir[:oid]), "LICENSES"))
-          end
-        end
+        @files = files_from_tree(commit.tree)
+
+        # Check if we have a `LICENSES/` directory. If so, append the files to our list.
+        licenses_dir = commit.tree.find { |e| e[:type] == :tree and e[:name] == 'LICENSES' }
+
+        @files.append(*files_from_tree(repository.lookup(licenses_dir[:oid]), 'LICENSES')) if licenses_dir
 
         @files
       end
