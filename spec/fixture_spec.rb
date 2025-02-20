@@ -11,6 +11,13 @@ RSpec.describe 'fixture test' do
       let(:other) { Licensee::License.find('other') }
       let(:none) { Licensee::License.find('none') }
       let(:expectations) { fixture_licenses[fixture] || {} }
+      let(:expected_key) {
+        if expectations['key']
+          Licensee::License.find(expectations['key'])
+        else
+          none
+        end
+      }
       let(:license_file) { subject.license_file }
       let(:matcher) { license_file&.matcher }
 
@@ -22,14 +29,20 @@ RSpec.describe 'fixture test' do
         expect(fixture_licenses).to have_key(fixture), msg
       end
 
-      it 'detects the license' do
-        expected = if expectations['key']
-                     Licensee::License.find(expectations['key'])
+      it 'detects the license key' do
+        expect(subject.license).to eql(expected_key)
+      end
+
+      it 'detects multiple license' do
+        expected = if expectations['licenses']
+                     expectations['licenses'].map do |license|
+                       Licensee::License.find(license)
+                     end
                    else
-                     none
+                     [expected_key]
                    end
 
-        expect(subject.license).to eql(expected)
+        expect(subject.licenses).to eql(expected)
       end
 
       it 'returns the expected hash' do
