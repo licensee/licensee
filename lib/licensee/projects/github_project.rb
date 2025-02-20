@@ -32,10 +32,26 @@ module Licensee
 
       private
 
+      # Returns an array of hashes representing the project's files.
+      # Hashes will have the the following keys:
+      #  :name - the relative file name
+      #  :oid  - the file's OID
+      #  :dir  - the directory path containing the file
       def files
-        return @files if defined? @files_from_tree
+        return @files if defined? @files
 
-        @files = dir_files
+        begin
+          @files = dir_files
+        rescue Octokit::NotFound
+          @files = []
+        else
+          # Only check if there are `LICENSES/` files if the repo exists.
+          begin
+            @files.append(*dir_files("LICENSES"))
+          rescue Octokit::NotFound
+          end
+        end
+
         return @files unless @files.empty?
 
         msg = "Could not load GitHub repo #{repo}, it may be private or deleted"
@@ -60,8 +76,6 @@ module Licensee
         files = files.select { |data| data[:type] == 'file' }
         files.each { |data| data[:dir] = File.dirname(data[:path]) }
         files.map(&:to_h)
-      rescue Octokit::NotFound
-        []
       end
 
       def client

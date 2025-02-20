@@ -39,6 +39,9 @@
           headers: { 'Content-Type' => 'application/json' }
         )
 
+        stub_request(:get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/LICENSES")
+          .to_return(status: 404)
+
         fixture_root_files(fixture).each do |file|
           relative_path = File.basename(file)
           parts = [api_base, stubbed_org, fixture, 'contents', relative_path]

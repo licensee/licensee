@@ -59,6 +59,9 @@ RSpec.describe Licensee::Projects::GitHubProject do
       stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/README.md')
         .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
         .to_return(status: 200, body: mit_readme_file)
+
+      stub_request(:get, "https://api.github.com/repos/benbalter/licensee/contents/LICENSES")
+        .to_return(status:  404)
     end
 
     it 'returns the license' do
@@ -112,6 +115,9 @@ RSpec.describe Licensee::Projects::GitHubProject do
         stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSE?ref=my-ref')
           .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
           .to_return(status: 200, body: apache2_license_file)
+
+        stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES?ref=my-ref')
+          .to_return(status: 404)
       end
 
       it 'returns the ref' do
@@ -126,6 +132,65 @@ RSpec.describe Licensee::Projects::GitHubProject do
         expect(subject.license).to be_a(Licensee::License)
         expect(subject.license).to eql(apache2)
       end
+    end
+  end
+
+  context 'when repo has LICENSES/ dir' do
+    before do
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
+        .to_return(
+          status:  200,
+          body:    fixture_contents('webmock-licenses-dir/top-level.json'),
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, "https://api.github.com/repos/benbalter/licensee/contents/LICENSES")
+        .to_return(
+          status:  200,
+          body:    fixture_contents('webmock-licenses-dir/dir.json'),
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: mit_license_file)
+    end
+
+    it 'returns both licenses' do
+      expect(subject.licenses.count).to be(1)
+      expect(subject.licenses.first).to eql(mit)
+    end
+  end
+
+  context 'when repo has LICENSES/ dir with multiple licenses' do
+    before do
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
+        .to_return(
+          status:  200,
+          body:    fixture_contents('webmock-licenses-dir-with-multiple-license-files/top-level.json'),
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, "https://api.github.com/repos/benbalter/licensee/contents/LICENSES")
+        .to_return(
+          status:  200,
+          body:    fixture_contents('webmock-licenses-dir-with-multiple-license-files/dir.json'),
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: mit_license_file)
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/APACHE-2.0.txt')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: apache2_license_file)
+    end
+
+    it 'returns both licenses' do
+      expect(subject.licenses.count).to be(2)
+      expect(subject.licenses.first).to eql(mit)
+      expect(subject.licenses.last).to eql(apache2)
     end
   end
 

@@ -64,6 +64,8 @@ module Licensee
         ^(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
       /xi
 
+      SPDX_REGEX = /\A[a-z\-0-9. +()]+#{PREFERRED_EXT_REGEX}+/i
+
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
       end
@@ -97,8 +99,16 @@ module Licensee
         end
       end
 
-      def self.name_score(filename)
-        FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
+      def self.name_score(dir, filename)
+        if dir == "LICENSES" then
+          if filename =~ SPDX_REGEX then
+            1.0
+          else
+            0.0
+          end
+        else
+          FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
+        end
       end
 
       # case-insensitive block to determine if the given file is LICENSE.lesser
