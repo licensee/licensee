@@ -37,7 +37,7 @@ class LicenseeCLI < Thor
 
     project.matched_files.each do |matched_file|
       rows = []
-      say "#{matched_file.filename}:"
+      say "#{matched_file.path}:"
 
       MATCHED_FILE_METHODS.each do |method|
         next unless matched_file.respond_to? method

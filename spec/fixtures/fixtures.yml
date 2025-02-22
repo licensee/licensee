@@ -168,6 +168,18 @@ license-with-readme-reference:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+licenses-dir:
+  key: mit
+  matcher: exact
+  hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+licenses-dir-with-top-level-license:
+  key: other
+  matcher:
+  hash:
+licenses-dir-with-multiple-license-files:
+  key: other
+  matcher:
+  hash:
 mit:
   key: mit
   matcher: exact
@@ -225,6 +237,14 @@ vim:
   matcher: dice
   hash: 6e1bfd854c9ad8626d61367ccfecc9f96e54ce92
 webmock:
+  key:
+  matcher:
+  hash:
+webmock-licenses-dir:
+  key:
+  matcher:
+  hash:
+webmock-licenses-dir-with-multiple-license-files:
   key:
   matcher:
   hash:

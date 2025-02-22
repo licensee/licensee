@@ -1,0 +1,14 @@
+[
+  {
+   "name":         "MIT.txt",
+   "path":         "LICENSES/MIT.txt",
+   "sha":          "sha1",
+   "size":         1072,
+   "url":          "https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt?ref=master",
+   "html_url":     "https://github.com/benbalter/licensee/blob/master/LICENSES/MIT.txt",
+   "git_url":      "https://api.github.com/repos/benbalter/licensee/git/blobs/sha1",
+   "download_url": "https://raw.githubusercontent.com/benbalter/licensee/master/LICENSES/MIT.txt",
+   "type":         "file",
+   "_links":       {}
+  }
+]

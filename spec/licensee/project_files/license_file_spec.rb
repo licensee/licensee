@@ -92,7 +92,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
 
     }.each do |filename, expected|
       context "a file named #{filename}" do
-        let(:score) { described_class.name_score(filename) }
+        let(:score) { described_class.name_score(".", filename) }
 
         it 'scores the file' do
           expect(score).to eql(expected)
