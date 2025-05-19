@@ -14,6 +14,7 @@ class LicenseeCLI < Thor
   option :license, type: :string, desc: 'The SPDX ID or key of the license to compare (implies --diff)'
   option :diff, type: :boolean, desc: 'Compare the license to the closest match'
   option :ref, type: :string, desc: 'The name of the commit/branch/tag to search (github.com only)'
+  option :filesystem, type: :boolean, desc: 'Force looking at the filesystem (ignore git data)'
   def detect(_path = nil)
     Licensee.confidence_threshold = options[:confidence]
 

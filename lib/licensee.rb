@@ -37,6 +37,8 @@ module Licensee
     def project(path, **args)
       if %r{\Ahttps://github.com}.match?(path)
         Licensee::Projects::GitHubProject.new(path, **args)
+      elsif args[:filesystem]
+        Licensee::Projects::FSProject.new(path, **args)
       else
         Licensee::Projects::GitProject.new(path, **args)
       end

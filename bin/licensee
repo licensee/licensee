@@ -30,6 +30,7 @@ class LicenseeCLI < Thor
     @project ||= Licensee.project(path,
                                   detect_packages: options[:packages],
                                   detect_readme:   options[:readme],
+                                  filesystem:      options[:filesystem],
                                   ref:             options[:ref])
   end
 
