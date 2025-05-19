@@ -1,0 +1,5 @@
+License file with SPDX identifier
+
+SPDX-License-Identifier: MIT
+
+Some additional text that shouldn't affect the detection.

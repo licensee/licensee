@@ -1,0 +1,5 @@
+License file with SPDX identifier with OR expression
+
+SPDX-License-Identifier: MIT OR Apache-2.0
+
+Some additional text that shouldn't affect the detection.
