@@ -47,7 +47,25 @@ Licensee also comes with a Dockerfile if you prefer to run Licensee within a Doc
 2. `docker build . --tag licensee`
 3. `docker run licensee [COMMAND]` (see [command line usage](./command-line-usage.md))
 
+### Working with Remote Repositories
+
 *Example (detecting the license of `rails/rails` on GitHub):* `docker run licensee detect rails/rails --remote`
+
+### Working with Local Files and Directories
+
+When working with local files or directories, you need to mount them as volumes in the Docker container:
+
+```bash
+docker run -v /path/on/host:/path/in/container licensee detect /path/in/container
+```
+
+For example, to detect the license in your current directory:
+
+```bash
+docker run -v $(pwd):/workspace licensee detect /workspace
+```
+
+**Note:** The path inside the container must exactly match the path you provide to the detect command.
 
 ## Documentation
 
