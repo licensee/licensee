@@ -47,6 +47,8 @@ RSpec.describe Licensee::Matchers::SpdxExpression do
   end
 
   it 'has a confidence of 100' do
+    # Force a match to set the confidence
+    matcher.match
     expect(matcher.confidence).to eql(100)
   end
 end

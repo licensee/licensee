@@ -20,6 +20,22 @@ Licensee uses [a series of regular expressions](https://github.com/benbalter/lic
 
 Licensee relies on the crowdsourced license content and metadata from [`choosealicense.com`](https://choosealicense.com).
 
+### SPDX License Expressions
+
+Licensee can detect [SPDX license expressions](https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/) in license files. If a license file contains a line like:
+
+```
+SPDX-License-Identifier: MIT
+```
+
+or a compound expression like:
+
+```
+SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
+```
+
+Licensee will detect this and use it to identify the license(s) with high confidence.
+
 ### What it doesn't look at by default
 
 * The licensing of a project's dependencies
@@ -39,7 +55,7 @@ From a practical standpoint, every language has its own package manager (some ev
 
 However, licensee does [optionally](https://github.com/benbalter/licensee/blob/master/docs/customizing.md) look at license metadata of a [handful](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/package_manager_file.rb) of package manager files.
 
-License metadata in package manager files can complement detection from `LICENSE` files through [license expressions](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) (e.g., is a `GPL-3.0` license `-only` or `or-later-versions`, or do multiple `LICENSE` files indicate disjunctive choice) but licensee currently does not parse these expressions.
+License metadata in package manager files can complement detection from `LICENSE` files through [license expressions](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) (e.g., is a `GPL-3.0` license `-only` or `or-later-versions`, or do multiple `LICENSE` files indicate disjunctive choice).
 
 #### What about looking to see if the author said something in the readme?
 

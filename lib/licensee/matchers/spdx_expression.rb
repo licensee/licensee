@@ -13,15 +13,13 @@ module Licensee
       # The license expression from the file
       attr_reader :license_expression
 
-      private
-
-      def matches_license(license)
-        return false unless license
-
-        @license_expression.match?(license.spdx_id.to_s) ||
-          @license_expression.match?(license.key.to_s)
+      # Returns the confidence that this is the right license
+      # Confidence for SPDX expressions should be very high
+      def confidence
+        @confidence ||= 0
       end
 
+      # Return the matched license
       def match
         return @match if defined? @match
 
@@ -37,6 +35,15 @@ module Licensee
         end
 
         @match
+      end
+
+      private
+
+      def matches_license(license)
+        return false unless license
+
+        @license_expression.match?(license.spdx_id.to_s) ||
+          @license_expression.match?(license.key.to_s)
       end
 
       def spdx_expression
@@ -62,13 +69,20 @@ module Licensee
         # For handling "or later" versions
         normalized_spdx_id = spdx_id.sub(/-or-later$/, '+')
         
-        License.all(hidden: true, pseudo: false).find do |license|
-          license.spdx_id && [license.spdx_id, normalized_spdx_id].include?(spdx_id)
+        # First try direct match with the original SPDX ID
+        license = License.all(hidden: true, pseudo: false).find do |l|
+          l.spdx_id && l.spdx_id == spdx_id
         end
-      end
-
-      def confidence
-        @confidence
+        
+        # If no direct match, try again with special handling for "or-later"
+        if !license && spdx_id.end_with?('-or-later')
+          base_id = spdx_id.sub(/-or-later$/, '')
+          license = License.all(hidden: true, pseudo: false).find do |l|
+            l.spdx_id && l.spdx_id == base_id
+          end
+        end
+        
+        license
       end
     end
   end
