@@ -245,7 +245,7 @@ module Licensee
 
     def strip_comments
       lines = _content.split("\n")
-      return if lines.count.one?
+      return if lines.one?
       return unless lines.all? { |line| line =~ REGEXES[:comment_markup] }
 
       strip(:comment_markup)

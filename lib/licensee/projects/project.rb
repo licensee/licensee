@@ -24,7 +24,7 @@ module Licensee
       def license
         return @license if defined? @license
 
-        @license = if licenses_without_copyright.count.one? || lgpl?
+        @license = if licenses_without_copyright.one? || lgpl?
                      licenses_without_copyright.first
                    elsif licenses_without_copyright.count > 1
                      Licensee::License.find('other')
@@ -38,7 +38,7 @@ module Licensee
 
       # Returns the ProjectFile used to determine the License
       def matched_file
-        matched_files.first if matched_files.count.one? || lgpl?
+        matched_files.first if matched_files.one? || lgpl?
       end
 
       # Returns an array of matches LicenseFiles
@@ -48,7 +48,7 @@ module Licensee
 
       # Returns the LicenseFile used to determine the License
       def license_file
-        license_files.first if license_files.count.one? || lgpl?
+        license_files.first if license_files.one? || lgpl?
       end
 
       def license_files
