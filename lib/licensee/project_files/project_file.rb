@@ -8,11 +8,13 @@ module Licensee
   module ProjectFiles
     class ProjectFile
       extend Forwardable
+
       def_delegator :@data, :[]
 
       attr_reader :content
 
       include Licensee::HashHelper
+
       HASH_METHODS = %i[
         filename content content_hash content_normalized matcher matched_license
         attribution

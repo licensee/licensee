@@ -108,6 +108,7 @@ module Licensee
     include Licensee::ContentHelper
     include Licensee::HashHelper
     extend Forwardable
+
     def_delegators :meta, *LicenseMeta.helper_methods
 
     def initialize(key)
