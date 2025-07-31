@@ -2,6 +2,7 @@
 
 class HashHelperSpecFixture
   include Licensee::HashHelper
+
   HASH_METHODS = %w[string array rule rules nil_value].freeze
 
   def string

@@ -4,6 +4,7 @@ module Licensee
   # Exposes #conditions, #permissions, and #limitation arrays of LicenseRules
   class LicenseRules < Struct.new(:conditions, :permissions, :limitations)
     include Licensee::HashHelper
+
     HASH_METHODS = Rule.groups
 
     class << self

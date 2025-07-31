@@ -2,6 +2,7 @@
 
 class ContentHelperTestHelper
   include Licensee::ContentHelper
+
   attr_accessor :content, :data
 
   def initialize(content = nil, data = {})
