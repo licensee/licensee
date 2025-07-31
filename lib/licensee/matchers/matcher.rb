@@ -6,6 +6,7 @@ module Licensee
       attr_reader :file
 
       include Licensee::HashHelper
+
       HASH_METHODS = %i[name confidence].freeze
 
       def initialize(file)
