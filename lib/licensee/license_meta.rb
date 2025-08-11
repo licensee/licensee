@@ -5,7 +5,6 @@ module Licensee
     :title, :spdx_id, :source, :description, :how, :conditions, :permissions,
     :limitations, :using, :featured, :hidden, :nickname, :note
   )
-
     # These should be in sync with choosealicense.com's collection defaults
     DEFAULTS = {
       'featured' => false,
