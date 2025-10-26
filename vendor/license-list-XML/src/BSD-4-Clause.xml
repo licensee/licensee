@@ -4,6 +4,7 @@
             name="BSD 4-Clause &#34;Original&#34; or &#34;Old&#34; License">
       <crossRefs>
          <crossRef>http://directory.fsf.org/wiki/License:BSD_4Clause</crossRef>
+         <crossRef>https://github.com/jsommers/pytricia/blob/master/patricia.c#L33-L67</crossRef>
       </crossRefs>
       <notes>This license was rescinded by the author on 22 July 1999.</notes>
     <text>
@@ -36,7 +37,7 @@
         </item>
         <item>
             <bullet>4.</bullet>
-         <alt match="(The name of.+may not)|(Neither the name of.+nor the names of its contributors may)" name="organizationClause4">
+         <alt match="(The name of.+may not)|(Neither the name of.+nor the names of (its|their) contributors may)" name="organizationClause4">
                  Neither the name of the copyright holder nor the names the copyright holder nor the names of its
            contributors may</alt> be used to endorse or promote products derived from this software without
             specific prior written permission.
