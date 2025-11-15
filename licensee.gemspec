@@ -40,8 +40,9 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 3.0'
 
   # ensure the gem is built out of versioned files
-  gem.files = Dir[
-    '{bin,lib,man,test,vendor,spec}/**/*',
-    'README*', 'LICENSE*'
-  ] & `git ls-files -z`.split("\0")
+  gem.require_paths = ['lib','bin','script','docs','vendor','spec']
+  gem.files = Dir.glob("lib/**/*") + Dir.glob("vendor/**/*") +
+              Dir.glob("bin/**/*") + Dir.glob("script/**/*") +
+              Dir.glob("docs/**/*") + Dir.glob("spec/**/*") +
+              Dir.glob("README.md") + Dir.glob("LICENSE.txt")
 end
