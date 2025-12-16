@@ -128,7 +128,8 @@ module Licensee
     def spdx_id
       return meta.spdx_id if meta.spdx_id
       return 'NOASSERTION' if key == 'other'
-      return 'NONE' if key == 'no-license'
+
+      'NONE' if key == 'no-license'
     end
 
     # Returns the human-readable license name
