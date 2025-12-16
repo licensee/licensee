@@ -175,8 +175,8 @@ RSpec.describe Licensee::License do
   end
 
   it 'stores the key when initialized' do
-    expect(described_class.new('mit')).to be == mit
-    expect(described_class.new('MIT')).to be == mit
+    expect(described_class.new('mit')).to eq(mit)
+    expect(described_class.new('MIT')).to eq(mit)
   end
 
   it 'exposes the path' do
