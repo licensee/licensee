@@ -59,7 +59,7 @@ RSpec.describe Licensee::HashHelper do
     expect(hash).not_to have_key(:baz)
   end
 
-  it 'calls to_h recursively' do
+  it 'calls to_h recursively for nested values' do
     expect(hash[:rule]).to be_a(Hash)
   end
 

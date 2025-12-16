@@ -97,11 +97,6 @@ RSpec/NamedSubject:
 RSpec/NestedGroups:
   Max: 6
 
-# Offense count: 2
-RSpec/RepeatedDescription:
-  Exclude:
-    - 'spec/licensee/hash_helper_spec.rb'
-
 # Offense count: 7
 # This cop supports safe autocorrection (--autocorrect).
 RSpec/ScatteredSetup:
