@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
 require 'digest'
 
 module Licensee
