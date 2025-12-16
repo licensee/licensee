@@ -36,13 +36,6 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 21
 
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Performance/UnfreezeString:
-  Exclude:
-    - 'spec/licensee/matchers/copyright_matcher_spec.rb'
-    - 'spec/licensee/project_files/license_file_spec.rb'
-
 # Offense count: 183
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without

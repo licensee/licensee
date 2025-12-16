@@ -3,7 +3,7 @@
 RSpec.describe Licensee::Matchers::Copyright do
   subject { described_class.new(file) }
 
-  let(:content) { 'Copyright 2015 Ben Balter'.dup }
+  let(:content) { +'Copyright 2015 Ben Balter' }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
   let(:mit) { Licensee::License.find('mit') }
   let(:no_license) { Licensee::License.find('no-license') }
@@ -27,8 +27,7 @@ RSpec.describe Licensee::Matchers::Copyright do
     'UTF-8 Encoded'         => 'Copyright (c) 2010-2014 Simon Hürlimann',
     'Comma-separated date'  => 'Copyright (c) 2003, 2004 Ben Balter',
     'Hyphen-separated date' => 'Copyright (c) 2003-2004 Ben Balter',
-    'ASCII-8BIT encoded'    => "Copyright \xC2\xA92015 Ben Balter`"
-      .dup.force_encoding('ASCII-8BIT'),
+    'ASCII-8BIT encoded'    => (+"Copyright \xC2\xA92015 Ben Balter`").force_encoding('ASCII-8BIT'),
     'No year'               => 'Copyright Ben Balter',
     'Multiline'             => "Copyright Ben Balter\nCopyright Another Entity",
     'OFL font name'         => "Copyright (c) 2016, Ben Balter,\nwith Reserved Font Name \"Ben's Font\"."

@@ -22,7 +22,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   end
 
   context 'with an non-UTF-8-encoded license' do
-    let(:content) { "\x91License\x93".dup.force_encoding('windows-1251') }
+    let(:content) { (+"\x91License\x93").force_encoding('windows-1251') }
 
     it "doesn't blow up" do
       expect(subject.attribution).to be_nil
