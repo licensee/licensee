@@ -2,6 +2,7 @@
 
 module Licensee
   class License
+    # Class-level lookup and caching for licenses.
     module ClassMethods
       # All license objects defined via Licensee (via choosealicense.com)
       #

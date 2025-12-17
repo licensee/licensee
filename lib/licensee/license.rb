@@ -9,6 +9,7 @@ require_relative 'license/identity_methods'
 module Licensee
   class InvalidLicense < ArgumentError; end
 
+  # Helpers used by `Licensee::License.all` for option normalization and filtering.
   module LicenseAllHelper
     module_function
 
@@ -31,6 +32,7 @@ module Licensee
     end
   end
 
+  # Represents a known license (metadata + normalized content) from vendored data.
   class License
     @all = {}
     @keys_licenses = {}

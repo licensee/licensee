@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Exact matcher for identical normalized wordsets.
     class Exact < Licensee::Matchers::Matcher
       def match
         return @match if defined? @match

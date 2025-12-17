@@ -11,6 +11,7 @@ autoload :Octokit, 'octokit'
 
 module Licensee
   module Projects
+    # Scans a remote GitHub repository for license-related files (via API).
     class GitHubProject < Licensee::Projects::Project
       attr_reader :ref, :repo
 

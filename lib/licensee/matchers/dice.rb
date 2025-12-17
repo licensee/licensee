@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Similarity matcher based on the Dice coefficient over wordsets.
     class Dice < Licensee::Matchers::Matcher
       # Return the first potential license that is more similar
       # than the confidence threshold

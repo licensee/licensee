@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Licensee
+  # A single rule used to describe license conditions/permissions/limitations.
   class Rule
     attr_reader :tag, :label, :description, :group
 

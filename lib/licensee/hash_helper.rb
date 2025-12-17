@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Licensee
+  # Mixin that provides a `to_h` based on a class's `HASH_METHODS`.
   module HashHelper
     def to_h
       hash = {}

@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in RubyGems .gemspec files.
     class Gemspec < Licensee::Matchers::Package
       # a value is a string surrounded by any amount of whitespace
       # optionally ended with (non-captured) ".freeze"

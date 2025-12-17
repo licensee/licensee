@@ -6,6 +6,7 @@ module Licensee
     :limitations, :using, :featured, :hidden, :nickname, :note
   )
 
+  # Structured license metadata loaded from vendored YAML front matter.
   class LicenseMeta
     # These should be in sync with choosealicense.com's collection defaults
     DEFAULTS = {

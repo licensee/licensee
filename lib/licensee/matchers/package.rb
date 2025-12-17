@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Base matcher for package manager metadata files declaring a license.
     class Package < Licensee::Matchers::Matcher
       def match
         return @match if defined? @match

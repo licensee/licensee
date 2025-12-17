@@ -6,6 +6,7 @@
 # Sublcasses should implement the possible_matchers method
 module Licensee
   module ProjectFiles
+    # Base class for a file within a project that may contain license information.
     class ProjectFile
       extend Forwardable
 

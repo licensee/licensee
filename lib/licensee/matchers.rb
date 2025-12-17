@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Licensee
+  # Matchers for detecting licenses from project file content.
   module Matchers
     autoload :Matcher,   'licensee/matchers/matcher'
     autoload :Cabal,     'licensee/matchers/cabal'

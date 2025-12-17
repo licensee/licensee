@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Licensee
+  # Project scanners (filesystem/git/github) that expose license-related files.
   module Projects
     autoload :Project, 'licensee/projects/project'
     autoload :FSProject, 'licensee/projects/fs_project'

@@ -2,6 +2,7 @@
 
 module Licensee
   module Commands
+    # Helper methods for formatting `licensee detect` output.
     module DetectCLIHelpers
       # Methods to call when displaying information about ProjectFiles
       MATCHED_FILE_METHODS = %i[
@@ -123,6 +124,7 @@ module Licensee
   end
 end
 
+# `licensee detect` command implementation (Thor).
 class LicenseeCLI < Thor
   include Licensee::Commands::DetectCLIHelpers
 

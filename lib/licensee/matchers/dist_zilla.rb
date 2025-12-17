@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in Dist::Zilla dist.ini files.
     class DistZilla < Licensee::Matchers::Package
       attr_reader :file
 
