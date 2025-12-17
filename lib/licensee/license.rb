@@ -5,6 +5,28 @@ require 'uri'
 module Licensee
   class InvalidLicense < ArgumentError; end
 
+  module LicenseAllHelper
+    module_function
+
+    def normalize_all_options(options, defaults)
+      normalized = options.dup
+      # TODO: Remove in next major version to avoid breaking change
+      normalized[:pseudo] = normalized[:psuedo] if normalized[:pseudo].nil? && !normalized[:psuedo].nil?
+      defaults.merge(normalized)
+    end
+
+    def apply_all_filters!(licenses, options)
+      licenses.reject!(&:hidden?) unless options[:hidden]
+      licenses.reject!(&:pseudo_license?) unless options[:pseudo]
+    end
+
+    def filter_featured(licenses, featured)
+      return licenses if featured.nil?
+
+      licenses.select { |l| l.featured? == featured }
+    end
+  end
+
   class License
     @all = {}
     @keys_licenses = {}
@@ -19,19 +41,11 @@ module Licensee
       # Returns an Array of License objects.
       def all(options = {})
         @all[options] ||= begin
-          # TODO: Remove in next major version to avoid breaking change
-          options[:pseudo] ||= options[:psuedo] unless options[:psuedo].nil?
-
-          options = DEFAULT_OPTIONS.merge(options)
+          normalized_options = LicenseAllHelper.normalize_all_options(options, DEFAULT_OPTIONS)
           output = licenses.dup
-          output.reject!(&:hidden?) unless options[:hidden]
-          output.reject!(&:pseudo_license?) unless options[:pseudo]
+          LicenseAllHelper.apply_all_filters!(output, normalized_options)
           output.sort_by!(&:key)
-          if options[:featured].nil?
-            output
-          else
-            output.select { |l| l.featured? == options[:featured] }
-          end
+          LicenseAllHelper.filter_featured(output, normalized_options[:featured])
         end
       end
 
