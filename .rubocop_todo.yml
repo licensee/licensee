@@ -42,23 +42,6 @@ Metrics/PerceivedComplexity:
 RSpec/ContextWording:
   Enabled: false
 
-# Offense count: 7
-# Configuration parameters: IgnoredMetadata.
-RSpec/DescribeClass:
-  Exclude:
-    - '**/spec/features/**/*'
-    - '**/spec/requests/**/*'
-    - '**/spec/routing/**/*'
-    - '**/spec/system/**/*'
-    - '**/spec/views/**/*'
-    - 'spec/bin_spec.rb'
-    - 'spec/fixture_spec.rb'
-    - 'spec/integration_spec.rb'
-    - 'spec/licensee/commands/detect_spec.rb'
-    - 'spec/licensee/commands/license_path_spec.rb'
-    - 'spec/licensee/commands/version_spec.rb'
-    - 'spec/vendored_license_spec.rb'
-
 # Offense count: 98
 RSpec/MultipleExpectations:
   Max: 6

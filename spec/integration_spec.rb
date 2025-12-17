@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe 'integration test' do
+module Integration
+end
+
+RSpec.describe Integration do
   [
     Licensee::Projects::FSProject,
     Licensee::Projects::GitProject

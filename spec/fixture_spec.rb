@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe 'fixture test' do
+module Fixture
+end
+
+RSpec.describe Fixture do
   fixtures.each do |fixture|
     let(:options) { { detect_packages: true, detect_readme: true } }
 

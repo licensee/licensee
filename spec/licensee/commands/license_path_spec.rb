@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe 'license-path command' do
+module Licensee
+  module Commands
+    module LicensePath
+    end
+  end
+end
+
+RSpec.describe Licensee::Commands::LicensePath do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'license-path'] }
   let(:project_path) { fixture_path('mit_markdown') }
   let(:arguments) { [project_path] }

@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe 'detect command' do
+module Licensee
+  module Commands
+    module Detect
+    end
+  end
+end
+
+RSpec.describe Licensee::Commands::Detect do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'detect'] }
   let(:arguments) { [] }
   let(:output) do
