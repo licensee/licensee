@@ -51,10 +51,10 @@ module Licensee
       end
 
       def normalize_version_capture(string)
-        match = string.match(/\d+\\.(\d+)/)
+        match = string.match(/\d++\\.(\d+)/)
         return string unless match
 
-        string.sub(/\\ (\d+)(\\.\d+)/, version_substitution(match[1]))
+        string.sub(/\\ (\d++)(\\.\d+)/, version_substitution(match[1]))
       end
 
       def version_substitution(minor)
