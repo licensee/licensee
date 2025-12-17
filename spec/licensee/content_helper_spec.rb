@@ -338,61 +338,39 @@ RSpec.describe Licensee::ContentHelper do
 
     %i[key title nickname name_without_version].each do |variation|
       context "a license #{variation}" do
-        let(:license_variation) { license.send(variation) }
-        let(:text) { license_variation }
+        let(:license_variation) { license.public_send(variation) }
 
         it 'matches' do
+          expect(license_variation).to match(described_class.title_regex)
+        end
+
+        it 'matches preceded by the' do
+          text = "The #{license_variation} license"
           expect(text).to match(described_class.title_regex)
         end
 
-        context 'preceded by the' do
-          let(:text) { "The #{license_variation} license" }
-
-          it 'matches' do
-            expect(text).to match(described_class.title_regex)
-          end
+        it 'matches with parens' do
+          text = "(#{license_variation})"
+          expect(text).to match(described_class.title_regex)
         end
 
-        context 'with parens' do
-          let(:text) { "(#{license_variation})" }
-
-          it 'matches' do
-            expect(text).to match(described_class.title_regex)
-          end
+        it 'matches with parens and a preceding the' do
+          text = "(the #{license_variation} license)"
+          expect(text).to match(described_class.title_regex)
         end
 
-        context 'with parens and a preceding the' do
-          let(:text) { "(the #{license_variation} license)" }
-
-          it 'matches' do
-            expect(text).to match(described_class.title_regex)
-          end
+        it 'matches with whitespace' do
+          text = "     the #{license_variation} license"
+          expect(text).to match(described_class.title_regex)
         end
 
-        context 'with whitespace' do
-          let(:text) { "     the #{license_variation} license" }
-
-          it 'matches' do
-            expect(text).to match(described_class.title_regex)
-          end
+        it 'escapes' do
+          expect(described_class.title_regex.match?('gpl-3 0')).to be(false)
         end
 
-        context 'escaping' do
-          let(:text) { 'gpl-3 0' }
-
-          it 'escapes' do
-            expect(text).not_to match(described_class.title_regex)
-          end
-        end
-
-        context 'in the middle of a string' do
-          let(:text) do
-            "The project is not licensed under the #{license_variation} license"
-          end
-
-          it 'matches' do
-            expect(text).not_to match(described_class.title_regex)
-          end
+        it 'does not match in the middle of a string' do
+          text = "The project is not licensed under the #{license_variation} license"
+          expect(text).not_to match(described_class.title_regex)
         end
       end
     end

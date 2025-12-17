@@ -49,51 +49,29 @@ RSpec.describe VendoredLicense do
           add_random_words(content_with_copyright, random_words)
         end
 
-        context 'without the title' do
-          let(:content_without_title) do
-            license_file.send :strip_title
-            license_file.send :_content
-          end
-
-          it 'detects the license' do
-            expect(content_without_title).to be_detected_as(license)
-          end
+        it 'detects the license without the title' do
+          modified_file = Licensee::ProjectFiles::LicenseFile.new(content_with_copyright, filename)
+          modified_file.send(:strip_title)
+          content_without_title = modified_file.send(:_content)
+          expect(content_without_title).to be_detected_as(license)
         end
 
-        context 'with a double title' do
-          let(:content) do
-            "#{license.name.sub('*', 'u')}\n\n#{content_with_copyright}"
-          end
-
-          it 'detects the license' do
-            expect(content).to be_detected_as(license)
-          end
+        it 'detects the license with a double title' do
+          content = "#{license.name.sub('*', 'u')}\n\n#{content_with_copyright}"
+          expect(content).to be_detected_as(license)
         end
 
-        context 'when re-wrapped' do
-          let(:content) { content_rewrapped }
-
-          it 'detects the license' do
-            expect(content).to be_detected_as(license)
-          end
+        it 'detects the license when re-wrapped' do
+          expect(content_rewrapped).to be_detected_as(license)
         end
 
-        context 'with random words added' do
-          let(:content) { content_with_random_words }
-
-          it 'does not match the license' do
-            expect(content).not_to be_detected_as(license)
-          end
+        it 'does not match the license with random words added' do
+          expect(content_with_random_words).not_to be_detected_as(license)
         end
 
-        context 'when rewrapped with random words added' do
-          let(:content) do
-            Licensee::ContentHelper.wrap(content_with_random_words, line_length)
-          end
-
-          it 'does not match the license' do
-            expect(content).not_to be_detected_as(license)
-          end
+        it 'does not match the license when rewrapped with random words added' do
+          content = Licensee::ContentHelper.wrap(content_with_random_words, line_length)
+          expect(content).not_to be_detected_as(license)
         end
       end
     end

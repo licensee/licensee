@@ -80,70 +80,64 @@ RSpec.describe Licensee::License do
         expect(licenses).not_to include(other)
         expect(licenses.count).to eql(non_featured_license_count)
       end
+    end
 
-      context 'including hidden licenses' do
-        let(:arguments) { { featured: false, hidden: true } }
+    context 'non-featured licenses including hidden licenses' do
+      let(:arguments) { { featured: false, hidden: true } }
 
-        it 'includes only non-featured licenses' do
-          expect(licenses).to include(unlicense)
-          expect(licenses).to include(cc_by)
-          expect(licenses).not_to include(mit)
-          expect(licenses.count).to eql(license_count - featured_license_count)
-        end
+      it 'includes only non-featured licenses' do
+        expect(licenses).to include(unlicense)
+        expect(licenses).to include(cc_by)
+        expect(licenses).not_to include(mit)
+        expect(licenses.count).to eql(license_count - featured_license_count)
       end
     end
 
-    context 'pseudo licenses' do
-      let(:other) { described_class.find('other') }
+    context 'pseudo licenses by default' do
+      let(:arguments) { {} }
 
-      context 'by default' do
-        let(:arguments) { {} }
-
-        it "doesn't include pseudo licenses" do
-          expect(licenses).not_to include(other)
-        end
+      it "doesn't include pseudo licenses" do
+        expect(licenses).not_to include(other)
       end
+    end
 
-      context 'with hidden licenses' do
-        let(:arguments) { { hidden: true } }
+    context 'pseudo licenses with hidden licenses' do
+      let(:arguments) { { hidden: true } }
 
-        it 'includes pseudo licenses' do
-          expect(licenses).to include(other)
-        end
+      it 'includes pseudo licenses' do
+        expect(licenses).to include(other)
       end
+    end
 
-      context 'when explicitly asked' do
-        let(:arguments) { { hidden: true, pseudo: true } }
+    context 'pseudo licenses when explicitly asked' do
+      let(:arguments) { { hidden: true, pseudo: true } }
 
-        it 'includes psudo licenses' do
-          expect(licenses).to include(other)
-        end
+      it 'includes psudo licenses' do
+        expect(licenses).to include(other)
       end
+    end
 
-      context 'when explicitly excluded' do
-        let(:arguments) { { hidden: true, pseudo: false } }
+    context 'pseudo licenses when explicitly excluded' do
+      let(:arguments) { { hidden: true, pseudo: false } }
 
-        it "doesn'tincludes psudo licenses" do
-          expect(licenses).not_to include(other)
-        end
+      it "doesn'tincludes psudo licenses" do
+        expect(licenses).not_to include(other)
       end
+    end
 
-      context 'mispelled' do
-        context 'when explicitly asked' do
-          let(:arguments) { { hidden: true, psuedo: true } }
+    context 'pseudo licenses when explicitly asked (mispelled)' do
+      let(:arguments) { { hidden: true, psuedo: true } }
 
-          it 'includes psudo licenses' do
-            expect(licenses).to include(other)
-          end
-        end
+      it 'includes psudo licenses' do
+        expect(licenses).to include(other)
+      end
+    end
 
-        context 'when explicitly excluded' do
-          let(:arguments) { { hidden: true, psuedo: false } }
+    context 'pseudo licenses when explicitly excluded (mispelled)' do
+      let(:arguments) { { hidden: true, psuedo: false } }
 
-          it "doesn'tincludes psudo licenses" do
-            expect(licenses).not_to include(other)
-          end
-        end
+      it "doesn'tincludes psudo licenses" do
+        expect(licenses).not_to include(other)
       end
     end
   end
@@ -276,22 +270,12 @@ RSpec.describe Licensee::License do
       expect(mit.content_hash).to eql(content_hash)
     end
 
-    context 'with content stubbed' do
-      let(:license) do
-        license = described_class.new 'MIT'
-        license.instance_variable_set(:@raw_content, content)
-        license
-      end
+    it 'parses content with a horizontal rule when raw content is stubbed' do
+      content = "---\nfoo: bar\n---\nSome license\n---------\nsome text\n"
+      license = described_class.new 'MIT'
+      license.instance_variable_set(:@raw_content, content)
 
-      context 'with a horizontal rule' do
-        let(:content) do
-          "---\nfoo: bar\n---\nSome license\n---------\nsome text\n"
-        end
-
-        it 'parses the content' do
-          expect(license.content).to eql("Some license\n---------\nsome text\n")
-        end
-      end
+      expect(license.content).to eql("Some license\n---------\nsome text\n")
     end
   end
 
@@ -372,74 +356,47 @@ RSpec.describe Licensee::License do
   context 'License.title_regex' do
     namey = %i[title nickname key]
     described_class.all(hidden: true, pseudo: false).each do |license|
-      context "the #{license.title} license" do
-        namey.each do |variation|
-          next if license.send(variation).nil?
+      namey.each do |variation|
+        next if license.public_send(variation).nil?
 
-          context "the license #{variation}" do
-            let(:license_variation) { license.send(variation).sub('*', 'u') }
-            let(:text) { license_variation }
+        it "matches #{license.key} #{variation}" do
+          text = license.public_send(variation).sub('*', 'u')
+          expect(text).to match(license.title_regex)
+          expect(described_class.find_by_title(text)).to eql(license)
+        end
 
-            it 'matches' do
-              expect(text).to match(license.title_regex)
-            end
+        it "matches #{license.key} #{variation} with 'the' and 'license'" do
+          license_variation = license.public_send(variation).sub('*', 'u')
+          text = "The #{license_variation} license"
+          expect(text).to match(license.title_regex)
+        end
 
-            it 'finds by title' do
-              expect(described_class.find_by_title(text)).to eql(license)
-            end
-
-            if /\bGNU\b/.match?(license.title)
-              context "without 'GNU'" do
-                let(:text) { license_variation.sub(/GNU /i, '') }
-
-                it 'still matches' do
-                  expect(text).to match(license.title_regex)
-                end
-              end
-            end
-
-            context "with 'the' and 'license'" do
-              let(:text) { "The #{license_variation} license" }
-
-              it 'matches' do
-                expect(text).to match(license.title_regex)
-              end
-            end
-
-            if variation == :title
-              context 'version notation variations' do
-                context "with 'version x.x'" do
-                  let(:text) do
-                    license_variation.sub(/v?(\d+\.\d+)/i, 'version \1')
-                  end
-
-                  it 'matches' do
-                    expect(text).to match(license.title_regex)
-                  end
-                end
-
-                context "with ', version x.x'" do
-                  let(:text) do
-                    license_variation.sub(/ v?(\d+\.\d+)/i, ', version \1')
-                  end
-
-                  it 'matches' do
-                    expect(text).to match(license.title_regex)
-                  end
-                end
-
-                context "with 'vx.x'" do
-                  let(:text) do
-                    license_variation.sub(/(?:version)? (\d+\.\d+)/i, ' v\1')
-                  end
-
-                  it 'matches' do
-                    expect(text).to match(license.title_regex)
-                  end
-                end
-              end
-            end
+        if /\bGNU\b/.match?(license.title)
+          it "matches #{license.key} #{variation} without 'GNU'" do
+            license_variation = license.public_send(variation).sub('*', 'u')
+            text = license_variation.sub(/GNU /i, '')
+            expect(text).to match(license.title_regex)
           end
+        end
+
+        next unless variation == :title
+
+        it "matches #{license.key} title with 'version x.x'" do
+          license_variation = license.title.sub('*', 'u')
+          text = license_variation.sub(/v?(\d+\.\d+)/i, 'version \1')
+          expect(text).to match(license.title_regex)
+        end
+
+        it "matches #{license.key} title with ', version x.x'" do
+          license_variation = license.title.sub('*', 'u')
+          text = license_variation.sub(/ v?(\d+\.\d+)/i, ', version \1')
+          expect(text).to match(license.title_regex)
+        end
+
+        it "matches #{license.key} title with 'vx.x'" do
+          license_variation = license.title.sub('*', 'u')
+          text = license_variation.sub(/(?:version)? (\d+\.\d+)/i, ' v\1')
+          expect(text).to match(license.title_regex)
         end
       end
     end
@@ -484,35 +441,30 @@ RSpec.describe Licensee::License do
     schemes = %w[http https]
     prefixes = ['www.', '']
     suffixes = ['.html', '.htm', '.txt', '']
+
+    let(:build_source) do
+      lambda do |license, scheme, prefix, suffix|
+        source = URI.parse(license.source)
+        source.scheme = scheme
+        source.host = "#{prefix}#{source.host.delete_prefix('www.')}"
+
+        unless license.key == 'wtfpl'
+          regex = /#{Licensee::License::SOURCE_SUFFIX}\z/o
+          source.path = "#{source.path.sub(regex, '')}#{suffix}"
+        end
+
+        source.to_s
+      end
+    end
+
     described_class.all(hidden: true, pseudo: false).each do |license|
       context "the #{license.title} license" do
-        let(:source) { URI.parse(license.source) }
-
         schemes.each do |scheme|
-          context "with a #{scheme}:// scheme" do
-            before { source.scheme = scheme }
-
-            prefixes.each do |prefix|
-              context "with '#{prefix}' before the host" do
-                before do
-                  source.host = "#{prefix}#{source.host.delete_prefix('www.')}"
-                end
-
-                suffixes.each do |suffix|
-                  context "with '#{suffix}' after the path" do
-                    before do
-                      next if license.key == 'wtfpl'
-
-                      regex = /#{Licensee::License::SOURCE_SUFFIX}\z/o
-                      source.path = source.path.sub(regex, '')
-                      source.path = "#{source.path}#{suffix}"
-                    end
-
-                    it 'matches' do
-                      expect(source.to_s).to match(license.source_regex)
-                    end
-                  end
-                end
+          prefixes.each do |prefix|
+            suffixes.each do |suffix|
+              it "matches with #{scheme}:// #{prefix.inspect} #{suffix.inspect}" do
+                source = build_source.call(license, scheme, prefix, suffix)
+                expect(source).to match(license.source_regex)
               end
             end
           end

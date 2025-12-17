@@ -100,21 +100,15 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'LGPL scoring' do
-      {
-        'COPYING.lesser' => 1,
-        'copying.lesser' => 1,
-        'license.lesser' => 0,
-        'LICENSE.md'     => 0,
-        'FOO.md'         => 0
-      }.each do |filename, expected|
-        context "a file named #{filename}" do
-          let(:score) { described_class.lesser_gpl_score(filename) }
-
-          it 'scores the file' do
-            expect(score).to eql(expected)
-          end
-        end
+    {
+      'COPYING.lesser' => 1,
+      'copying.lesser' => 1,
+      'license.lesser' => 0,
+      'LICENSE.md'     => 0,
+      'FOO.md'         => 0
+    }.each do |filename, expected|
+      it "LGPL scoring for #{filename}" do
+        expect(described_class.lesser_gpl_score(filename)).to eql(expected)
       end
     end
 
@@ -212,15 +206,13 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:filename) { 'COPYING.lesser' }
 
       it 'knows when a license file is LGPL' do
-        expect(subject).to be_lgpl
+        file = described_class.new(sub_copyright_info(lgpl), filename)
+        expect(file).to be_lgpl
       end
 
-      context 'with non-lgpl content' do
-        let(:content) { sub_copyright_info(mit) }
-
-        it 'is not lgpl' do
-          expect(subject).not_to be_lgpl
-        end
+      it 'is not lgpl with non-lgpl content' do
+        file = described_class.new(sub_copyright_info(mit), filename)
+        expect(file).not_to be_lgpl
       end
     end
 

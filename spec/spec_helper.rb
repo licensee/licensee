@@ -97,8 +97,10 @@ def git_init(path)
   Dir.chdir path do
     `git init`
     `git config --local commit.gpgsign false`
+    `git config --local user.name 'Licensee Specs'`
+    `git config --local user.email 'licensee-specs@example.invalid'`
     `git add .`
-    `git commit -m 'initial commit'`
+    `git commit --allow-empty -m 'initial commit'`
   end
 end
 

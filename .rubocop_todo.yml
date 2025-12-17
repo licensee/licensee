@@ -27,8 +27,3 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/NamedSubject:
   Enabled: false
 
-# Offense count: 66
-# Configuration parameters: AllowedGroups.
-RSpec/NestedGroups:
-  Max: 6
-
