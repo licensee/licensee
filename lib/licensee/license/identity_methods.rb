@@ -21,7 +21,8 @@ module Licensee
       end
 
       def name_without_version
-        /(.+?)(( v?\d\.\d)|$)/.match(name)[1]
+        match = name.match(/\s+v?\d\.\d/i)
+        match ? name[0, match.begin(0)] : name
       end
 
       def title_regex
@@ -37,11 +38,11 @@ module Licensee
       end
 
       def simple_title_regex
-        Regexp.new(name.downcase.sub('*', 'u'), 'i')
+        Regexp.new(name.downcase.tr('*', 'u'), 'i')
       end
 
       def normalized_title_regex
-        string = name.downcase.sub('*', 'u')
+        string = name.downcase.tr('*', 'u')
         string = string.sub(/\Athe /i, '')
         string = string.sub(/,? version /, ' ').sub(/v(\d+\.\d+)/, '\\1')
         string = Regexp.escape(string).sub(/\\ licen[sc]e/i, '(?:\\ licen[sc]e)?')
