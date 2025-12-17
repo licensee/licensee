@@ -75,10 +75,7 @@ module Licensee
             Licensee::ProjectFiles::ReadmeFile.name_score(n)
           end
           content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
-
-          return unless content && file
-
-          Licensee::ProjectFiles::ReadmeFile.new(content, file)
+          Licensee::ProjectFiles::ReadmeFile.new(content, file) if content && file
         end
       end
       alias readme readme_file
@@ -91,10 +88,7 @@ module Licensee
           content, file = find_file do |n|
             Licensee::ProjectFiles::PackageManagerFile.name_score(n)
           end
-
-          return unless content && file
-
-          Licensee::ProjectFiles::PackageManagerFile.new(content, file)
+          Licensee::ProjectFiles::PackageManagerFile.new(content, file) if content && file
         end
       end
 
