@@ -21,11 +21,6 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Max: 45
 
-# Offense count: 1
-# Configuration parameters: CountComments, CountAsOne.
-Metrics/ModuleLength:
-  Max: 263
-
 # Offense count: 183
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without
