@@ -59,11 +59,6 @@ RSpec/DescribeClass:
     - 'spec/licensee/commands/version_spec.rb'
     - 'spec/vendored_license_spec.rb'
 
-# Offense count: 5
-# Configuration parameters: CountAsOne.
-RSpec/ExampleLength:
-  Max: 8
-
 # Offense count: 98
 RSpec/MultipleExpectations:
   Max: 6
