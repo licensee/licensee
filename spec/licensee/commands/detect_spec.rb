@@ -84,6 +84,43 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
+  context 'diff' do
+    let(:arguments) { ['--diff'] }
+
+    it 'Returns a zero exit code' do
+      expect(status.exitstatus).to be(0)
+    end
+
+    it 'includes diff output' do
+      expect(stdout).to include('Comparing to')
+    end
+  end
+
+  context 'closest non-matching licenses' do
+    let(:tmpdir) { Dir.mktmpdir }
+    let(:license_path) { File.expand_path('LICENSE', tmpdir) }
+    let(:arguments) { ['--confidence', '0', tmpdir] }
+
+    before do
+      license = Licensee::License.find('mit')
+      File.write(license_path, "#{license.content}\n\nNOT PART OF THE LICENSE\n")
+    end
+
+    after do
+      FileUtils.rm_rf(tmpdir)
+    end
+
+    it 'Returns a zero exit code' do
+      expect(status.exitstatus).to be(0)
+    end
+
+    it 'prints closest non-matching licenses for non-exact matches' do
+      closest = YAML.safe_load(stdout).dig('LICENSE', 'Closest non-matching licenses')
+      expect(closest).to be_a(Hash)
+      expect(closest).not_to be_empty
+    end
+  end
+
   context 'the default command' do
     let(:command) { ['bundle', 'exec', 'bin/licensee'] }
 

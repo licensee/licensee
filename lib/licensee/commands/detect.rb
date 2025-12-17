@@ -18,60 +18,11 @@ class LicenseeCLI < Thor
   def detect(_path = nil)
     Licensee.confidence_threshold = options[:confidence]
 
-    if options[:json]
-      say project.to_h.to_json
-      exit !project.licenses.empty?
-    end
+    handle_json_output if options[:json]
 
-    rows = []
-    rows << if project.license
-              ['License:', project.license.spdx_id]
-            elsif !project.licenses.empty?
-              ['Licenses:', project.licenses.map(&:spdx_id)]
-            else
-              ['License:', set_color('None', :red)]
-            end
-
-    rows << ['Matched files:', project.matched_files.map(&:filename).join(', ')] unless project.matched_files.empty?
-
-    print_table rows
-
-    project.matched_files.each do |matched_file|
-      rows = []
-      say "#{matched_file.filename}:"
-
-      MATCHED_FILE_METHODS.each do |method|
-        next unless matched_file.respond_to? method
-
-        value = matched_file.public_send method
-        next if value.nil?
-
-        rows << [humanize(method, :method), humanize(value, method)]
-      end
-      print_table rows, indent: 2
-
-      next unless matched_file.is_a? Licensee::ProjectFiles::LicenseFile
-      next if matched_file.confidence == 100
-
-      licenses = licenses_by_similarity(matched_file)
-      next if licenses.empty?
-
-      say '  Closest non-matching licenses:'
-      rows = licenses[0...3].map do |license, similarity|
-        spdx_id = license.meta['spdx-id']
-        percent = Licensee::ContentHelper.format_percent(similarity)
-        ["#{spdx_id} similarity:", percent]
-      end
-      print_table rows, indent: 4
-    end
-
-    if project.license_file && (options[:license] || options[:diff])
-      license = options[:license] || closest_license_key(project.license_file)
-      if license
-        invoke(:diff, nil,
-               license: license, license_to_diff: project.license_file)
-      end
-    end
+    print_project_summary
+    print_matched_files
+    maybe_diff_license_file
 
     exit !project.licenses.empty?
   end
@@ -104,5 +55,82 @@ class LicenseeCLI < Thor
   def closest_license_key(matched_file)
     licenses = licenses_by_similarity(matched_file)
     licenses.first.first.key unless licenses.empty?
+  end
+
+  def handle_json_output
+    say project.to_h.to_json
+    exit !project.licenses.empty?
+  end
+
+  def print_project_summary
+    rows = [license_summary_row]
+    matched_files_row = matched_files_summary_row
+    rows << matched_files_row if matched_files_row
+    print_table rows
+  end
+
+  def license_summary_row
+    if project.license
+      ['License:', project.license.spdx_id]
+    elsif !project.licenses.empty?
+      ['Licenses:', project.licenses.map(&:spdx_id)]
+    else
+      ['License:', set_color('None', :red)]
+    end
+  end
+
+  def matched_files_summary_row
+    return if project.matched_files.empty?
+
+    ['Matched files:', project.matched_files.map(&:filename).join(', ')]
+  end
+
+  def print_matched_files
+    project.matched_files.each do |matched_file|
+      print_matched_file_summary(matched_file)
+      print_closest_non_matching_licenses(matched_file)
+    end
+  end
+
+  def print_matched_file_summary(matched_file)
+    rows = []
+    say "#{matched_file.filename}:"
+
+    MATCHED_FILE_METHODS.each do |method|
+      next unless matched_file.respond_to? method
+
+      value = matched_file.public_send method
+      next if value.nil?
+
+      rows << [humanize(method, :method), humanize(value, method)]
+    end
+
+    print_table rows, indent: 2
+  end
+
+  def print_closest_non_matching_licenses(matched_file)
+    return unless matched_file.is_a?(Licensee::ProjectFiles::LicenseFile)
+    return if matched_file.confidence == 100
+
+    licenses = licenses_by_similarity(matched_file)
+    return if licenses.empty?
+
+    say '  Closest non-matching licenses:'
+    rows = licenses[0...3].map do |license, similarity|
+      spdx_id = license.meta['spdx-id']
+      percent = Licensee::ContentHelper.format_percent(similarity)
+      ["#{spdx_id} similarity:", percent]
+    end
+    print_table rows, indent: 4
+  end
+
+  def maybe_diff_license_file
+    return unless project.license_file
+    return unless options[:license] || options[:diff]
+
+    license = options[:license] || closest_license_key(project.license_file)
+    return unless license
+
+    invoke(:diff, nil, license: license, license_to_diff: project.license_file)
   end
 end
