@@ -25,36 +25,48 @@ module Licensee
       end
 
       def title_regex
-        return @title_regex if defined? @title_regex
+        return @title_regex if defined?(@title_regex)
 
+        @title_regex = Regexp.union(title_regex_parts)
+      end
+
+      def title_regex_parts
+        parts = [simple_title_regex, normalized_title_regex, key_title_regex]
+        parts << nickname_title_regex if meta.nickname
+        parts
+      end
+
+      def simple_title_regex
+        Regexp.new(name.downcase.sub('*', 'u'), 'i')
+      end
+
+      def normalized_title_regex
         string = name.downcase.sub('*', 'u')
-        simple_title_regex = Regexp.new string, 'i'
-        string.sub!(/\Athe /i, '')
-        string.sub!(/,? version /, ' ')
-        string.sub!(/v(\d+\.\d+)/, '\\1')
-        string = Regexp.escape(string)
-        string = string.sub(/\\ licen[sc]e/i, '(?:\\ licen[sc]e)?')
-        version_match = string.match(/\d+\\.(\d+)/)
-        if version_match
-          vsub = if version_match[1] == '0'
-                   ',?\s+(?:version\ |v(?:\. )?)?\\1(\\2)?'
-                 else
-                   ',?\s+(?:version\ |v(?:\. )?)?\\1\\2'
-                 end
-          string = string.sub(/\\ (\d+)(\\.\d+)/, vsub)
-        end
-        string = string.sub(/\bgnu\\ /, '(?:GNU )?')
-        title_regex = Regexp.new string, 'i'
+        string = string.sub(/\Athe /i, '')
+        string = string.sub(/,? version /, ' ').sub(/v(\d+\.\d+)/, '\\1')
+        string = Regexp.escape(string).sub(/\\ licen[sc]e/i, '(?:\\ licen[sc]e)?')
+        string = normalize_version_capture(string)
+        Regexp.new(string.sub(/\bgnu\\ /, '(?:GNU )?'), 'i')
+      end
 
-        string = key.sub('-', '[- ]')
-        string.sub!('.', '\\.')
-        string << '(?:\\ licen[sc]e)?'
-        key_regex = Regexp.new string, 'i'
+      def normalize_version_capture(string)
+        match = string.match(/\d+\\.(\d+)/)
+        return string unless match
 
-        parts = [simple_title_regex, title_regex, key_regex]
-        parts.push Regexp.new meta.nickname.sub(/\bGNU /i, '(?:GNU )?') if meta.nickname
+        string.sub(/\\ (\d+)(\\.\d+)/, version_substitution(match[1]))
+      end
 
-        @title_regex = Regexp.union parts
+      def version_substitution(minor)
+        minor == '0' ? ',?\s+(?:version\ |v(?:\. )?)?\\1(\\2)?' : ',?\s+(?:version\ |v(?:\. )?)?\\1\\2'
+      end
+
+      def key_title_regex
+        s = key.sub('-', '[- ]').sub('.', '\\.')
+        Regexp.new("#{s}(?:\\ licen[sc]e)?", 'i')
+      end
+
+      def nickname_title_regex
+        Regexp.new(meta.nickname.sub(/\bGNU /i, '(?:GNU )?'))
       end
 
       # Returns a regex that will match the license source

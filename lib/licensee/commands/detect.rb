@@ -12,18 +12,12 @@ module Licensee
 
       # Given a string or object, prepares it for output and human consumption
       def humanize(value, type = nil)
-        case type
-        when :license
-          value.spdx_id
-        when :matcher
-          value.class
-        when :confidence
-          Licensee::ContentHelper.format_percent(value)
-        when :method
-          "#{value.to_s.tr('_', ' ').capitalize}:"
-        else
-          value
-        end
+        return value.spdx_id if type == :license
+        return value.class if type == :matcher
+        return Licensee::ContentHelper.format_percent(value) if type == :confidence
+        return "#{value.to_s.tr('_', ' ').capitalize}:" if type == :method
+
+        value
       end
 
       def licenses_by_similarity(matched_file)
@@ -74,35 +68,46 @@ module Licensee
       end
 
       def print_matched_file_summary(matched_file)
-        rows = []
         say "#{matched_file.filename}:"
+        print_table matched_file_rows(matched_file), indent: 2
+      end
 
-        MATCHED_FILE_METHODS.each do |method|
-          next unless matched_file.respond_to? method
-
-          value = matched_file.public_send method
-          next if value.nil?
-
-          rows << [humanize(method, :method), humanize(value, method)]
+      def matched_file_rows(matched_file)
+        MATCHED_FILE_METHODS.filter_map do |method|
+          matched_file_row(matched_file, method)
         end
+      end
 
-        print_table rows, indent: 2
+      def matched_file_row(matched_file, method)
+        return unless matched_file.respond_to?(method)
+
+        value = matched_file.public_send(method)
+        return if value.nil?
+
+        [humanize(method, :method), humanize(value, method)]
       end
 
       def print_closest_non_matching_licenses(matched_file)
+        licenses = closest_non_matching_licenses(matched_file)
+        return unless licenses
+
+        say '  Closest non-matching licenses:'
+        print_table closest_non_matching_rows(licenses), indent: 4
+      end
+
+      def closest_non_matching_licenses(matched_file)
         return unless matched_file.is_a?(Licensee::ProjectFiles::LicenseFile)
         return if matched_file.confidence == 100
 
         licenses = licenses_by_similarity(matched_file)
-        return if licenses.empty?
+        licenses.empty? ? nil : licenses
+      end
 
-        say '  Closest non-matching licenses:'
-        rows = licenses[0...3].map do |license, similarity|
+      def closest_non_matching_rows(licenses)
+        licenses[0...3].map do |license, similarity|
           spdx_id = license.meta['spdx-id']
-          percent = Licensee::ContentHelper.format_percent(similarity)
-          ["#{spdx_id} similarity:", percent]
+          ["#{spdx_id} similarity:", Licensee::ContentHelper.format_percent(similarity)]
         end
-        print_table rows, indent: 4
       end
 
       def maybe_diff_license_file

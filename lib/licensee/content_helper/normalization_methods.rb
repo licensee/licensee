@@ -17,20 +17,15 @@ module Licensee
       end
 
       def content_normalized(wrap: nil)
-        @content_normalized ||= begin
-          @_content = content_without_title_and_version.downcase
+        @content_normalized ||= normalize_content
+        wrap ? Licensee::ContentHelper.wrap(@content_normalized, wrap) : @content_normalized
+      end
 
-          (ContentHelper::NORMALIZATIONS.keys + %i[spelling span_markup bullets]).each { |op| normalize(op) }
-          ContentHelper::STRIP_METHODS.each { |op| strip(op) }
-
-          _content
-        end
-
-        if wrap.nil?
-          @content_normalized
-        else
-          Licensee::ContentHelper.wrap(@content_normalized, wrap)
-        end
+      def normalize_content
+        @_content = content_without_title_and_version.downcase
+        (ContentHelper::NORMALIZATIONS.keys + %i[spelling span_markup bullets]).each { |op| normalize(op) }
+        ContentHelper::STRIP_METHODS.each { |op| strip(op) }
+        _content
       end
 
       private

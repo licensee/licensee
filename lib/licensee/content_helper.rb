@@ -43,19 +43,26 @@ module Licensee
     def self.wrap(text, line_width = 80)
       return if text.nil?
 
+      text = normalize_for_wrapping(text)
+      wrapped = wrap_lines(text, line_width)
+      wrapped.strip
+    end
+
+    def self.normalize_for_wrapping(text)
       text = text.clone
       text.gsub!(REGEXES[:bullet]) { |m| "\n#{m}\n" }
-      text.gsub!(/([^\n])\n([^\n])/, '\1 \2')
+      text.gsub!(/([^\n])\n([^\n])/, '\\1 \\2')
+      text
+    end
 
-      text = text.split("\n").collect do |line|
-        if line =~ REGEXES[:hrs] || line.length <= line_width
-          line
-        else
-          line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
-        end
-      end * "\n"
+    def self.wrap_lines(text, line_width)
+      text.split("\n").map { |line| wrap_line(line, line_width) }.join("\n")
+    end
 
-      text.strip
+    def self.wrap_line(line, line_width)
+      return line if line =~ REGEXES[:hrs] || line.length <= line_width
+
+      line.gsub(/(.{1,#{line_width}})(\s+|$)/, "\\1\n").strip
     end
 
     def self.format_percent(float)

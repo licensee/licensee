@@ -53,17 +53,15 @@ module Licensee
       end
 
       def license_files
-        @license_files ||= if files.empty? || files.nil?
-                             []
-                           else
-                             files = find_files do |n|
-                               Licensee::ProjectFiles::LicenseFile.name_score(n)
-                             end
-                             files = files.map do |file|
-                               Licensee::ProjectFiles::LicenseFile.new(load_file(file), file)
-                             end
-                             prioritize_lgpl(files)
-                           end
+        @license_files ||= build_license_files
+      end
+
+      def build_license_files
+        return [] if files.nil? || files.empty?
+
+        files = find_files { |n| Licensee::ProjectFiles::LicenseFile.name_score(n) }
+        files = files.map { |file| Licensee::ProjectFiles::LicenseFile.new(load_file(file), file) }
+        prioritize_lgpl(files)
       end
 
       def readme_file
