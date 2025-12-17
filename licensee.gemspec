@@ -37,7 +37,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('simplecov', '~> 0.16')
   gem.add_development_dependency('webmock', '~> 3.1')
 
-  gem.required_ruby_version = '>= 3.0'
+  gem.required_ruby_version = '>= 3.2'
 
   # ensure the gem is built out of versioned files
   gem.files = Dir[
