@@ -15,22 +15,14 @@
     let(:path) { fixture_path(fixture) }
     let(:api_base) { 'https://api.github.com/repos' }
 
-    if described_class == Licensee::Projects::GitProject
-      before do
-        Dir.chdir path do
-          `git init`
-          `git config --local commit.gpgsign false`
-          `git add .`
-          `git commit -m 'initial commit'`
-        end
-      end
+    if described_class == Licensee::Projects::GitHubProject
+      let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
+    end
 
-      after do
-        subject.close
-        FileUtils.rm_rf File.expand_path '.git', path
-      end
-    elsif described_class == Licensee::Projects::GitHubProject
-      before do
+    before do
+      if described_class == Licensee::Projects::GitProject
+        git_init(path)
+      elsif described_class == Licensee::Projects::GitHubProject
         stub_request(
           :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
         ).to_return(
@@ -47,8 +39,13 @@
             .to_return(status: 200, body: File.read(file))
         end
       end
+    end
 
-      let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
+    if described_class == Licensee::Projects::GitProject
+      after do
+        subject.close
+        FileUtils.rm_rf File.expand_path '.git', path
+      end
     end
 
     if described_class == Licensee::Projects::GitProject
@@ -171,41 +168,38 @@
       subject { described_class.new(path, detect_packages: true) }
 
       let(:fixture) { 'gemspec' }
+      let(:gemspec_path) { "#{fixture_path(fixture)}/project.gemspec" }
 
       # Using a `.gemspec` extension in the fixture breaks `gem release`
       before do
         from = "#{fixture_path(fixture)}/project._gemspec"
-        to   = "#{fixture_path(fixture)}/project.gemspec"
-        FileUtils.cp(from, to)
+        FileUtils.cp(from, gemspec_path)
         if described_class == Licensee::Projects::GitProject
           Dir.chdir fixture_path(fixture) do
             `git add project.gemspec`
             `git commit -m 'add real gemspec'`
           end
         end
-      end
+        next unless described_class == Licensee::Projects::GitHubProject
 
-      if described_class == Licensee::Projects::GitHubProject
-        before do
-          stub_request(
-            :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
-          ).to_return(
-            status:  200,
-            body:    fixture_root_contents_from_api(fixture),
-            headers: { 'Content-Type' => 'application/json' }
-          )
+        stub_request(
+          :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
+        ).to_return(
+          status:  200,
+          body:    fixture_root_contents_from_api(fixture),
+          headers: { 'Content-Type' => 'application/json' }
+        )
 
-          file = fixture_path "#{fixture}/project.gemspec"
-          relative_path = File.basename(file)
-          parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
-          stub_request(:get, parts.join('/'))
-            .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
-            .to_return(status: 200, body: File.read(file))
-        end
+        file = fixture_path "#{fixture}/project.gemspec"
+        relative_path = File.basename(file)
+        parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
+        stub_request(:get, parts.join('/'))
+          .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+          .to_return(status: 200, body: File.read(file))
       end
 
       after do
-        FileUtils.rm("#{fixture_path(fixture)}/project.gemspec")
+        FileUtils.rm(gemspec_path)
       end
 
       it 'returns the package file' do

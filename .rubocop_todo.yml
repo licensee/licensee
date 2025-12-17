@@ -84,13 +84,6 @@ RSpec/NamedSubject:
 RSpec/NestedGroups:
   Max: 6
 
-# Offense count: 7
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/ScatteredSetup:
-  Exclude:
-    - 'spec/licensee/project_files/project_file_spec.rb'
-    - 'spec/licensee/project_spec.rb'
-
 # Offense count: 36
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
