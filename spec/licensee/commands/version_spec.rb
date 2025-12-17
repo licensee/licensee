@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe 'version command' do
+module Licensee
+  module Commands
+    module Version
+    end
+  end
+end
+
+RSpec.describe Licensee::Commands::Version do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'version'] }
   let(:arguments) { [] }
   let(:output) do

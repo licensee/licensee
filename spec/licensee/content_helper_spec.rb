@@ -46,15 +46,17 @@ RSpec.describe Licensee::ContentHelper do
 
   let(:mit) { Licensee::License.find('mit') }
   let(:normalized_content) { subject.content_normalized }
-
-  it 'creates the wordset' do
-    wordset = Set.new(
+  let(:expected_wordset) do
+    Set.new(
       %w[
         the made up license this provided as is' please respect
         contributors' wishes when implementing license's software
       ]
     )
-    expect(subject.wordset).to eql(wordset)
+  end
+
+  it 'creates the wordset' do
+    expect(subject.wordset).to eql(expected_wordset)
   end
 
   it 'knows the length' do

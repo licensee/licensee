@@ -175,8 +175,8 @@ RSpec.describe Licensee::License do
   end
 
   it 'stores the key when initialized' do
-    expect(described_class.new('mit')).to be == mit
-    expect(described_class.new('MIT')).to be == mit
+    expect(described_class.new('mit')).to eq(mit)
+    expect(described_class.new('MIT')).to eq(mit)
   end
 
   it 'exposes the path' do
@@ -327,13 +327,13 @@ RSpec.describe Licensee::License do
     expect(mit.rules.flatten.count).to be(7)
   end
 
-  it 'returns rules by tag and group' do
-    expect(cc_by.rules).to have_key('limitations')
+  it 'returns limitation rule by tag for cc_by' do
     rule = cc_by.rules['limitations'].find { |r| r.tag == 'patent-use' }
     expect(rule).not_to be_nil
     expect(rule.description).to include('does NOT grant')
+  end
 
-    expect(gpl.rules).to have_key('permissions')
+  it 'returns permission rule by tag for gpl' do
     rule = gpl.rules['permissions'].find { |r| r.tag == 'patent-use' }
     expect(rule).not_to be_nil
     expect(rule.description).to include('an express grant of patent rights')

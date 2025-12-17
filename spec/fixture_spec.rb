@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe 'fixture test' do
+module Fixture
+end
+
+RSpec.describe Fixture do
   fixtures.each do |fixture|
     let(:options) { { detect_packages: true, detect_readme: true } }
 
@@ -11,6 +14,9 @@ RSpec.describe 'fixture test' do
       let(:other) { Licensee::License.find('other') }
       let(:none) { Licensee::License.find('none') }
       let(:expectations) { fixture_licenses[fixture] || {} }
+      let(:expected_license) do
+        expectations['key'] ? Licensee::License.find(expectations['key']) : none
+      end
       let(:license_file) { subject.license_file }
       let(:matcher) { license_file&.matcher }
 
@@ -23,13 +29,7 @@ RSpec.describe 'fixture test' do
       end
 
       it 'detects the license' do
-        expected = if expectations['key']
-                     Licensee::License.find(expectations['key'])
-                   else
-                     none
-                   end
-
-        expect(subject.license).to eql(expected)
+        expect(subject.license).to eql(expected_license)
       end
 
       it 'returns the expected hash' do

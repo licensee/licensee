@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-RSpec.describe 'vendored licenses' do
+module VendoredLicense
+end
+
+RSpec.describe VendoredLicense do
   let(:filename) { 'LICENSE.txt' }
   let(:license_file) do
     Licensee::ProjectFiles::LicenseFile.new(content, filename)

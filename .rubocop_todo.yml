@@ -36,46 +36,11 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Max: 21
 
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Performance/UnfreezeString:
-  Exclude:
-    - 'spec/licensee/matchers/copyright_matcher_spec.rb'
-    - 'spec/licensee/project_files/license_file_spec.rb'
-
 # Offense count: 183
 # Configuration parameters: Prefixes, AllowedPatterns.
 # Prefixes: when, with, without
 RSpec/ContextWording:
   Enabled: false
-
-# Offense count: 7
-# Configuration parameters: IgnoredMetadata.
-RSpec/DescribeClass:
-  Exclude:
-    - '**/spec/features/**/*'
-    - '**/spec/requests/**/*'
-    - '**/spec/routing/**/*'
-    - '**/spec/system/**/*'
-    - '**/spec/views/**/*'
-    - 'spec/bin_spec.rb'
-    - 'spec/fixture_spec.rb'
-    - 'spec/integration_spec.rb'
-    - 'spec/licensee/commands/detect_spec.rb'
-    - 'spec/licensee/commands/license_path_spec.rb'
-    - 'spec/licensee/commands/version_spec.rb'
-    - 'spec/vendored_license_spec.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/Eq:
-  Exclude:
-    - 'spec/licensee/license_spec.rb'
-
-# Offense count: 5
-# Configuration parameters: CountAsOne.
-RSpec/ExampleLength:
-  Max: 8
 
 # Offense count: 98
 RSpec/MultipleExpectations:
@@ -97,49 +62,7 @@ RSpec/NamedSubject:
 RSpec/NestedGroups:
   Max: 6
 
-# Offense count: 2
-RSpec/RepeatedDescription:
-  Exclude:
-    - 'spec/licensee/hash_helper_spec.rb'
-
-# Offense count: 7
-# This cop supports safe autocorrection (--autocorrect).
-RSpec/ScatteredSetup:
-  Exclude:
-    - 'spec/licensee/project_files/project_file_spec.rb'
-    - 'spec/licensee/project_spec.rb'
-
-# Offense count: 2
-# Configuration parameters: Include, CustomTransform, IgnoreMethods, IgnoreMetadata.
-# Include: **/*_spec.rb
-RSpec/SpecFilePathFormat:
-  Exclude:
-    - '**/spec/routing/**/*'
-    - 'spec/licensee/project_files/package_info_spec.rb'
-    - 'spec/licensee/projects/github_project_spec.rb'
-
-# Offense count: 4
-RSpec/SubjectStub:
-  Exclude:
-    - 'spec/licensee/matchers/package_matcher_spec.rb'
-    - 'spec/licensee/project_files/project_file_spec.rb'
-
 # Offense count: 36
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'lib/licensee/license.rb'
-
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/StructInheritance:
-  Exclude:
-    - 'lib/licensee/license_field.rb'
-    - 'lib/licensee/license_meta.rb'
-    - 'lib/licensee/license_rules.rb'

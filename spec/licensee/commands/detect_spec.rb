@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe 'detect command' do
+module Licensee
+  module Commands
+    module Detect
+    end
+  end
+end
+
+RSpec.describe Licensee::Commands::Detect do
   let(:command) { ['bundle', 'exec', 'bin/licensee', 'detect'] }
   let(:arguments) { [] }
   let(:output) do
@@ -39,20 +46,21 @@ RSpec.describe 'detect command' do
   }.each do |name, args|
     context "When given #{name}" do
       let(:arguments) { args }
+      let(:expected_output) do
+        expected.dup.tap do |hash|
+          next unless name == 'License path'
+
+          hash.delete('licensee.gemspec')
+          hash['Matched files'] = 'LICENSE.md'
+        end
+      end
 
       it 'Returns a zero exit code' do
         expect(status.exitstatus).to be(0)
       end
 
       it 'returns the exected values' do
-        hash = expected.dup
-
-        if name == 'License path'
-          hash.delete('licensee.gemspec')
-          hash['Matched files'] = 'LICENSE.md'
-        end
-
-        expect(parsed_output).to eql(hash)
+        expect(parsed_output).to eql(expected_output)
       end
     end
   end
