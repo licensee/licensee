@@ -88,11 +88,3 @@ RSpec/NestedGroups:
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
   Enabled: false
-
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/StructInheritance:
-  Exclude:
-    - 'lib/licensee/license_field.rb'
-    - 'lib/licensee/license_meta.rb'
-    - 'lib/licensee/license_rules.rb'

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 module Licensee
-  class LicenseMeta < Struct.new(
+  LicenseMeta = Struct.new(
     :title, :spdx_id, :source, :description, :how, :conditions, :permissions,
     :limitations, :using, :featured, :hidden, :nickname, :note
   )
+
+  class LicenseMeta
     # These should be in sync with choosealicense.com's collection defaults
     DEFAULTS = {
       'featured' => false,
