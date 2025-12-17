@@ -4,6 +4,7 @@ module Licensee
   # Exposes #conditions, #permissions, and #limitation arrays of LicenseRules
   LicenseRules = Struct.new(:conditions, :permissions, :limitations)
 
+  # Normalizes rule tags from metadata into `Licensee::Rule` objects.
   class LicenseRules
     include Licensee::HashHelper
 

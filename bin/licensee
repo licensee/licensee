@@ -7,6 +7,7 @@ require 'json'
 
 require_relative '../lib/licensee'
 
+# Thor CLI entrypoint for the `licensee` command.
 class LicenseeCLI < Thor
   package_name 'Licensee'
   class_option :remote, type: :boolean, desc: 'Assume PATH is a GitHub owner/repo path'

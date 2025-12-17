@@ -32,7 +32,3 @@ RSpec/NamedSubject:
 RSpec/NestedGroups:
   Max: 6
 
-# Offense count: 36
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Enabled: false

@@ -2,6 +2,7 @@
 
 module Licensee
   module ContentHelper
+    # Mixin providing wordset-based similarity scoring.
     module SimilarityMethods
       # Given another license or project file, calculates the similarity
       # as a percentage of words in common, minus a tiny penalty that

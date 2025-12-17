@@ -2,6 +2,7 @@
 
 module Licensee
   class License
+    # Instance methods for loading and working with license content.
     module ContentMethods
       # Path to vendored license file on disk
       def path

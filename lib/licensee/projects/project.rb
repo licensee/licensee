@@ -7,6 +7,7 @@
 # Subclasses must implement the Files and LoadFile private methods
 module Licensee
   module Projects
+    # Base class for project scanners (filesystem/git/github).
     class Project
       attr_reader :detect_readme, :detect_packages
       alias detect_readme? detect_readme

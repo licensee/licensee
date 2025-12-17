@@ -2,6 +2,7 @@
 
 module Licensee
   module ProjectFiles
+    # A package manifest file that may declare a license identifier.
     class PackageManagerFile < Licensee::ProjectFiles::ProjectFile
       # Hash of Extension => [possible matchers]
       MATCHERS_EXTENSIONS = {

@@ -2,6 +2,7 @@
 
 require 'tmpdir'
 
+# Implementation of the `licensee diff` command.
 class LicenseeCLI < Thor
   desc 'diff [PATH]', 'Compare the given license text to a known license'
   option :license, type: :string, desc: 'The SPDX ID or key of the license to compare'

@@ -2,6 +2,7 @@
 
 module Licensee
   module ContentHelper
+    # Mixin providing content normalization and stripping routines.
     module NormalizationMethods
       # Content with the title and version removed
       # The first time should normally be the attribution line

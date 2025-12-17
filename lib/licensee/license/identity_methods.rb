@@ -2,6 +2,7 @@
 
 module Licensee
   class License
+    # Instance methods for license identity (SPDX ID, name, title matching).
     module IdentityMethods
       SOURCE_PREFIX = %r{https?://(?:www\.)?}i
       SOURCE_SUFFIX = %r{(?:\.html?|\.txt|/)(?:\?[^\s]*)?}i

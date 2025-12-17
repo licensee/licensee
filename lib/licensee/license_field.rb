@@ -3,6 +3,7 @@
 module Licensee
   LicenseField = Struct.new(:name, :description)
 
+  # Represents a templated field placeholder used in license text.
   class LicenseField
     class << self
       # Return a single license field

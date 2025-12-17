@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in Cargo.toml.
     class Cargo < Licensee::Matchers::Package
       LICENSE_REGEX = %r{
         ^\s*['"]?license['"]?\s*=\s*['"]([a-z\-0-9. +()/]+)['"]\s*

@@ -5,6 +5,7 @@ require 'forwardable'
 require 'pathname'
 require 'yaml'
 
+# Main namespace and public entrypoints for the Licensee gem.
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
   autoload :HashHelper, 'licensee/hash_helper'

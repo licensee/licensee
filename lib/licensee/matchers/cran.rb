@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in R package DESCRIPTION files.
     class Cran < Licensee::Matchers::Package
       attr_reader :file
 

@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in NuGet .nuspec files.
     class NuGet < Licensee::Matchers::Package
       # While we could parse the nuspec file, prefer a lenient regex for speed and security.
       # Moar parsing moar problems.

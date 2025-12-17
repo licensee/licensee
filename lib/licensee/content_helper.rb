@@ -6,6 +6,7 @@ require_relative 'content_helper/normalization_methods'
 require_relative 'content_helper/similarity_methods'
 
 module Licensee
+  # Text normalization, hashing, wrapping, and similarity helpers for license content.
   module ContentHelper
     include Constants
     include NormalizationMethods
