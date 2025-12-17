@@ -101,22 +101,25 @@ module Licensee
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns an array of all files with a score > 0,
       # sorted by file score descending
-      def find_files
-        return [] if files.empty? || files.nil?
+      def find_files(&)
+        return [] unless files&.any?
 
-        found = files.map { |file| file.merge(score: yield(file[:name])) }
-        found.select! { |file| file[:score].positive? }
-        found.sort { |a, b| b[:score] <=> a[:score] }
+        score_and_sort_files(&)
       end
 
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns a hash representing the top scoring file
       # or nil, if no file scored > 0
       def find_file(...)
-        return if files.empty? || files.nil?
+        return unless files&.any?
 
         file = find_files(...).first
         [load_file(file), file] if file
+      end
+
+      def score_and_sort_files
+        found = files.map { |file| file.merge(score: yield(file[:name])) }
+        found.select { |file| file[:score].positive? }.sort { |a, b| b[:score] <=> a[:score] }
       end
 
       # Given an array of LicenseFiles, ensures LGPL is the first entry,

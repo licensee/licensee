@@ -68,16 +68,23 @@ class LicenseeCLI < Thor
   end
 
   def expected_license
-    @expected_license ||= Licensee::License.find options[:license] if options[:license]
+    return @expected_license if defined?(@expected_license)
+
+    @expected_license = Licensee::License.find(options[:license]) if options[:license]
     return @expected_license if @expected_license
 
-    if options[:license]
-      error "#{options[:license]} is not a valid license"
-    else
-      error 'Usage: provide a license to diff against with --license (spdx name)'
-    end
-
-    error "Valid licenses: #{Licensee::License.all(hidden: true).map(&:key).join(', ')}"
+    error expected_license_error_message
     exit 1
+  end
+
+  def expected_license_error_message
+    message = if options[:license]
+                "#{options[:license]} is not a valid license"
+              else
+                'Usage: provide a license to diff against with --license (spdx name)'
+              end
+
+    valid_licenses = Licensee::License.all(hidden: true).map(&:key).join(', ')
+    "#{message}\nValid licenses: #{valid_licenses}"
   end
 end

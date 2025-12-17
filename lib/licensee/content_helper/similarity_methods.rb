@@ -9,15 +9,18 @@ module Licensee
       # positives for long licnses are ruled out by this score alone.
       def similarity(other)
         overlap = (wordset_fieldless & other.wordset).size
-        total = wordset_fieldless.size + other.wordset.size -
-                fields_normalized_set.size
-        (overlap * 200.0) / (total + (variation_adjusted_length_delta(other) / 4))
+        (overlap * 200.0) / similarity_denominator(other)
       end
 
       private
 
       def wordset_fieldless
         @wordset_fieldless ||= wordset - fields_normalized_set
+      end
+
+      def similarity_denominator(other)
+        total = wordset_fieldless.size + other.wordset.size - fields_normalized_set.size
+        total + (variation_adjusted_length_delta(other) / 4)
       end
 
       # Returns an array of strings of substitutable fields in normalized content
