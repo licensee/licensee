@@ -2,7 +2,8 @@
 
 module Licensee
   module Matchers
-    # Exact matcher for identical normalized wordsets.
+    # Exact matcher that succeeds when the license file's normalized wordset
+    # exactly matches a known license's normalized wordset.
     class Exact < Licensee::Matchers::Matcher
       def match
         return @match if defined? @match

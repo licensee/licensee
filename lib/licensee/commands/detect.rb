@@ -124,7 +124,7 @@ module Licensee
   end
 end
 
-# `licensee detect` command implementation (Thor).
+# Implementation of the `licensee detect` command.
 class LicenseeCLI < Thor
   include Licensee::Commands::DetectCLIHelpers
 
