@@ -134,7 +134,7 @@ RSpec.describe Licensee::License do
     context 'when pseudo licenses are explicitly included' do
       let(:arguments) { { hidden: true, pseudo: true } }
 
-      it 'includes psudo licenses' do
+      it 'includes pseudo licenses' do
         expect(licenses).to include(other)
       end
     end
@@ -142,23 +142,23 @@ RSpec.describe Licensee::License do
     context 'when pseudo licenses are explicitly excluded' do
       let(:arguments) { { hidden: true, pseudo: false } }
 
-      it "doesn'tincludes psudo licenses" do
+      it "doesn't include pseudo licenses" do
         expect(licenses).not_to include(other)
       end
     end
 
-    context 'when pseudo licenses are explicitly included (mispelled)' do
+    context 'when pseudo licenses are explicitly included (misspelled)' do
       let(:arguments) { { hidden: true, psuedo: true } }
 
-      it 'includes psudo licenses' do
+      it 'includes pseudo licenses' do
         expect(licenses).to include(other)
       end
     end
 
-    context 'when pseudo licenses are explicitly excluded (mispelled)' do
+    context 'when pseudo licenses are explicitly excluded (misspelled)' do
       let(:arguments) { { hidden: true, psuedo: false } }
 
-      it "doesn'tincludes psudo licenses" do
+      it "doesn't include pseudo licenses" do
         expect(licenses).not_to include(other)
       end
     end

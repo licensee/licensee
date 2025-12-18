@@ -24,7 +24,7 @@ RSpec.describe VendoredLicense do
         expect(content).to be_detected_as(license)
       end
 
-      it 'confidence and similarity scores are euqal' do
+      it 'confidence and similarity scores are equal' do
         license_file = Licensee::ProjectFiles::LicenseFile.new(content, filename)
         expect(license_file.confidence).to eq(license.similarity(license_file))
       end
