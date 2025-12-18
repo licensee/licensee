@@ -4,10 +4,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   subject { described_class.new(content, filename) }
 
   let(:filename) { 'LICENSE.txt' }
-  let(:gpl) { Licensee::License.find('gpl-3.0') }
-  let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
   let(:content_hash) { license_hashes['mit'] }
+
+  def gpl = Licensee::License.find('gpl-3.0')
+  def mit = Licensee::License.find('mit')
 
   it 'parses the attribution' do
     expect(subject.attribution).to eql('Copyright (c) 2018 Ben Balter')
@@ -91,9 +92,8 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
 
     }.each do |filename, expected|
       context "a file named #{filename}" do
-        let(:score) { described_class.name_score(filename) }
-
         it 'scores the file' do
+          score = described_class.name_score(filename)
           expect(score).to eql(expected)
         end
       end

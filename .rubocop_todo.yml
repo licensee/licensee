@@ -12,11 +12,6 @@
 RSpec/ContextWording:
   Enabled: false
 
-# Offense count: 139
-# Configuration parameters: AllowSubject.
-RSpec/MultipleMemoizedHelpers:
-  Max: 16
-
 # Offense count: 291
 # Configuration parameters: EnforcedStyle, IgnoreSharedExamples.
 # SupportedStyles: always, named_only

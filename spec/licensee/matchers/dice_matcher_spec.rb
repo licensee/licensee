@@ -3,21 +3,23 @@
 RSpec.describe Licensee::Matchers::Dice do
   subject { described_class.new(file) }
 
-  let(:mit) { Licensee::License.find('mit') }
-  let(:gpl) { Licensee::License.find('gpl-3.0') }
-  let(:agpl) { Licensee::License.find('agpl-3.0') }
-  let(:lgpl) { Licensee::License.find('lgpl-2.1') }
-  let(:cc_by) { Licensee::License.find('cc-by-4.0') }
-  let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
-  let(:content) { sub_copyright_info(gpl) }
-  let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
-  let(:expected_top_matches) do
+  def mit = Licensee::License.find('mit')
+  def gpl = Licensee::License.find('gpl-3.0')
+  def agpl = Licensee::License.find('agpl-3.0')
+  def lgpl = Licensee::License.find('lgpl-2.1')
+  def cc_by = Licensee::License.find('cc-by-4.0')
+  def cc_by_sa = Licensee::License.find('cc-by-sa-4.0')
+
+  def expected_top_matches
     [
       [gpl, 100.0],
       [agpl, 94.56967213114754],
       [lgpl, 26.821370750134918]
     ]
   end
+
+  let(:content) { sub_copyright_info(gpl) }
+  let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
 
   it 'stores the file' do
     expect(subject.file).to eql(file)
@@ -47,16 +49,9 @@ RSpec.describe Licensee::Matchers::Dice do
     let(:content) do
       "#{sub_copyright_info(mit)}\n\n#{sub_copyright_info(gpl)}"
     end
-    let(:detection) do
-      [
-        be_detected_as(gpl).matches?(content),
-        subject.match,
-        subject.matches.empty?,
-        subject.confidence
-      ]
-    end
 
     it "doesn't match" do
+      detection = [be_detected_as(gpl).matches?(content), subject.match, subject.matches.empty?, subject.confidence]
       expect(detection).to eql([false, nil, true, 0])
     end
   end
@@ -71,20 +66,13 @@ RSpec.describe Licensee::Matchers::Dice do
     end
 
     context 'CC-ND' do
-      let(:project_path) { fixture_path('cc-by-nd') }
-      let(:license_path) { File.expand_path('LICENSE', project_path) }
-      let(:content) { File.read(license_path) }
-      let(:detection) do
-        [
-          be_detected_as(cc_by).matches?(content),
-          be_detected_as(cc_by_sa).matches?(content),
-          subject.match,
-          subject.matches.empty?,
-          subject.confidence
-        ]
+      let(:content) do
+        File.read(File.expand_path('LICENSE', fixture_path('cc-by-nd')))
       end
 
       it "doesn't match" do
+        detection = [be_detected_as(cc_by).matches?(content), be_detected_as(cc_by_sa).matches?(content),
+                     subject.match, subject.matches.empty?, subject.confidence]
         expect(detection).to eql([false, false, nil, true, 0])
       end
     end

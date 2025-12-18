@@ -8,19 +8,16 @@ RSpec.describe Integration do
     context "with a #{project_type} project" do
       subject(:project) { project_type.new(project_path, **arguments) }
 
-      let(:filename) { 'LICENSE' }
-      let(:license) { Licensee::License.find('mit') }
-      let(:other_license) { Licensee::License.find('other') }
-      let(:content) { license.content }
-      let(:license_path) { File.expand_path(filename, project_path) }
-      let(:arguments) { {} }
-      let(:fixture) { 'mit' }
-      let(:project_path) { fixture_path(fixture) }
-      let(:initialize_git_repo) { project_type == Licensee::Projects::GitProject }
-      let(:git_path) { File.expand_path('.git', project_path) }
+      def arguments = {}
+      def fixture = 'mit'
+      def other_license = Licensee::License.find('other')
+      def project_path = fixture_path(fixture)
 
-      before { git_init(project_path) if initialize_git_repo }
-      after { FileUtils.rm_rf(git_path) if initialize_git_repo }
+      before { git_init(project_path) if project_type == Licensee::Projects::GitProject }
+
+      after do
+        FileUtils.rm_rf(File.expand_path('.git', project_path)) if project_type == Licensee::Projects::GitProject
+      end
 
       context 'with a folder named license' do
         let(:fixture) { 'license-folder' }
@@ -338,11 +335,13 @@ RSpec.describe Integration do
 
       context 'with the license file stubbed' do
         let(:project_path) { Dir.mktmpdir }
+        let(:license) { Licensee::License.find('mit') }
+        let(:content) { license.content }
 
         let(:write_file) do
           lambda do |filename, file_content|
             File.write(File.expand_path(filename, project_path), file_content)
-            git_init(project_path) if initialize_git_repo
+            git_init(project_path) if project_type == Licensee::Projects::GitProject
           end
         end
 

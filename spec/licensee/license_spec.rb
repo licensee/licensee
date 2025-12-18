@@ -1,28 +1,49 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::License do
-  let(:license_count) { 49 }
-  let(:hidden_license_count) { 36 }
-  let(:featured_license_count) { 3 }
-  let(:pseudo_license_count) { 2 }
-  let(:non_featured_license_count) do
-    license_count - featured_license_count - hidden_license_count
-  end
-
-  let(:mit) { described_class.find('mit') }
-  let(:cc_by) { described_class.find('cc-by-4.0') }
-  let(:unlicense) { described_class.find('unlicense') }
-  let(:other) { described_class.find('other') }
-  let(:no_license) { described_class.find('no-license') }
-  let(:gpl) { described_class.find('gpl-3.0') }
-  let(:lgpl) { described_class.find('lgpl-3.0') }
   let(:content_hash) { license_hashes['mit'] }
 
   let(:license_dir) do
     File.expand_path 'vendor/choosealicense.com/_licenses', project_root
   end
 
+  def counts
+    {
+      license:  49,
+      hidden:   36,
+      featured: 3,
+      pseudo:   2
+    }
+  end
+
+  def license_count = counts[:license]
+  def hidden_license_count = counts[:hidden]
+  def featured_license_count = counts[:featured]
+  def pseudo_license_count = counts[:pseudo]
+  def non_featured_license_count = license_count - featured_license_count - hidden_license_count
+
+  def license_lookup
+    {
+      mit:        described_class.find('mit'),
+      cc_by:      described_class.find('cc-by-4.0'),
+      unlicense:  described_class.find('unlicense'),
+      other:      described_class.find('other'),
+      no_license: described_class.find('no-license'),
+      gpl:        described_class.find('gpl-3.0'),
+      lgpl:       described_class.find('lgpl-3.0')
+    }
+  end
+
+  def mit = license_lookup[:mit]
+  def cc_by = license_lookup[:cc_by]
+  def unlicense = license_lookup[:unlicense]
+  def other = license_lookup[:other]
+  def no_license = license_lookup[:no_license]
+  def gpl = license_lookup[:gpl]
+  def lgpl = license_lookup[:lgpl]
+
   context 'listing licenses' do
+    let(:arguments) { {} }
     let(:licenses) { described_class.all(arguments) }
 
     it 'returns the license keys' do
@@ -390,38 +411,31 @@ RSpec.describe Licensee::License do
     end
 
     context 'a license with an alt title' do
-      let(:text) { 'The Clear BSD license' }
-      let(:license) { described_class.find('bsd-3-clause-clear') }
-
       it 'matches' do
+        text = 'The Clear BSD license'
+        license = described_class.find('bsd-3-clause-clear')
         expect(text).to match(license.title_regex)
       end
 
       it 'finds by title' do
+        text = 'The Clear BSD license'
+        license = described_class.find('bsd-3-clause-clear')
         expect(described_class.find_by_title(text)).to eql(license)
       end
     end
   end
 
   context 'to_h' do
-    let(:hash) { mit.to_h }
-    let(:expected) do
+    def expected_to_h(license)
       {
-        key:     'mit',
-        spdx_id: 'MIT',
-        meta:    mit.meta.to_h,
-        url:     'http://choosealicense.com/licenses/mit/',
-        rules:   mit.rules.to_h,
-        fields:  mit.fields.map(&:to_h),
-        other:   false,
-        gpl:     false,
-        lgpl:    false,
-        cc:      false
+        key: license.key, spdx_id: license.spdx_id, meta: license.meta.to_h, url: license.url,
+        rules: license.rules.to_h, fields: license.fields.map(&:to_h),
+        other: license.other?, gpl: license.gpl?, lgpl: license.lgpl?, cc: license.cc?
       }
     end
 
     it 'Converts to a hash' do
-      expect(hash).to eql(expected)
+      expect(mit.to_h).to eql(expected_to_h(mit))
     end
   end
 

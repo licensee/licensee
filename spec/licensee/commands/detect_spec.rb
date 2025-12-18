@@ -8,17 +8,15 @@ module Licensee
 end
 
 RSpec.describe Licensee::Commands::Detect do
-  let(:command) { ['bundle', 'exec', 'bin/licensee', 'detect'] }
+  def command = ['bundle', 'exec', 'bin/licensee', 'detect']
+
   let(:arguments) { [] }
   let(:output) do
     Dir.chdir project_root do
       Open3.capture3(*[command, arguments].flatten)
     end
   end
-  let(:parsed_output) { YAML.safe_load(stdout) }
-  let(:stdout) { output[0] }
-  let(:stderr) { output[1] }
-  let(:status) { output[2] }
+
   let(:hash) { license_hashes['mit'] }
   let(:expected) do
     {
@@ -39,6 +37,10 @@ RSpec.describe Licensee::Commands::Detect do
     }
   end
 
+  def stdout = output[0]
+  def status = output[2]
+  def parsed_output = YAML.safe_load(stdout)
+
   {
     'No arguments' => [],
     'Project root' => [project_root],
@@ -46,6 +48,7 @@ RSpec.describe Licensee::Commands::Detect do
   }.each do |name, args|
     context "When given #{name}" do
       let(:arguments) { args }
+
       let(:expected_output) do
         expected.dup.tap do |hash|
           next unless name == 'License path'
@@ -98,16 +101,15 @@ RSpec.describe Licensee::Commands::Detect do
 
   context 'closest non-matching licenses' do
     let(:tmpdir) { Dir.mktmpdir }
-    let(:license_path) { File.expand_path('LICENSE', tmpdir) }
     let(:arguments) { ['--confidence', '0', tmpdir] }
+
+    after { FileUtils.rm_rf(tmpdir) }
+
+    def license_path = File.expand_path('LICENSE', tmpdir)
 
     before do
       license = Licensee::License.find('mit')
       File.write(license_path, "#{license.content}\n\nNOT PART OF THE LICENSE\n")
-    end
-
-    after do
-      FileUtils.rm_rf(tmpdir)
     end
 
     it 'Returns a zero exit code' do

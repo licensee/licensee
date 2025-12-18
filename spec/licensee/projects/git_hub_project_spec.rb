@@ -4,12 +4,13 @@ RSpec.describe Licensee::Projects::GitHubProject do
   subject(:instance) { described_class.new(github_url) }
 
   let(:repo) { 'benbalter/licensee' }
-  let(:github_url) { "https://github.com/#{repo}" }
-  let(:mit) { Licensee::License.find('mit') }
-  let(:mit_readme_file) { File.read(fixture_path('mit/README.md')) }
-  let(:mit_license_file) { File.read(fixture_path('mit/LICENSE.txt')) }
-  let(:apache2) { Licensee::License.find('apache-2.0') }
-  let(:apache2_license_file) { File.read(fixture_path('apache-with-readme-notice/LICENSE')) }
+
+  def github_url = "https://github.com/#{repo}"
+  def mit = Licensee::License.find('mit')
+  def mit_readme_file = File.read(fixture_path('mit/README.md'))
+  def mit_license_file = File.read(fixture_path('mit/LICENSE.txt'))
+  def apache2 = Licensee::License.find('apache-2.0')
+  def apache2_license_file = File.read(fixture_path('apache-with-readme-notice/LICENSE'))
 
   describe '#initialize' do
     context 'with a GitHub URI' do

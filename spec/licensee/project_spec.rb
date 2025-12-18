@@ -8,12 +8,12 @@
   RSpec.describe project_type do
     subject { described_class.new(path) }
 
-    let(:stubbed_org) { '_licensee_test_fixture' }
-    let(:mit) { Licensee::License.find('mit') }
-    let(:other) { Licensee::License.find('other') }
+    def stubbed_org = '_licensee_test_fixture'
+    def api_base = 'https://api.github.com/repos'
+    def mit = Licensee::License.find('mit')
+    def other = Licensee::License.find('other')
     let(:fixture) { 'mit' }
     let(:path) { fixture_path(fixture) }
-    let(:api_base) { 'https://api.github.com/repos' }
 
     if described_class == Licensee::Projects::GitHubProject
       let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
@@ -93,7 +93,7 @@
     end
 
     context 'reading files' do
-      let(:files) { subject.send(:files) }
+      def files = subject.send(:files)
 
       it 'returns the file list' do
         expect(files).to satisfy do |values|
@@ -114,10 +114,7 @@
           subject { described_class.new(path, search_root: search_root) }
 
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
-          let(:path) { fixture_path(fixture) }
-          let(:license_folder) { 'license-in-parent-folder/license-folder' }
-          let(:search_root) { fixture_path(license_folder) }
-          let(:files) { subject.send(:files) }
+          let(:search_root) { fixture_path('license-in-parent-folder/license-folder') }
 
           it 'looks for licenses in parent directories up to the search root' do
             # should not include the license in 'license-in-parent-folder' dir
@@ -165,7 +162,8 @@
       subject { described_class.new(path, detect_packages: true) }
 
       let(:fixture) { 'gemspec' }
-      let(:gemspec_path) { "#{fixture_path(fixture)}/project.gemspec" }
+
+      def gemspec_path = "#{fixture_path(fixture)}/project.gemspec"
 
       # Using a `.gemspec` extension in the fixture breaks `gem release`
       before do
@@ -240,9 +238,10 @@
     end
 
     context 'lgpl' do
-      let(:gpl) { Licensee::License.find('gpl-3.0') }
-      let(:lgpl) { Licensee::License.find('lgpl-3.0') }
       let(:fixture) { 'lgpl' }
+
+      def gpl = Licensee::License.find('gpl-3.0')
+      def lgpl = Licensee::License.find('lgpl-3.0')
 
       it 'license returns lgpl' do
         expect(subject.license).to eql(lgpl)
@@ -278,16 +277,13 @@
     end
 
     context 'to_h' do
-      let(:hash) { subject.to_h }
-      let(:expected) do
-        {
+      it 'Converts to a hash' do
+        expected = {
           licenses:      subject.licenses.map(&:to_h),
           matched_files: subject.matched_files.map(&:to_h)
         }
-      end
 
-      it 'Converts to a hash' do
-        expect(hash).to eql(expected)
+        expect(subject.to_h).to eql(expected)
       end
     end
   end

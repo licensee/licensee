@@ -41,12 +41,14 @@ RSpec.describe Licensee::ContentHelper do
   -----------
     LICENSE
   end
-  let(:filename) { 'license.md' }
-  let(:spdx_id) { 'MIT' }
 
-  let(:mit) { Licensee::License.find('mit') }
-  let(:normalized_content) { subject.content_normalized }
-  let(:expected_wordset) do
+  def filename = 'license.md'
+  def spdx_id = 'MIT'
+
+  def mit = Licensee::License.find('mit')
+  def normalized_content = subject.content_normalized
+
+  def expected_wordset
     Set.new(
       %w[
         the made up license this provided as is' please respect

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Package do
-  let(:mit) { Licensee::License.find('mit') }
-  let(:content) { '' }
   let(:file) do
-    Licensee::ProjectFiles::LicenseFile.new(content, 'project.gemspec')
+    Licensee::ProjectFiles::LicenseFile.new('', 'project.gemspec')
   end
   let(:license_property) { 'mit' }
-  let(:matcher_class) do
+  let(:matcher) { matcher_class.new(file, license_property) }
+
+  def matcher_class
     Class.new(described_class) do
       attr_reader :license_property
 
@@ -17,10 +17,9 @@ RSpec.describe Licensee::Matchers::Package do
       end
     end
   end
-  let(:matcher) { matcher_class.new(file, license_property) }
 
   it 'matches' do
-    expect(matcher.match).to eql(mit)
+    expect(matcher.match).to eql(Licensee::License.find('mit'))
   end
 
   it 'has confidence' do
