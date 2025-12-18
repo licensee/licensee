@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::ProjectFiles::ReadmeFile do
-  subject { described_class.new(content, filename) }
+  subject(:readme_file) { described_class.new(content, filename) }
 
   let(:filename) { 'README.md' }
   let(:content) { '' }
@@ -133,7 +133,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
     let(:mit) { Licensee::License.find('mit') }
 
     it 'matches' do
-      expect(subject.match).to eql(mit)
+      expect(readme_file.match).to eql(mit)
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Rule do
-  subject do
+  subject(:rule) do
     described_class.new(
       description: 'description',
       tag:         'tag',
@@ -13,7 +13,7 @@ RSpec.describe Licensee::Rule do
   let(:groups) { %w[permissions conditions limitations] }
 
   it 'stores properties' do
-    expect(subject).to have_attributes(tag: 'tag', label: 'label', description: 'description', group: 'group')
+    expect(rule).to have_attributes(tag: 'tag', label: 'label', description: 'description', group: 'group')
   end
 
   it 'loads the groups' do

@@ -24,17 +24,17 @@ RSpec.describe Licensee do
   end
 
   describe '.project' do
-    subject { described_class.project(project_path) }
+    subject(:project) { described_class.project(project_path) }
 
     it 'inits a project' do
-      expect(subject).to be_a(Licensee::Projects::Project)
+      expect(project).to be_a(Licensee::Projects::Project)
     end
 
     context 'when given a GitHub repository' do
       let(:project_path) { 'https://github.com/benbalter/licensee' }
 
       it 'creates a GitHubProject' do
-        expect(subject).to be_a(Licensee::Projects::GitHubProject)
+        expect(project).to be_a(Licensee::Projects::GitHubProject)
       end
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Dice do
-  subject { described_class.new(file) }
+  subject(:matcher) { described_class.new(file) }
 
   def mit = Licensee::License.find('mit')
   def gpl = Licensee::License.find('gpl-3.0')
@@ -22,26 +22,26 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
 
   it 'stores the file' do
-    expect(subject.file).to eql(file)
+    expect(matcher.file).to eql(file)
   end
 
   it 'matches' do
-    expect(subject.match).to eql(gpl)
+    expect(matcher.match).to eql(gpl)
   end
 
   it 'sorts licenses by similarity' do
-    expect(subject.matches_by_similarity.first(3)).to eql(expected_top_matches)
+    expect(matcher.matches_by_similarity.first(3)).to eql(expected_top_matches)
   end
 
   it 'returns the match confidence' do
-    expect(subject.confidence).to eq(100.0)
+    expect(matcher.confidence).to eq(100.0)
   end
 
   context 'without a match' do
     let(:content) { 'Not really a license' }
 
     it "doesn't match" do
-      expect(subject).to have_attributes(match: nil, matches: be_empty, confidence: 0)
+      expect(matcher).to have_attributes(match: nil, matches: be_empty, confidence: 0)
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe Licensee::Matchers::Dice do
     end
 
     it "doesn't match" do
-      detection = [be_detected_as(gpl).matches?(content), subject.match, subject.matches.empty?, subject.confidence]
+      detection = [be_detected_as(gpl).matches?(content), matcher.match, matcher.matches.empty?, matcher.confidence]
       expect(detection).to eql([false, nil, true, 0])
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe Licensee::Matchers::Dice do
 
       it "doesn't match" do
         detection = [be_detected_as(cc_by).matches?(content), be_detected_as(cc_by_sa).matches?(content),
-                     subject.match, subject.matches.empty?, subject.confidence]
+                     matcher.match, matcher.matches.empty?, matcher.confidence]
         expect(detection).to eql([false, false, nil, true, 0])
       end
     end

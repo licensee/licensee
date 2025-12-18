@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::ProjectFiles::LicenseFile do
-  subject { described_class.new(content, filename) }
+  subject(:license_file) { described_class.new(content, filename) }
 
   let(:filename) { 'LICENSE.txt' }
   let(:content) { sub_copyright_info(mit) }
@@ -11,14 +11,14 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   def mit = Licensee::License.find('mit')
 
   it 'parses the attribution' do
-    expect(subject.attribution).to eql('Copyright (c) 2018 Ben Balter')
+    expect(license_file.attribution).to eql('Copyright (c) 2018 Ben Balter')
   end
 
   context "when there's a random copyright-like line" do
     let(:content) { "Foo\nCopyright 2016 Ben Balter\nBar" }
 
     it "doesn't match" do
-      expect(subject.attribution).to be_nil
+      expect(license_file.attribution).to be_nil
     end
   end
 
@@ -26,7 +26,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:content) { (+"\x91License\x93").force_encoding('windows-1251') }
 
     it "doesn't blow up" do
-      expect(subject.attribution).to be_nil
+      expect(license_file.attribution).to be_nil
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:content) { sub_copyright_info(gpl) }
 
     it "doesn't match" do
-      expect(subject.attribution).to be_nil
+      expect(license_file.attribution).to be_nil
     end
   end
 
@@ -43,16 +43,16 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:content) { 'Copyright (C) 2015 Ben Balter' }
 
     it "doesn't match" do
-      expect(subject.attribution).to eql(content)
+      expect(license_file.attribution).to eql(content)
     end
   end
 
   it 'creates the wordset' do
-    expect([subject.wordset.count, subject.wordset.first]).to eql([93, 'permission'])
+    expect([license_file.wordset.count, license_file.wordset.first]).to eql([93, 'permission'])
   end
 
   it 'creates the hash' do
-    expect(subject.content_hash).to eql(content_hash)
+    expect(license_file.content_hash).to eql(content_hash)
   end
 
   context 'when scoring filenames' do
@@ -150,14 +150,22 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:regex) { Licensee::ProjectFiles::LicenseFile::CC_FALSE_POSITIVE_REGEX }
 
     it "knows MIT isn't a potential false positive" do
-      expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([false, false])
+      detection = [
+        license_file.content.match?(regex),
+        be_a_potential_false_positive.matches?(license_file)
+      ]
+      expect(detection).to eql([false, false])
     end
 
     context 'with a CC false positive with creative commons in the title' do
       let(:content) { 'Creative Commons Attribution-NonCommercial 4.0' }
 
       it "knows it's a potential false positive" do
-        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
+        detection = [
+          license_file.content.match?(regex),
+          be_a_potential_false_positive.matches?(license_file)
+        ]
+        expect(detection).to eql([true, true])
       end
     end
 
@@ -165,7 +173,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:content) { 'Attribution-NonCommercial 4.0 International' }
 
       it "knows it's a potential false positive" do
-        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
+        detection = [
+          license_file.content.match?(regex),
+          be_a_potential_false_positive.matches?(license_file)
+        ]
+        expect(detection).to eql([true, true])
       end
     end
 
@@ -173,7 +185,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:content) { 'Attribution-NoDerivatives 4.0 International' }
 
       it "knows it's a potential false positive" do
-        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
+        detection = [
+          license_file.content.match?(regex),
+          be_a_potential_false_positive.matches?(license_file)
+        ]
+        expect(detection).to eql([true, true])
       end
     end
 
@@ -187,7 +203,11 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
 
       it "knows it's a potential false positive" do
-        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
+        detection = [
+          license_file.content.match?(regex),
+          be_a_potential_false_positive.matches?(license_file)
+        ]
+        expect(detection).to eql([true, true])
       end
     end
   end
@@ -214,7 +234,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:filename) { 'COPYING' }
 
       it 'is not lgpl' do
-        expect(subject).not_to be_lgpl
+        expect(license_file).not_to be_lgpl
       end
     end
   end
@@ -223,14 +243,14 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:content) { sub_copyright_info(gpl) }
 
     it 'knows its GPL' do
-      expect(subject).to be_gpl
+      expect(license_file).to be_gpl
     end
 
     context 'with another license' do
       let(:content) { sub_copyright_info(mit) }
 
       it 'is not GPL' do
-        expect(subject).not_to be_gpl
+        expect(license_file).not_to be_gpl
       end
     end
   end
@@ -240,7 +260,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:other) { Licensee::License.find('other') }
 
     it 'matches to other' do
-      expect(subject.license).to eql(other)
+      expect(license_file.license).to eql(other)
     end
   end
 
@@ -250,7 +270,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:filename) { 'COPYRIGHT.txt' }
 
       it "knows it's a copyright file" do
-        expect(subject.send(:copyright?)).to be_truthy
+        expect(license_file.send(:copyright?)).to be_truthy
       end
     end
 
@@ -258,7 +278,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:filename) { 'COPYRIGHT.txt' }
 
       it "knows it's not a copyright file" do
-        expect(subject.send(:copyright?)).to be_falsy
+        expect(license_file.send(:copyright?)).to be_falsy
       end
     end
 
@@ -266,7 +286,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:content) { 'Copyright 2017 Ben Balter' }
 
       it "knows it's not a copyright file" do
-        expect(subject.send(:copyright?)).to be_falsy
+        expect(license_file.send(:copyright?)).to be_falsy
       end
     end
   end

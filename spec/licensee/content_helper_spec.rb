@@ -20,7 +20,7 @@ class ContentHelperTestHelper
 end
 
 RSpec.describe Licensee::ContentHelper do
-  subject { ContentHelperTestHelper.new(content, filename: filename, spdx_id: spdx_id) }
+  subject(:helper) { ContentHelperTestHelper.new(content, filename: filename, spdx_id: spdx_id) }
 
   let(:content) do
     <<-LICENSE.gsub(/^\s*/, '')
@@ -46,7 +46,7 @@ RSpec.describe Licensee::ContentHelper do
   def spdx_id = 'MIT'
 
   def mit = Licensee::License.find('mit')
-  def normalized_content = subject.content_normalized
+  def normalized_content = helper.content_normalized
 
   def expected_wordset
     Set.new(
@@ -58,28 +58,28 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   it 'creates the wordset' do
-    expect(subject.wordset).to eql(expected_wordset)
+    expect(helper.wordset).to eql(expected_wordset)
   end
 
   it 'knows the length' do
-    expect(subject.length).to be(135)
+    expect(helper.length).to be(135)
   end
 
   it 'knows the length delta' do
-    expect([subject.length_delta(mit), subject.length_delta(subject)]).to eql([885, 0])
+    expect([helper.length_delta(mit), helper.length_delta(helper)]).to eql([885, 0])
   end
 
   it 'knows the similarity' do
-    expect([mit.similarity(subject).round, mit.similarity(mit)]).to eql([4, 100.0])
+    expect([mit.similarity(helper).round, mit.similarity(mit)]).to eql([4, 100.0])
   end
 
   it 'calculates simple delta for similarity' do
-    expect(subject.similarity(mit)).to be_within(1).of(3)
+    expect(helper.similarity(mit)).to be_within(1).of(3)
   end
 
   it 'calculates the hash' do
     content_hash = '9b4bed43726cf39e17b11c2942f37be232f5709a'
-    expect(subject.content_hash).to eql(content_hash)
+    expect(helper.content_hash).to eql(content_hash)
   end
 
   it 'wraps' do
@@ -199,7 +199,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { 'http://example.com' }
 
       it 'normalized URL protocals' do
-        expect(subject.content_normalized).to eql('https://example.com')
+        expect(helper.content_normalized).to eql('https://example.com')
       end
     end
 
@@ -207,7 +207,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { 'Foo & Bar' }
 
       it 'normalized ampersands' do
-        expect(subject.content_normalized).to eql('foo and bar')
+        expect(helper.content_normalized).to eql('foo and bar')
       end
     end
 
@@ -215,7 +215,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "1. Foo\n * Bar" }
 
       it 'normalizes lists' do
-        expect(subject.content_normalized).to eql('- foo - bar')
+        expect(helper.content_normalized).to eql('- foo - bar')
       end
     end
 
@@ -223,7 +223,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "- **(a)** Foo\n * b) Bar" }
 
       it 'normalizes lists' do
-        expect(subject.content_normalized).to eql('- foo - bar')
+        expect(helper.content_normalized).to eql('- foo - bar')
       end
     end
 
@@ -231,7 +231,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { 'Foo-Bar—–baz-buzz' }
 
       it 'normalizes dashes' do
-        expect(subject.content_normalized).to eql('foo-bar-baz-buzz')
+        expect(helper.content_normalized).to eql('foo-bar-baz-buzz')
       end
     end
 
@@ -239,7 +239,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "cc-\nlicensed" }
 
       it 'normalized hyphenated across lines' do
-        expect(subject.content_normalized).to eql('cc-licensed')
+        expect(helper.content_normalized).to eql('cc-licensed')
       end
     end
 
@@ -247,7 +247,7 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
 
       it 'normalizes quotes' do
-        expect(subject.content_normalized).to eql("'a' 'b' 'c' 'd' 'e'")
+        expect(helper.content_normalized).to eql("'a' 'b' 'c' 'd' 'e'")
       end
     end
 
@@ -270,13 +270,13 @@ RSpec.describe Licensee::ContentHelper do
       let(:content) { 'licence' }
 
       it 'normalizes' do
-        expect(subject.content_normalized).to eql('license')
+        expect(helper.content_normalized).to eql('license')
       end
     end
 
     Licensee::License.all(hidden: true).each do |license|
       context "with the #{license.name} license" do
-        let(:stripped_content) { subject.content_without_title_and_version }
+        let(:stripped_content) { helper.content_without_title_and_version }
 
         it 'strips the title' do
           regex = /\A#{license.name_without_version}/i
@@ -367,11 +367,11 @@ RSpec.describe Licensee::ContentHelper do
 
   context 'when metaprogramming' do
     it 'raises on invalid normalization' do
-      expect { subject.send(:normalize, :foo) }.to raise_error(ArgumentError)
+      expect { helper.send(:normalize, :foo) }.to raise_error(ArgumentError)
     end
 
     it 'raises on invalid strip' do
-      expect { subject.send(:strip, :foo) }.to raise_error(ArgumentError)
+      expect { helper.send(:strip, :foo) }.to raise_error(ArgumentError)
     end
 
     it 'backwards compatibalizes regexes' do
