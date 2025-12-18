@@ -46,7 +46,7 @@ RSpec.describe VendoredLicense do
         end
 
         it 'detects the license with a double title' do
-          double_titled = "#{license.name.sub('*', 'u')}\n\n#{content}"
+          double_titled = "#{license.name.tr('*', 'u')}\n\n#{content}"
           expect(double_titled).to be_detected_as(license)
         end
 

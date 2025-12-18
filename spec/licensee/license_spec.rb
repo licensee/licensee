@@ -370,19 +370,19 @@ RSpec.describe Licensee::License do
         next if license.public_send(variation).nil?
 
         it "matches #{license.key} #{variation}" do
-          text = license.public_send(variation).sub('*', 'u')
+          text = license.public_send(variation).tr('*', 'u')
           expect([text.match?(license.title_regex), described_class.find_by_title(text)]).to eql([true, license])
         end
 
         it "matches #{license.key} #{variation} with 'the' and 'license'" do
-          license_variation = license.public_send(variation).sub('*', 'u')
+          license_variation = license.public_send(variation).tr('*', 'u')
           text = "The #{license_variation} license"
           expect(text).to match(license.title_regex)
         end
 
         if /\bGNU\b/.match?(license.title)
           it "matches #{license.key} #{variation} without 'GNU'" do
-            license_variation = license.public_send(variation).sub('*', 'u')
+            license_variation = license.public_send(variation).tr('*', 'u')
             text = license_variation.sub(/GNU /i, '')
             expect(text).to match(license.title_regex)
           end
@@ -391,19 +391,19 @@ RSpec.describe Licensee::License do
         next unless variation == :title
 
         it "matches #{license.key} title with 'version x.x'" do
-          license_variation = license.title.sub('*', 'u')
+          license_variation = license.title.tr('*', 'u')
           text = license_variation.sub(/v?(\d+\.\d+)/i, 'version \1')
           expect(text).to match(license.title_regex)
         end
 
         it "matches #{license.key} title with ', version x.x'" do
-          license_variation = license.title.sub('*', 'u')
+          license_variation = license.title.tr('*', 'u')
           text = license_variation.sub(/ v?(\d+\.\d+)/i, ', version \1')
           expect(text).to match(license.title_regex)
         end
 
         it "matches #{license.key} title with 'vx.x'" do
-          license_variation = license.title.sub('*', 'u')
+          license_variation = license.title.tr('*', 'u')
           text = license_variation.sub(/(?:version)? (\d+\.\d+)/i, ' v\1')
           expect(text).to match(license.title_regex)
         end
@@ -450,10 +450,7 @@ RSpec.describe Licensee::License do
         source.scheme = scheme
         source.host = "#{prefix}#{source.host.delete_prefix('www.')}"
 
-        unless license.key == 'wtfpl'
-          regex = /#{Licensee::License::SOURCE_SUFFIX}\z/o
-          source.path = "#{source.path.sub(regex, '')}#{suffix}"
-        end
+        source.path = "#{source.path.sub(%r{(?:\.html?|\.txt|/)\z}i, '')}#{suffix}" unless license.key == 'wtfpl'
 
         source.to_s
       end
