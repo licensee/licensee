@@ -16,7 +16,7 @@ RSpec.describe VendoredLicense do
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
 
-    context "the #{license.name} license" do
+    context "with the #{license.name} license" do
       let(:content) { sub_copyright_info(license) }
       let(:expected_hash) { license_hashes[license.key] }
 

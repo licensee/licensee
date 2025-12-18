@@ -52,7 +52,7 @@ RSpec.describe Licensee::Rule do
     end
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     let(:hash) { described_class.all.first.to_h }
     let(:description) do
       'The licensed material and derivatives may be used for commercial purposes.'

@@ -30,10 +30,10 @@ RSpec.describe Licensee::Matchers::Cabal do
     end
   end
 
-  context 'non-standard license format' do
+  context 'with a non-standard license format' do
     let(:content) { "license: #{cabal_license}" }
 
-    context 'GPL-3' do
+    context 'with GPL-3' do
       let(:cabal_license) { 'GPL-3' }
 
       it 'returns GPL-3.0' do
@@ -41,7 +41,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'GPL-2' do
+    context 'with GPL-2' do
       let(:cabal_license) { 'GPL-2' }
 
       it 'returns GPL-2.0' do
@@ -49,7 +49,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'LGPL-2.1' do
+    context 'with LGPL-2.1' do
       let(:cabal_license) { 'LGPL-2.1' }
 
       it 'returns LGPL-2.1' do
@@ -57,7 +57,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'LGPL-3' do
+    context 'with LGPL-3' do
       let(:cabal_license) { 'LGPL-3' }
 
       it 'returns LGPL-3.0' do
@@ -65,7 +65,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'AGPL-3' do
+    context 'with AGPL-3' do
       let(:cabal_license) { 'AGPL-3' }
 
       it 'returns AGPL-3.0' do
@@ -73,7 +73,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'BSD2' do
+    context 'with BSD2' do
       let(:cabal_license) { 'BSD2' }
 
       it 'returns BSD-2-Clause' do
@@ -81,7 +81,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'BSD3' do
+    context 'with BSD3' do
       let(:cabal_license) { 'BSD3' }
 
       it 'returns BSD-3-Clause' do
@@ -89,7 +89,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'MIT' do
+    context 'with MIT' do
       let(:cabal_license) { 'MIT' }
 
       it 'returns MIT' do
@@ -97,7 +97,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'ISC' do
+    context 'with ISC' do
       let(:cabal_license) { 'ISC' }
 
       it 'returns ISC' do
@@ -105,7 +105,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'MPL-2.0' do
+    context 'with MPL-2.0' do
       let(:cabal_license) { 'MPL-2.0' }
 
       it 'returns MPL-2.0' do
@@ -113,7 +113,7 @@ RSpec.describe Licensee::Matchers::Cabal do
       end
     end
 
-    context 'Apache-2.0' do
+    context 'with Apache-2.0' do
       let(:cabal_license) { 'Apache-2.0' }
 
       it 'returns Apache-2.0' do
@@ -122,7 +122,7 @@ RSpec.describe Licensee::Matchers::Cabal do
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { 'foo: bar' }
 
     it 'returns nil' do
@@ -130,7 +130,7 @@ RSpec.describe Licensee::Matchers::Cabal do
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { 'license: foo' }
 
     it 'returns other' do

@@ -6,7 +6,7 @@ RSpec.describe Licensee::LicenseMeta do
   meta_fields.each do |field|
     next if field['name'] == 'redirect_from'
 
-    context "the #{field['name']} field" do
+    context "with the #{field['name']} field" do
       let(:name) { field['name'].tr('-', '_') }
       let(:method) { name.to_sym }
 
@@ -20,9 +20,9 @@ RSpec.describe Licensee::LicenseMeta do
     end
   end
 
-  context 'predicate methods' do
+  context 'when using predicate methods' do
     described_class::PREDICATE_FIELDS.each do |field|
-      context "the #{field}? method" do
+      context "with the #{field}? method" do
         it 'responds' do
           expect(subject).to respond_to(:"#{field}?")
         end
@@ -45,7 +45,7 @@ RSpec.describe Licensee::LicenseMeta do
       expect(subject).to have_attributes(title: 'Test license', description: 'A test license')
     end
 
-    context 'setting defaults' do
+    context 'when setting defaults' do
       let(:hash) { {} }
 
       described_class::DEFAULTS.each do |key, value|
@@ -55,7 +55,7 @@ RSpec.describe Licensee::LicenseMeta do
       end
     end
 
-    context 'spdx-id' do
+    context 'with spdx-id' do
       let(:hash) { { 'spdx-id' => 'foo' } }
 
       it 'renames spdx-id to spdx_id' do
@@ -81,7 +81,7 @@ RSpec.describe Licensee::LicenseMeta do
       expect([subject.hidden, subject.featured]).to eql([true, false])
     end
 
-    context 'nil yaml' do
+    context 'when yaml is nil' do
       let(:yaml) { nil }
 
       it 'returns defaults' do
@@ -89,7 +89,7 @@ RSpec.describe Licensee::LicenseMeta do
       end
     end
 
-    context 'empty yaml' do
+    context 'when yaml is empty' do
       let(:yaml) { '' }
 
       it 'returns defaults' do
@@ -104,7 +104,7 @@ RSpec.describe Licensee::LicenseMeta do
     end
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     let(:hash) { subject.to_h }
     let(:using) do
       {

@@ -106,7 +106,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'MPL with HRs removed' do
+      context 'with MPL HRs removed' do
         let(:license) { Licensee::License.find('mpl-2.0') }
         let(:fixture) { 'mpl-without-hrs' }
 
@@ -115,7 +115,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'GPL3 with instructions removed' do
+      context 'with GPL3 instructions removed' do
         let(:license) { Licensee::License.find('gpl-3.0') }
         let(:fixture) { 'gpl3-without-instructions' }
 
@@ -124,7 +124,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'DESCRIPTION file with a LICENSE file' do
+      context 'with a DESCRIPTION file and a LICENSE file' do
         let(:fixture) { 'description-license' }
         let(:arguments) { { detect_packages: true } }
 
@@ -133,7 +133,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'A license with CRLF line-endings' do
+      context 'with a license with CRLF line-endings' do
         let(:license) { Licensee::License.find('gpl-3.0') }
         let(:fixture) { 'crlf-license' }
 
@@ -142,7 +142,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'A BSD license with CRLF line-endings' do
+      context 'with a BSD license with CRLF line-endings' do
         let(:license) { Licensee::License.find('bsd-3-clause') }
         let(:fixture) { 'crlf-bsd' }
 
@@ -151,7 +151,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'BSD + PATENTS' do
+      context 'with BSD + PATENTS' do
         let(:license) { Licensee::License.find('other') }
         let(:fixture) { 'bsd-plus-patents' }
 
@@ -160,7 +160,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'BSL' do
+      context 'with BSL' do
         let(:license) { Licensee::License.find('bsl-1.0') }
         let(:fixture) { 'bsl' }
 
@@ -169,7 +169,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'CC0 as published by CC' do
+      context 'with CC0 as published by CC' do
         let(:license) { Licensee::License.find('cc0-1.0') }
         let(:fixture) { 'cc0-cc' }
 
@@ -178,7 +178,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'CC0 as published on choosealicense.com 2013-2019' do
+      context 'with CC0 as published on choosealicense.com 2013-2019' do
         let(:license) { Licensee::License.find('cc0-1.0') }
         let(:fixture) { 'cc0-cal2013' }
 
@@ -187,7 +187,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'EUPL as published on choosealicense.com 2017-2019' do
+      context 'with EUPL as published on choosealicense.com 2017-2019' do
         let(:license) { Licensee::License.find('eupl-1.2') }
         let(:fixture) { 'eupl-cal2017' }
 
@@ -196,7 +196,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'Unlicense without optional line' do
+      context 'with Unlicense without optional line' do
         let(:license) { Licensee::License.find('unlicense') }
         let(:fixture) { 'unlicense-noinfo' }
 
@@ -205,7 +205,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'MIT w/optional phrase' do
+      context 'with MIT w/optional phrase' do
         let(:license) { Licensee::License.find('mit') }
         let(:fixture) { 'mit-optional' }
 
@@ -214,7 +214,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'license + README reference' do
+      context 'with license + README reference' do
         let(:license) { Licensee::License.find('mit') }
         let(:fixture) { 'license-with-readme-reference' }
         let(:arguments) { { detect_readme: true } }
@@ -224,7 +224,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'apache license + README notice' do
+      context 'with apache license + README notice' do
         let(:license) { Licensee::License.find('apache-2.0') }
         let(:fixture) { 'apache-with-readme-notice' }
         let(:arguments) { { detect_readme: true } }
@@ -234,7 +234,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'GPL2 with Markdown formatting' do
+      context 'with GPL2 Markdown formatting' do
         let(:license) { Licensee::License.find('gpl-2.0') }
         let(:fixture) { 'gpl-2.0_markdown_headings' }
 
@@ -243,7 +243,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'Artistic with Markdown formatting' do
+      context 'with Artistic Markdown formatting' do
         let(:license) { Licensee::License.find('artistic-2.0') }
         let(:fixture) { 'artistic-2.0_markdown' }
 
@@ -252,7 +252,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'BSD-3-Clause numbered and bulleted' do
+      context 'with BSD-3-Clause numbered and bulleted' do
         let(:license) { Licensee::License.find('bsd-3-clause') }
         let(:fixture) { 'bsd-3-lists' }
 
@@ -261,7 +261,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'BSD-3-Clause no-endorsement name with slashes' do
+      context 'with BSD-3-Clause no-endorsement name with slashes' do
         let(:license) { Licensee::License.find('bsd-3-clause') }
         let(:fixture) { 'bsd-3-noendorseslash' }
 
@@ -270,7 +270,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'BSD-3-Clause author/owner variant' do
+      context 'with BSD-3-Clause author/owner variant' do
         let(:license) { Licensee::License.find('bsd-3-clause') }
         let(:fixture) { 'bsd-3-authorowner' }
 
@@ -279,7 +279,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'BSD-2-Clause author variant' do
+      context 'with BSD-2-Clause author variant' do
         let(:license) { Licensee::License.find('bsd-2-clause') }
         let(:fixture) { 'bsd-2-author' }
 
@@ -288,7 +288,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'HTML license file' do
+      context 'with an HTML license file' do
         let(:license) { Licensee::License.find('epl-1.0') }
         let(:fixture) { 'html' }
 
@@ -297,7 +297,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'Vim license file' do
+      context 'with a Vim license file' do
         let(:license) { Licensee::License.find('vim') }
         let(:fixture) { 'vim' }
 
@@ -306,7 +306,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'CC-BY-SA no CC licensor statement license file' do
+      context 'with CC-BY-SA no CC licensor statement license file' do
         let(:license) { Licensee::License.find('cc-by-sa-4.0') }
         let(:fixture) { 'cc-by-sa-nocclicensor' }
 
@@ -315,7 +315,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'CC-BY-SA markdown links file' do
+      context 'with CC-BY-SA markdown links file' do
         let(:license) { Licensee::License.find('cc-by-sa-4.0') }
         let(:fixture) { 'cc-by-sa-mdlinks' }
 
@@ -324,7 +324,7 @@ RSpec.describe Integration do
         end
       end
 
-      context 'MIT with byte order mark' do
+      context 'with MIT byte order mark' do
         let(:license) { Licensee::License.find('mit') }
         let(:fixture) { 'bom' }
 

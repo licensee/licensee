@@ -123,7 +123,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'span markup' do
+    context 'when stripping span markup' do
       let(:content) { '_foo_ *foo* **foo** ~foo~' }
 
       it 'strips span markup' do
@@ -131,7 +131,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'HTML' do
+    context 'when stripping HTML' do
       let(:content) { '<ul><li>foo</li></ul>' }
       let(:filename) { 'license.html' }
 
@@ -141,7 +141,7 @@ RSpec.describe Licensee::ContentHelper do
     end
   end
 
-  context 'integration fixture' do
+  context 'with the integration fixture' do
     it 'strips copyright' do
       expect(normalized_content).not_to match(/Copyright|Ben Balter/)
     end
@@ -194,8 +194,8 @@ RSpec.describe Licensee::ContentHelper do
     end
   end
 
-  context 'normalizing' do
-    context 'https' do
+  context 'when normalizing' do
+    context 'when normalizing http to https' do
       let(:content) { 'http://example.com' }
 
       it 'normalized URL protocals' do
@@ -203,7 +203,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'ampersands' do
+    context 'when normalizing ampersands' do
       let(:content) { 'Foo & Bar' }
 
       it 'normalized ampersands' do
@@ -211,7 +211,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'lists' do
+    context 'when normalizing lists' do
       let(:content) { "1. Foo\n * Bar" }
 
       it 'normalizes lists' do
@@ -219,7 +219,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'lists with formatting bullets' do
+    context 'when normalizing lists with formatting bullets' do
       let(:content) { "- **(a)** Foo\n * b) Bar" }
 
       it 'normalizes lists' do
@@ -227,7 +227,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'dashes' do
+    context 'when normalizing dashes' do
       let(:content) { 'Foo-Bar—–baz-buzz' }
 
       it 'normalizes dashes' do
@@ -235,7 +235,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'hyphenated across lines' do
+    context 'when normalizing hyphenated across lines' do
       let(:content) { "cc-\nlicensed" }
 
       it 'normalized hyphenated across lines' do
@@ -243,7 +243,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'quotes' do
+    context 'when normalizing quotes' do
       let(:content) { "`a` 'b' \"c\" ‘d’ “e”" }
 
       it 'normalizes quotes' do
@@ -266,7 +266,7 @@ RSpec.describe Licensee::ContentHelper do
       expect(lines.first.length).to be <= 40
     end
 
-    context 'spelling' do
+    context 'when normalizing spelling' do
       let(:content) { 'licence' }
 
       it 'normalizes' do
@@ -275,7 +275,7 @@ RSpec.describe Licensee::ContentHelper do
     end
 
     Licensee::License.all(hidden: true).each do |license|
-      context license.name do
+      context "with the #{license.name} license" do
         let(:stripped_content) { subject.content_without_title_and_version }
 
         it 'strips the title' do
@@ -305,7 +305,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'a title in parenthesis' do
+    context 'with a title in parenthesis' do
       let(:content) { "(The MIT License)\n\nfoo" }
 
       it 'strips the title' do
@@ -313,7 +313,7 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
-    context 'multiple copyrights' do
+    context 'with multiple copyrights' do
       let(:content) { "Copyright 2016 Ben Balter\nCopyright 2017 Bob\nFoo" }
 
       it 'strips multiple copyrights' do
@@ -322,11 +322,11 @@ RSpec.describe Licensee::ContentHelper do
     end
   end
 
-  context 'title regex' do
+  context 'when matching title regex' do
     let(:license) { Licensee::License.find('gpl-3.0') }
 
     %i[key title nickname name_without_version].each do |variation|
-      context "a license #{variation}" do
+      context "when matching a license #{variation}" do
         let(:license_variation) { license.public_send(variation) }
 
         it 'matches' do
@@ -365,7 +365,7 @@ RSpec.describe Licensee::ContentHelper do
     end
   end
 
-  context 'metaprogramming' do
+  context 'when metaprogramming' do
     it 'raises on invalid normalization' do
       expect { subject.send(:normalize, :foo) }.to raise_error(ArgumentError)
     end

@@ -46,7 +46,7 @@ RSpec.describe Licensee::Commands::Detect do
     'Project root' => [project_root],
     'License path' => [File.expand_path('LICENSE.md', project_root)]
   }.each do |name, args|
-    context "When given #{name}" do
+    context "when given #{name}" do
       let(:arguments) { args }
 
       let(:expected_output) do
@@ -68,7 +68,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
-  context 'json' do
+  context 'with --json' do
     let(:arguments) { ['--json'] }
     let(:expected) { JSON.parse(fixture_contents('detect.json')).tap { |h| h['matched_files'][1].delete('content') } }
 
@@ -87,7 +87,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
-  context 'diff' do
+  context 'with --diff' do
     let(:arguments) { ['--diff'] }
 
     it 'Returns a zero exit code' do
@@ -99,7 +99,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
-  context 'closest non-matching licenses' do
+  context 'when printing closest non-matching licenses' do
     let(:tmpdir) { Dir.mktmpdir }
     let(:arguments) { ['--confidence', '0', tmpdir] }
 
@@ -122,7 +122,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
-  context 'the default command' do
+  context 'when using the default command' do
     let(:command) { ['bundle', 'exec', 'bin/licensee'] }
 
     it 'Returns a zero exit code' do
@@ -134,7 +134,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
-  context 'a non-existing command' do
+  context 'when using a non-existing command' do
     let(:command) { ['bundle', 'exec', 'bin/licensee', 'oops'] }
 
     it 'Returns a one exit code' do
@@ -142,7 +142,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
   end
 
-  context 'no license match' do
+  context 'when there is no license match' do
     let(:arguments) { ["#{project_root}/spec/fixtures/wrk-modified-apache"] }
 
     it 'Returns a one exit code' do

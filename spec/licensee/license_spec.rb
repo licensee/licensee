@@ -42,7 +42,7 @@ RSpec.describe Licensee::License do
   def gpl = license_lookup[:gpl]
   def lgpl = license_lookup[:lgpl]
 
-  context 'listing licenses' do
+  context 'when listing licenses' do
     let(:arguments) { {} }
     let(:licenses) { described_class.all(arguments) }
 
@@ -72,7 +72,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'hidden licenses' do
+    context 'with hidden licenses' do
       let(:arguments) { { hidden: true } }
 
       it 'includes hidden licenses' do
@@ -82,7 +82,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'featured licenses' do
+    context 'with featured licenses' do
       let(:arguments) { { featured: true } }
 
       it 'includes only featured licenses' do
@@ -93,7 +93,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'non-featured licenses' do
+    context 'with non-featured licenses' do
       let(:arguments) { { featured: false } }
 
       it 'includes only non-featured licenses' do
@@ -104,7 +104,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'non-featured licenses including hidden licenses' do
+    context 'with non-featured licenses including hidden licenses' do
       let(:arguments) { { featured: false, hidden: true } }
 
       it 'includes only non-featured licenses' do
@@ -115,7 +115,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'pseudo licenses by default' do
+    context 'when pseudo licenses are default' do
       let(:arguments) { {} }
 
       it "doesn't include pseudo licenses" do
@@ -123,7 +123,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'pseudo licenses with hidden licenses' do
+    context 'with pseudo licenses and hidden licenses' do
       let(:arguments) { { hidden: true } }
 
       it 'includes pseudo licenses' do
@@ -131,7 +131,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'pseudo licenses when explicitly asked' do
+    context 'when pseudo licenses are explicitly included' do
       let(:arguments) { { hidden: true, pseudo: true } }
 
       it 'includes psudo licenses' do
@@ -139,7 +139,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'pseudo licenses when explicitly excluded' do
+    context 'when pseudo licenses are explicitly excluded' do
       let(:arguments) { { hidden: true, pseudo: false } }
 
       it "doesn'tincludes psudo licenses" do
@@ -147,7 +147,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'pseudo licenses when explicitly asked (mispelled)' do
+    context 'when pseudo licenses are explicitly included (mispelled)' do
       let(:arguments) { { hidden: true, psuedo: true } }
 
       it 'includes psudo licenses' do
@@ -155,7 +155,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'pseudo licenses when explicitly excluded (mispelled)' do
+    context 'when pseudo licenses are explicitly excluded (mispelled)' do
       let(:arguments) { { hidden: true, psuedo: false } }
 
       it "doesn'tincludes psudo licenses" do
@@ -164,7 +164,7 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'finding' do
+  context 'when finding a license' do
     it 'finds the MIT license' do
       expect(described_class.find('mit')).to eql(mit)
     end
@@ -222,7 +222,7 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'meta' do
+  context 'when accessing meta' do
     it 'exposes license meta' do
       expect([mit.meta['title'], mit.meta.title]).to eql(['MIT License', 'MIT License'])
     end
@@ -270,7 +270,7 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'content' do
+  context 'when accessing content' do
     it 'returns the license content' do
       expect(mit.content).to match('Permission is hereby granted')
     end
@@ -335,12 +335,12 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'fields' do
+  context 'when accessing fields' do
     it 'returns the license fields' do
       expect([mit.fields.map(&:key), gpl.fields]).to eql([%w[year fullname], []])
     end
 
-    context 'muscache' do
+    context 'when using mustache' do
       let(:license) do
         license = described_class.new 'MIT'
         content = "#{license.content}[foo] [bar]"
@@ -363,7 +363,7 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'License.title_regex' do
+  context 'when matching .title_regex' do
     namey = %i[title nickname key]
     described_class.all(hidden: true, pseudo: false).each do |license|
       namey.each do |variation|
@@ -410,7 +410,7 @@ RSpec.describe Licensee::License do
       end
     end
 
-    context 'a license with an alt title' do
+    context 'with a license with an alt title' do
       it 'matches' do
         text = 'The Clear BSD license'
         license = described_class.find('bsd-3-clause-clear')
@@ -425,7 +425,7 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     def expected_to_h(license)
       {
         key: license.key, spdx_id: license.spdx_id, meta: license.meta.to_h, url: license.url,
@@ -439,7 +439,7 @@ RSpec.describe Licensee::License do
     end
   end
 
-  context 'source regex' do
+  context 'when matching source regex' do
     schemes = %w[http https]
     prefixes = ['www.', '']
     suffixes = ['.html', '.htm', '.txt', '']
@@ -460,7 +460,7 @@ RSpec.describe Licensee::License do
     end
 
     described_class.all(hidden: true, pseudo: false).each do |license|
-      context "the #{license.title} license" do
+      context "with the #{license.title} license" do
         schemes.each do |scheme|
           prefixes.each do |prefix|
             suffixes.each do |suffix|

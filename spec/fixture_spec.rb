@@ -5,7 +5,7 @@ end
 
 RSpec.describe Fixture do
   fixtures.each do |fixture|
-    context "the #{fixture} fixture" do
+    context "with the #{fixture} fixture" do
       subject(:project) { Licensee.project(path, detect_packages: true, detect_readme: true) }
 
       let(:path) { fixture_path(fixture) }

@@ -6,7 +6,7 @@ RSpec.describe Licensee::LicenseRules do
   let(:mit) { Licensee::License.find('mit') }
 
   Licensee::Rule.groups.each do |group|
-    context "the #{group} rule group" do
+    context "with the #{group} rule group" do
       it 'responds as a hash key string' do
         expect(subject[group]).to be_a(Array)
       end
@@ -21,7 +21,7 @@ RSpec.describe Licensee::LicenseRules do
     end
   end
 
-  context 'created from a license' do
+  context 'when created from a license' do
     subject { described_class.from_license(mit) }
 
     it 'exposes the rules' do
@@ -29,7 +29,7 @@ RSpec.describe Licensee::LicenseRules do
     end
   end
 
-  context 'created from a meta' do
+  context 'when created from a meta' do
     subject { described_class.from_meta(mit.meta) }
 
     it 'exposes the rules' do
@@ -37,7 +37,7 @@ RSpec.describe Licensee::LicenseRules do
     end
   end
 
-  context 'created from a hash' do
+  context 'when created from a hash' do
     subject { described_class.from_hash(hash) }
 
     let(:hash) { { 'permissions' => Licensee::Rule.all } }
@@ -47,7 +47,7 @@ RSpec.describe Licensee::LicenseRules do
     end
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     let(:hash) { subject.to_h }
     let(:expected) do
       {

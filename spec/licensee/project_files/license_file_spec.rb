@@ -55,7 +55,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     expect(subject.content_hash).to eql(content_hash)
   end
 
-  context 'filename scoring' do
+  context 'when scoring filenames' do
     {
       'license'             => 1.00,
       'LICENCE'             => 1.00,
@@ -91,7 +91,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'LICENSE.spdx'        => 0.00
 
     }.each do |filename, expected|
-      context "a file named #{filename}" do
+      context "with a file named #{filename}" do
         it 'scores the file' do
           score = described_class.name_score(filename)
           expect(score).to eql(expected)
@@ -111,7 +111,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'preferred license regex' do
+    context 'when matching preferred license regex' do
       %w[md markdown txt].each do |ext|
         it "matches .#{ext}" do
           expect(described_class::PREFERRED_EXT_REGEX).to match(".#{ext}")
@@ -127,7 +127,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'any extension regex' do
+    context 'when matching any extension regex' do
       it 'matches .foo' do
         expect(described_class::OTHER_EXT_REGEX).to match('.foo')
       end
@@ -137,7 +137,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'license regex' do
+    context 'when matching license regex' do
       %w[LICENSE licence unlicense LICENSE-MIT MIT-LICENSE].each do |license|
         it "matches #{license}" do
           expect(described_class::LICENSE_REGEX).to match(license)
@@ -146,14 +146,14 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     end
   end
 
-  context 'CC false positives' do
+  context 'with CC false positives' do
     let(:regex) { Licensee::ProjectFiles::LicenseFile::CC_FALSE_POSITIVE_REGEX }
 
     it "knows MIT isn't a potential false positive" do
       expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([false, false])
     end
 
-    context 'a CC false positive with creative commons in the title' do
+    context 'with a CC false positive with creative commons in the title' do
       let(:content) { 'Creative Commons Attribution-NonCommercial 4.0' }
 
       it "knows it's a potential false positive" do
@@ -161,7 +161,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'a CC false positive without creative commons in the title' do
+    context 'with a CC false positive without creative commons in the title' do
       let(:content) { 'Attribution-NonCommercial 4.0 International' }
 
       it "knows it's a potential false positive" do
@@ -169,7 +169,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'CC-BY-ND' do
+    context 'with CC-BY-ND' do
       let(:content) { 'Attribution-NoDerivatives 4.0 International' }
 
       it "knows it's a potential false positive" do
@@ -177,7 +177,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'CC-BY-ND with leading instructions' do
+    context 'with CC-BY-ND with leading instructions' do
       let(:content) do
         <<~LICENSE
           Creative Commons Corporation ("Creative Commons") is not a law firm
@@ -192,7 +192,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     end
   end
 
-  context 'LGPL' do
+  context 'with LGPL' do
     let(:lgpl) { Licensee::License.find('lgpl-3.0') }
     let(:content) { sub_copyright_info(lgpl) }
 
@@ -219,14 +219,14 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     end
   end
 
-  context 'GPL' do
+  context 'with GPL' do
     let(:content) { sub_copyright_info(gpl) }
 
     it 'knows its GPL' do
       expect(subject).to be_gpl
     end
 
-    context 'another license' do
+    context 'with another license' do
       let(:content) { sub_copyright_info(mit) }
 
       it 'is not GPL' do
@@ -235,7 +235,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { 'foo' }
     let(:other) { Licensee::License.find('other') }
 
@@ -244,8 +244,8 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     end
   end
 
-  context 'copyright?' do
-    context 'a copyright file' do
+  context 'when checking copyright?' do
+    context 'with a copyright file' do
       let(:content) { 'Copyright 2017 Ben Balter' }
       let(:filename) { 'COPYRIGHT.txt' }
 
@@ -254,7 +254,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'A copyright file with license text' do
+    context 'with a copyright file with license text' do
       let(:filename) { 'COPYRIGHT.txt' }
 
       it "knows it's not a copyright file" do
@@ -262,7 +262,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'a license file with copyright text' do
+    context 'with a license file with copyright text' do
       let(:content) { 'Copyright 2017 Ben Balter' }
 
       it "knows it's not a copyright file" do

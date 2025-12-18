@@ -15,7 +15,7 @@ RSpec.describe Licensee::Matchers::Reference do
         expect(subject.match).to eql(license)
       end
 
-      context 'as a markdown link' do
+      context 'when using a markdown link' do
         let(:content) { "[#{license.send(variation)}](https://example.com)" }
 
         it 'matches' do
@@ -25,7 +25,7 @@ RSpec.describe Licensee::Matchers::Reference do
     end
   end
 
-  context 'a license key in a word' do
+  context 'when a license key is in a word' do
     let(:content) { 'My name is MITch!' }
 
     it "doesn't match" do
@@ -33,7 +33,7 @@ RSpec.describe Licensee::Matchers::Reference do
     end
   end
 
-  context 'a license with alt regex' do
+  context 'with a license with alt regex' do
     let(:content) { 'Clear BSD' }
     let(:license) { Licensee::License.find('bsd-3-clause-clear') }
 
@@ -51,7 +51,7 @@ RSpec.describe Licensee::Matchers::Reference do
     end
   end
 
-  context 'x.0 license sans .0' do
+  context 'with x.0 license sans .0' do
     let(:content) { 'Apache V2' }
     let(:license) { Licensee::License.find('apache-2.0') }
 
@@ -60,7 +60,7 @@ RSpec.describe Licensee::Matchers::Reference do
     end
   end
 
-  context 'x.1 license sans .1' do
+  context 'with x.1 license sans .1' do
     let(:content) { 'EUPL-1' }
 
     it 'matches' do

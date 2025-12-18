@@ -39,7 +39,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
     end
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     let(:hash) { subject.to_h }
     let(:expected) do
       {

@@ -32,7 +32,7 @@ RSpec.describe Licensee::Matchers::NuGet do
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { '<file>wrongelement</file>' }
 
     it 'returns nil' do
@@ -40,7 +40,7 @@ RSpec.describe Licensee::Matchers::NuGet do
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { '<license type="expression">foo</license>' }
 
     it 'returns other' do
@@ -48,7 +48,7 @@ RSpec.describe Licensee::Matchers::NuGet do
     end
   end
 
-  context 'a license expression' do
+  context 'with a license expression' do
     let(:content) { '<license type="expression">BSD-2-Clause OR MIT</license>' }
 
     it 'returns other' do

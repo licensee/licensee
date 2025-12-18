@@ -30,7 +30,7 @@ RSpec.describe Licensee do
       expect(subject).to be_a(Licensee::Projects::Project)
     end
 
-    context 'given a GitHub repository' do
+    context 'when given a GitHub repository' do
       let(:project_path) { 'https://github.com/benbalter/licensee' }
 
       it 'creates a GitHubProject' do
@@ -39,7 +39,7 @@ RSpec.describe Licensee do
     end
   end
 
-  context 'confidence threshold' do
+  context 'when using the confidence threshold' do
     it 'exposes the confidence threshold' do
       expect(described_class.confidence_threshold).to be(98)
     end
@@ -48,7 +48,7 @@ RSpec.describe Licensee do
       expect(described_class.inverse_confidence_threshold).to eq(0.02)
     end
 
-    context 'user overridden' do
+    context 'when user overridden' do
       before { described_class.confidence_threshold = 50 }
 
       after { described_class.confidence_threshold = nil }

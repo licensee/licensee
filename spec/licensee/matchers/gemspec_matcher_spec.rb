@@ -34,7 +34,7 @@ RSpec.describe Licensee::Matchers::Gemspec do
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { "s.foo = 'bar'" }
 
     it 'returns nil' do
@@ -42,7 +42,7 @@ RSpec.describe Licensee::Matchers::Gemspec do
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { "s.license = 'foo'" }
 
     it 'returns other' do
@@ -50,7 +50,7 @@ RSpec.describe Licensee::Matchers::Gemspec do
     end
   end
 
-  context 'a licenses property with multiple licenses' do
+  context 'with a licenses property with multiple licenses' do
     let(:content) { "s.licenses = ['mit', 'bsd-3-clause']" }
 
     it 'returns other' do

@@ -45,7 +45,7 @@ RSpec.describe Licensee::Matchers::Dice do
     end
   end
 
-  context 'stacked licenses' do
+  context 'with stacked licenses' do
     let(:content) do
       "#{sub_copyright_info(mit)}\n\n#{sub_copyright_info(gpl)}"
     end
@@ -56,8 +56,8 @@ RSpec.describe Licensee::Matchers::Dice do
     end
   end
 
-  context 'CC false positive' do
-    context 'CC-BY' do
+  context 'with a CC false positive' do
+    context 'with CC-BY' do
       let(:content) { cc_by.content }
 
       it 'matches' do
@@ -65,7 +65,7 @@ RSpec.describe Licensee::Matchers::Dice do
       end
     end
 
-    context 'CC-ND' do
+    context 'with CC-ND' do
       let(:content) do
         File.read(File.expand_path('LICENSE', fixture_path('cc-by-nd')))
       end

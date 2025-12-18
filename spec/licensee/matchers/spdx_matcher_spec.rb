@@ -18,7 +18,7 @@ RSpec.describe Licensee::Matchers::Spdx do
     expect(subject.confidence).to be(90)
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { 'foo: bar' }
 
     it 'returns nil' do
@@ -26,7 +26,7 @@ RSpec.describe Licensee::Matchers::Spdx do
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { 'PackageLicenseDeclared: xyz' }
 
     it 'returns other' do
@@ -34,7 +34,7 @@ RSpec.describe Licensee::Matchers::Spdx do
     end
   end
 
-  context 'a license expression' do
+  context 'with a license expression' do
     let(:content) { 'PackageLicenseDeclared: (MIT OR Apache-2.0)' }
 
     it 'returns other' do

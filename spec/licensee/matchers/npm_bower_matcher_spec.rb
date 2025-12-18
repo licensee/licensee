@@ -34,7 +34,7 @@ RSpec.describe Licensee::Matchers::NpmBower do
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { 'foo: bar' }
 
     it 'returns nil' do
@@ -42,7 +42,7 @@ RSpec.describe Licensee::Matchers::NpmBower do
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { "'license': 'foo'" }
 
     it 'returns other' do
@@ -50,7 +50,7 @@ RSpec.describe Licensee::Matchers::NpmBower do
     end
   end
 
-  context 'a license expression' do
+  context 'with a license expression' do
     let(:content) { "'license': '(MIT OR Apache-2.0 OR AGPL-3.0+)'" }
 
     it 'returns other' do
@@ -58,7 +58,7 @@ RSpec.describe Licensee::Matchers::NpmBower do
     end
   end
 
-  context 'UNLICENSED' do
+  context 'with UNLICENSED' do
     let(:content) { "'license': 'UNLICENSED'" }
 
     it 'returns none' do

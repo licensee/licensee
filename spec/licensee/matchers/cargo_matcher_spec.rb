@@ -41,7 +41,7 @@ RSpec.describe Licensee::Matchers::Cargo do
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { 'foo = "bar"' }
 
     it 'returns nil' do

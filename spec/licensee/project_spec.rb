@@ -92,7 +92,7 @@
       expect(subject.package_file).to be_nil
     end
 
-    context 'reading files' do
+    context 'when reading files' do
       def files = subject.send(:files)
 
       it 'returns the file list' do
@@ -132,7 +132,7 @@
       end
     end
 
-    context 'encoding correctness' do
+    context 'when checking encoding correctness' do
       let(:fixture) { 'copyright-encoding' }
 
       it "returns a file's content" do
@@ -142,7 +142,7 @@
       end
     end
 
-    context 'readme detection' do
+    context 'when detecting readme' do
       subject { described_class.new(path, detect_readme: true) }
 
       let(:fixture) { 'readme' }
@@ -158,7 +158,7 @@
       end
     end
 
-    context 'package manager detection' do
+    context 'when detecting package manager files' do
       subject { described_class.new(path, detect_packages: true) }
 
       let(:fixture) { 'gemspec' }
@@ -209,7 +209,7 @@
       end
     end
 
-    context 'multiple licenses' do
+    context 'with multiple licenses' do
       let(:fixture) { 'multiple-license-files' }
 
       it 'returns other for license' do
@@ -237,7 +237,7 @@
       end
     end
 
-    context 'lgpl' do
+    context 'with lgpl' do
       let(:fixture) { 'lgpl' }
 
       def gpl = Licensee::License.find('gpl-3.0')
@@ -276,7 +276,7 @@
       end
     end
 
-    context 'to_h' do
+    context 'when calling #to_h' do
       it 'Converts to a hash' do
         expected = {
           licenses:      subject.licenses.map(&:to_h),

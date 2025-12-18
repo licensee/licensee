@@ -3,7 +3,7 @@
 RSpec.describe Licensee::LicenseField do
   let(:expected_count) { 7 }
 
-  context 'class' do
+  context 'when using class methods' do
     it 'returns all license fields' do
       expect(described_class.all).to satisfy do |fields|
         fields.count == expected_count && fields.first.is_a?(described_class)
@@ -16,7 +16,7 @@ RSpec.describe Licensee::LicenseField do
       end
     end
 
-    context 'from a hash' do
+    context 'when building from a hash' do
       let(:hash) { { 'name' => 'foo', 'description' => 'bar' } }
 
       it 'builds from a hash' do
@@ -30,7 +30,7 @@ RSpec.describe Licensee::LicenseField do
       expect(field.description).to eql('The current year')
     end
 
-    context 'from an array' do
+    context 'when building from an array' do
       let(:array) { %w[year fullname] }
       let(:fields) { described_class.from_array(array) }
 
@@ -41,7 +41,7 @@ RSpec.describe Licensee::LicenseField do
       end
     end
 
-    context 'from content' do
+    context 'when building from content' do
       let(:content) { 'Foo [year] bar [baz] [fullname]' }
       let(:fields) { described_class.from_content(content) }
 
@@ -81,7 +81,7 @@ RSpec.describe Licensee::LicenseField do
     expect(field.raw_text).to eql('[fullname]')
   end
 
-  context 'spec_helper' do
+  context 'when using spec_helper' do
     it 'substitutes all fields' do
       expected = described_class.keys.sort
       expect(field_values.keys.map(&:to_s).sort).to eql(expected)

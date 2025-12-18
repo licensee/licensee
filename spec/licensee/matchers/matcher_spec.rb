@@ -21,7 +21,7 @@ RSpec.describe Licensee::Matchers::Matcher do
     expect(subject.name).to be(:matcher)
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     subject { MatcherSpecFixture.new(file) }
 
     let(:hash) { subject.to_h }

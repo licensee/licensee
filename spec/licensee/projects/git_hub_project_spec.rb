@@ -86,7 +86,7 @@ RSpec.describe Licensee::Projects::GitHubProject do
       expect(subject.package_file).to be_nil
     end
 
-    context 'readme detection' do
+    context 'when detecting readme' do
       subject { described_class.new(github_url, detect_readme: true) }
 
       it 'returns the readme' do
