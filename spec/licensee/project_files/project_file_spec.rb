@@ -31,8 +31,7 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
     subject { described_class.new(content, name: filename, dir: Dir.pwd) }
 
     it 'stores the filename' do
-      expect(subject.filename).to eql(filename)
-      expect(subject[:name]).to eql(filename)
+      expect(subject).to(satisfy { |file| file.filename == filename && file[:name] == filename })
     end
 
     it 'stores additional metadata' do

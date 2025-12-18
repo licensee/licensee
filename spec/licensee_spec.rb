@@ -7,10 +7,12 @@ RSpec.describe Licensee do
   let(:hidden_license_count) { 49 }
 
   it 'exposes licenses' do
-    expect(described_class.licenses).to be_an(Array)
+    licenses = described_class.licenses
     hidden_licenses = described_class.licenses(hidden: true).count
-    expect(hidden_licenses).to eql(hidden_license_count)
-    expect(described_class.licenses.first).to be_a(Licensee::License)
+
+    expect([licenses.is_a?(Array), hidden_licenses, licenses.first.is_a?(Licensee::License)]).to eql(
+      [true, hidden_license_count, true]
+    )
   end
 
   it "detects a project's license" do
@@ -56,9 +58,11 @@ RSpec.describe Licensee do
       end
 
       it 'resets inverse confidence threshold when confidence threshold changes' do
-        expect(described_class.inverse_confidence_threshold).to be(0.5)
+        before_reset = described_class.inverse_confidence_threshold
         described_class.confidence_threshold = Licensee::CONFIDENCE_THRESHOLD
-        expect(described_class.inverse_confidence_threshold).to be(0.02)
+        after_reset = described_class.inverse_confidence_threshold
+
+        expect([before_reset, after_reset]).to eql([0.5, 0.02])
       end
     end
   end

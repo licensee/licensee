@@ -62,18 +62,19 @@ RSpec.describe Licensee::Projects::GitHubProject do
     end
 
     it 'returns the license' do
-      expect(subject.license).to be_a(Licensee::License)
       expect(subject.license).to eql(mit)
     end
 
     it 'returns the matched file' do
-      expect(subject.matched_file).to be_a(Licensee::ProjectFiles::LicenseFile)
-      expect(subject.matched_file.filename).to eql('LICENSE.txt')
+      expect(subject.matched_file).to satisfy do |file|
+        file.is_a?(Licensee::ProjectFiles::LicenseFile) && file.filename == 'LICENSE.txt'
+      end
     end
 
     it 'returns the license file' do
-      expect(subject.license_file).to be_a(Licensee::ProjectFiles::LicenseFile)
-      expect(subject.license_file.filename).to eql('LICENSE.txt')
+      expect(subject.license_file).to satisfy do |file|
+        file.is_a?(Licensee::ProjectFiles::LicenseFile) && file.filename == 'LICENSE.txt'
+      end
     end
 
     it "doesn't return the readme" do
@@ -88,12 +89,12 @@ RSpec.describe Licensee::Projects::GitHubProject do
       subject { described_class.new(github_url, detect_readme: true) }
 
       it 'returns the readme' do
-        expect(subject.readme_file).to be_a(Licensee::ProjectFiles::ReadmeFile)
-        expect(subject.readme_file.filename).to eql('README.md')
+        expect(subject.readme_file).to satisfy do |file|
+          file.is_a?(Licensee::ProjectFiles::ReadmeFile) && file.filename == 'README.md'
+        end
       end
 
       it 'returns the license' do
-        expect(subject.license).to be_a(Licensee::License)
         expect(subject.license).to eql(mit)
       end
     end
@@ -123,7 +124,6 @@ RSpec.describe Licensee::Projects::GitHubProject do
       end
 
       it 'returns the license' do
-        expect(subject.license).to be_a(Licensee::License)
         expect(subject.license).to eql(apache2)
       end
     end

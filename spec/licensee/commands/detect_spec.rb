@@ -116,8 +116,7 @@ RSpec.describe Licensee::Commands::Detect do
 
     it 'prints closest non-matching licenses for non-exact matches' do
       closest = YAML.safe_load(stdout).dig('LICENSE', 'Closest non-matching licenses')
-      expect(closest).to be_a(Hash)
-      expect(closest).not_to be_empty
+      expect(closest).to(satisfy { |value| value.is_a?(Hash) && !value.empty? })
     end
   end
 

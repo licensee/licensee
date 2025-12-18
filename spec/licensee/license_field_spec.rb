@@ -5,14 +5,15 @@ RSpec.describe Licensee::LicenseField do
 
   context 'class' do
     it 'returns all license fields' do
-      expect(described_class.all.count).to eql(expected_count)
-      expect(described_class.all.first).to be_a(described_class)
+      expect(described_class.all).to satisfy do |fields|
+        fields.count == expected_count && fields.first.is_a?(described_class)
+      end
     end
 
     it 'returns all license field keys' do
-      expect(described_class.keys.count).to eql(expected_count)
-      expect(described_class.keys.first).to be_a(String)
-      expect(described_class.keys.first).to eql('fullname')
+      expect(described_class.keys).to satisfy do |keys|
+        keys.count == expected_count && keys.first.is_a?(String) && keys.first == 'fullname'
+      end
     end
 
     context 'from a hash' do
@@ -20,8 +21,7 @@ RSpec.describe Licensee::LicenseField do
 
       it 'builds from a hash' do
         field = described_class.from_hash(hash)
-        expect(field.name).to eql('foo')
-        expect(field.description).to eql('bar')
+        expect(field).to have_attributes(name: 'foo', description: 'bar')
       end
     end
 
@@ -35,10 +35,9 @@ RSpec.describe Licensee::LicenseField do
       let(:fields) { described_class.from_array(array) }
 
       it 'returns an array of LicenseFields' do
-        expect(fields.count).to be(2)
-        expect(fields.first).to be_a(described_class)
-        expect(fields.first.name).to eql('year')
-        expect(fields.last.name).to eql('fullname')
+        expect(fields).to satisfy do |values|
+          values.count == 2 && values.all?(described_class) && values.map(&:name) == %w[year fullname]
+        end
       end
     end
 
@@ -47,18 +46,14 @@ RSpec.describe Licensee::LicenseField do
       let(:fields) { described_class.from_content(content) }
 
       it 'pulls fields from content' do
-        expect(fields.count).to be(2)
-        expect(fields.first.key).to eql('year')
-        expect(fields[1].key).to eql('fullname')
+        expect(fields.map(&:key)).to eql(%w[year fullname])
       end
     end
   end
 
   it 'stores and exposes values' do
     field = described_class.new('foo', 'bar')
-    expect(field.name).to eql('foo')
-    expect(field.key).to eql('foo')
-    expect(field.description).to eql('bar')
+    expect(field).to have_attributes(name: 'foo', key: 'foo', description: 'bar')
   end
 
   it 'returns the field label' do

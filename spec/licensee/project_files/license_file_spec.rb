@@ -47,8 +47,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
   end
 
   it 'creates the wordset' do
-    expect(subject.wordset.count).to be(93)
-    expect(subject.wordset.first).to eql('permission')
+    expect([subject.wordset.count, subject.wordset.first]).to eql([93, 'permission'])
   end
 
   it 'creates the hash' do
@@ -151,16 +150,14 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     let(:regex) { Licensee::ProjectFiles::LicenseFile::CC_FALSE_POSITIVE_REGEX }
 
     it "knows MIT isn't a potential false positive" do
-      expect(subject.content).not_to match(regex)
-      expect(subject).not_to be_a_potential_false_positive
+      expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([false, false])
     end
 
     context 'a CC false positive with creative commons in the title' do
       let(:content) { 'Creative Commons Attribution-NonCommercial 4.0' }
 
       it "knows it's a potential false positive" do
-        expect(subject.content).to match(regex)
-        expect(subject).to be_a_potential_false_positive
+        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
       end
     end
 
@@ -168,8 +165,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:content) { 'Attribution-NonCommercial 4.0 International' }
 
       it "knows it's a potential false positive" do
-        expect(subject.content).to match(regex)
-        expect(subject).to be_a_potential_false_positive
+        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
       end
     end
 
@@ -177,8 +173,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       let(:content) { 'Attribution-NoDerivatives 4.0 International' }
 
       it "knows it's a potential false positive" do
-        expect(subject.content).to match(regex)
-        expect(subject).to be_a_potential_false_positive
+        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
       end
     end
 
@@ -192,8 +187,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
 
       it "knows it's a potential false positive" do
-        expect(subject.content).to match(regex)
-        expect(subject).to be_a_potential_false_positive
+        expect([subject.content.match?(regex), be_a_potential_false_positive.matches?(subject)]).to eql([true, true])
       end
     end
   end

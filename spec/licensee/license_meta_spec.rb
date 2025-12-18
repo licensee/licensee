@@ -15,11 +15,7 @@ RSpec.describe Licensee::LicenseMeta do
       end
 
       it 'responds to the field as a hash key' do
-        if field['required']
-          expect(subject[name]).not_to be_nil
-        else
-          expect { subject[name] }.not_to raise_error
-        end
+        expect(subject[name]).to(satisfy { |value| !field['required'] || !value.nil? })
       end
     end
   end
@@ -46,8 +42,7 @@ RSpec.describe Licensee::LicenseMeta do
     end
 
     it 'sets values' do
-      expect(subject.title).to eql('Test license')
-      expect(subject.description).to eql('A test license')
+      expect(subject).to have_attributes(title: 'Test license', description: 'A test license')
     end
 
     context 'setting defaults' do
@@ -79,13 +74,11 @@ RSpec.describe Licensee::LicenseMeta do
     let(:yaml) { "title: Test license\ndescription: A test license" }
 
     it 'parses yaml' do
-      expect(subject.title).to eql('Test license')
-      expect(subject.description).to eql('A test license')
+      expect(subject).to have_attributes(title: 'Test license', description: 'A test license')
     end
 
     it 'sets defaults' do
-      expect(subject.hidden).to be(true)
-      expect(subject.featured).to be(false)
+      expect([subject.hidden, subject.featured]).to eql([true, false])
     end
 
     context 'nil yaml' do
@@ -106,10 +99,9 @@ RSpec.describe Licensee::LicenseMeta do
   end
 
   it 'returns the list of helper methods' do
-    expect(described_class.helper_methods.length).to be(13)
-    expect(described_class.helper_methods).to include(:hidden?)
-    expect(described_class.helper_methods).not_to include(:hidden)
-    expect(described_class.helper_methods).to include(:title)
+    expect(described_class.helper_methods).to satisfy do |methods|
+      methods.length == 13 && methods.include?(:hidden?) && methods.include?(:title) && !methods.include?(:hidden)
+    end
   end
 
   context 'to_h' do

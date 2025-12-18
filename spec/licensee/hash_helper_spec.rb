@@ -48,11 +48,7 @@ RSpec.describe Licensee::HashHelper do
   end
 
   it 'includes hash methods' do
-    expect(hash).to have_key(:string)
-    expect(hash).to have_key(:array)
-    expect(hash).to have_key(:rule)
-    expect(hash).to have_key(:rules)
-    expect(hash).to have_key(:nil_value)
+    expect(hash.keys).to contain_exactly(:string, :array, :rule, :rules, :nil_value)
   end
 
   it 'does not expose other methods' do

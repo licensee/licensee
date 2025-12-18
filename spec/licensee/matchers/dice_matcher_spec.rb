@@ -11,6 +11,13 @@ RSpec.describe Licensee::Matchers::Dice do
   let(:cc_by_sa) { Licensee::License.find('cc-by-sa-4.0') }
   let(:content) { sub_copyright_info(gpl) }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
+  let(:expected_top_matches) do
+    [
+      [gpl, 100.0],
+      [agpl, 94.56967213114754],
+      [lgpl, 26.821370750134918]
+    ]
+  end
 
   it 'stores the file' do
     expect(subject.file).to eql(file)
@@ -21,9 +28,7 @@ RSpec.describe Licensee::Matchers::Dice do
   end
 
   it 'sorts licenses by similarity' do
-    expect(subject.matches_by_similarity[0]).to eql([gpl, 100.0])
-    expect(subject.matches_by_similarity[1]).to eql([agpl, 94.56967213114754])
-    expect(subject.matches_by_similarity[2]).to eql([lgpl, 26.821370750134918])
+    expect(subject.matches_by_similarity.first(3)).to eql(expected_top_matches)
   end
 
   it 'returns the match confidence' do
@@ -34,9 +39,7 @@ RSpec.describe Licensee::Matchers::Dice do
     let(:content) { 'Not really a license' }
 
     it "doesn't match" do
-      expect(subject.match).to be_nil
-      expect(subject.matches).to be_empty
-      expect(subject.confidence).to be(0)
+      expect(subject).to have_attributes(match: nil, matches: be_empty, confidence: 0)
     end
   end
 
@@ -44,12 +47,17 @@ RSpec.describe Licensee::Matchers::Dice do
     let(:content) do
       "#{sub_copyright_info(mit)}\n\n#{sub_copyright_info(gpl)}"
     end
+    let(:detection) do
+      [
+        be_detected_as(gpl).matches?(content),
+        subject.match,
+        subject.matches.empty?,
+        subject.confidence
+      ]
+    end
 
     it "doesn't match" do
-      expect(content).not_to be_detected_as(gpl)
-      expect(subject.match).to be_nil
-      expect(subject.matches).to be_empty
-      expect(subject.confidence).to be(0)
+      expect(detection).to eql([false, nil, true, 0])
     end
   end
 
@@ -66,13 +74,18 @@ RSpec.describe Licensee::Matchers::Dice do
       let(:project_path) { fixture_path('cc-by-nd') }
       let(:license_path) { File.expand_path('LICENSE', project_path) }
       let(:content) { File.read(license_path) }
+      let(:detection) do
+        [
+          be_detected_as(cc_by).matches?(content),
+          be_detected_as(cc_by_sa).matches?(content),
+          subject.match,
+          subject.matches.empty?,
+          subject.confidence
+        ]
+      end
 
       it "doesn't match" do
-        expect(content).not_to be_detected_as(cc_by)
-        expect(content).not_to be_detected_as(cc_by_sa)
-        expect(subject.match).to be_nil
-        expect(subject.matches).to be_empty
-        expect(subject.confidence).to be(0)
+        expect(detection).to eql([false, false, nil, true, 0])
       end
     end
   end

@@ -12,10 +12,6 @@
 RSpec/ContextWording:
   Enabled: false
 
-# Offense count: 98
-RSpec/MultipleExpectations:
-  Max: 6
-
 # Offense count: 139
 # Configuration parameters: AllowSubject.
 RSpec/MultipleMemoizedHelpers:

@@ -4,10 +4,7 @@ module Integration
 end
 
 RSpec.describe Integration do
-  [
-    Licensee::Projects::FSProject,
-    Licensee::Projects::GitProject
-  ].each do |project_type|
+  [Licensee::Projects::FSProject, Licensee::Projects::GitProject].each do |project_type|
     context "with a #{project_type} project" do
       subject(:project) { project_type.new(project_path, **arguments) }
 
@@ -41,11 +38,8 @@ RSpec.describe Integration do
         after { FileUtils.rm_rf(project_path) }
 
         it 'returns nil' do
-          expect(project.license).to be_nil
-          expect(project.license_files).to be_empty
-
-          expect(project.matched_file).to be_nil
-          expect(project.matched_files).to be_empty
+          expected = { license: nil, license_files: be_empty, matched_file: nil, matched_files: be_empty }
+          expect(project).to have_attributes(expected)
         end
       end
 
@@ -54,8 +48,7 @@ RSpec.describe Integration do
         let(:fixture) { 'lgpl' }
 
         it 'matches to LGPL' do
-          expect(project.license).to eql(license)
-          expect(project.license_file.path).to eql('COPYING.lesser')
+          expect(project).to have_attributes(license: license, license_file: have_attributes(path: 'COPYING.lesser'))
         end
       end
 
@@ -139,8 +132,7 @@ RSpec.describe Integration do
         let(:arguments) { { detect_packages: true } }
 
         it 'matches other' do
-          expect(project.license).to eql(other_license)
-          expect(project.package_file.path).to eql('DESCRIPTION')
+          expect(project).to have_attributes(license: other_license, package_file: have_attributes(path: 'DESCRIPTION'))
         end
       end
 
@@ -364,8 +356,8 @@ RSpec.describe Integration do
           it "matches the license file for #{filename}" do
             write_file.call(filename, content)
             project = project_type.new(project_path, **arguments)
-            expect(project.license).to eql(license)
-            expect(project.license_file.path).to eql(filename)
+
+            expect(project).to have_attributes(license: license, license_file: have_attributes(path: filename))
           end
         end
 
@@ -373,24 +365,24 @@ RSpec.describe Integration do
           write_file.call('package.json', '{"license": "mit"}')
           project = project_type.new(project_path, detect_packages: true)
 
-          expect(project.license).to eql(Licensee::License.find('mit'))
-          expect(project.package_file.path).to eql('package.json')
+          license = Licensee::License.find('mit')
+          expect(project).to have_attributes(license: license, package_file: have_attributes(path: 'package.json'))
         end
 
         it 'matches a README file' do
           write_file.call('README', "## License\n#{Licensee::License.find('mit').content}")
           project = project_type.new(project_path, detect_readme: true)
 
-          expect(project.license).to eql(Licensee::License.find('mit'))
-          expect(project.readme_file.path).to eql('README')
+          license = Licensee::License.find('mit')
+          expect(project).to have_attributes(license: license, readme_file: have_attributes(path: 'README'))
         end
 
         it 'matches a DESCRIPTION file' do
           write_file.call('DESCRIPTION', "Package: test\nLicense: MIT")
           project = project_type.new(project_path, detect_packages: true)
 
-          expect(project.license).to eql(Licensee::License.find('mit'))
-          expect(project.package_file.path).to eql('DESCRIPTION')
+          license = Licensee::License.find('mit')
+          expect(project).to have_attributes(license: license, package_file: have_attributes(path: 'DESCRIPTION'))
         end
       end
     end
