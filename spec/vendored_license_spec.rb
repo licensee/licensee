@@ -4,30 +4,28 @@ module VendoredLicense
 end
 
 RSpec.describe VendoredLicense do
-  let(:filename) { 'LICENSE.txt' }
-  let(:license_file) do
-    Licensee::ProjectFiles::LicenseFile.new(content, filename)
+  def filename = 'LICENSE.txt'
+
+  def hash_change_msg
+    msg = +'Did you update a vendored license? Run '
+    msg << '`bundle exec script/hash-licenses`. '
+    msg << 'Changes in license hashes must be a MINOR (or MAJOR) bump.'
+    msg
   end
 
   Licensee.licenses(hidden: true).each do |license|
     next if license.pseudo_license?
 
-    context "the #{license.name} license" do
-      let(:content_with_copyright) { sub_copyright_info(license) }
-      let(:content) { content_with_copyright }
+    context "with the #{license.name} license" do
+      let(:content) { sub_copyright_info(license) }
       let(:expected_hash) { license_hashes[license.key] }
-      let(:hash_change_msg) do
-        msg = +'Did you update a vendored license? Run '
-        msg << '`bundle exec script/hash-licenses`. '
-        msg << 'Changes in license hashes must be a MINOR (or MAJOR) bump.'
-        msg
-      end
 
       it 'detects the license' do
         expect(content).to be_detected_as(license)
       end
 
-      it 'confidence and similarity scores are euqal' do
+      it 'confidence and similarity scores are equal' do
+        license_file = Licensee::ProjectFiles::LicenseFile.new(content, filename)
         expect(license_file.confidence).to eq(license.similarity(license_file))
       end
 
@@ -40,60 +38,36 @@ RSpec.describe VendoredLicense do
       end
 
       context 'when modified' do
-        let(:line_length) { 60 }
-        let(:random_words) { 75 }
-        let(:content_rewrapped) do
-          Licensee::ContentHelper.wrap(content_with_copyright, line_length)
-        end
-        let(:content_with_random_words) do
-          add_random_words(content_with_copyright, random_words)
+        it 'detects the license without the title' do
+          modified_file = Licensee::ProjectFiles::LicenseFile.new(content, filename)
+          modified_file.send(:strip_title)
+          content_without_title = modified_file.send(:_content)
+          expect(content_without_title).to be_detected_as(license)
         end
 
-        context 'without the title' do
-          let(:content_without_title) do
-            license_file.send :strip_title
-            license_file.send :_content
-          end
-
-          it 'detects the license' do
-            expect(content_without_title).to be_detected_as(license)
-          end
+        it 'detects the license with a double title' do
+          double_titled = "#{license.name.tr('*', 'u')}\n\n#{content}"
+          expect(double_titled).to be_detected_as(license)
         end
 
-        context 'with a double title' do
-          let(:content) do
-            "#{license.name.sub('*', 'u')}\n\n#{content_with_copyright}"
-          end
-
-          it 'detects the license' do
-            expect(content).to be_detected_as(license)
-          end
+        it 'detects the license when re-wrapped' do
+          line_length = 60
+          content_rewrapped = Licensee::ContentHelper.wrap(content, line_length)
+          expect(content_rewrapped).to be_detected_as(license)
         end
 
-        context 'when re-wrapped' do
-          let(:content) { content_rewrapped }
-
-          it 'detects the license' do
-            expect(content).to be_detected_as(license)
-          end
+        it 'does not match the license with random words added' do
+          random_words = 75
+          content_with_random_words = add_random_words(content, random_words)
+          expect(content_with_random_words).not_to be_detected_as(license)
         end
 
-        context 'with random words added' do
-          let(:content) { content_with_random_words }
-
-          it 'does not match the license' do
-            expect(content).not_to be_detected_as(license)
-          end
-        end
-
-        context 'when rewrapped with random words added' do
-          let(:content) do
-            Licensee::ContentHelper.wrap(content_with_random_words, line_length)
-          end
-
-          it 'does not match the license' do
-            expect(content).not_to be_detected_as(license)
-          end
+        it 'does not match the license when rewrapped with random words added' do
+          line_length = 60
+          random_words = 75
+          content_with_random_words = add_random_words(content, random_words)
+          rewrapped = Licensee::ContentHelper.wrap(content_with_random_words, line_length)
+          expect(rewrapped).not_to be_detected_as(license)
         end
       end
     end

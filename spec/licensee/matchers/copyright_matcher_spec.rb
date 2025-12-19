@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Copyright do
-  subject { described_class.new(file) }
+  subject(:matcher) { described_class.new(file) }
 
   let(:content) { +'Copyright 2015 Ben Balter' }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
@@ -9,15 +9,15 @@ RSpec.describe Licensee::Matchers::Copyright do
   let(:no_license) { Licensee::License.find('no-license') }
 
   it 'stores the file' do
-    expect(subject.file).to eql(file)
+    expect(matcher.file).to eql(file)
   end
 
   it 'matches' do
-    expect(subject.match).to eql(no_license)
+    expect(matcher.match).to eql(no_license)
   end
 
   it 'has a confidence' do
-    expect(subject.confidence).to be(100)
+    expect(matcher.confidence).to be(100)
   end
 
   {
@@ -45,7 +45,7 @@ RSpec.describe Licensee::Matchers::Copyright do
     let(:content) { "(c) Ben Balter\nwith foo bar baz" }
 
     it "doesn't match" do
-      expect(subject.match).to be_nil
+      expect(matcher.match).to be_nil
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe Licensee::Matchers::Copyright do
     let(:content) { sub_copyright_info(mit) }
 
     it "doesn't match" do
-      expect(subject.match).to be_nil
+      expect(matcher.match).to be_nil
     end
   end
 end

@@ -4,12 +4,13 @@ RSpec.describe Licensee::Projects::GitHubProject do
   subject(:instance) { described_class.new(github_url) }
 
   let(:repo) { 'benbalter/licensee' }
-  let(:github_url) { "https://github.com/#{repo}" }
-  let(:mit) { Licensee::License.find('mit') }
-  let(:mit_readme_file) { File.read(fixture_path('mit/README.md')) }
-  let(:mit_license_file) { File.read(fixture_path('mit/LICENSE.txt')) }
-  let(:apache2) { Licensee::License.find('apache-2.0') }
-  let(:apache2_license_file) { File.read(fixture_path('apache-with-readme-notice/LICENSE')) }
+
+  def github_url = "https://github.com/#{repo}"
+  def mit = Licensee::License.find('mit')
+  def mit_readme_file = File.read(fixture_path('mit/README.md'))
+  def mit_license_file = File.read(fixture_path('mit/LICENSE.txt'))
+  def apache2 = Licensee::License.find('apache-2.0')
+  def apache2_license_file = File.read(fixture_path('apache-with-readme-notice/LICENSE'))
 
   describe '#initialize' do
     context 'with a GitHub URI' do
@@ -62,44 +63,45 @@ RSpec.describe Licensee::Projects::GitHubProject do
     end
 
     it 'returns the license' do
-      expect(subject.license).to be_a(Licensee::License)
-      expect(subject.license).to eql(mit)
+      expect(instance.license).to eql(mit)
     end
 
     it 'returns the matched file' do
-      expect(subject.matched_file).to be_a(Licensee::ProjectFiles::LicenseFile)
-      expect(subject.matched_file.filename).to eql('LICENSE.txt')
+      expect(instance.matched_file).to satisfy do |file|
+        file.is_a?(Licensee::ProjectFiles::LicenseFile) && file.filename == 'LICENSE.txt'
+      end
     end
 
     it 'returns the license file' do
-      expect(subject.license_file).to be_a(Licensee::ProjectFiles::LicenseFile)
-      expect(subject.license_file.filename).to eql('LICENSE.txt')
+      expect(instance.license_file).to satisfy do |file|
+        file.is_a?(Licensee::ProjectFiles::LicenseFile) && file.filename == 'LICENSE.txt'
+      end
     end
 
     it "doesn't return the readme" do
-      expect(subject.readme_file).to be_nil
+      expect(instance.readme_file).to be_nil
     end
 
     it "doesn't return the package file" do
-      expect(subject.package_file).to be_nil
+      expect(instance.package_file).to be_nil
     end
 
-    context 'readme detection' do
-      subject { described_class.new(github_url, detect_readme: true) }
+    context 'when detecting readme' do
+      subject(:instance) { described_class.new(github_url, detect_readme: true) }
 
       it 'returns the readme' do
-        expect(subject.readme_file).to be_a(Licensee::ProjectFiles::ReadmeFile)
-        expect(subject.readme_file.filename).to eql('README.md')
+        expect(instance.readme_file).to satisfy do |file|
+          file.is_a?(Licensee::ProjectFiles::ReadmeFile) && file.filename == 'README.md'
+        end
       end
 
       it 'returns the license' do
-        expect(subject.license).to be_a(Licensee::License)
-        expect(subject.license).to eql(mit)
+        expect(instance.license).to eql(mit)
       end
     end
 
     context 'when initialized with a ref' do
-      subject { described_class.new(github_url, ref: 'my-ref') }
+      subject(:instance) { described_class.new(github_url, ref: 'my-ref') }
 
       before do
         stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/?ref=my-ref')
@@ -115,16 +117,15 @@ RSpec.describe Licensee::Projects::GitHubProject do
       end
 
       it 'returns the ref' do
-        expect(subject.ref).to eql('my-ref')
+        expect(instance.ref).to eql('my-ref')
       end
 
       it 'returns query params' do
-        expect(subject.send(:query_params)).to eql({ ref: subject.ref })
+        expect(instance.send(:query_params)).to eql({ ref: instance.ref })
       end
 
       it 'returns the license' do
-        expect(subject.license).to be_a(Licensee::License)
-        expect(subject.license).to eql(apache2)
+        expect(instance.license).to eql(apache2)
       end
     end
   end
@@ -138,7 +139,7 @@ RSpec.describe Licensee::Projects::GitHubProject do
     end
 
     it 'raises a RepoNotFound error' do
-      expect { subject.license }.to raise_error(described_class::RepoNotFound)
+      expect { instance.license }.to raise_error(described_class::RepoNotFound)
     end
   end
 end

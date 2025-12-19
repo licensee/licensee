@@ -8,18 +8,15 @@ module Licensee
 end
 
 RSpec.describe Licensee::Commands::LicensePath do
-  let(:command) { ['bundle', 'exec', 'bin/licensee', 'license-path'] }
-  let(:project_path) { fixture_path('mit_markdown') }
-  let(:arguments) { [project_path] }
   let(:output) do
     Dir.chdir project_root do
-      Open3.capture3(*[command, arguments].flatten)
+      Open3.capture3('bundle', 'exec', 'bin/licensee', 'license-path', project_path)
     end
   end
-  let(:parsed_output) { YAML.safe_load(stdout) }
-  let(:stdout) { output[0] }
-  let(:stderr) { output[1] }
-  let(:status) { output[2] }
+
+  def project_path = fixture_path('mit_markdown')
+  def stdout = output[0]
+  def status = output[2]
 
   it 'returns the license path' do
     expect(stdout).to match(File.join(project_path, 'LICENSE.md'))

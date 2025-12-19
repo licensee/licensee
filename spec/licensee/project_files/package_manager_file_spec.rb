@@ -6,7 +6,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
   let(:content) { '' }
   let(:filename) { '' }
 
-  context 'name scoring' do
+  context 'when scoring names' do
     {
       'licensee.gemspec' => 1.0,
       'test.cabal'       => 1.0,
@@ -18,7 +18,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
       'elm-package.json' => 0.70,
       'README.md'        => 0.0
     }.each do |filename, expected_score|
-      context "a file named #{filename}" do
+      context "with a file named #{filename}" do
         let(:score) { described_class.name_score(filename) }
 
         it 'scores the file' do
@@ -28,7 +28,7 @@ RSpec.describe Licensee::ProjectFiles::PackageManagerFile do
     end
   end
 
-  context 'matchers' do
+  context 'when selecting matchers' do
     let(:possible_matchers) { subject.possible_matchers }
 
     context 'with a gemspec' do

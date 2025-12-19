@@ -7,10 +7,12 @@ RSpec.describe Licensee do
   let(:hidden_license_count) { 49 }
 
   it 'exposes licenses' do
-    expect(described_class.licenses).to be_an(Array)
+    licenses = described_class.licenses
     hidden_licenses = described_class.licenses(hidden: true).count
-    expect(hidden_licenses).to eql(hidden_license_count)
-    expect(described_class.licenses.first).to be_a(Licensee::License)
+
+    expect([licenses.is_a?(Array), hidden_licenses, licenses.first.is_a?(Licensee::License)]).to eql(
+      [true, hidden_license_count, true]
+    )
   end
 
   it "detects a project's license" do
@@ -22,22 +24,22 @@ RSpec.describe Licensee do
   end
 
   describe '.project' do
-    subject { described_class.project(project_path) }
+    subject(:project) { described_class.project(project_path) }
 
     it 'inits a project' do
-      expect(subject).to be_a(Licensee::Projects::Project)
+      expect(project).to be_a(Licensee::Projects::Project)
     end
 
-    context 'given a GitHub repository' do
+    context 'when given a GitHub repository' do
       let(:project_path) { 'https://github.com/benbalter/licensee' }
 
       it 'creates a GitHubProject' do
-        expect(subject).to be_a(Licensee::Projects::GitHubProject)
+        expect(project).to be_a(Licensee::Projects::GitHubProject)
       end
     end
   end
 
-  context 'confidence threshold' do
+  context 'when using the confidence threshold' do
     it 'exposes the confidence threshold' do
       expect(described_class.confidence_threshold).to be(98)
     end
@@ -46,7 +48,7 @@ RSpec.describe Licensee do
       expect(described_class.inverse_confidence_threshold).to eq(0.02)
     end
 
-    context 'user overridden' do
+    context 'when user overridden' do
       before { described_class.confidence_threshold = 50 }
 
       after { described_class.confidence_threshold = nil }
@@ -56,9 +58,11 @@ RSpec.describe Licensee do
       end
 
       it 'resets inverse confidence threshold when confidence threshold changes' do
-        expect(described_class.inverse_confidence_threshold).to be(0.5)
+        before_reset = described_class.inverse_confidence_threshold
         described_class.confidence_threshold = Licensee::CONFIDENCE_THRESHOLD
-        expect(described_class.inverse_confidence_threshold).to be(0.02)
+        after_reset = described_class.inverse_confidence_threshold
+
+        expect([before_reset, after_reset]).to eql([0.5, 0.02])
       end
     end
   end

@@ -7,21 +7,21 @@ class MatcherSpecFixture < Licensee::Matchers::Matcher
 end
 
 RSpec.describe Licensee::Matchers::Matcher do
-  subject { described_class.new(file) }
+  subject(:matcher) { described_class.new(file) }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { sub_copyright_info(mit) }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE.txt') }
 
   it 'stores the file' do
-    expect(subject.file).to eql(file)
+    expect(matcher.file).to eql(file)
   end
 
   it 'returns its name' do
-    expect(subject.name).to be(:matcher)
+    expect(matcher.name).to be(:matcher)
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     subject { MatcherSpecFixture.new(file) }
 
     let(:hash) { subject.to_h }
