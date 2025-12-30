@@ -67,6 +67,25 @@ Options:
 
 *Note: If you want to parse the command line output for use in another language or tool, it's highly recommended that you use the more stable `--json` output then attempting to parse the human-readable output.*
 
+### Using Licensee with Docker
+
+*Example (detecting the license of `rails/rails` on GitHub):* `docker run licensee detect rails/rails --remote`
+
+Additional steps are required when working with local files or directories:
+
+```bash
+# For a local directory
+docker run -v /absolute/path/on/host:/path/in/container licensee detect /path/in/container
+
+# For the current directory
+docker run -v $(pwd):/workspace licensee detect /workspace
+
+# For a specific license file
+docker run -v /path/to/license.txt:/workspace/license.txt licensee detect /workspace/license.txt
+```
+
+The `-v` flag mounts volumes from your host machine into the Docker container, making your local files accessible inside the container.
+
 ### Diff
 
 You can also compare a given license to a known license.

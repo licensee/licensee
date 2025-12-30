@@ -47,8 +47,6 @@ Licensee also comes with a Dockerfile if you prefer to run Licensee within a Doc
 2. `docker build . --tag licensee`
 3. `docker run licensee [COMMAND]` (see [command line usage](./command-line-usage.md))
 
-*Example (detecting the license of `rails/rails` on GitHub):* `docker run licensee detect rails/rails --remote`
-
 ## Documentation
 
 See [the docs folder](/docs) for more information. You may be interested in:
