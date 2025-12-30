@@ -68,7 +68,9 @@ Options:
 
 ### Using Licensee with Docker
 
-If you're running Licensee through Docker, additional steps are required when working with local files or directories:
+*Example (detecting the license of `rails/rails` on GitHub):* `docker run licensee detect rails/rails --remote`
+
+Additional steps are required when working with local files or directories:
 
 ```bash
 # For a local directory
