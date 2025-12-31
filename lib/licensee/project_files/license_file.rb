@@ -64,7 +64,9 @@ module Licensee
         ^(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
       /xi
 
-      SPDX_REGEX = /\A[a-z\-0-9. +()]+#{PREFERRED_EXT_REGEX}+/i
+      # SPDX license IDs allow letters/numbers with dashes/dots; also allow
+      # LicenseRef-* per the spec. Require a standard text-ish extension.
+      LICENSES_FILENAME_REGEX = /\A(?:LicenseRef-[A-Za-z0-9.-]+|[A-Za-z0-9][A-Za-z0-9.-]*)#{PREFERRED_EXT_REGEX}\z/i
 
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
@@ -101,7 +103,7 @@ module Licensee
 
       def self.name_score(dir, filename)
         if dir == 'LICENSES'
-          if filename.match? SPDX_REGEX
+          if filename.match? LICENSES_FILENAME_REGEX
             1.0
           else
             0.0
