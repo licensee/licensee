@@ -78,6 +78,31 @@
       end
     end
 
+    if described_class == Licensee::Projects::GitProject
+      context 'when repo has LICENSES directory' do
+        let(:fixture) { 'licenses-dir' }
+
+        before do
+          Dir.chdir path do
+            `git init`
+            `git config --local commit.gpgsign false`
+            `git add .`
+            `git commit -m 'initial commit'`
+          end
+        end
+
+        after do
+          subject.close
+          FileUtils.rm_rf File.expand_path '.git', path
+        end
+
+        it 'detects license files in LICENSES/' do
+          expect(subject.license).to eql(mit)
+          expect(subject.matched_file.path).to eql('LICENSES/MIT.txt')
+        end
+      end
+    end
+
     it 'returns the license' do
       expect(subject.license).to be_a(Licensee::License)
       expect(subject.license).to eql(mit)
