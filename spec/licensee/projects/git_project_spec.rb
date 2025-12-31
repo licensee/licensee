@@ -3,7 +3,7 @@
 RSpec.describe Licensee::Projects::GitProject do
   let(:fixture) { 'mit' }
 
-  context 'new git repo handled as file system project' do
+  context 'when a new git repo is handled as a file system project' do
     let(:path) { fixture_path(fixture) }
 
     before do

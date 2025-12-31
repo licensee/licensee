@@ -1,17 +1,22 @@
 # frozen_string_literal: true
 
-RSpec.describe 'detect command' do
-  let(:command) { ['bundle', 'exec', 'bin/licensee', 'detect'] }
+module Licensee
+  module Commands
+    module Detect
+    end
+  end
+end
+
+RSpec.describe Licensee::Commands::Detect do
+  def command = ['bundle', 'exec', 'bin/licensee', 'detect']
+
   let(:arguments) { [] }
   let(:output) do
     Dir.chdir project_root do
       Open3.capture3(*[command, arguments].flatten)
     end
   end
-  let(:parsed_output) { YAML.safe_load(stdout) }
-  let(:stdout) { output[0] }
-  let(:stderr) { output[1] }
-  let(:status) { output[2] }
+
   let(:hash) { license_hashes['mit'] }
   let(:expected) do
     {
@@ -32,32 +37,38 @@ RSpec.describe 'detect command' do
     }
   end
 
+  def stdout = output[0]
+  def status = output[2]
+  def parsed_output = YAML.safe_load(stdout)
+
   {
     'No arguments' => [],
     'Project root' => [project_root],
     'License path' => [File.expand_path('LICENSE.md', project_root)]
   }.each do |name, args|
-    context "When given #{name}" do
+    context "when given #{name}" do
       let(:arguments) { args }
+
+      let(:expected_output) do
+        expected.dup.tap do |hash|
+          next unless name == 'License path'
+
+          hash.delete('licensee.gemspec')
+          hash['Matched files'] = 'LICENSE.md'
+        end
+      end
 
       it 'Returns a zero exit code' do
         expect(status.exitstatus).to be(0)
       end
 
       it 'returns the exected values' do
-        hash = expected.dup
-
-        if name == 'License path'
-          hash.delete('licensee.gemspec')
-          hash['Matched files'] = 'LICENSE.md'
-        end
-
-        expect(parsed_output).to eql(hash)
+        expect(parsed_output).to eql(expected_output)
       end
     end
   end
 
-  context 'json' do
+  context 'with --json' do
     let(:arguments) { ['--json'] }
     let(:expected) { JSON.parse(fixture_contents('detect.json')).tap { |h| h['matched_files'][1].delete('content') } }
 
@@ -76,7 +87,42 @@ RSpec.describe 'detect command' do
     end
   end
 
-  context 'the default command' do
+  context 'with --diff' do
+    let(:arguments) { ['--diff'] }
+
+    it 'Returns a zero exit code' do
+      expect(status.exitstatus).to be(0)
+    end
+
+    it 'includes diff output' do
+      expect(stdout).to include('Comparing to')
+    end
+  end
+
+  context 'when printing closest non-matching licenses' do
+    let(:tmpdir) { Dir.mktmpdir }
+    let(:arguments) { ['--confidence', '0', tmpdir] }
+
+    after { FileUtils.rm_rf(tmpdir) }
+
+    def license_path = File.expand_path('LICENSE', tmpdir)
+
+    before do
+      license = Licensee::License.find('mit')
+      File.write(license_path, "#{license.content}\n\nNOT PART OF THE LICENSE\n")
+    end
+
+    it 'Returns a zero exit code' do
+      expect(status.exitstatus).to be(0)
+    end
+
+    it 'prints closest non-matching licenses for non-exact matches' do
+      closest = YAML.safe_load(stdout).dig('LICENSE', 'Closest non-matching licenses')
+      expect(closest).to(satisfy { |value| value.is_a?(Hash) && !value.empty? })
+    end
+  end
+
+  context 'when using the default command' do
     let(:command) { ['bundle', 'exec', 'bin/licensee'] }
 
     it 'Returns a zero exit code' do
@@ -88,7 +134,7 @@ RSpec.describe 'detect command' do
     end
   end
 
-  context 'a non-existing command' do
+  context 'when using a non-existing command' do
     let(:command) { ['bundle', 'exec', 'bin/licensee', 'oops'] }
 
     it 'Returns a one exit code' do
@@ -96,7 +142,7 @@ RSpec.describe 'detect command' do
     end
   end
 
-  context 'no license match' do
+  context 'when there is no license match' do
     let(:arguments) { ["#{project_root}/spec/fixtures/wrk-modified-apache"] }
 
     it 'Returns a one exit code' do

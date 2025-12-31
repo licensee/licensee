@@ -5,6 +5,7 @@ require 'forwardable'
 require 'pathname'
 require 'yaml'
 
+# Main namespace and public entrypoints for the Licensee gem.
 module Licensee
   autoload :ContentHelper, 'licensee/content_helper'
   autoload :HashHelper, 'licensee/hash_helper'
@@ -37,6 +38,8 @@ module Licensee
     def project(path, **args)
       if %r{\Ahttps://github.com}.match?(path)
         Licensee::Projects::GitHubProject.new(path, **args)
+      elsif args[:filesystem]
+        Licensee::Projects::FSProject.new(path, **args)
       else
         Licensee::Projects::GitProject.new(path, **args)
       end

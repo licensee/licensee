@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in Cabal package files.
     class Cabal < Licensee::Matchers::Package
       # While we could parse the cabal file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.

@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 module Licensee
-  class LicenseMeta < Struct.new(
+  LicenseMeta = Struct.new(
     :title, :spdx_id, :source, :description, :how, :conditions, :permissions,
     :limitations, :using, :featured, :hidden, :nickname, :note
   )
 
+  # Structured license metadata loaded from vendored YAML front matter.
+  class LicenseMeta
     # These should be in sync with choosealicense.com's collection defaults
     DEFAULTS = {
       'featured' => false,
@@ -15,6 +17,7 @@ module Licensee
     PREDICATE_FIELDS = %i[featured hidden].freeze
 
     include Licensee::HashHelper
+
     HASH_METHODS = members - %i[conditions permissions limitations spdx_id]
 
     class << self

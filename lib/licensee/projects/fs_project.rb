@@ -9,6 +9,7 @@
 #  :dir  - the directory path containing the file
 module Licensee
   module Projects
+    # Scans a local directory for license-related files.
     class FSProject < Licensee::Projects::Project
       def initialize(path, **args)
         if ::File.file?(path)

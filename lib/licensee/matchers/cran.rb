@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in R package DESCRIPTION files.
     class Cran < Licensee::Matchers::Package
       attr_reader :file
 
@@ -19,7 +20,7 @@ module Licensee
         return @license_field if defined? @license_field
 
         match = @file.content.match LICENSE_FIELD_REGEX
-        @license_field = match ? match[1].downcase : nil
+        @license_field = match&.[](1)&.downcase
       end
 
       # returns the normalized GPL version, if the license is a GPL license

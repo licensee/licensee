@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Detects explicit copyright / reserved-rights notices.
     class Copyright < Licensee::Matchers::Matcher
       attr_reader :file
 

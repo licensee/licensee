@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::ProjectFiles::ReadmeFile do
-  subject { described_class.new(content, filename) }
+  subject(:readme_file) { described_class.new(content, filename) }
 
   let(:filename) { 'README.md' }
   let(:content) { '' }
 
-  context 'scoring names' do
+  context 'when scoring names' do
     {
       'readme'       => 1.0,
       'README'       => 1.0,
@@ -28,7 +28,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
     end
   end
 
-  context 'parsing license content' do
+  context 'when parsing license content' do
     let(:license) { described_class.license_content(content) }
 
     context 'with no license' do
@@ -39,7 +39,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'after an H1' do
+    context 'with an H1 heading' do
       let(:content) { "# License\n\nhello world" }
 
       it 'returns the license' do
@@ -47,7 +47,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'after an H2' do
+    context 'with an H2 heading' do
       let(:content) { "## License\n\nhello world" }
 
       it 'returns the license' do
@@ -55,7 +55,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'after an underlined header' do
+    context 'with an underlined header' do
       let(:content) { "License\n-------\n\nhello world" }
 
       it 'returns the license' do
@@ -63,7 +63,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'With a strangely cased heading' do
+    context 'with a strangely cased heading' do
       let(:content) { "## LICENSE\n\nhello world" }
 
       it 'returns the license' do
@@ -71,7 +71,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'With british spelling' do
+    context 'with british spelling' do
       let(:content) { "## Licence\n\nhello world" }
 
       it 'returns the license' do
@@ -103,7 +103,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'With a trailing colon' do
+    context 'with a trailing colon' do
       let(:content) { "## License:\n\nhello world" }
 
       it 'returns the license' do
@@ -111,7 +111,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'With trailing hashes' do
+    context 'with trailing hashes' do
       let(:content) { "## License ##\n\nhello world" }
 
       it 'returns the license' do
@@ -119,7 +119,7 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
       end
     end
 
-    context 'Rdoc' do
+    context 'with rdoc' do
       let(:content) { "== License:\n\nhello world" }
 
       it 'returns the license' do
@@ -128,12 +128,12 @@ RSpec.describe Licensee::ProjectFiles::ReadmeFile do
     end
   end
 
-  context 'a license reference' do
+  context 'with a license reference' do
     let(:content) { 'The MIT License' }
     let(:mit) { Licensee::License.find('mit') }
 
     it 'matches' do
-      expect(subject.match).to eql(mit)
+      expect(readme_file.match).to eql(mit)
     end
   end
 end

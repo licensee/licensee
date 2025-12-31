@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Licensee
+  # Project file types that can carry license information.
   module ProjectFiles
     autoload :ProjectFile, 'licensee/project_files/project_file'
     autoload :LicenseFile, 'licensee/project_files/license_file'

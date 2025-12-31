@@ -2,6 +2,7 @@
 
 class HashHelperSpecFixture
   include Licensee::HashHelper
+
   HASH_METHODS = %w[string array rule rules nil_value].freeze
 
   def string
@@ -47,18 +48,14 @@ RSpec.describe Licensee::HashHelper do
   end
 
   it 'includes hash methods' do
-    expect(hash).to have_key(:string)
-    expect(hash).to have_key(:array)
-    expect(hash).to have_key(:rule)
-    expect(hash).to have_key(:rules)
-    expect(hash).to have_key(:nil_value)
+    expect(hash.keys).to contain_exactly(:string, :array, :rule, :rules, :nil_value)
   end
 
   it 'does not expose other methods' do
     expect(hash).not_to have_key(:baz)
   end
 
-  it 'calls to_h recursively' do
+  it 'calls to_h recursively for nested values' do
     expect(hash[:rule]).to be_a(Hash)
   end
 

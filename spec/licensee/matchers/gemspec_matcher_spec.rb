@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Gemspec do
-  subject { described_class.new(file) }
+  subject(:matcher) { described_class.new(file) }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { "s.license = 'mit'" }
@@ -10,11 +10,11 @@ RSpec.describe Licensee::Matchers::Gemspec do
   end
 
   it 'matches' do
-    expect(subject.match).to eql(mit)
+    expect(matcher.match).to eql(mit)
   end
 
   it 'has confidence' do
-    expect(subject.confidence).to be(90)
+    expect(matcher.confidence).to be(90)
   end
 
   {
@@ -29,32 +29,32 @@ RSpec.describe Licensee::Matchers::Gemspec do
       let(:content) { license_declaration }
 
       it 'matches' do
-        expect(subject.match).to eql(mit)
+        expect(matcher.match).to eql(mit)
       end
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { "s.foo = 'bar'" }
 
     it 'returns nil' do
-      expect(subject.match).to be_nil
+      expect(matcher.match).to be_nil
     end
   end
 
-  context 'an unknown license' do
+  context 'with an unknown license' do
     let(:content) { "s.license = 'foo'" }
 
     it 'returns other' do
-      expect(subject.match).to eql(Licensee::License.find('other'))
+      expect(matcher.match).to eql(Licensee::License.find('other'))
     end
   end
 
-  context 'a licenses property with multiple licenses' do
+  context 'with a licenses property with multiple licenses' do
     let(:content) { "s.licenses = ['mit', 'bsd-3-clause']" }
 
     it 'returns other' do
-      expect(subject.match).to eql(Licensee::License.find('other'))
+      expect(matcher.match).to eql(Licensee::License.find('other'))
     end
   end
 end

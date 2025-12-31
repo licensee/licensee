@@ -7,12 +7,14 @@
 # Subclasses must implement the Files and LoadFile private methods
 module Licensee
   module Projects
+    # Base class for project scanners (filesystem/git/github).
     class Project
       attr_reader :detect_readme, :detect_packages
       alias detect_readme? detect_readme
       alias detect_packages? detect_packages
 
       include Licensee::HashHelper
+
       HASH_METHODS = %i[licenses matched_files].freeze
 
       def initialize(detect_packages: false, detect_readme: false, **)
@@ -24,7 +26,7 @@ module Licensee
       def license
         return @license if defined? @license
 
-        @license = if licenses_without_copyright.count == 1 || lgpl?
+        @license = if licenses_without_copyright.one? || lgpl?
                      licenses_without_copyright.first
                    elsif licenses_without_copyright.count > 1
                      Licensee::License.find('other')
@@ -38,7 +40,7 @@ module Licensee
 
       # Returns the ProjectFile used to determine the License
       def matched_file
-        matched_files.first if matched_files.count == 1 || lgpl?
+        matched_files.first if matched_files.one? || lgpl?
       end
 
       # Returns an array of matches LicenseFiles
@@ -48,21 +50,19 @@ module Licensee
 
       # Returns the LicenseFile used to determine the License
       def license_file
-        license_files.first if license_files.count == 1 || lgpl?
+        license_files.first if license_files.one? || lgpl?
       end
 
       def license_files
-        @license_files ||= if files.empty? || files.nil?
-                             []
-                           else
-                             files = find_files do |dir, name|
-                               Licensee::ProjectFiles::LicenseFile.name_score(dir, name)
-                             end
-                             files = files.map do |file|
-                               Licensee::ProjectFiles::LicenseFile.new(load_file(file), file)
-                             end
-                             prioritize_lgpl(files)
-                           end
+        @license_files ||= build_license_files
+      end
+
+      def build_license_files
+        return [] if files.nil? || files.empty?
+
+        files = find_files { |dir, name| Licensee::ProjectFiles::LicenseFile.name_score(dir, name) }
+        files = files.map { |file| Licensee::ProjectFiles::LicenseFile.new(load_file(file), file) }
+        prioritize_lgpl(files)
       end
 
       def readme_file
@@ -74,10 +74,7 @@ module Licensee
             Licensee::ProjectFiles::ReadmeFile.name_score(name)
           end
           content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
-
-          return unless content && file
-
-          Licensee::ProjectFiles::ReadmeFile.new(content, file)
+          Licensee::ProjectFiles::ReadmeFile.new(content, file) if content && file
         end
       end
       alias readme readme_file
@@ -90,10 +87,7 @@ module Licensee
           content, file = find_file do |_dir, name|
             Licensee::ProjectFiles::PackageManagerFile.name_score(name)
           end
-
-          return unless content && file
-
-          Licensee::ProjectFiles::PackageManagerFile.new(content, file)
+          Licensee::ProjectFiles::PackageManagerFile.new(content, file) if content && file
         end
       end
 
@@ -108,22 +102,25 @@ module Licensee
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns an array of all files with a score > 0,
       # sorted by file score descending
-      def find_files
-        return [] if files.empty? || files.nil?
+            def find_files(&)
+        return [] unless files&.any?
 
-        found = files.map { |file| file.merge(score: yield(file[:dir], file[:name])) }
-        found.select! { |file| file[:score].positive? }
-        found.sort { |a, b| b[:score] <=> a[:score] }
-      end
+        score_and_sort_files(&)
+            end
 
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns a hash representing the top scoring file
       # or nil, if no file scored > 0
       def find_file(...)
-        return if files.empty? || files.nil?
+        return unless files&.any?
 
         file = find_files(...).first
         [load_file(file), file] if file
+      end
+
+      def score_and_sort_files
+        found = files.map { |file| file.merge(score: yield(file[:dir], file[:name])) }
+        found.select { |file| file[:score].positive? }.sort { |a, b| b[:score] <=> a[:score] }
       end
 
       # Given an array of LicenseFiles, ensures LGPL is the first entry,

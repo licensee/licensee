@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::Cran do
-  subject { described_class.new(file) }
+  subject(:matcher) { described_class.new(file) }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { "License: MIT + file LICENSE\nPackage: test" }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'DESCRIPTION') }
 
   it 'stores the file' do
-    expect(subject.file).to eql(file)
+    expect(matcher.file).to eql(file)
   end
 
   it 'matches MIT' do
-    expect(subject.match).to eql(mit)
+    expect(matcher.match).to eql(mit)
   end
 
   it 'is confident' do
-    expect(subject.confidence).to be(90)
+    expect(matcher.confidence).to be(90)
   end
 
   {
@@ -34,7 +34,7 @@ RSpec.describe Licensee::Matchers::Cran do
       let(:content) { "Package: test\nLicense: #{license_declaration}" }
 
       it 'matches' do
-        expect(subject.match).to eql(license)
+        expect(matcher.match).to eql(license)
       end
     end
   end
@@ -43,7 +43,7 @@ RSpec.describe Licensee::Matchers::Cran do
     let(:content) { 'Package: test' }
 
     it 'returns nil' do
-      expect(subject.match).to be_nil
+      expect(matcher.match).to be_nil
     end
   end
 end

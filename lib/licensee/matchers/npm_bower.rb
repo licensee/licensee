@@ -2,6 +2,7 @@
 
 module Licensee
   module Matchers
+    # Matches license identifiers in package.json / bower.json files.
     class NpmBower < Licensee::Matchers::Package
       # While we could parse the package.json or bower.json file, prefer
       # a lenient regex for speed and security. Moar parsing moar problems.

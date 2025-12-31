@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Rule do
-  subject do
+  subject(:rule) do
     described_class.new(
       description: 'description',
       tag:         'tag',
@@ -13,10 +13,7 @@ RSpec.describe Licensee::Rule do
   let(:groups) { %w[permissions conditions limitations] }
 
   it 'stores properties' do
-    expect(subject.tag).to eql('tag')
-    expect(subject.label).to eql('label')
-    expect(subject.description).to eql('description')
-    expect(subject.group).to eql('group')
+    expect(rule).to have_attributes(tag: 'tag', label: 'label', description: 'description', group: 'group')
   end
 
   it 'loads the groups' do
@@ -24,9 +21,7 @@ RSpec.describe Licensee::Rule do
   end
 
   it 'loads the raw rules' do
-    groups.each do |key|
-      expect(described_class.raw_rules).to have_key(key)
-    end
+    expect(described_class.raw_rules.keys).to include(*groups)
   end
 
   it 'determines the file path' do
@@ -36,30 +31,28 @@ RSpec.describe Licensee::Rule do
 
   it 'loads a rule by tag' do
     rule = described_class.find_by_tag('commercial-use')
-    expect(rule).to be_a(described_class)
-    expect(rule.tag).to eql('commercial-use')
+    expect(rule).to(satisfy { |value| value.is_a?(described_class) && value.tag == 'commercial-use' })
   end
 
-  it 'loads a rule by tag and group' do
+  it 'loads a rule by tag and group in limitations' do
     rule = described_class.find_by_tag_and_group('patent-use', 'limitations')
-    expect(rule).to be_a(described_class)
-    expect(rule.tag).to eql('patent-use')
-    expect(rule.description).to include('does NOT grant')
+    expect(rule).to(satisfy { |value| value.tag == 'patent-use' && value.description.include?('does NOT grant') })
+  end
 
+  it 'loads a rule by tag and group in permissions' do
     rule = described_class.find_by_tag_and_group('patent-use', 'permissions')
-    expect(rule).to be_a(described_class)
-    expect(rule.tag).to eql('patent-use')
-    expect(rule.description).to include('an express grant of patent rights')
+    expect(rule).to satisfy do |value|
+      value.tag == 'patent-use' && value.description.include?('an express grant of patent rights')
+    end
   end
 
   it 'loads all rules' do
-    expect(described_class.all.count).to be(17)
-    rule = described_class.all.first
-    expect(rule).to be_a(described_class)
-    expect(rule.tag).to eql('commercial-use')
+    expect(described_class.all).to satisfy do |rules|
+      rules.count == 17 && rules.first.is_a?(described_class) && rules.first.tag == 'commercial-use'
+    end
   end
 
-  context 'to_h' do
+  context 'when calling #to_h' do
     let(:hash) { described_class.all.first.to_h }
     let(:description) do
       'The licensed material and derivatives may be used for commercial purposes.'

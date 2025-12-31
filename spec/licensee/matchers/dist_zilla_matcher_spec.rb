@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 RSpec.describe Licensee::Matchers::DistZilla do
-  subject { described_class.new(file) }
+  subject(:matcher) { described_class.new(file) }
 
   let(:mit) { Licensee::License.find('mit') }
   let(:content) { 'license = MIT' }
   let(:file) { Licensee::ProjectFiles::LicenseFile.new(content, 'dist.ini') }
 
   it 'stores the file' do
-    expect(subject.file).to eql(file)
+    expect(matcher.file).to eql(file)
   end
 
   it 'has confidence' do
-    expect(subject.confidence).to be(90)
+    expect(matcher.confidence).to be(90)
   end
 
   it 'matches' do
-    expect(subject.match).to eql(mit)
+    expect(matcher.match).to eql(mit)
   end
 
   {
@@ -29,16 +29,16 @@ RSpec.describe Licensee::Matchers::DistZilla do
       let(:license) { Licensee::License.find(license_declaration_and_key[1]) }
 
       it 'matches' do
-        expect(subject.match).to eql(license)
+        expect(matcher.match).to eql(license)
       end
     end
   end
 
-  context 'no license field' do
+  context 'with no license field' do
     let(:content) { 'foo = bar' }
 
     it 'returns nil' do
-      expect(subject.match).to be_nil
+      expect(matcher.match).to be_nil
     end
   end
 end

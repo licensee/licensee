@@ -1,11 +1,9 @@
-inherit_from: .rubocop_todo.yml
-
-require:
+plugins:
   - rubocop-performance
   - rubocop-rspec
 
 AllCops:
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
     - tmp/**/*

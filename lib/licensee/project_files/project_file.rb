@@ -6,13 +6,16 @@
 # Sublcasses should implement the possible_matchers method
 module Licensee
   module ProjectFiles
+    # Base class for a file within a project that may contain license information.
     class ProjectFile
       extend Forwardable
+
       def_delegator :@data, :[]
 
       attr_reader :content
 
       include Licensee::HashHelper
+
       HASH_METHODS = %i[
         filename content content_hash content_normalized matcher matched_license
         attribution

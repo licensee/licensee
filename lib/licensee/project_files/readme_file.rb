@@ -2,6 +2,7 @@
 
 module Licensee
   module ProjectFiles
+    # A README file that may embed a license section.
     class ReadmeFile < Licensee::ProjectFiles::LicenseFile
       EXTENSIONS = %w[md markdown mdown txt rdoc rst].freeze
       SCORES = {

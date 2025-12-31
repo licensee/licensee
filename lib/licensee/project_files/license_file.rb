@@ -2,6 +2,7 @@
 
 module Licensee
   module ProjectFiles
+    # A project file that contains the license text (e.g., LICENSE, COPYING).
     class LicenseFile < Licensee::ProjectFiles::ProjectFile
       include Licensee::ContentHelper
 

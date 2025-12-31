@@ -6,31 +6,23 @@
   Licensee::Projects::GitHubProject
 ].each do |project_type|
   RSpec.describe project_type do
-    subject { described_class.new(path) }
+    subject(:project) { described_class.new(path) }
 
-    let(:stubbed_org) { '_licensee_test_fixture' }
-    let(:mit) { Licensee::License.find('mit') }
-    let(:other) { Licensee::License.find('other') }
+    def stubbed_org = '_licensee_test_fixture'
+    def api_base = 'https://api.github.com/repos'
+    def mit = Licensee::License.find('mit')
+    def other = Licensee::License.find('other')
     let(:fixture) { 'mit' }
     let(:path) { fixture_path(fixture) }
-    let(:api_base) { 'https://api.github.com/repos' }
 
-    if described_class == Licensee::Projects::GitProject
-      before do
-        Dir.chdir path do
-          `git init`
-          `git config --local commit.gpgsign false`
-          `git add .`
-          `git commit -m 'initial commit'`
-        end
-      end
+    if described_class == Licensee::Projects::GitHubProject
+      let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
+    end
 
-      after do
-        subject.close
-        FileUtils.rm_rf File.expand_path '.git', path
-      end
-    elsif described_class == Licensee::Projects::GitHubProject
-      before do
+    before do
+      if described_class == Licensee::Projects::GitProject
+        git_init(path)
+      elsif described_class == Licensee::Projects::GitHubProject
         stub_request(
           :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
         ).to_return(
@@ -50,30 +42,35 @@
             .to_return(status: 200, body: File.read(file))
         end
       end
+    end
 
-      let(:path) { "https://github.com/#{stubbed_org}/#{fixture}" }
+    if described_class == Licensee::Projects::GitProject
+      after do
+        project.close
+        FileUtils.rm_rf File.expand_path '.git', path
+      end
     end
 
     if described_class == Licensee::Projects::GitProject
       context 'when initialized with a repo' do
-        subject { described_class.new(repo) }
+        subject(:project) { described_class.new(repo) }
 
         let(:repo) { Rugged::Repository.new(path) }
 
         it 'returns the repository' do
-          expect(subject.repository).to be_a(Rugged::Repository)
+          expect(project.repository).to be_a(Rugged::Repository)
         end
       end
 
       context 'when initialized with a revision' do
-        let(:revision) { subject.repository.last_commit.oid }
+        let(:revision) { project.repository.last_commit.oid }
 
         before do
-          subject.instance_variable_set(:@revision, revision)
+          project.instance_variable_set(:@revision, revision)
         end
 
         it 'returns the commit' do
-          expect(subject.send(:commit).oid).to eql(revision)
+          expect(project.send(:commit).oid).to eql(revision)
         end
       end
     end
@@ -104,58 +101,52 @@
     end
 
     it 'returns the license' do
-      expect(subject.license).to be_a(Licensee::License)
-      expect(subject.license).to eql(mit)
+      expect(project.license).to eql(mit)
     end
 
     it 'returns the matched file' do
-      expect(subject.matched_file).to be_a(Licensee::ProjectFiles::LicenseFile)
-      expect(subject.matched_file.filename).to eql('LICENSE.txt')
+      expect(project.matched_file).to have_attributes(filename: 'LICENSE.txt')
     end
 
     it 'returns the license file' do
-      expect(subject.license_file).to be_a(Licensee::ProjectFiles::LicenseFile)
-      expect(subject.license_file.filename).to eql('LICENSE.txt')
+      expect(project.license_file).to have_attributes(filename: 'LICENSE.txt')
     end
 
     it "doesn't return the readme" do
-      expect(subject.readme_file).to be_nil
+      expect(project.readme_file).to be_nil
     end
 
     it "doesn't return the package file" do
-      expect(subject.package_file).to be_nil
+      expect(project.package_file).to be_nil
     end
 
-    context 'reading files' do
-      let(:files) { subject.send(:files) }
+    context 'when reading files' do
+      def files = project.send(:files)
 
       it 'returns the file list' do
-        expect(files.count).to be(2)
-        license = files.find { |f| f[:name] == 'LICENSE.txt' }
-        expect(license).not_to be_nil
+        expect(files).to satisfy do |values|
+          next false unless values.count == 2
+          next false if values.find { |f| f[:name] == 'LICENSE.txt' }.nil?
 
-        expect(files.first).to have_key(:oid) if described_class == Licensee::Projects::GitProject
+          described_class != Licensee::Projects::GitProject || values.first.key?(:oid)
+        end
       end
 
       it "returns a file's content" do
-        content = subject.send(:load_file, files.first)
+        content = project.send(:load_file, files.first)
         expect(content).to match('Permission is hereby granted')
       end
 
       if described_class == Licensee::Projects::FSProject
         context 'with search root argument' do
-          subject { described_class.new(path, search_root: search_root) }
+          subject(:project) { described_class.new(path, search_root: search_root) }
 
           let(:fixture) { 'license-in-parent-folder/license-folder/package' }
-          let(:path) { fixture_path(fixture) }
-          let(:license_folder) { 'license-in-parent-folder/license-folder' }
-          let(:search_root) { fixture_path(license_folder) }
-          let(:files) { subject.send(:files) }
+          let(:search_root) { fixture_path('license-in-parent-folder/license-folder') }
 
           it 'looks for licenses in parent directories up to the search root' do
             # should not include the license in 'license-in-parent-folder' dir
-            expect(files.count).to be(1)
-            expect(files.first[:name]).to eql('LICENSE.txt')
+            expect(files).to(satisfy { |values| values.one? && values.first[:name] == 'LICENSE.txt' })
           end
         end
 
@@ -169,154 +160,139 @@
       end
     end
 
-    context 'encoding correctness' do
+    context 'when checking encoding correctness' do
       let(:fixture) { 'copyright-encoding' }
 
       it "returns a file's content" do
-        expect(subject.license_file.content).to match(
+        expect(project.license_file.content).to match(
           'Copyright © 2013–2016 by Peder Ås, 王二麻子, and Seán Ó Rudaí'
         )
       end
     end
 
-    context 'readme detection' do
-      subject { described_class.new(path, detect_readme: true) }
+    context 'when detecting readme' do
+      subject(:project) { described_class.new(path, detect_readme: true) }
 
       let(:fixture) { 'readme' }
 
       it 'returns the readme' do
-        expect(subject.readme_file).to be_a(Licensee::ProjectFiles::ReadmeFile)
-        expect(subject.readme_file.filename).to eql('README.md')
+        expect(project.readme_file).to satisfy do |file|
+          file.is_a?(Licensee::ProjectFiles::ReadmeFile) && file.filename == 'README.md'
+        end
       end
 
       it 'returns the license' do
-        expect(subject.license).to be_a(Licensee::License)
-        expect(subject.license).to eql(mit)
+        expect(project.license).to eql(mit)
       end
     end
 
-    context 'package manager detection' do
-      subject { described_class.new(path, detect_packages: true) }
+    context 'when detecting package manager files' do
+      subject(:project) { described_class.new(path, detect_packages: true) }
 
       let(:fixture) { 'gemspec' }
+
+      def gemspec_path = "#{fixture_path(fixture)}/project.gemspec"
 
       # Using a `.gemspec` extension in the fixture breaks `gem release`
       before do
         from = "#{fixture_path(fixture)}/project._gemspec"
-        to   = "#{fixture_path(fixture)}/project.gemspec"
-        FileUtils.cp(from, to)
+        FileUtils.cp(from, gemspec_path)
         if described_class == Licensee::Projects::GitProject
           Dir.chdir fixture_path(fixture) do
             `git add project.gemspec`
             `git commit -m 'add real gemspec'`
           end
         end
-      end
+        next unless described_class == Licensee::Projects::GitHubProject
 
-      if described_class == Licensee::Projects::GitHubProject
-        before do
-          stub_request(
-            :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
-          ).to_return(
-            status:  200,
-            body:    fixture_root_contents_from_api(fixture),
-            headers: { 'Content-Type' => 'application/json' }
-          )
+        stub_request(
+          :get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/"
+        ).to_return(
+          status:  200,
+          body:    fixture_root_contents_from_api(fixture),
+          headers: { 'Content-Type' => 'application/json' }
+        )
 
-          file = fixture_path "#{fixture}/project.gemspec"
-          relative_path = File.basename(file)
-          parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
-          stub_request(:get, parts.join('/'))
-            .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
-            .to_return(status: 200, body: File.read(file))
-        end
+        file = fixture_path "#{fixture}/project.gemspec"
+        relative_path = File.basename(file)
+        parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
+        stub_request(:get, parts.join('/'))
+          .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+          .to_return(status: 200, body: File.read(file))
       end
 
       after do
-        FileUtils.rm("#{fixture_path(fixture)}/project.gemspec")
+        FileUtils.rm(gemspec_path)
       end
 
       it 'returns the package file' do
         expected = Licensee::ProjectFiles::PackageManagerFile
-        expect(subject.package_file).to be_a(expected)
-        expect(subject.package_file.filename).to eql('project.gemspec')
+        expect(project.package_file).to satisfy do |file|
+          file.is_a?(expected) && file.filename == 'project.gemspec'
+        end
       end
 
       it 'returns the license' do
-        expect(subject.license).to be_a(Licensee::License)
-        expect(subject.license).to eql(mit)
+        expect(project.license).to eql(mit)
       end
     end
 
-    context 'multiple licenses' do
+    context 'with multiple licenses' do
       let(:fixture) { 'multiple-license-files' }
 
       it 'returns other for license' do
-        expect(subject.license).to eql(other)
+        expect(project.license).to eql(other)
       end
 
       it 'returns nil for matched_file' do
-        expect(subject.matched_file).to be_nil
+        expect(project.matched_file).to be_nil
       end
 
       it 'returns nil for license_file' do
-        expect(subject.license_file).to be_nil
+        expect(project.license_file).to be_nil
       end
 
       it 'returns both licenses' do
-        expect(subject.licenses.count).to be(2)
-        expect(subject.licenses.first).to eql(Licensee::License.find('mpl-2.0'))
-        expect(subject.licenses.last).to eql(mit)
+        expect(project.licenses.map(&:key)).to eql(%w[mpl-2.0 mit])
       end
 
       it 'returns both matched_files' do
-        expect(subject.matched_files.count).to be(2)
-        expect(subject.matched_files.first.filename).to eql('LICENSE')
-        expect(subject.matched_files.last.filename).to eql('LICENSE.txt')
+        expect(project.matched_files.map(&:filename)).to eql(%w[LICENSE LICENSE.txt])
       end
 
       it 'returns both license_files' do
-        expect(subject.license_files.count).to be(2)
-        expect(subject.license_files.first.filename).to eql('LICENSE')
-        expect(subject.license_files.last.filename).to eql('LICENSE.txt')
+        expect(project.license_files.map(&:filename)).to eql(%w[LICENSE LICENSE.txt])
       end
     end
 
-    context 'lgpl' do
-      let(:gpl) { Licensee::License.find('gpl-3.0') }
-      let(:lgpl) { Licensee::License.find('lgpl-3.0') }
+    context 'with lgpl' do
       let(:fixture) { 'lgpl' }
 
+      def gpl = Licensee::License.find('gpl-3.0')
+      def lgpl = Licensee::License.find('lgpl-3.0')
+
       it 'license returns lgpl' do
-        expect(subject.license).to eql(lgpl)
+        expect(project.license).to eql(lgpl)
       end
 
       it 'matched_file returns copying.lesser' do
-        expect(subject.matched_file).not_to be_nil
-        expect(subject.matched_file.filename).to eql('COPYING.lesser')
+        expect(project.matched_file).to have_attributes(filename: 'COPYING.lesser')
       end
 
       it 'license_file returns copying.lesser' do
-        expect(subject.license_file).not_to be_nil
-        expect(subject.license_file.filename).to eql('COPYING.lesser')
+        expect(project.license_file).to have_attributes(filename: 'COPYING.lesser')
       end
 
       it 'returns both licenses' do
-        expect(subject.licenses.count).to be(2)
-        expect(subject.licenses.first).to eql(lgpl)
-        expect(subject.licenses.last).to eql(gpl)
+        expect(project.licenses.map(&:key)).to eql(%w[lgpl-3.0 gpl-3.0])
       end
 
       it 'returns both matched_files' do
-        expect(subject.matched_files.count).to be(2)
-        expect(subject.matched_files.first.filename).to eql('COPYING.lesser')
-        expect(subject.matched_files.last.filename).to eql('LICENSE')
+        expect(project.matched_files.map(&:filename)).to eql(%w[COPYING.lesser LICENSE])
       end
 
       it 'returns both license_files' do
-        expect(subject.license_files.count).to be(2)
-        expect(subject.license_files.first.filename).to eql('COPYING.lesser')
-        expect(subject.license_files.last.filename).to eql('LICENSE')
+        expect(project.license_files.map(&:filename)).to eql(%w[COPYING.lesser LICENSE])
       end
     end
 
@@ -324,21 +300,18 @@
       let(:fixture) { 'mit-with-copyright' }
 
       it 'returns MIT' do
-        expect(subject.license).to eql(mit)
+        expect(project.license).to eql(mit)
       end
     end
 
-    context 'to_h' do
-      let(:hash) { subject.to_h }
-      let(:expected) do
-        {
-          licenses:      subject.licenses.map(&:to_h),
-          matched_files: subject.matched_files.map(&:to_h)
-        }
-      end
-
+    context 'when calling #to_h' do
       it 'Converts to a hash' do
-        expect(hash).to eql(expected)
+        expected = {
+          licenses:      project.licenses.map(&:to_h),
+          matched_files: project.matched_files.map(&:to_h)
+        }
+
+        expect(project.to_h).to eql(expected)
       end
     end
   end

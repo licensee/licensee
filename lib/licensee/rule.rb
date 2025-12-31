@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 module Licensee
+  # A single rule used to describe license conditions/permissions/limitations.
   class Rule
     attr_reader :tag, :label, :description, :group
 
     include Licensee::HashHelper
+
     HASH_METHODS = %i[tag label description].freeze
 
     def initialize(tag: nil, label: nil, description: nil, group: nil)

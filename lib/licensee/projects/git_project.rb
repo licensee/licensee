@@ -12,6 +12,7 @@ autoload :Rugged, 'rugged'
 
 module Licensee
   module Projects
+    # Scans a Git repository (via Rugged) for license-related files.
     class GitProject < Licensee::Projects::Project
       attr_reader :revision
 

@@ -2,10 +2,12 @@
 
 module Licensee
   module Matchers
+    # Base class for matchers that identify a license from a ProjectFile.
     class Matcher
       attr_reader :file
 
       include Licensee::HashHelper
+
       HASH_METHODS = %i[name confidence].freeze
 
       def initialize(file)

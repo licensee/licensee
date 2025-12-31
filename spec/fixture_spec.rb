@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
-RSpec.describe 'fixture test' do
-  fixtures.each do |fixture|
-    let(:options) { { detect_packages: true, detect_readme: true } }
+module Fixture
+end
 
-    context "the #{fixture} fixture" do
-      subject { Licensee.project(path, **options) }
+RSpec.describe Fixture do
+  fixtures.each do |fixture|
+    context "with the #{fixture} fixture" do
+      subject(:project) { Licensee.project(path, detect_packages: true, detect_readme: true) }
 
       let(:path) { fixture_path(fixture) }
-      let(:other) { Licensee::License.find('other') }
-      let(:none) { Licensee::License.find('none') }
       let(:expectations) { fixture_licenses[fixture] || {} }
-      let(:license_file) { subject.license_file }
-      let(:matcher) { license_file&.matcher }
+
+      def expected_license
+        license_key = expectations['key']
+        return Licensee::License.find(license_key) if license_key
+
+        Licensee::License.find('none')
+      end
 
       it 'has an expected license in fixtures-licenses.yml' do
         msg = +'Expected an entry in `'
@@ -23,21 +27,16 @@ RSpec.describe 'fixture test' do
       end
 
       it 'detects the license' do
-        expected = if expectations['key']
-                     Licensee::License.find(expectations['key'])
-                   else
-                     none
-                   end
-
-        expect(subject.license).to eql(expected)
+        expect(project.license).to eql(expected_license)
       end
 
       it 'returns the expected hash' do
-        hash = license_file&.content_hash
+        hash = project.license_file&.content_hash
         expect(hash).to eql(expectations['hash'])
       end
 
       it 'uses the expected matcher' do
+        matcher = project.license_file&.matcher
         expected = matcher ? matcher.name.to_s : nil
         expect(expected).to eql(expectations['matcher'])
       end
