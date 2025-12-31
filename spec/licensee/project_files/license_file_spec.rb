@@ -93,7 +93,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     }.each do |filename, expected|
       context "with a file named #{filename}" do
         it 'scores the file' do
-          score = described_class.name_score(filename)
+          score = described_class.name_score('.', filename)
           expect(score).to eql(expected)
         end
       end
@@ -142,6 +142,23 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
         it "matches #{license}" do
           expect(described_class::LICENSE_REGEX).to match(license)
         end
+      end
+    end
+
+    context 'when scoring files in LICENSES/' do
+      it 'scores SPDX-like filenames in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'MIT.txt')
+        expect(score).to be(1.0)
+      end
+
+      it 'rejects non-SPDX-like filenames in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'foo bar.md')
+        expect(score).to be(0.0)
+      end
+
+      it 'requires an extension in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'MIT')
+        expect(score).to be(0.0)
       end
     end
   end

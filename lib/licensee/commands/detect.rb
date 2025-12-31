@@ -69,7 +69,7 @@ module Licensee
       end
 
       def print_matched_file_summary(matched_file)
-        say "#{matched_file.filename}:"
+        say "#{matched_file.path}:"
         print_table matched_file_rows(matched_file), indent: 2
       end
 
@@ -141,7 +141,6 @@ class LicenseeCLI < Thor
     Licensee.confidence_threshold = options[:confidence]
 
     handle_json_output if options[:json]
-
     print_project_summary
     print_matched_files
     maybe_diff_license_file

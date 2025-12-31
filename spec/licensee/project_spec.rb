@@ -31,6 +31,9 @@
           headers: { 'Content-Type' => 'application/json' }
         )
 
+        stub_request(:get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/LICENSES")
+          .to_return(status: 404)
+
         fixture_root_files(fixture).each do |file|
           relative_path = File.basename(file)
           parts = [api_base, stubbed_org, fixture, 'contents', relative_path]
@@ -68,6 +71,31 @@
 
         it 'returns the commit' do
           expect(project.send(:commit).oid).to eql(revision)
+        end
+      end
+    end
+
+    if described_class == Licensee::Projects::GitProject
+      context 'when repo has LICENSES directory' do
+        let(:fixture) { 'licenses-dir' }
+
+        before do
+          Dir.chdir path do
+            `git init`
+            `git config --local commit.gpgsign false`
+            `git add .`
+            `git commit -m 'initial commit'`
+          end
+        end
+
+        after do
+          project.close
+          FileUtils.rm_rf File.expand_path '.git', path
+        end
+
+        it 'detects license files in LICENSES/', :aggregate_failures do
+          expect(project.license).to eql(mit)
+          expect(project.matched_file.path).to eql('LICENSES/MIT.txt')
         end
       end
     end
