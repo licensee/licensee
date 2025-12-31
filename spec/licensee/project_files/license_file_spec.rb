@@ -145,20 +145,20 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       end
     end
 
-    context 'LICENSES/ directory scoring' do
+    context 'when scoring files in LICENSES/' do
       it 'scores SPDX-like filenames in LICENSES/' do
         score = described_class.name_score('LICENSES', 'MIT.txt')
-        expect(score).to eql(1.0)
+        expect(score).to be(1.0)
       end
 
       it 'rejects non-SPDX-like filenames in LICENSES/' do
         score = described_class.name_score('LICENSES', 'foo bar.md')
-        expect(score).to eql(0.0)
+        expect(score).to be(0.0)
       end
 
       it 'requires an extension in LICENSES/' do
         score = described_class.name_score('LICENSES', 'MIT')
-        expect(score).to eql(0.0)
+        expect(score).to be(0.0)
       end
     end
   end

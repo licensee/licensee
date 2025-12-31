@@ -41,23 +41,10 @@ module Licensee
       def files
         return @files if defined? @files
 
-        begin
-          @files = dir_files
-        rescue Octokit::NotFound
-          @files = []
-        else
-          # Only check if there are `LICENSES/` files if the repo exists.
-          begin
-            @files.append(*dir_files('LICENSES'))
-          rescue Octokit::NotFound
-            # do nothing
-          end
-        end
+        @files = load_files_with_license_dir
+        raise RepoNotFound, repo_not_found_message if @files.empty?
 
-        return @files unless @files.empty?
-
-        msg = "Could not load GitHub repo #{repo}, it may be private or deleted"
-        raise RepoNotFound, msg
+        @files
       end
 
       def query_params
@@ -78,6 +65,23 @@ module Licensee
         files = files.select { |data| data[:type] == 'file' }
         files.each { |data| data[:dir] = File.dirname(data[:path]) }
         files.map(&:to_h)
+      end
+
+      def load_files_with_license_dir
+        base_files = dir_files
+        license_dir_files = begin
+          dir_files('LICENSES')
+        rescue Octokit::NotFound
+          []
+        end
+
+        base_files + license_dir_files
+      rescue Octokit::NotFound
+        []
+      end
+
+      def repo_not_found_message
+        "Could not load GitHub repo #{repo}, it may be private or deleted"
       end
 
       def client

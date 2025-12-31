@@ -89,13 +89,13 @@
         end
 
         after do
-          subject.close
+          project.close
           FileUtils.rm_rf File.expand_path '.git', path
         end
 
-        it 'detects license files in LICENSES/' do
-          expect(subject.license).to eql(mit)
-          expect(subject.matched_file.path).to eql('LICENSES/MIT.txt')
+        it 'detects license files in LICENSES/', :aggregate_failures do
+          expect(project.license).to eql(mit)
+          expect(project.matched_file.path).to eql('LICENSES/MIT.txt')
         end
       end
     end

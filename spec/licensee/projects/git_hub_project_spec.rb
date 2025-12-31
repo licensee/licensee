@@ -183,9 +183,9 @@ RSpec.describe Licensee::Projects::GitHubProject do
         .to_return(status: 200, body: mit_license_file)
     end
 
-    it 'returns both licenses' do
-      expect(subject.licenses.count).to be(1)
-      expect(subject.licenses.first).to eql(mit)
+    it 'returns both licenses', :aggregate_failures do
+      expect(instance.licenses.count).to be(1)
+      expect(instance.licenses.first).to eql(mit)
     end
   end
 
@@ -252,10 +252,10 @@ RSpec.describe Licensee::Projects::GitHubProject do
         .to_return(status: 200, body: apache2_license_file)
     end
 
-    it 'returns both licenses' do
-      expect(subject.licenses.count).to be(2)
-      expect(subject.licenses.first).to eql(mit)
-      expect(subject.licenses.last).to eql(apache2)
+    it 'returns both licenses', :aggregate_failures do
+      expect(instance.licenses.count).to be(2)
+      expect(instance.licenses.first).to eql(mit)
+      expect(instance.licenses.last).to eql(apache2)
     end
   end
 

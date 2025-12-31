@@ -102,11 +102,11 @@ module Licensee
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns an array of all files with a score > 0,
       # sorted by file score descending
-            def find_files(&)
+      def find_files(&)
         return [] unless files&.any?
 
         score_and_sort_files(&)
-            end
+      end
 
       # Given a block, passes each filename to that block, and expects a numeric
       # score in response. Returns a hash representing the top scoring file
