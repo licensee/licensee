@@ -164,4 +164,16 @@ RSpec.describe Licensee::Commands::Detect do
       expect(parsed_output).to eql({ 'License' => 'None' })
     end
   end
+
+  context 'when given an unsupported remote host' do
+    let(:arguments) { ['https://example.com/foo/bar'] }
+
+    it 'Returns a one exit code' do
+      expect(status.exitstatus).to be(1)
+    end
+
+    it 'prints an unsupported host message' do
+      expect(output[1]).to include('Unsupported remote URL')
+    end
+  end
 end
