@@ -21,7 +21,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@8aeb6ff8030dd539317f8e1769a044873b56ea71 # v1.268.0
@@ -40,6 +40,20 @@ jobs:
 
       - name: Update license hashes
         run: bundle exec script/hash-licenses
+
+      - name: Debug git identity sources
+        run: |
+          set -x
+          echo "Runner: $RUNNER_NAME ($RUNNER_OS $RUNNER_ARCH)"
+          echo "Actor: $GITHUB_ACTOR"
+          echo "GIT_AUTHOR_NAME=$GIT_AUTHOR_NAME"
+          echo "GIT_AUTHOR_EMAIL=$GIT_AUTHOR_EMAIL"
+          echo "GIT_COMMITTER_NAME=$GIT_COMMITTER_NAME"
+          echo "GIT_COMMITTER_EMAIL=$GIT_COMMITTER_EMAIL"
+          git config --show-origin --get user.name || true
+          git config --show-origin --get user.email || true
+          git config --show-origin -l | sed -n '1,200p'
+          cat /etc/gitconfig || true
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
