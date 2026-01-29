@@ -244,14 +244,6 @@ webmock:
   key:
   matcher:
   hash:
-webmock-licenses-dir:
-  key:
-  matcher:
-  hash:
-webmock-licenses-dir-with-multiple-license-files:
-  key:
-  matcher:
-  hash:
 wrk-modified-apache:
   key: other
   matcher:

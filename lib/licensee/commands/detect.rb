@@ -141,6 +141,7 @@ class LicenseeCLI < Thor
     Licensee.confidence_threshold = options[:confidence]
 
     handle_json_output if options[:json]
+
     print_project_summary
     print_matched_files
     maybe_diff_license_file

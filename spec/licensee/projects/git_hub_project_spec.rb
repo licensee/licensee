@@ -11,6 +11,7 @@ RSpec.describe Licensee::Projects::GitHubProject do
   def mit_license_file = File.read(fixture_path('mit/LICENSE.txt'))
   def apache2 = Licensee::License.find('apache-2.0')
   def apache2_license_file = File.read(fixture_path('apache-with-readme-notice/LICENSE'))
+  def other = Licensee::License.find('other')
 
   describe '#initialize' do
     context 'with a GitHub URI' do
@@ -183,7 +184,60 @@ RSpec.describe Licensee::Projects::GitHubProject do
         .to_return(status: 200, body: mit_license_file)
     end
 
-    it 'returns both licenses', :aggregate_failures do
+    it 'returns the license', :aggregate_failures do
+      expect(instance.licenses.count).to be(1)
+      expect(instance.licenses.first).to eql(mit)
+    end
+  end
+
+  context 'when repo has LICENSES/ dir with LicenseRef file' do
+    before do
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
+        .to_return_json(
+          status:  200,
+          body:    [
+            {
+              name:         'LICENSES',
+              path:         'LICENSES',
+              sha:          'sha1',
+              size:         0,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/tree/master/LICENSES',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/trees/sha1',
+              download_url: nil,
+              type:         'dir',
+              _links:       {}
+            }
+          ],
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES')
+        .to_return_json(
+          status:  200,
+          body:    [
+            {
+              name:         'LicenseRef-MIT.txt',
+              path:         'LICENSES/LicenseRef-MIT.txt',
+              sha:          'sha1',
+              size:         1072,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/LicenseRef-MIT.txt?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSES/LicenseRef-MIT.txt',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha1',
+              download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSES/LicenseRef-MIT.txt',
+              type:         'file',
+              _links:       {}
+            }
+          ],
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/LicenseRef-MIT.txt')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: mit_license_file)
+    end
+
+    it 'returns the license', :aggregate_failures do
       expect(instance.licenses.count).to be(1)
       expect(instance.licenses.first).to eql(mit)
     end
@@ -256,6 +310,64 @@ RSpec.describe Licensee::Projects::GitHubProject do
       expect(instance.licenses.count).to be(2)
       expect(instance.licenses.first).to eql(mit)
       expect(instance.licenses.last).to eql(apache2)
+    end
+  end
+
+  context 'when repo has LICENSES/ dir and top-level license' do
+    before do
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/')
+        .to_return_json(
+          status:  200,
+          body:    [
+            {
+              name:         'LICENSE.md',
+              path:         'LICENSE.md',
+              sha:          'sha3',
+              size:         1072,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSE.md?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSE.md',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha3',
+              download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSE.md',
+              type:         'file',
+              _links:       {}
+            }
+          ],
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSE.md')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: apache2_license_file)
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES')
+        .to_return_json(
+          status:  200,
+          body:    [
+            {
+              name:         'MIT.txt',
+              path:         'LICENSES/MIT.txt',
+              sha:          'sha1',
+              size:         1072,
+              url:          'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt?ref=master',
+              html_url:     'https://github.com/benbalter/licensee/blob/master/LICENSES/MIT.txt',
+              git_url:      'https://api.github.com/repos/benbalter/licensee/git/blobs/sha1',
+              download_url: 'https://raw.githubusercontent.com/benbalter/licensee/master/LICENSES/MIT.txt',
+              type:         'file',
+              _links:       {}
+            }
+          ],
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+      stub_request(:get, 'https://api.github.com/repos/benbalter/licensee/contents/LICENSES/MIT.txt')
+        .with(headers: { 'accept' => 'application/vnd.github.v3.raw' })
+        .to_return(status: 200, body: mit_license_file)
+    end
+
+    it 'returns other for license with multiple files', :aggregate_failures do
+      expect(instance.license).to eql(other)
+      expect(instance.licenses.map(&:key)).to match_array(%w[apache-2.0 mit])
+      expect(instance.matched_file).to be_nil
     end
   end
 

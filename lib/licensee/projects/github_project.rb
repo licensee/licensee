@@ -34,7 +34,7 @@ module Licensee
       private
 
       # Returns an array of hashes representing the project's files.
-      # Hashes will have the the following keys:
+      # Hashes will have the following keys:
       #  :name - the relative file name
       #  :oid  - the file's OID
       #  :dir  - the directory path containing the file
