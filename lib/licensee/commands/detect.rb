@@ -58,7 +58,7 @@ module Licensee
       def matched_files_summary_row
         return if project.matched_files.empty?
 
-        ['Matched files:', project.matched_files.map(&:filename).join(', ')]
+        ['Matched files:', project.matched_files.map(&:path).join(', ')]
       end
 
       def print_matched_files

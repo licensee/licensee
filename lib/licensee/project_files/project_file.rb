@@ -52,7 +52,7 @@ module Licensee
       end
 
       def path
-        Pathname.new(@data[:dir]).join(@data[:name]).cleanpath.to_s
+        Pathname.new(directory).join(@data[:name]).cleanpath.to_s
       end
 
       def directory
