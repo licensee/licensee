@@ -199,7 +199,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
 
     it 'supports legacy name_score signature' do
       score = described_class.name_score('LICENSE.txt')
-      expect(score).to eql(0.95)
+      expect(score).to be(0.95)
     end
   end
 
