@@ -145,7 +145,5 @@ class LicenseeCLI < Thor
     print_project_summary
     print_matched_files
     maybe_diff_license_file
-
-    exit !project.licenses.empty?
   end
 end
