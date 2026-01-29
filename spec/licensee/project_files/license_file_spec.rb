@@ -88,7 +88,8 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
       'license-checks.xml'  => 0.00,
       'license_test.go'     => 0.00,
       'licensee.gemspec'    => 0.00,
-      'LICENSE.spdx'        => 0.00
+      'LICENSE.spdx'        => 0.00,
+      'check_license.sh'    => 0.00
 
     }.each do |filename, expected|
       context "with a file named #{filename}" do

@@ -15,7 +15,7 @@ module Licensee
 
       # Regex to match any extension and periods in version numbers except a few unlikely as license
       # texts with complex filenames
-      OTHER_EXT_REGEX = %r{\.(?!xml|go|gemspec)([^./]|\.\d)+\z}i
+      OTHER_EXT_REGEX = %r{\.(?!xml|sh|go|gemspec)([^./]|\.\d)+\z}i
 
       # Regex to match any extension and periods in version numbers
       ANY_EXT_REGEX = %r{\.([^./]|\.\d)+\z}i
