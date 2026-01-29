@@ -11,6 +11,7 @@
     def stubbed_org = '_licensee_test_fixture'
     def api_base = 'https://api.github.com/repos'
     def mit = Licensee::License.find('mit')
+    def apache2 = Licensee::License.find('apache-2.0')
     def other = Licensee::License.find('other')
     let(:fixture) { 'mit' }
     let(:path) { fixture_path(fixture) }
@@ -30,6 +31,9 @@
           body:    fixture_root_contents_from_api(fixture),
           headers: { 'Content-Type' => 'application/json' }
         )
+
+        stub_request(:get, "#{api_base}/#{stubbed_org}/#{fixture}/contents/LICENSES")
+          .to_return(status: 404)
 
         fixture_root_files(fixture).each do |file|
           relative_path = File.basename(file)
@@ -68,6 +72,74 @@
 
         it 'returns the commit' do
           expect(project.send(:commit).oid).to eql(revision)
+        end
+      end
+    end
+
+    if described_class == Licensee::Projects::GitProject
+      context 'when repo has LICENSES directory' do
+        let(:fixture) { 'licenses-dir' }
+
+        before do
+          Dir.chdir path do
+            `git init`
+            `git config --local commit.gpgsign false`
+            `git add .`
+            `git commit -m 'initial commit'`
+          end
+        end
+
+        after do
+          project.close
+          FileUtils.rm_rf File.expand_path '.git', path
+        end
+
+        it 'detects license files in LICENSES/', :aggregate_failures do
+          expect(project.license).to eql(mit)
+          expect(project.matched_file.path).to eql('LICENSES/MIT.txt')
+        end
+      end
+    end
+
+    if described_class != Licensee::Projects::GitHubProject
+      context 'when repo has LICENSES directory with LicenseRef' do
+        let(:fixture) { 'licenses-dir-with-license-ref' }
+
+        it 'detects license files in LICENSES/', :aggregate_failures do
+          expect(project.license).to eql(mit)
+          expect(project.matched_file.path).to eql('LICENSES/LicenseRef-MIT.txt')
+        end
+      end
+
+      context 'when repo has LICENSES directory with multiple license files' do
+        let(:fixture) { 'licenses-dir-with-multiple-license-files' }
+
+        it 'returns other for license' do
+          expect(project.license).to eql(other)
+        end
+
+        it 'returns all licenses' do
+          expect(project.licenses.map(&:key)).to match_array(%w[mit mpl-2.0])
+        end
+
+        it 'returns nil for matched_file' do
+          expect(project.matched_file).to be_nil
+        end
+      end
+
+      context 'when repo has top-level license and LICENSES directory' do
+        let(:fixture) { 'licenses-dir-with-top-level-license' }
+
+        it 'returns other for license' do
+          expect(project.license).to eql(other)
+        end
+
+        it 'returns all licenses' do
+          expect(project.licenses.map(&:key)).to match_array(%w[apache-2.0 mit])
+        end
+
+        it 'returns nil for matched_file' do
+          expect(project.matched_file).to be_nil
         end
       end
     end

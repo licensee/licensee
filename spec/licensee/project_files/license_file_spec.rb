@@ -93,7 +93,7 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
     }.each do |filename, expected|
       context "with a file named #{filename}" do
         it 'scores the file' do
-          score = described_class.name_score(filename)
+          score = described_class.name_score('.', filename)
           expect(score).to eql(expected)
         end
       end
@@ -143,6 +143,63 @@ RSpec.describe Licensee::ProjectFiles::LicenseFile do
           expect(described_class::LICENSE_REGEX).to match(license)
         end
       end
+    end
+
+    context 'when scoring files in LICENSES/' do
+      it 'scores SPDX-like filenames in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'MIT.txt')
+        expect(score).to be(1.0)
+      end
+
+      it 'scores LicenseRef filenames in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'LicenseRef-MIT.txt')
+        expect(score).to be(1.0)
+      end
+
+      it 'scores LicenseRef with dots in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'LicenseRef-Custom-1.0.md')
+        expect(score).to be(1.0)
+      end
+
+      it 'scores SPDX ids starting with digits in LICENSES/' do
+        score = described_class.name_score('LICENSES', '0BSD.txt')
+        expect(score).to be(1.0)
+      end
+
+      it 'scores SPDX ids with dots in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'GPL-2.0.txt')
+        expect(score).to be(1.0)
+      end
+
+      it 'rejects non-SPDX-like filenames in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'foo bar.md')
+        expect(score).to be(0.0)
+      end
+
+      it 'rejects invalid SPDX ids in LICENSES/' do
+        score = described_class.name_score('LICENSES', '-MIT.txt')
+        expect(score).to be(0.0)
+      end
+
+      it 'rejects dot-prefixed SPDX ids in LICENSES/' do
+        score = described_class.name_score('LICENSES', '.MIT.txt')
+        expect(score).to be(0.0)
+      end
+
+      it 'rejects invalid LicenseRef ids in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'LicenseRef-.txt')
+        expect(score).to be(0.0)
+      end
+
+      it 'requires an extension in LICENSES/' do
+        score = described_class.name_score('LICENSES', 'MIT')
+        expect(score).to be(0.0)
+      end
+    end
+
+    it 'supports legacy name_score signature' do
+      score = described_class.name_score('LICENSE.txt')
+      expect(score).to be(0.95)
     end
   end
 

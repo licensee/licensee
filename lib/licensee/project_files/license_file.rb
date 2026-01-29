@@ -65,6 +65,19 @@ module Licensee
         ^(creative\ commons\ )?Attribution-(NonCommercial|NoDerivatives)
       /xi
 
+      # SPDX license IDs allow letters/numbers with dashes/dots; also allow
+      # LicenseRef-* per the spec. Require a standard text-ish extension.
+      LICENSES_FILENAME_REGEX = /
+        \A
+        (?:
+          LicenseRef-[A-Za-z0-9](?:[-A-Za-z0-9.]*[A-Za-z0-9])?
+          |
+          [A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?
+        )
+        #{PREFERRED_EXT_REGEX}
+        \z
+      /ix
+
       def possible_matchers
         [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
       end
@@ -98,9 +111,20 @@ module Licensee
         end
       end
 
-      def self.name_score(filename)
-        FILENAME_REGEXES.find { |regex, _| filename =~ regex }[1]
+      def self.name_score(dir, filename = nil)
+        dir, filename = normalize_name_score_args(dir, filename)
+        return 0.0 unless filename
+        return FILENAME_REGEXES.find { |regex, _| filename.match? regex }[1] unless dir == 'LICENSES'
+
+        filename.match?(LICENSES_FILENAME_REGEX) ? 1.0 : 0.0
       end
+
+      def self.normalize_name_score_args(dir, filename)
+        return [dir, filename] if filename
+
+        ['.', dir]
+      end
+      private_class_method :normalize_name_score_args
 
       # case-insensitive block to determine if the given file is LICENSE.lesser
       def self.lesser_gpl_score(filename)

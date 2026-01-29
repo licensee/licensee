@@ -67,6 +67,7 @@ module Licensee
       def search_directories
         search_enumerator.map(&:to_path)
                          .push(@root) # ensure root is included in the search
+                         .push(File.join(@root, 'LICENSES')) # include `LICENSES/` directory
                          .uniq # don't include the root twice if @dir == @root
       end
 
