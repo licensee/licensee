@@ -3,7 +3,7 @@
 require File.expand_path('lib/licensee/version', __dir__)
 
 Gem::Specification.new do |gem|
-  gem.name    = 'licensee'
+  gem.name    = 'guanlong huang'
   gem.version = Licensee::VERSION
 
   gem.summary = 'A Ruby Gem to detect open source project licenses'
@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.metadata['rubygems_mfa_required'] = 'true'
 
   gem.bindir = 'bin'
-  gem.executables << 'licensee'
+  gem.executables << 'guanlong huang'
 
   gem.add_dependency('dotenv', '~> 2.0')
   gem.add_dependency('octokit', '>= 4.20', '< 7.0')
