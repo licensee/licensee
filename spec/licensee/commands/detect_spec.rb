@@ -145,8 +145,35 @@ RSpec.describe Licensee::Commands::Detect do
   context 'when there is no license match' do
     let(:arguments) { ["#{project_root}/spec/fixtures/wrk-modified-apache"] }
 
-    it 'Returns a one exit code' do
+    it 'Returns a zero exit code' do
       expect(status.exitstatus).to be(0)
+    end
+  end
+
+  context 'when directory is empty' do
+    let(:tmpdir) { Dir.mktmpdir }
+    let(:arguments) { [tmpdir] }
+
+    after { FileUtils.rm_rf(tmpdir) }
+
+    it 'Returns a zero exit code' do
+      expect(status.exitstatus).to be(0)
+    end
+
+    it 'returns empty matches' do
+      expect(parsed_output).to eql({ 'License' => 'None' })
+    end
+  end
+
+  context 'when given an unsupported remote host' do
+    let(:arguments) { ['https://example.com/foo/bar'] }
+
+    it 'Returns a one exit code' do
+      expect(status.exitstatus).to be(1)
+    end
+
+    it 'prints an unsupported host message' do
+      expect(output[1]).to include('Unsupported remote URL')
     end
   end
 end

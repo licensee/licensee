@@ -60,7 +60,7 @@ module Licensee
       def build_license_files
         return [] if files.nil? || files.empty?
 
-        files = find_files { |n| Licensee::ProjectFiles::LicenseFile.name_score(n) }
+        files = find_files { |dir, name| Licensee::ProjectFiles::LicenseFile.name_score(dir, name) }
         files = files.map { |file| Licensee::ProjectFiles::LicenseFile.new(load_file(file), file) }
         prioritize_lgpl(files)
       end
@@ -70,8 +70,8 @@ module Licensee
         return @readme if defined? @readme
 
         @readme = begin
-          content, file = find_file do |n|
-            Licensee::ProjectFiles::ReadmeFile.name_score(n)
+          content, file = find_file do |_dir, name|
+            Licensee::ProjectFiles::ReadmeFile.name_score(name)
           end
           content = Licensee::ProjectFiles::ReadmeFile.license_content(content)
           Licensee::ProjectFiles::ReadmeFile.new(content, file) if content && file
@@ -84,8 +84,8 @@ module Licensee
         return @package_file if defined? @package_file
 
         @package_file = begin
-          content, file = find_file do |n|
-            Licensee::ProjectFiles::PackageManagerFile.name_score(n)
+          content, file = find_file do |_dir, name|
+            Licensee::ProjectFiles::PackageManagerFile.name_score(name)
           end
           Licensee::ProjectFiles::PackageManagerFile.new(content, file) if content && file
         end
@@ -119,7 +119,7 @@ module Licensee
       end
 
       def score_and_sort_files
-        found = files.map { |file| file.merge(score: yield(file[:name])) }
+        found = files.map { |file| file.merge(score: yield(file[:dir], file[:name])) }
         found.select { |file| file[:score].positive? }.sort { |a, b| b[:score] <=> a[:score] }
       end
 

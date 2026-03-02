@@ -36,16 +36,34 @@ module Licensee
     end
 
     def project(path, **args)
+      project_for_path(path, **args)
+    rescue Licensee::Projects::GitProject::InvalidRepository
+      Licensee::Projects::FSProject.new(path, **args)
+    end
+
+    def project_for_path(path, **args)
       if %r{\Ahttps://github.com}.match?(path)
         Licensee::Projects::GitHubProject.new(path, **args)
+      elsif unsupported_remote_url?(path)
+        raise ArgumentError, unsupported_remote_message(path)
       elsif args[:filesystem]
         Licensee::Projects::FSProject.new(path, **args)
       else
         Licensee::Projects::GitProject.new(path, **args)
       end
-    rescue Licensee::Projects::GitProject::InvalidRepository
-      Licensee::Projects::FSProject.new(path, **args)
     end
+    private :project_for_path
+
+    def unsupported_remote_url?(path)
+      %r{\Ahttps?://}.match?(path)
+    end
+    private :unsupported_remote_url?
+
+    def unsupported_remote_message(path)
+      "Unsupported remote URL: #{path} " \
+        'Clone the repo and run licensee on the local path.'
+    end
+    private :unsupported_remote_message
 
     def confidence_threshold
       @confidence_threshold ||= CONFIDENCE_THRESHOLD

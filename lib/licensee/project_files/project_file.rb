@@ -47,13 +47,13 @@ module Licensee
         @data = metadata || {}
       end
 
-      # TODO: In the next major release, filename should be the basename
-      # and path should be either the absolute path or the relative path to
-      # the project root, but maintaining the alias for backward compatability
       def filename
         @data[:name]
       end
-      alias path filename
+
+      def path
+        Pathname.new(directory).join(@data[:name]).cleanpath.to_s
+      end
 
       def directory
         @data[:dir] || '.'

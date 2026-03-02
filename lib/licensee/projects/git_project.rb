@@ -65,11 +65,21 @@ module Licensee
       end
 
       # Returns an array of hashes representing the project's files.
-      # Hashes will have the the following keys:
-      #  :name - the file's path relative to the repo root
+      # Hashes will have the following keys:
+      #  :name - the relative file name
       #  :oid  - the file's OID
+      #  :dir  - the directory path containing the file
       def files
-        @files ||= files_from_tree(commit.tree)
+        return @files if defined? @files
+
+        @files = files_from_tree(commit.tree)
+
+        # Check if we have a `LICENSES/` directory. If so, append the files to our list.
+        licenses_dir = commit.tree.find { |e| e[:type] == :tree && e[:name] == 'LICENSES' }
+
+        @files.append(*files_from_tree(repository.lookup(licenses_dir[:oid]), 'LICENSES')) if licenses_dir
+
+        @files
       end
 
       def files_from_tree(tree, dir = '.')
