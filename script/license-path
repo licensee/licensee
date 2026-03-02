@@ -1,0 +1,5 @@
+#!/bin/sh
+# Given a project, returns the path to its license
+# Usage: script/license-path [PROJECT_PATH]
+
+bundle exec bin/licensee license-path $1

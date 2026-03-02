@@ -1,0 +1,5 @@
+#!/bin/sh
+# Diffs STDIN against a known license
+# Example usage: cat LICENSE.md | be script/diff mit
+
+$STDIN | bundle exec bin/licensee --license $1

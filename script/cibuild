@@ -2,8 +2,8 @@
 
 set -e
 
-bundle exec rake test
+bundle exec rspec
 
-bundle exec script/benchmark
+bundle exec rubocop
 
 gem build licensee.gemspec

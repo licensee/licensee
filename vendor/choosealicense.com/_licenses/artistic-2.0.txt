@@ -1,33 +1,35 @@
 ---
-layout: license
 title: Artistic License 2.0
-category: Artistic
+spdx-id: Artistic-2.0
 redirect_from: /licenses/artistic/
-source: http://www.perlfoundation.org/attachment/legal/artistic-2_0.txt
-permalink: /licenses/artistic-2.0/
 
 description: Heavily favored by the Perl community, the Artistic license requires that modified versions of the software do not prevent users from running the standard version.
 
-how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Replace [year] with the current year and [fullname] with the name (or names) of the copyright holders.
+how: Create a text file (typically named LICENSE or LICENSE.txt) in the root of your source code and copy the text of the license into the file. Do not replace the copyright notice (year, author), which refers to the license itself, not the licensed project.
 
-required:
-  - include-copyright
-  - document-changes
+using:
 
-permitted:
+permissions:
   - commercial-use
   - modifications
   - distribution
-  - sublicense
+  - patent-use
   - private-use
 
-forbidden:
-  - no-liability
-  - trademark-use
----
-               The Artistic License 2.0
+conditions:
+  - include-copyright
+  - document-changes
 
-           Copyright (c) [year] [fullname]
+limitations:
+  - liability
+  - trademark-use
+  - warranty
+
+---
+
+		       The Artistic License 2.0
+
+	    Copyright (c) 2000-2006, The Perl Foundation.
 
      Everyone is permitted to copy and distribute verbatim copies
       of this license document, but changing it is not allowed.
@@ -136,15 +138,15 @@ you do at least ONE of the following:
     make the Source form of the Modified Version available to others
     under
 
-    (i)  the Original License or
+	(i)  the Original License or
 
-    (ii)  a license that permits the licensee to freely copy,
-    modify and redistribute the Modified Version using the same
-    licensing terms that apply to the copy that the licensee
-    received, and requires that the Source form of the Modified
-    Version, and of any works derived from it, be made freely
-    available in that license fees are prohibited but Distributor
-    Fees are allowed.
+	(ii)  a license that permits the licensee to freely copy,
+	modify and redistribute the Modified Version using the same
+	licensing terms that apply to the copy that the licensee
+	received, and requires that the Source form of the Modified
+	Version, and of any works derived from it, be made freely
+	available in that license fees are prohibited but Distributor
+	Fees are allowed.
 
 
 Distribution of Compiled Forms of the Standard Version

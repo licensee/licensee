@@ -1,0 +1,8 @@
+#!/bin/sh
+
+VENDOR_DIR=vendor/license-list-XML
+INCLUDE=`grep spdx-id vendor/choosealicense.com/_licenses/*.txt | sed 's/.*spdx-id: \(.*\)/\*\/src\/\1.xml/'`
+rm -Rf $VENDOR_DIR
+mkdir -p $VENDOR_DIR
+[[ $(tar --version | head -n 1) =~ bsdtar.* ]] || taropt='--wildcards'
+curl -L https://api.github.com/repos/spdx/license-list-XML/tarball |tar zxf - -C $VENDOR_DIR $taropt --strip-components=1 $INCLUDE
