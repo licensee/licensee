@@ -12,18 +12,8 @@ module Licensee
         return @match if defined? @match
         return if license_property.nil? || license_property.to_s.empty?
 
-        @match = Licensee.licenses(hidden: true).find do |license|
-          license.key == license_property
-        end
-
-        # Fallback: strip SPDX compatibility suffixes and retry lookup.
-        if @match.nil?
-          base = license_property.sub(SPDX_SUFFIX_REGEX, '')
-          unless base == license_property
-            @match = Licensee.licenses(hidden: true).find { |l| l.key == base }
-          end
-        end
-
+        @match = Licensee.licenses(hidden: true).find { |l| l.key == license_property }
+        @match ||= match_by_spdx_base_key
         @match ||= License.find('other')
       end
 
@@ -33,6 +23,15 @@ module Licensee
 
       def license_property
         raise 'Not implemented'
+      end
+
+      private
+
+      def match_by_spdx_base_key
+        base = license_property.sub(SPDX_SUFFIX_REGEX, '')
+        return if base == license_property
+
+        Licensee.licenses(hidden: true).find { |l| l.key == base }
       end
     end
   end
