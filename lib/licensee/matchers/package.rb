@@ -10,10 +10,13 @@ module Licensee
 
       def match
         return @match if defined? @match
-        return if license_property.nil? || license_property.to_s.empty?
 
-        @match = Licensee.licenses(hidden: true).find { |l| l.key == license_property }
-        @match ||= match_by_spdx_base_key
+        prop = license_property
+        return if prop.nil? || prop.to_s.empty?
+
+        licenses = Licensee.licenses(hidden: true)
+        @match = licenses.find { |l| l.key == prop }
+        @match ||= match_by_spdx_base_key(prop, licenses)
         @match ||= License.find('other')
       end
 
@@ -27,11 +30,11 @@ module Licensee
 
       private
 
-      def match_by_spdx_base_key
-        base = license_property.sub(SPDX_SUFFIX_REGEX, '')
-        return if base == license_property
+      def match_by_spdx_base_key(prop, licenses)
+        base = prop.sub(SPDX_SUFFIX_REGEX, '')
+        return if base == prop
 
-        Licensee.licenses(hidden: true).find { |l| l.key == base }
+        licenses.find { |l| l.key == base }
       end
     end
   end
