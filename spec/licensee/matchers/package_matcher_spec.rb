@@ -49,4 +49,20 @@ RSpec.describe Licensee::Matchers::Package do
       expect(matcher.match).to eql(Licensee::License.find('other'))
     end
   end
+
+  context 'with an -or-later SPDX suffix' do
+    let(:license_property) { 'lgpl-3.0-or-later' }
+
+    it 'matches the base license' do
+      expect(matcher.match).to eql(Licensee::License.find('lgpl-3.0'))
+    end
+  end
+
+  context 'with an -only SPDX suffix' do
+    let(:license_property) { 'lgpl-3.0-only' }
+
+    it 'matches the base license' do
+      expect(matcher.match).to eql(Licensee::License.find('lgpl-3.0'))
+    end
+  end
 end

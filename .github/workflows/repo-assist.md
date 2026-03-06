@@ -32,6 +32,7 @@ network:
   - python
   - rust
   - java
+  - ruby
 
 safe-outputs:
   add-comment:

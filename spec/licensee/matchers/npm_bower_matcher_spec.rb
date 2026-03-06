@@ -65,4 +65,12 @@ RSpec.describe Licensee::Matchers::NpmBower do
       expect(matcher.match).to eql(no_license)
     end
   end
+
+  context 'with an -or-later SPDX suffix' do
+    let(:content) { '"license": "LGPL-3.0-or-later"' }
+
+    it 'matches the base license' do
+      expect(matcher.match).to eql(Licensee::License.find('lgpl-3.0'))
+    end
+  end
 end
