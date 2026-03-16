@@ -320,6 +320,14 @@ RSpec.describe Licensee::ContentHelper do
         expect(normalized_content).to eql('foo')
       end
     end
+
+    context 'with indented copyright continuation lines' do
+      let(:content) { "Copyright (c) 2015 iXsystems, Inc.\n              2015-2017 Jakub Klama\n              2015-2019 William Grzybowski\nFoo" }
+
+      it 'strips indented continuation lines' do
+        expect(normalized_content).to eql('foo')
+      end
+    end
   end
 
   context 'when matching title regex' do
