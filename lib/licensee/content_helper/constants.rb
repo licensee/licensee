@@ -18,6 +18,7 @@ module Licensee
         block_markup:        /^\s*>/,
         border_markup:       /^[*-](.*?)[*-]$/,
         comment_markup:      %r{^\s*?[/*]{1,2}},
+        html_comment:        /<!--.*?-->/m,
         url:                 %r{#{START_REGEX}https?://[^ ]+\n},
         bullet:              /\n\n\s*(?:[*-]|\(?[\da-z]{1,2}[).])\s+/i,
         developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
