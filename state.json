@@ -1,15 +1,16 @@
 {
-  "last_run": "2026-03-16T18:33:22Z",
-  "last_run_id": "23159734361",
+  "last_run": "2026-03-17T18:33:15Z",
+  "last_run_id": "23210222267",
   "tasks_last_run": {
-    "task1_triage": "2026-03-16",
+    "task1_triage": "2026-03-17",
     "task2_fix": "2026-03-16",
-    "task7_labels": "2026-03-15",
-    "task11_monthly_summary": "2026-03-16"
+    "task3_improvements": "2026-03-17",
+    "task7_labels": "2026-03-17",
+    "task11_monthly_summary": "2026-03-17"
   },
   "backlog_cursor": {
-    "issues": 941,
-    "note": "All open issues surveyed. Uncommented issues: #635, #655 (assigned to Copilot SWE). #637 CLOSED 2026-03-16 by mlinksva. #643 and #654 now have Repo Assist comments."
+    "issues": 951,
+    "note": "All open issues surveyed. #951 just filed (duplicate of #654, commented). #635, #655 assigned to Copilot SWE - no Repo Assist comment yet (check for Copilot progress before engaging)."
   },
   "comments_made": {
     "601": "2026-03-05T18:48:41Z",
@@ -20,7 +21,8 @@
     "642": "2026-03-15T18:21:12Z",
     "643": "2026-03-16T18:33:22Z",
     "654": "2026-03-16T18:33:22Z",
-    "830": "2026-03-02T03:26:53Z"
+    "830": "2026-03-02T03:26:53Z",
+    "951": "2026-03-17T18:33:15Z"
   },
   "labels_applied": {
     "602": ["bug", "help wanted"],
@@ -28,11 +30,12 @@
     "637": ["help wanted", "good first issue", "documentation"],
     "642": ["enhancement"],
     "643": ["enhancement"],
-    "830": ["bug", "needs investigation"]
+    "830": ["bug", "needs investigation"],
+    "951": ["bug", "duplicate"]
   },
-  "open_issues_known": [601, 602, 603, 607, 635, 642, 643, 654, 655, 830, 941],
+  "open_issues_known": [601, 602, 603, 607, 635, 642, 643, 654, 655, 830, 941, 951],
   "closed_issues": [631, 637, 661, 666, 928, 935, 943],
-  "notes": "Issue #637 CLOSED 2026-03-16 (maintainer). PR for gitattributes was reviewed/accepted. Issues #635, #655 assigned to Copilot SWE - no Repo Assist comment yet (check for Copilot progress before engaging).",
+  "notes": "Issue #951 filed 2026-03-17 (duplicate of #654 - multi-line copyright). Commented and labelled. PRs #950 (fix #654) and fix-issue-643-strip-html-comments (fix #643) are both open pending review. Issues #635, #655 assigned to Copilot SWE - no Repo Assist comment yet.",
   "monthly_summary_issue": {
     "number": 941,
     "title": "[Repo Assist] Monthly Activity 2026-03",
@@ -41,17 +44,31 @@
   "fix_attempts": {
     "654": {
       "branch": "repo-assist/fix-issue-654-indented-copyright-continuation",
+      "pr": 950,
       "date": "2026-03-16",
-      "status": "PR submitted - pending review",
+      "status": "PR #950 submitted - pending review",
       "description": "Add CONTINUATION_LINE_REGEX to copyright matcher to strip indented multi-author attribution lines"
+    },
+    "643": {
+      "branch": "repo-assist/fix-issue-643-strip-html-comments",
+      "date": "2026-03-17",
+      "status": "PR submitted - pending review",
+      "description": "Add html_comment REGEX and include in content_without_title_and_version ops to strip HTML comments"
     }
   },
   "pr_history": [
     {
       "branch": "repo-assist/fix-issue-654-indented-copyright-continuation",
+      "pr": 950,
       "issue": 654,
       "created": "2026-03-16",
       "status": "open"
+    },
+    {
+      "branch": "repo-assist/fix-issue-643-strip-html-comments",
+      "issue": 643,
+      "created": "2026-03-17",
+      "status": "open - PR number TBD"
     }
   ],
   "user_checked_off": [
@@ -66,6 +83,7 @@
     "PR fix-issue-637-gitattributes review",
     "#637 check comment",
     "#642 check comment",
-    "#830 check comment"
+    "#830 check comment",
+    "#643 check comment"
   ]
 }
