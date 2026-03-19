@@ -150,7 +150,7 @@ Always do Task 11 (Update Monthly Activity Summary Issue) every run. In all comm
    a. Check memory  -  skip if you've already tried. Never create duplicate PRs.
    b. Create a fresh branch off `main`: `repo-assist/fix-issue-<N>-<desc>`.
    c. Implement a minimal, surgical fix. Do not refactor unrelated code.
-  d. **Build and test (required)**: before testing, ensure the test environment is bootstrapped using executable commands. For Ruby projects, verify Ruby, install Bundler if missing, and install dependencies (for this repo: `ruby --version`, `bundle --version || gem install bundler --no-document`, then `script/bootstrap`). Then run the repository's required checks (for this repo, `script/cibuild`). Do not create a PR unless required checks were actually executed and passed.
+   d. **Build and test (required)**: before testing, ensure the test environment is bootstrapped using executable commands. For Ruby projects, verify Ruby, install Bundler if missing, and install dependencies (for this repo: `ruby --version`, `bundle --version || gem install bundler --no-document`, then `script/bootstrap`). Then run the repository's required checks (for this repo, `script/cibuild`). Do not create a PR unless required checks were actually executed and passed.
    e. Add a test for the bug if feasible; re-run tests.
    f. Create a draft PR with: AI disclosure, `Closes #N`, root cause, fix rationale, trade-offs, and a Test Status section showing build/test outcome.
    g. Post a single brief comment on the issue linking to the PR.
