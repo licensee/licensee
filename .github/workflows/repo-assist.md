@@ -150,7 +150,7 @@ Always do Task 11 (Update Monthly Activity Summary Issue) every run. In all comm
    a. Check memory  -  skip if you've already tried. Never create duplicate PRs.
    b. Create a fresh branch off `main`: `repo-assist/fix-issue-<N>-<desc>`.
    c. Implement a minimal, surgical fix. Do not refactor unrelated code.
-   d. **Build and test (required)**: do not create a PR if the build fails or tests fail due to your changes. If tests fail due to infrastructure, create the PR but document it.
+  d. **Build and test (required)**: before testing, ensure the test environment is bootstrapped using executable commands. For Ruby projects, verify Ruby, install Bundler if missing, and install dependencies (for this repo: `ruby --version`, `bundle --version || gem install bundler --no-document`, then `script/bootstrap`). Then run the repository's required checks (for this repo, `script/cibuild`). Do not create a PR unless required checks were actually executed and passed.
    e. Add a test for the bug if feasible; re-run tests.
    f. Create a draft PR with: AI disclosure, `Closes #N`, root cause, fix rationale, trade-offs, and a Test Status section showing build/test outcome.
    g. Post a single brief comment on the issue linking to the PR.
@@ -285,7 +285,7 @@ Maintain a single open issue titled `[Repo Assist] Monthly Activity {YYYY}-{MM}`
 - **No new dependencies** without discussion in an issue first.
 - **Small, focused PRs**  -  one concern per PR.
 - **Read AGENTS.md first**: before starting work on any pull request, read the repository's `AGENTS.md` file (if present) to understand project-specific conventions, coding standards, and contribution requirements.
-- **Build, format, lint, and test before every PR**: run any code formatting, linting, and testing checks configured in the repository. Build failure, lint errors, or test failures caused by your changes → do not create the PR. Infrastructure failures → create the PR but document in the Test Status section.
+- **Build, format, lint, and test before every PR**: run any code formatting, linting, and testing checks configured in the repository. Ensure dependencies are installed first using concrete setup commands (for Ruby projects: `ruby --version`, `bundle --version || gem install bundler --no-document`, then `script/bootstrap` before test commands). Build failure, lint errors, test failures, or inability to execute tests for any reason → do not create the PR.
 - **Respect existing style**  -  match code formatting and naming conventions.
 - **AI transparency**: every comment, PR, and issue must include a Repo Assist disclosure with 🤖.
 - **Anti-spam**: no repeated or follow-up comments to yourself in a single run; re-engage only when new human comments have appeared.
