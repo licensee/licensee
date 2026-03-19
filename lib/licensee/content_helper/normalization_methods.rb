@@ -11,7 +11,7 @@ module Licensee
       def content_without_title_and_version
         @content_without_title_and_version ||= begin
           @_content = nil
-          ops = %i[html hrs comments markdown_headings link_markup title version]
+          ops = %i[html html_comment hrs comments markdown_headings link_markup title version]
           ops.each { |op| strip(op) }
           _content
         end
