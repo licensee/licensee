@@ -112,6 +112,7 @@ RSpec.describe Licensee::ContentHelper do
       block_markup:        '> Foo',
       link_markup:         '[Foo](http://exmaple.com)',
       comment_markup:      "/*\n* The MIT License\n* Foo\n*/",
+      html_comment:        "<!-- auto-generated\ncomment -->\nFoo",
       copyright_title:     "Copyright 2019 Ben Balter\nMIT License\nFoo"
     }.each do |field, fixture|
       describe "#strip_#{field}" do
