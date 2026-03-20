@@ -30,7 +30,8 @@ RSpec.describe Licensee::Matchers::Copyright do
     'ASCII-8BIT encoded'    => (+"Copyright \xC2\xA92015 Ben Balter`").force_encoding('ASCII-8BIT'),
     'No year'               => 'Copyright Ben Balter',
     'Multiline'             => "Copyright Ben Balter\nCopyright Another Entity",
-    'OFL font name'         => "Copyright (c) 2016, Ben Balter,\nwith Reserved Font Name \"Ben's Font\"."
+    'OFL font name'         => "Copyright (c) 2016, Ben Balter,\nwith Reserved Font Name \"Ben's Font\".",
+    'Indented continuation' => "Copyright (c) 2015 iXsystems, Inc.\n              2015-2017 Jakub Klama"
   }.each do |description, notice|
     context "with a #{description} notice" do
       let(:content) { notice }
