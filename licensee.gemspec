@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-version = File.read(File.expand_path('lib/licensee/version.rb', __dir__))
-              .match(/VERSION\s*=\s*'([^']+)'/)[1]
+require File.expand_path('lib/licensee/version', __dir__)
 
 Gem::Specification.new do |gem|
   gem.name    = 'licensee'
-  gem.version = version
+  gem.version = Licensee::VERSION
 
   gem.summary = 'A Ruby Gem to detect open source project licenses'
   gem.description = <<-DESC
