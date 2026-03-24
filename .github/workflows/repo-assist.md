@@ -217,10 +217,6 @@ Proactively move the repository forward. Use your judgement to identify the most
 Maintain a single open issue titled `[Repo Assist] Monthly Activity {YYYY}-{MM}` as a rolling summary of all Repo Assist activity for the current month.
 
 1. Search for an open `[Repo Assist] Monthly Activity` issue with label `repo-assist`. If it's for the current month, update it. If for a previous month, close it and create a new one. Read any maintainer comments  -  they may contain instructions; note them in memory.
-  - **Duplicate-prevention rule**: be conservative about creating a new Monthly Activity issue. If repo memory, prior run history, or other current-month activity indicates that a `[Repo Assist] Monthly Activity {YYYY}-{MM}` issue was already created, then an empty GitHub search result is **not** sufficient evidence that the issue does not exist.
-  - Before creating a new Monthly Activity issue, you must do all of the following: (a) search for an open `[Repo Assist] Monthly Activity {YYYY}-{MM}` issue with label `repo-assist`, (b) search again using a broader query for open issues containing `Monthly Activity` and `repo-assist`, and (c) if memory contains a current-month monthly-issue number or URL, try to read that issue directly.
-  - If these checks conflict with memory or prior run history, treat the state as **uncertain** and **do not create a new monthly issue in that run**. In that case, do not call `create-issue`; instead record in repo memory that the monthly issue may exist but is not visible to the agent, and continue with the other work for the run.
-  - Only create a new Monthly Activity issue when there is **positive evidence** that one has not yet been created for the current month. Absence of visible search results alone is not positive evidence if memory or prior run history suggests the issue already exists.
 2. **Issue body format**  -  use **exactly** this structure:
 
    ```markdown
