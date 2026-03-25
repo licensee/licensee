@@ -72,7 +72,7 @@ module Licensee
 
     def self.title_regex
       @title_regex ||= begin
-        licenses = Licensee::License.all(hidden: true, psuedo: false)
+        licenses = Licensee::License.all(hidden: true, pseudo: false)
         titles = licenses.map(&:title_regex)
 
         # Title regex must include the version to support matching within
