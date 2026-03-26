@@ -7,7 +7,7 @@ module Licensee
       # Given another license or project file, calculates the similarity
       # as a percentage of words in common, minus a tiny penalty that
       # increases with size difference between licenses so that false
-      # positives for long licnses are ruled out by this score alone.
+      # positives for long licenses are ruled out by this score alone.
       def similarity(other)
         overlap = (wordset_fieldless & other.wordset).size
         (overlap * 200.0) / similarity_denominator(other)
