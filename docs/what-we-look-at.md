@@ -4,7 +4,7 @@ Licensee works by taking a detected license file, and comparing the contents to 
 
 ### Detecting the license file
 
-Licensee uses [a series of regular expressions](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/license_file.rb#L6-L43) to score files in the project's root as potential license files. Here's a few examples of files that would be detected:
+Licensee uses [a series of regular expressions](https://github.com/licensee/licensee/blob/main/lib/licensee/project_files/license_file.rb#L6-L60) to score files in the project's root as potential license files. Here's a few examples of files that would be detected:
 
 * `LICENSE`
 * `LICENCE`
@@ -37,7 +37,7 @@ The LICENSE file is platform-agnostic, and most popular licenses today *require*
 
 From a practical standpoint, every language has its own package manager (some even have multiple). That means that if you want to detect the license of an arbitrary project, you'll have to implement [100s](https://github.com/github/linguist/tree/master/samples) of package-manager-specific detection strategies.
 
-However, licensee does [optionally](https://github.com/benbalter/licensee/blob/master/docs/customizing.md) look at license metadata of a [handful](https://github.com/benbalter/licensee/blob/master/lib/licensee/project_files/package_manager_file.rb) of package manager files.
+However, licensee does [optionally](https://github.com/licensee/licensee/blob/main/docs/customizing.md) look at license metadata of a [handful](https://github.com/licensee/licensee/blob/main/lib/licensee/project_files/package_manager_file.rb) of package manager files.
 
 License metadata in package manager files can complement detection from `LICENSE` files through [license expressions](https://spdx.org/spdx-specification-21-web-version#h.jxpfx0ykyb60) (e.g., is a `GPL-3.0` license `-only` or `or-later-versions`, or do multiple `LICENSE` files indicate disjunctive choice) but licensee currently does not parse these expressions.
 
@@ -45,7 +45,7 @@ License metadata in package manager files can complement detection from `LICENSE
 
 There are lots of ways of saying a project or some portion of it is under a license in natural language, and that's what is often found in a `README` file. Licensee can't reliably parse natural language.
 
-However, licensee does [optionally](https://github.com/benbalter/licensee/blob/master/docs/customizing.md) look for license indicators in `README` files. Just don't expect that it will detect most statements found in such files, and expect to review any that it finds.
+However, licensee does [optionally](https://github.com/licensee/licensee/blob/main/docs/customizing.md) look for license indicators in `README` files. Just don't expect that it will detect most statements found in such files, and expect to review any that it finds.
 
 #### What about checking every single file for a copyright header?
 

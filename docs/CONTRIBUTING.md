@@ -43,11 +43,11 @@ If you&#39;d like to report that a license is improperly detected by a hosted se
 
 To check if Licensee itself can properly detect a license, please:
 
-1. Clone the repository locally `git clone https://github.com/benbalter/licensee`
+1. Clone the repository locally `git clone https://github.com/licensee/licensee`
 2. `script/bootstrap`
 3. `script/git-repo [URL to your repository]`
 
-If Licensee cannot detect the license locally, [open an issue](https://github.com/benbalter/licensee/issues/new) and include the output of `script/git-repo`.
+If Licensee cannot detect the license locally, [open an issue](https://github.com/licensee/licensee/issues/new) and include the output of `script/git-repo`.
 
 ## Adding a license
 
