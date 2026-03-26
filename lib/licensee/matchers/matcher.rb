@@ -29,7 +29,7 @@ module Licensee
       private
 
       def potential_matches
-        @potential_matches ||= Licensee.licenses(hidden: true, psuedo: false)
+        @potential_matches ||= Licensee.licenses(hidden: true, pseudo: false)
       end
     end
   end
