@@ -16,6 +16,10 @@ RSpec.describe Licensee::Rule do
     expect(rule).to have_attributes(tag: 'tag', label: 'label', description: 'description', group: 'group')
   end
 
+  it 'renders inspect' do
+    expect(rule.inspect).to eql('#<Licensee::Rule @tag="tag">')
+  end
+
   it 'loads the groups' do
     expect(described_class.groups).to eql(groups)
   end
