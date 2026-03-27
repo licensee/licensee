@@ -67,4 +67,8 @@ RSpec.describe Licensee::Matchers::Reference do
       expect(matcher.match).to be_nil
     end
   end
+
+  it 'has a confidence of 90' do
+    expect(matcher.confidence).to be(90)
+  end
 end

@@ -37,6 +37,14 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
     it 'stores additional metadata' do
       expect(project_file[:dir]).to eql(Dir.pwd)
     end
+
+    it 'returns path_relative_to_root joining dir and filename' do
+      expect(project_file.path_relative_to_root).to eql(File.join(Dir.pwd, filename))
+    end
+
+    it 'aliases relative_path to path_relative_to_root' do
+      expect(project_file.relative_path).to eql(project_file.path_relative_to_root)
+    end
   end
 
   context 'when calling #to_h' do

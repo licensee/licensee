@@ -37,6 +37,14 @@ RSpec.describe Licensee do
         expect(project).to be_a(Licensee::Projects::GitHubProject)
       end
     end
+
+    context 'when given an unsupported remote URL' do
+      let(:project_path) { 'https://example.com/foo/bar' }
+
+      it 'raises ArgumentError' do
+        expect { project }.to raise_error(ArgumentError, /Unsupported remote URL/)
+      end
+    end
   end
 
   context 'when using the confidence threshold' do
