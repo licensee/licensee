@@ -25,7 +25,7 @@ module Licensee
       end
 
       def license_property
-        raise 'Not implemented'
+        raise NotImplementedError, "#{self.class}#license_property is not implemented"
       end
 
       private

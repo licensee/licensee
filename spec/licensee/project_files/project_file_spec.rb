@@ -68,4 +68,12 @@ RSpec.describe Licensee::ProjectFiles::ProjectFile do
       expect(hash).to eql(expected)
     end
   end
+
+  context 'when calling abstract methods on the base class' do
+    subject(:base_file) { described_class.new('content', 'LICENSE.txt') }
+
+    it 'raises NotImplementedError for #possible_matchers' do
+      expect { base_file.send(:possible_matchers) }.to raise_error(NotImplementedError, /ProjectFile#possible_matchers/)
+    end
+  end
 end

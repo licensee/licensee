@@ -152,11 +152,11 @@ module Licensee
       end
 
       def files
-        raise 'Not implemented'
+        raise NotImplementedError, "#{self.class}#files is not implemented"
       end
 
       def load_file(_file)
-        raise 'Not implemented'
+        raise NotImplementedError, "#{self.class}#load_file is not implemented"
       end
     end
   end
