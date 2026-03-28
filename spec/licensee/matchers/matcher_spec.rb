@@ -21,6 +21,16 @@ RSpec.describe Licensee::Matchers::Matcher do
     expect(matcher.name).to be(:matcher)
   end
 
+  context 'when calling abstract methods on the base class' do
+    it 'raises NotImplementedError for #match' do
+      expect { matcher.match }.to raise_error(NotImplementedError, /Matcher#match/)
+    end
+
+    it 'raises NotImplementedError for #confidence' do
+      expect { matcher.confidence }.to raise_error(NotImplementedError, /Matcher#confidence/)
+    end
+  end
+
   context 'when calling #to_h' do
     subject { MatcherSpecFixture.new(file) }
 

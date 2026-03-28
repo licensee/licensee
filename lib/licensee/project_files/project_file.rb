@@ -66,7 +66,7 @@ module Licensee
       alias relative_path path_relative_to_root
 
       def possible_matchers
-        raise 'Not implemented'
+        raise NotImplementedError, "#{self.class}#possible_matchers is not implemented"
       end
 
       def matcher

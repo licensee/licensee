@@ -19,11 +19,11 @@ module Licensee
       end
 
       def match
-        raise 'Not implemented'
+        raise NotImplementedError, "#{self.class}#match is not implemented"
       end
 
       def confidence
-        raise 'Not implemented'
+        raise NotImplementedError, "#{self.class}#confidence is not implemented"
       end
 
       private

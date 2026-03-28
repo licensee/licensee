@@ -65,4 +65,12 @@ RSpec.describe Licensee::Matchers::Package do
       expect(matcher.match).to eql(Licensee::License.find('lgpl-3.0'))
     end
   end
+
+  context 'when calling abstract methods on the base class' do
+    let(:base_matcher) { described_class.new(file) }
+
+    it 'raises NotImplementedError for #license_property' do
+      expect { base_matcher.send(:license_property) }.to raise_error(NotImplementedError, /Package#license_property/)
+    end
+  end
 end
