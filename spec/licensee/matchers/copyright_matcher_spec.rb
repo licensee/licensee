@@ -57,4 +57,15 @@ RSpec.describe Licensee::Matchers::Copyright do
       expect(matcher.match).to be_nil
     end
   end
+
+  context 'with encoding-incompatible content' do
+    # A string with non-ASCII bytes in an encoding incompatible with the
+    # UTF-8 copyright regex triggers Encoding::CompatibilityError
+    let(:raw_content) { (+"\xC2\xA9 2015 Ben Balter").force_encoding('EUC-KR') }
+
+    it 'returns nil gracefully' do
+      allow(file).to receive(:content).and_return(raw_content)
+      expect(matcher.match).to be_nil
+    end
+  end
 end

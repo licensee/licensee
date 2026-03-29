@@ -13,10 +13,6 @@ module Licensee
       # non-value groups
       ARRAY_REGEX = /\s*\[#{VALUE_REGEX}(?:,#{VALUE_REGEX})*\]\s*/i
 
-      DECLARATION_REGEX = /
-        ^\s*[a-z0-9_]+\.([a-z0-9_]+)\s*=#{VALUE_REGEX}$
-      /ix
-
       LICENSE_REGEX = /
         ^\s*[a-z0-9_]+\.license\s*=#{VALUE_REGEX}$
       /ix
@@ -44,10 +40,6 @@ module Licensee
       def license_array_property
         match = @file.content.match LICENSE_ARRAY_REGEX
         match.captures.compact.map(&:downcase) if match
-      end
-
-      def declarations
-        @declarations ||= @file.content.match DECLARATION_REGEX
       end
     end
   end

@@ -204,6 +204,10 @@ RSpec.describe Licensee::License do
     expect(mit.key).to eql('mit')
   end
 
+  it 'has a useful inspect string' do
+    expect(mit.inspect).to eql('#<Licensee::License key=mit>')
+  end
+
   it 'exposes the SPDX ID' do
     expect(gpl.spdx_id).to eql('GPL-3.0')
   end
