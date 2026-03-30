@@ -21,12 +21,14 @@ class HashHelperSpecFixture
     Licensee::Rule.all
   end
 
-  def baz
-    'baz'
-  end
-
   def nil_value
     nil
+  end
+
+  # Method not listed in HASH_METHODS; used to ensure HashHelper#to_h
+  # does not expose arbitrary instance methods.
+  def baz
+    'not included'
   end
 end
 
