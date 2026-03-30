@@ -13,10 +13,6 @@ class ContentHelperTestHelper
   def filename
     @data[:filename]
   end
-
-  def spdx_id
-    @data[:spdx_id]
-  end
 end
 
 RSpec.describe Licensee::ContentHelper do

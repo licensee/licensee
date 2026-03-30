@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
 
   gem.authors  = ['Ben Balter']
   gem.email    = 'ben.balter@github.com'
-  gem.homepage = 'https://github.com/benbalter/licensee'
+  gem.homepage = 'https://github.com/licensee/licensee'
   gem.license  = 'MIT'
   gem.metadata['rubygems_mfa_required'] = 'true'
 

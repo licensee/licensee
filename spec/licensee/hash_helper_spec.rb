@@ -21,10 +21,6 @@ class HashHelperSpecFixture
     Licensee::Rule.all
   end
 
-  def baz
-    'baz'
-  end
-
   def nil_value
     nil
   end
