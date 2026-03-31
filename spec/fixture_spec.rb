@@ -18,9 +18,9 @@ RSpec.describe Fixture do
         Licensee::License.find('none')
       end
 
-      it 'has an expected license in fixtures-licenses.yml' do
+      it 'has an expected license in fixtures.yml' do
         msg = +'Expected an entry in `'
-        msg << fixture_path('fixtures-licenses.yml')
+        msg << fixture_path('fixtures.yml')
         msg << "` for the `#{fixture}` fixture. Please run "
         msg << 'script/dump-fixture-licenses and confirm the output.'
         expect(fixture_licenses).to have_key(fixture), msg

@@ -42,7 +42,7 @@ If you wish to scan private GitHub repositories, or are hitting API rate limits,
 client using environment variables, for example:
 
 ```sh
-OCTOKIT_ACCESS_TOKEN=abc123 licensee https://github.com/benbalter/licensee
+OCTOKIT_ACCESS_TOKEN=abc123 licensee https://github.com/licensee/licensee
 ```
 
 Octokit can also be configured using standard module-level configuration:
@@ -53,7 +53,7 @@ Octokit.configure do |c|
   c.access_token = "<your 40 char token>"
 end
 
-license = Licensee.license "https://github.com/benbalter/licensee"
+license = Licensee.license "https://github.com/licensee/licensee"
 ```
 
 ### Advanced API usage
