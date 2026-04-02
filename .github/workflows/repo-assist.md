@@ -63,7 +63,8 @@ safe-outputs:
   remove-labels:
     allowed: [bug, enhancement, "help wanted", "good first issue", "spam", "off topic", documentation, question, duplicate, wontfix, "needs triage", "needs investigation", "breaking change", performance, security, refactor]
     max: 5
-    target: "*" 
+    target: "*"
+  report-failure-as-issue: false
 
 tools:
   web-fetch:
