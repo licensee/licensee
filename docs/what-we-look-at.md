@@ -16,7 +16,7 @@ Licensee uses [a series of regular expressions](https://github.com/licensee/lice
 
 :warning: If the project has multiple license matches (e.g. a package file match, a file named license or similar that matches the regular expressions) that don't only match one well known license (see below), Licensee won't return a license for the project, but all matches are returned in the licenses array.
 
-### REUSE-compliant projects (`LICENSES/` directory)
+### `LICENSES/` directory
 
 Licensee also scans the top-level `LICENSES/` directory, which is used by projects following the [REUSE specification](https://reuse.software/). In a REUSE-compliant layout, each license in use is stored as a separate file named after its SPDX identifier, for example:
 
