@@ -25,7 +25,7 @@ Licensee also scans the top-level `LICENSES/` directory, which is used by projec
 * `LICENSES/GPL-2.0-only.txt`
 * `LICENSES/LicenseRef-custom.txt`
 
-Files in `LICENSES/` are scored separately from files in the project root: the filename must match a valid SPDX license identifier (or a `LicenseRef-` custom identifier) and must have a standard text-ish extension (`.txt`, `.md`, `.markdown`, or `.html`). Any file in `LICENSES/` that meets these criteria is treated as a candidate license file with the highest possible filename score.
+Files in `LICENSES/` are scored separately from files in the project root: the filename must use an SPDX-style identifier format (letters, numbers, dashes, and dots — e.g. `MIT`, `Apache-2.0`, `GPL-2.0-only`) or a `LicenseRef-` custom identifier, and must have a commonly used text extension (`.txt`, `.md`, `.markdown`, or `.html`). Note that Licensee checks the identifier *format* only and does not validate against the official SPDX license list. Any file in `LICENSES/` that meets these criteria is treated as a candidate license file with the highest possible filename score.
 
 ### Known licenses
 
