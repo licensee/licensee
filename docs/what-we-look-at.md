@@ -16,6 +16,17 @@ Licensee uses [a series of regular expressions](https://github.com/licensee/lice
 
 :warning: If the project has multiple license matches (e.g. a package file match, a file named license or similar that matches the regular expressions) that don't only match one well known license (see below), Licensee won't return a license for the project, but all matches are returned in the licenses array.
 
+### REUSE-compliant projects (`LICENSES/` directory)
+
+Licensee also scans the top-level `LICENSES/` directory, which is used by projects following the [REUSE specification](https://reuse.software/). In a REUSE-compliant layout, each license in use is stored as a separate file named after its SPDX identifier, for example:
+
+* `LICENSES/MIT.txt`
+* `LICENSES/Apache-2.0.txt`
+* `LICENSES/GPL-2.0-only.txt`
+* `LICENSES/LicenseRef-custom.txt`
+
+Files in `LICENSES/` are scored separately from files in the project root: the filename must match a valid SPDX license identifier (or a `LicenseRef-` custom identifier) and must have a standard text-ish extension (`.txt`, `.md`, `.markdown`, or `.html`). Any file in `LICENSES/` that meets these criteria is treated as a candidate license file with the highest possible filename score.
+
 ### Known licenses
 
 Licensee relies on the crowdsourced license content and metadata from [`choosealicense.com`](https://choosealicense.com).
