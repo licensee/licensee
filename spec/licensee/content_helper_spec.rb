@@ -271,6 +271,14 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
+    context 'when normalizing wilful to willful' do
+      let(:content) { 'wilful misconduct' }
+
+      it 'normalizes wilful to willful' do
+        expect(helper.content_normalized).to eql('willful misconduct')
+      end
+    end
+
     Licensee::License.all(hidden: true).each do |license|
       context "with the #{license.name} license" do
         let(:stripped_content) { helper.content_without_title_and_version }

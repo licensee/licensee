@@ -81,7 +81,7 @@ module Licensee
         'sub license'     => 'sublicense',
         'utilisation'     => 'utilization',
         'whilst'          => 'while',
-        'wilful'          => 'wilfull',
+        'wilful'          => 'willful',
         'non-commercial'  => 'noncommercial',
         'per cent'        => 'percent',
         'copyright owner' => 'copyright holder'
