@@ -35,7 +35,7 @@
 #
 # Source: githubnext/agentics/workflows/repo-assist.md@da02dddebe71d9a937665abdcd1f5214dab852a7
 #
-# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"a0d026c7d436e7ba552b8401773dee85be6745c5d2e4d260e9818a85496c2bd0","compiler_version":"v0.65.6","strict":true,"agent_id":"copilot"}
+# gh-aw-metadata: {"schema_version":"v3","frontmatter_hash":"7d57b16dd8ed672e849f4cab07749625599296985356244cd1ea2a641c4b056f","compiler_version":"v0.65.6","strict":true,"agent_id":"copilot"}
 
 name: "Repo Assist"
 "on":
@@ -222,21 +222,21 @@ jobs:
         run: |
           bash ${RUNNER_TEMP}/gh-aw/actions/create_prompt_first.sh
           {
-          cat << 'GH_AW_PROMPT_9c2d9c82adcbd576_EOF'
+          cat << 'GH_AW_PROMPT_0a86a239aee78590_EOF'
           <system>
-          GH_AW_PROMPT_9c2d9c82adcbd576_EOF
+          GH_AW_PROMPT_0a86a239aee78590_EOF
           cat "${RUNNER_TEMP}/gh-aw/prompts/xpia.md"
           cat "${RUNNER_TEMP}/gh-aw/prompts/temp_folder_prompt.md"
           cat "${RUNNER_TEMP}/gh-aw/prompts/markdown.md"
           cat "${RUNNER_TEMP}/gh-aw/prompts/repo_memory_prompt.md"
           cat "${RUNNER_TEMP}/gh-aw/prompts/safe_outputs_prompt.md"
-          cat << 'GH_AW_PROMPT_9c2d9c82adcbd576_EOF'
+          cat << 'GH_AW_PROMPT_0a86a239aee78590_EOF'
           <safe-output-tools>
           Tools: add_comment(max:10), create_issue(max:4), update_issue, create_pull_request(max:4), add_labels(max:30), remove_labels(max:5), push_to_pull_request_branch(max:4), missing_tool, missing_data, noop
-          GH_AW_PROMPT_9c2d9c82adcbd576_EOF
+          GH_AW_PROMPT_0a86a239aee78590_EOF
           cat "${RUNNER_TEMP}/gh-aw/prompts/safe_outputs_create_pull_request.md"
           cat "${RUNNER_TEMP}/gh-aw/prompts/safe_outputs_push_to_pr_branch.md"
-          cat << 'GH_AW_PROMPT_9c2d9c82adcbd576_EOF'
+          cat << 'GH_AW_PROMPT_0a86a239aee78590_EOF'
           </safe-output-tools>
           <github-context>
           The following GitHub context information is available for this workflow:
@@ -266,7 +266,7 @@ jobs:
           {{/if}}
           </github-context>
           
-          GH_AW_PROMPT_9c2d9c82adcbd576_EOF
+          GH_AW_PROMPT_0a86a239aee78590_EOF
           cat "${RUNNER_TEMP}/gh-aw/prompts/github_mcp_tools_with_safeoutputs_prompt.md"
           if [ "$GITHUB_EVENT_NAME" = "issue_comment" ] && [ -n "$GH_AW_IS_PR_COMMENT" ] || [ "$GITHUB_EVENT_NAME" = "pull_request_review_comment" ] || [ "$GITHUB_EVENT_NAME" = "pull_request_review" ]; then
             cat "${RUNNER_TEMP}/gh-aw/prompts/pr_context_prompt.md"
@@ -274,10 +274,10 @@ jobs:
           if [ "$GITHUB_EVENT_NAME" = "issue_comment" ] && [ -n "$GH_AW_IS_PR_COMMENT" ] || [ "$GITHUB_EVENT_NAME" = "pull_request_review_comment" ] || [ "$GITHUB_EVENT_NAME" = "pull_request_review" ]; then
             cat "${RUNNER_TEMP}/gh-aw/prompts/pr_context_push_to_pr_branch_guidance.md"
           fi
-          cat << 'GH_AW_PROMPT_9c2d9c82adcbd576_EOF'
+          cat << 'GH_AW_PROMPT_0a86a239aee78590_EOF'
           </system>
           {{#runtime-import .github/workflows/repo-assist.md}}
-          GH_AW_PROMPT_9c2d9c82adcbd576_EOF
+          GH_AW_PROMPT_0a86a239aee78590_EOF
           } > "$GH_AW_PROMPT"
       - name: Interpolate variables and render templates
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
@@ -452,6 +452,7 @@ jobs:
         id: parse-guard-vars
         env:
           GH_AW_BLOCKED_USERS_VAR: ${{ vars.GH_AW_GITHUB_BLOCKED_USERS || '' }}
+          GH_AW_TRUSTED_USERS_EXTRA: lsmith77
           GH_AW_TRUSTED_USERS_VAR: ${{ vars.GH_AW_GITHUB_TRUSTED_USERS || '' }}
           GH_AW_APPROVAL_LABELS_VAR: ${{ vars.GH_AW_GITHUB_APPROVAL_LABELS || '' }}
         run: bash ${RUNNER_TEMP}/gh-aw/actions/parse_guard_list.sh
@@ -462,12 +463,12 @@ jobs:
           mkdir -p ${RUNNER_TEMP}/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/safeoutputs
           mkdir -p /tmp/gh-aw/mcp-logs/safeoutputs
-          cat > ${RUNNER_TEMP}/gh-aw/safeoutputs/config.json << 'GH_AW_SAFE_OUTPUTS_CONFIG_c539068836def8a7_EOF'
+          cat > ${RUNNER_TEMP}/gh-aw/safeoutputs/config.json << 'GH_AW_SAFE_OUTPUTS_CONFIG_d5c8c3f658d8bfb3_EOF'
           {"add_comment":{"hide_older_comments":true,"max":10,"target":"*"},"add_labels":{"allowed":["bug","enhancement","help wanted","good first issue","spam","off topic","documentation","question","duplicate","wontfix","needs triage","needs investigation","breaking change","performance","security","refactor"],"max":30,"target":"*"},"create_issue":{"labels":["automation","repo-assist"],"max":4,"title_prefix":"[Repo Assist] "},"create_pull_request":{"draft":true,"labels":["automation","repo-assist"],"max":4,"max_patch_size":1024,"protected_files":["package.json","bun.lockb","bunfig.toml","deno.json","deno.jsonc","deno.lock","global.json","NuGet.Config","Directory.Packages.props","mix.exs","mix.lock","go.mod","go.sum","stack.yaml","stack.yaml.lock","pom.xml","build.gradle","build.gradle.kts","settings.gradle","settings.gradle.kts","gradle.properties","package-lock.json","yarn.lock","pnpm-lock.yaml","npm-shrinkwrap.json","requirements.txt","Pipfile","Pipfile.lock","pyproject.toml","setup.py","setup.cfg","Gemfile","Gemfile.lock","uv.lock","CODEOWNERS"],"protected_path_prefixes":[".github/",".agents/"],"title_prefix":"[Repo Assist] "},"missing_data":{},"missing_tool":{},"noop":{"max":1,"report-as-issue":"true"},"push_repo_memory":{"memories":[{"dir":"/tmp/gh-aw/repo-memory/default","id":"default","max_file_count":100,"max_file_size":10240,"max_patch_size":10240}]},"push_to_pull_request_branch":{"if_no_changes":"warn","max":4,"max_patch_size":1024,"protected_files":["package.json","bun.lockb","bunfig.toml","deno.json","deno.jsonc","deno.lock","global.json","NuGet.Config","Directory.Packages.props","mix.exs","mix.lock","go.mod","go.sum","stack.yaml","stack.yaml.lock","pom.xml","build.gradle","build.gradle.kts","settings.gradle","settings.gradle.kts","gradle.properties","package-lock.json","yarn.lock","pnpm-lock.yaml","npm-shrinkwrap.json","requirements.txt","Pipfile","Pipfile.lock","pyproject.toml","setup.py","setup.cfg","Gemfile","Gemfile.lock","uv.lock","CODEOWNERS"],"protected_path_prefixes":[".github/",".agents/"],"target":"*","title_prefix":"[Repo Assist] "},"remove_labels":{"allowed":["bug","enhancement","help wanted","good first issue","spam","off topic","documentation","question","duplicate","wontfix","needs triage","needs investigation","breaking change","performance","security","refactor"],"max":5,"target":"*"},"update_issue":{"allow_body":true,"max":1,"target":"*","title_prefix":"[Repo Assist] "}}
-          GH_AW_SAFE_OUTPUTS_CONFIG_c539068836def8a7_EOF
+          GH_AW_SAFE_OUTPUTS_CONFIG_d5c8c3f658d8bfb3_EOF
       - name: Write Safe Outputs Tools
         run: |
-          cat > ${RUNNER_TEMP}/gh-aw/safeoutputs/tools_meta.json << 'GH_AW_SAFE_OUTPUTS_TOOLS_META_4f9b6597022596e7_EOF'
+          cat > ${RUNNER_TEMP}/gh-aw/safeoutputs/tools_meta.json << 'GH_AW_SAFE_OUTPUTS_TOOLS_META_9caffb8f9395822b_EOF'
           {
             "description_suffixes": {
               "add_comment": " CONSTRAINTS: Maximum 10 comment(s) can be added. Target: *.",
@@ -481,8 +482,8 @@ jobs:
             "repo_params": {},
             "dynamic_tools": []
           }
-          GH_AW_SAFE_OUTPUTS_TOOLS_META_4f9b6597022596e7_EOF
-          cat > ${RUNNER_TEMP}/gh-aw/safeoutputs/validation.json << 'GH_AW_SAFE_OUTPUTS_VALIDATION_ec1ebb2b5e5c0978_EOF'
+          GH_AW_SAFE_OUTPUTS_TOOLS_META_9caffb8f9395822b_EOF
+          cat > ${RUNNER_TEMP}/gh-aw/safeoutputs/validation.json << 'GH_AW_SAFE_OUTPUTS_VALIDATION_a858620432536212_EOF'
           {
             "add_comment": {
               "defaultMax": 1,
@@ -741,7 +742,7 @@ jobs:
               "customValidation": "requiresOneOf:status,title,body"
             }
           }
-          GH_AW_SAFE_OUTPUTS_VALIDATION_ec1ebb2b5e5c0978_EOF
+          GH_AW_SAFE_OUTPUTS_VALIDATION_a858620432536212_EOF
           node ${RUNNER_TEMP}/gh-aw/actions/generate_safe_outputs_tools.cjs
       - name: Generate Safe Outputs MCP Server Config
         id: safe-outputs-config
@@ -809,7 +810,7 @@ jobs:
           export MCP_GATEWAY_DOCKER_COMMAND='docker run -i --rm --network host -v /var/run/docker.sock:/var/run/docker.sock -e MCP_GATEWAY_PORT -e MCP_GATEWAY_DOMAIN -e MCP_GATEWAY_API_KEY -e MCP_GATEWAY_PAYLOAD_DIR -e MCP_GATEWAY_PAYLOAD_SIZE_THRESHOLD -e DEBUG -e MCP_GATEWAY_LOG_DIR -e GH_AW_MCP_LOG_DIR -e GH_AW_SAFE_OUTPUTS -e GH_AW_SAFE_OUTPUTS_CONFIG_PATH -e GH_AW_SAFE_OUTPUTS_TOOLS_PATH -e GH_AW_ASSETS_BRANCH -e GH_AW_ASSETS_MAX_SIZE_KB -e GH_AW_ASSETS_ALLOWED_EXTS -e DEFAULT_BRANCH -e GITHUB_MCP_SERVER_TOKEN -e GITHUB_MCP_GUARD_MIN_INTEGRITY -e GITHUB_MCP_GUARD_REPOS -e GITHUB_REPOSITORY -e GITHUB_SERVER_URL -e GITHUB_SHA -e GITHUB_WORKSPACE -e GITHUB_TOKEN -e GITHUB_RUN_ID -e GITHUB_RUN_NUMBER -e GITHUB_RUN_ATTEMPT -e GITHUB_JOB -e GITHUB_ACTION -e GITHUB_EVENT_NAME -e GITHUB_EVENT_PATH -e GITHUB_ACTOR -e GITHUB_ACTOR_ID -e GITHUB_TRIGGERING_ACTOR -e GITHUB_WORKFLOW -e GITHUB_WORKFLOW_REF -e GITHUB_WORKFLOW_SHA -e GITHUB_REF -e GITHUB_REF_NAME -e GITHUB_REF_TYPE -e GITHUB_HEAD_REF -e GITHUB_BASE_REF -e GH_AW_SAFE_OUTPUTS_PORT -e GH_AW_SAFE_OUTPUTS_API_KEY -v /tmp/gh-aw/mcp-payloads:/tmp/gh-aw/mcp-payloads:rw -v /opt:/opt:ro -v /tmp:/tmp:rw -v '"${GITHUB_WORKSPACE}"':'"${GITHUB_WORKSPACE}"':rw ghcr.io/github/gh-aw-mcpg:v0.2.11'
           
           mkdir -p /home/runner/.copilot
-          cat << GH_AW_MCP_CONFIG_0b1506d26cd4f276_EOF | bash ${RUNNER_TEMP}/gh-aw/actions/start_mcp_gateway.sh
+          cat << GH_AW_MCP_CONFIG_8a96ea277219b93e_EOF | bash ${RUNNER_TEMP}/gh-aw/actions/start_mcp_gateway.sh
           {
             "mcpServers": {
               "github": {
@@ -853,7 +854,7 @@ jobs:
               "payloadDir": "${MCP_GATEWAY_PAYLOAD_DIR}"
             }
           }
-          GH_AW_MCP_CONFIG_0b1506d26cd4f276_EOF
+          GH_AW_MCP_CONFIG_8a96ea277219b93e_EOF
       - name: Download activation artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:

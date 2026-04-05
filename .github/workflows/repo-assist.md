@@ -72,6 +72,8 @@ tools:
     toolsets: [all]
     allowed-repos: all
     min-integrity: unapproved
+    trusted-users:
+      - lsmith77
   bash: true
   repo-memory: true
 
