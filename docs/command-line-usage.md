@@ -67,14 +67,14 @@ Options:
 
 *Note: If you want to parse the command line output for use in another language or tool, it's highly recommended that you use the more stable `--json` output then attempting to parse the human-readable output.*
 
-### Providing an access token 
+### Providing an access token
 
 If you wish to scan private GitHub repositories, or are hitting API rate limits, you can configure the embedded [Octokit](https://github.com/octokit/octokit.rb) client using environment variables:
 
 ```bash
-OCTOKIT_ACCESS_TOKEN=your_token_here licensee detect rails/rails --remote
+export OCTOKIT_ACCESS_TOKEN=your_token_here
+licensee detect rails/rails --remote
 ```
-
 
 ### Using Licensee with Docker
 
@@ -98,7 +98,8 @@ The `-v` flag mounts volumes from your host machine into the Docker container, m
 You can pass environment variables with `-e`:
 
 ```bash
-docker run -e OCTOKIT_ACCESS_TOKEN=your_token_here licensee detect rails/rails --remote
+export OCTOKIT_ACCESS_TOKEN=your_token_here
+docker run -e OCTOKIT_ACCESS_TOKEN licensee detect rails/rails --remote
 ```
 
 ### Diff
