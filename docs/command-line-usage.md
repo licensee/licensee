@@ -67,6 +67,15 @@ Options:
 
 *Note: If you want to parse the command line output for use in another language or tool, it's highly recommended that you use the more stable `--json` output then attempting to parse the human-readable output.*
 
+### Providing an access token 
+
+If you wish to scan private GitHub repositories, or are hitting API rate limits, you can configure the embedded [Octokit](https://github.com/octokit/octokit.rb) client using environment variables:
+
+```bash
+OCTOKIT_ACCESS_TOKEN=your_token_here licensee detect rails/rails --remote
+```
+
+
 ### Using Licensee with Docker
 
 *Example (detecting the license of `rails/rails` on GitHub):* `docker run licensee detect rails/rails --remote`
@@ -86,9 +95,7 @@ docker run -v /path/to/license.txt:/workspace/license.txt licensee detect /works
 
 The `-v` flag mounts volumes from your host machine into the Docker container, making your local files accessible inside the container.
 
-#### Avoiding GitHub API rate limits
-
-When using `--remote` to detect licenses from GitHub repositories, you may hit the GitHub API rate limit. Pass an `OCTOKIT_ACCESS_TOKEN` (a [personal access token](https://github.com/settings/tokens)) to authenticate and raise the limit:
+You can pass environment variables with `-e`:
 
 ```bash
 docker run -e OCTOKIT_ACCESS_TOKEN=your_token_here licensee detect rails/rails --remote
