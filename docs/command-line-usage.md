@@ -72,8 +72,7 @@ Options:
 If you wish to scan private GitHub repositories, or are hitting API rate limits, you can configure the embedded [Octokit](https://github.com/octokit/octokit.rb) client using environment variables:
 
 ```bash
-export OCTOKIT_ACCESS_TOKEN=your_token_here
-licensee detect rails/rails --remote
+OCTOKIT_ACCESS_TOKEN=$OCTOKIT_ACCESS_TOKEN licensee detect rails/rails --remote
 ```
 
 ### Using Licensee with Docker
@@ -98,8 +97,7 @@ The `-v` flag mounts volumes from your host machine into the Docker container, m
 You can pass environment variables with `-e`:
 
 ```bash
-export OCTOKIT_ACCESS_TOKEN=your_token_here
-docker run -e OCTOKIT_ACCESS_TOKEN licensee detect rails/rails --remote
+docker run -e OCTOKIT_ACCESS_TOKEN=$OCTOKIT_ACCESS_TOKEN licensee detect rails/rails --remote
 ```
 
 ### Diff
