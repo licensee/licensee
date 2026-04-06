@@ -86,6 +86,14 @@ docker run -v /path/to/license.txt:/workspace/license.txt licensee detect /works
 
 The `-v` flag mounts volumes from your host machine into the Docker container, making your local files accessible inside the container.
 
+#### Avoiding GitHub API rate limits
+
+When using `--remote` to detect licenses from GitHub repositories, you may hit the GitHub API rate limit. Pass an `OCTOKIT_ACCESS_TOKEN` (a [personal access token](https://github.com/settings/tokens)) to authenticate and raise the limit:
+
+```bash
+docker run -e OCTOKIT_ACCESS_TOKEN=your_token_here licensee detect rails/rails --remote
+```
+
 ### Diff
 
 You can also compare a given license to a known license.
