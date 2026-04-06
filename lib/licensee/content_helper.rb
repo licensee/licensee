@@ -26,7 +26,7 @@ module Licensee
         if words.nil? || words.length < 2
           Set.new
         else
-          words.each_cons(2).map { |a, b| "#{a} #{b}" }.to_set
+          words.each_cons(2).to_set { |a, b| "#{a} #{b}" }
         end
       end
     end
