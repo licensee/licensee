@@ -14,21 +14,18 @@ module Licensee
 
     # A set of each word in the license, without duplicates
     def wordset
-      @wordset ||= content_normalized&.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+})&.to_set
+      @wordset ||= words&.to_set
     end
 
     # A set of consecutive word pairs (bigrams) in the license, without duplicates.
     # Unlike wordset, bigrams are order-sensitive, making similarity scores
     # robust against adversarial word scrambling (see GitHub issue #602).
     def bigrams
-      @bigrams ||= begin
-        words = content_normalized&.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+})
-        if words.nil? || words.length < 2
-          Set.new
-        else
-          words.each_cons(2).to_set { |a, b| "#{a} #{b}" }
-        end
-      end
+      @bigrams ||= if words.nil? || words.length < 2
+                     Set.new
+                   else
+                     words.each_cons(2).to_set { |a, b| "#{a} #{b}" }
+                   end
     end
 
     # Number of characters in the normalized content
@@ -103,6 +100,12 @@ module Licensee
     end
 
     private
+
+    # Ordered array of words extracted from the normalized content.
+    # Memoized so that both wordset and bigrams share the same scan result.
+    def words
+      @words ||= content_normalized&.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+})
+    end
 
     def _content
       @_content ||= content.to_s.dup.strip
