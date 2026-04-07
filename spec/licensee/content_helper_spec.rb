@@ -53,8 +53,39 @@ RSpec.describe Licensee::ContentHelper do
     )
   end
 
+  def expected_bigrams
+    Set.new(
+      [
+        'the made', 'made up', 'up license', 'license this', 'this license',
+        'license provided', 'provided as', 'as is\'', 'is\' please', 'please respect',
+        'respect the', 'the contributors\'', 'contributors\' wishes', 'wishes when',
+        'when implementing', 'implementing the', 'the license\'s', 'license\'s software'
+      ]
+    )
+  end
+
   it 'creates the wordset' do
     expect(helper.wordset).to eql(expected_wordset)
+  end
+
+  it 'creates bigrams' do
+    expect(helper.bigrams).to eql(expected_bigrams)
+  end
+
+  it 'returns empty set for content with fewer than two words' do
+    single_word = ContentHelperTestHelper.new('word', filename: 'LICENSE')
+    expect(single_word.bigrams).to eql(Set.new)
+  end
+
+  it 'calculates bigram_similarity for exact content' do
+    expect(mit.bigram_similarity(mit)).to eq(100.0)
+  end
+
+  it 'calculates bigram_similarity near zero for scrambled wordset' do
+    # All unique words from MIT sorted alphabetically: same wordset, different order.
+    sorted_words = mit.content_normalized.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+}).uniq.sort
+    scrambled = ContentHelperTestHelper.new(sorted_words.join(' '), filename: 'LICENSE')
+    expect(mit.bigram_similarity(scrambled)).to be < 5.0
   end
 
   it 'knows the length' do

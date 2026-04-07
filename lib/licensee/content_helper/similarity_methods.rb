@@ -13,6 +13,20 @@ module Licensee
         (overlap * 200.0) / similarity_denominator(other)
       end
 
+      # Given another license or project file, calculates the Dice coefficient
+      # over bigrams (consecutive word pairs).  Unlike wordset similarity this
+      # is sensitive to word order, making it resistant to adversarial scrambling
+      # where all the correct words appear but in the wrong sequence.
+      def bigram_similarity(other)
+        my_bigrams = bigrams
+        other_bigrams = other.bigrams
+        total = my_bigrams.size + other_bigrams.size
+        return 0.0 if total.zero?
+
+        overlap = (my_bigrams & other_bigrams).size
+        (overlap * 200.0) / total
+      end
+
       private
 
       def wordset_fieldless

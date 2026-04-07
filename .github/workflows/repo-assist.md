@@ -290,7 +290,7 @@ Maintain a single open issue titled `[Repo Assist] Monthly Activity {YYYY}-{MM}`
 - **No new dependencies** without discussion in an issue first.
 - **Small, focused PRs**  -  one concern per PR.
 - **Read AGENTS.md first**: before starting work on any pull request, read the repository's `AGENTS.md` file (if present) to understand project-specific conventions, coding standards, and contribution requirements.
-- **Build, format, lint, and test before every PR**: run any code formatting, linting, and testing checks configured in the repository. Ensure dependencies are installed first using concrete setup commands (for this repo, which is Ruby-based: `ruby --version`, `bundle --version || gem install bundler --no-document`, then `script/bootstrap` before test commands). Build failure, lint errors, test failures, or inability to execute tests for any reason → do not create the PR.
+- **Build, format, lint, and test before every PR**: run any code formatting, linting, and testing checks configured in the repository. Ensure dependencies are installed first using concrete setup commands (for this repo, which is Ruby-based: `ruby --version`, `bundle --version || gem install bundler --no-document`, then `script/bootstrap`). Then run `script/cibuild` as the required validation command for this repo (it includes RuboCop and test checks). Build failure, lint errors, test failures, or inability to execute tests for any reason → do not create the PR.
 - **Respect existing style**  -  match code formatting and naming conventions.
 - **AI transparency**: every comment, PR, and issue must include a Repo Assist disclosure with 🤖.
 - **Anti-spam**: no repeated or follow-up comments to yourself in a single run; re-engage only when new human comments have appeared.

@@ -43,8 +43,9 @@ module Licensee
       alias licenses_by_similarity matches_by_similarity
 
       def matches
-        @matches ||= matches_by_similarity.select do |_, similarity|
-          similarity >= minimum_confidence
+        @matches ||= matches_by_similarity.select do |license, similarity|
+          similarity >= minimum_confidence &&
+            license.bigram_similarity(file) >= minimum_bigram_confidence
         end
       end
 
@@ -57,6 +58,15 @@ module Licensee
 
       def minimum_confidence
         Licensee.confidence_threshold
+      end
+
+      # A floor for bigram similarity, used to reject adversarially scrambled
+      # content that achieves high wordset similarity by including all the right
+      # words in the wrong order.  Set to half the wordset threshold so that any
+      # genuine license match (which typically scores 90%+ on bigrams) passes,
+      # while scrambled content (which scores near 0%) is rejected.
+      def minimum_bigram_confidence
+        Licensee.confidence_threshold / 2.0
       end
     end
   end

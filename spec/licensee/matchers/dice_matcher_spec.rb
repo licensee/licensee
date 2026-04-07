@@ -45,6 +45,19 @@ RSpec.describe Licensee::Matchers::Dice do
     end
   end
 
+  context 'with alphabetically sorted GPL words (scrambled wordset, issue #602)' do
+    let(:content) do
+      # Every unique word from GPL-3.0 sorted alphabetically: same wordset as the
+      # real license, but in completely different order.  Bigram similarity is near
+      # zero, so the Dice matcher must reject the match despite high wordset score.
+      gpl.content_normalized.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+}).uniq.sort.join(' ')
+    end
+
+    it "doesn't match" do
+      expect(matcher).to have_attributes(match: nil, matches: be_empty, confidence: 0)
+    end
+  end
+
   context 'with stacked licenses' do
     let(:content) do
       "#{sub_copyright_info(mit)}\n\n#{sub_copyright_info(gpl)}"
