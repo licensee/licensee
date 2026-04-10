@@ -65,8 +65,21 @@ module Licensee
       end
 
       def strip_copyright
-        regex = Regexp.union(Matchers::Copyright::REGEX, ContentHelper::REGEXES[:all_rights_reserved])
-        strip(regex) while _content =~ regex
+        copyright_regex = Regexp.union(Matchers::Copyright::REGEX, ContentHelper::REGEXES[:all_rights_reserved])
+
+        # When a copyright notice opens the content and a blank-line paragraph
+        # boundary exists, strip the entire opening paragraph. This handles
+        # multi-line copyright holders whose name wraps onto a second line, e.g.:
+        #
+        #   Copyright (c) 2020 by Acme Corporation and
+        #   its Subsidiaries (see AUTHORS).
+        #   All rights reserved.
+        #
+        # where the second line is not captured by CONTINUATION_LINE_REGEX.
+        strip(/\A.*?(?=\n\n)/m) if _content =~ copyright_regex && _content.include?("\n\n")
+
+        # Strip any remaining copyright lines (e.g. when no blank line is present)
+        strip(copyright_regex) while _content =~ copyright_regex
       end
 
       def strip_cc0_optional

@@ -279,6 +279,19 @@ RSpec.describe Integration do
         end
       end
 
+      context 'with BSD-3-Clause and a multi-line copyright holder name (issue #951)' do
+        let(:license) { Licensee::License.find('bsd-3-clause') }
+        let(:fixture) { 'bsd-3-multilinecopyright' }
+
+        it 'determines the project is BSD-3-Clause' do
+          expect(project.license).to eql(license)
+        end
+
+        it 'matches with full confidence' do
+          expect(project.matched_file.confidence).to be(100)
+        end
+      end
+
       context 'with BSD-2-Clause author variant' do
         let(:license) { Licensee::License.find('bsd-2-clause') }
         let(:fixture) { 'bsd-2-author' }
