@@ -125,7 +125,12 @@ module Licensee
       end
 
       def normalize_spelling
-        normalize(/\b#{Regexp.union(ContentHelper::VARIETAL_WORDS.keys)}\b/, ContentHelper::VARIETAL_WORDS)
+        # Use flexible whitespace between words so that line-wrapped content
+        # (e.g. "copyright\nowner") is still normalised correctly.
+        ContentHelper::VARIETAL_WORDS.each do |phrase, replacement|
+          pattern = phrase.split.map { |w| Regexp.escape(w) }.join('\s+')
+          @_content = _content.gsub(/\b#{pattern}\b/, replacement)
+        end
       end
 
       def normalize_bullets
