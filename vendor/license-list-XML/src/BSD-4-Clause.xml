@@ -38,7 +38,7 @@
         <item>
             <bullet>4.</bullet>
          <alt match="(The name of.+may not)|(Neither the name of.+nor the names of (its|their) contributors may)" name="organizationClause4">
-                 Neither the name of the copyright holder nor the names the copyright holder nor the names of its
+                 Neither the name of the copyright holder nor the names of its
            contributors may</alt> be used to endorse or promote products derived from this software without
             specific prior written permission.
 
