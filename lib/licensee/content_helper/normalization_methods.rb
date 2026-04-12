@@ -126,7 +126,7 @@ module Licensee
 
       def normalize_spelling
         # Use flexible whitespace between words so that line-wrapped content
-        # (e.g. "copyright\nowner") is still normalised correctly.
+        # (e.g. "copyright\nowner") is still normalized correctly.
         ContentHelper::VARIETAL_WORDS.each do |phrase, replacement|
           pattern = phrase.split.map { |w| Regexp.escape(w) }.join('\s+')
           @_content = _content.gsub(/\b#{pattern}\b/, replacement)
