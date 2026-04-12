@@ -4,6 +4,8 @@
       <crossRefs>
          <crossRef>https://opensource.org/license/mit/</crossRef>
          <crossRef>http://opensource.org/licenses/MIT</crossRef>
+         <!-- version with optional "on" -->
+         <crossRef>https://gitlab.freedesktop.org/xorg/xserver/-/blob/dd5c2595a42d3ff0c4f18d9b53d1f6c3fd934fd4/COPYING#L365-389</crossRef>
       </crossRefs>
     <text>
       <titleText>
@@ -14,32 +16,34 @@
          </p>
       </copyrightText>
 
-      <p>Permission is hereby granted, free of charge, to any person obtaining a copy of 
+      <p>Permission is hereby granted, free of charge, to any person obtaining a copy of
          <alt match="this\s+software\s+and\s+associated\s+documentation\s+files|this\s+source\s+file" name="files">
-         this software and associated documentation files</alt> (the 
-         "<alt match="Software|Materials" name="Software1">Software</alt>"), 
-         to deal in the 
-         <alt match="Software|Materials" name="Software2">Software</alt> 
-         without restriction, including without limitation the rights to use, copy, modify, 
-         merge, publish, distribute, sublicense, and/or sell copies of the 
-         <alt match="Software|Materials" name="Software3">Software</alt>, 
-         and to permit persons to whom the 
+         this software and associated documentation files</alt> (the
+         "<alt match="Software|Materials" name="Software1">Software</alt>"),
+         to deal in the
+         <alt match="Software|Materials" name="Software2">Software</alt>
+         without restriction, including without limitation
+         <optional>on</optional>
+         the rights to use, copy, modify,
+         merge, publish, distribute, sublicense, and/or sell copies of the
+         <alt match="Software|Materials" name="Software3">Software</alt>,
+         and to permit persons to whom the
          <alt match="Software|Materials" name="Software4">Software</alt>
          is furnished to do so, subject to the following conditions:</p>
-      
+
        <p>The above copyright notice and this permission notice
          <optional>(including the next paragraph)</optional>
-         shall be included in all copies or substantial portions of the 
+         shall be included in all copies or substantial portions of the
           <alt match="Software|Materials" name="Software5">Software</alt>.</p>
-      
-       <p>THE <alt match="SOFTWARE IS|MATERIALS ARE" name="Software-verb">SOFTWARE IS</alt> 
+
+       <p>THE <alt match="SOFTWARE IS|MATERIALS ARE" name="Software-verb">SOFTWARE IS</alt>
          PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-         LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-         NONINFRINGEMENT. IN NO EVENT SHALL 
-         <alt match=".+" name="copyrightHolder">THE AUTHORS OR COPYRIGHT HOLDERS</alt> 
-         BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+         LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+         NONINFRINGEMENT. IN NO EVENT SHALL
+         <alt match=".+" name="copyrightHolder">THE AUTHORS OR COPYRIGHT HOLDERS</alt>
+         BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
          TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-         <alt match="SOFTWARE|MATERIALS" name="Software7">SOFTWARE</alt> 
+         <alt match="SOFTWARE|MATERIALS" name="Software7">SOFTWARE</alt>
          OR THE USE OR OTHER DEALINGS IN THE
          <alt match="SOFTWARE|MATERIALS" name="Software8">SOFTWARE</alt>.</p>
     </text>
