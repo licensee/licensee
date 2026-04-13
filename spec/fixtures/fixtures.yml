@@ -32,6 +32,10 @@ bsd-3-linebreak-owner:
   key: bsd-3-clause
   matcher: dice
   hash: 9a1ab486a9182629581b5598b415df85b48eb008
+bsd-3-multilinecopyright:
+  key: bsd-3-clause
+  matcher: exact
+  hash: a961b19cc6921d510e29a13b0ba1a826fcffe41c
 bsd-3-clause_markdown:
   key: bsd-3-clause
   matcher: dice

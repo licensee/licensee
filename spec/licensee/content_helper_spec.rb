@@ -369,6 +369,31 @@ RSpec.describe Licensee::ContentHelper do
         expect(normalized_content).to eql('foo')
       end
     end
+
+    context 'with a multi-line copyright holder name followed by All rights reserved' do
+      let(:content) do
+        "Copyright (c) 2020 by Corporation Name and\n" \
+          "its Subsidiaries (see AUTHORS).\n" \
+          "All rights reserved.\n\n" \
+          'Foo'
+      end
+
+      it 'strips the wrapped copyright holder continuation and all rights reserved' do
+        expect(normalized_content).to eql('foo')
+      end
+    end
+
+    context 'with a multi-line copyright holder name without All rights reserved' do
+      let(:content) do
+        "Copyright (c) 2020 by Corporation Name and\n" \
+          "its Subsidiaries (see AUTHORS).\n\n" \
+          'Foo'
+      end
+
+      it 'strips only the copyright notice line, leaving the ambiguous continuation' do
+        expect(normalized_content).to include('subsidiaries')
+      end
+    end
   end
 
   context 'when matching title regex' do

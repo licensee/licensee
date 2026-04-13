@@ -17,3 +17,6 @@ Layout/HashAlignment:
 
 Gemspec/DevelopmentDependencies:
   Enabled: false
+
+Metrics/ModuleLength:
+  Max: 105
