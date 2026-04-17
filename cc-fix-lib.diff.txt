@@ -1,0 +1,26 @@
+diff --git a/lib/licensee/content_helper/constants.rb b/lib/licensee/content_helper/constants.rb
+index 6cc21fd..432e084 100644
+--- a/lib/licensee/content_helper/constants.rb
++++ b/lib/licensee/content_helper/constants.rb
+@@ -24,6 +24,8 @@ module Licensee
+         developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
+         cc_dedication:       /The\s+text\s+of\s+the\s+Creative\s+Commons.*?Public\s+Domain\s+Dedication\./im,
+         cc_wiki:             /wiki\.creativecommons\.org/i,
++        cc_preamble:         /creative\s+commons\s+corporation.*?(?=by\s+exercising\s+the\s+licensed\s+rights)/im,
++        cc_notice:           /creative\s+commons\s+is\s+not\s+a\s+party\s+to\s+its\s+public\s+licenses\..*\z/im,
+         cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
+         cc0_info:            /For more information, please see\s*\S+zero\S+/im,
+         cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,
+diff --git a/lib/licensee/content_helper/normalization_methods.rb b/lib/licensee/content_helper/normalization_methods.rb
+index a2e8272..d2e1310 100644
+--- a/lib/licensee/content_helper/normalization_methods.rb
++++ b/lib/licensee/content_helper/normalization_methods.rb
+@@ -82,6 +82,8 @@ module Licensee
+ 
+         strip(ContentHelper::REGEXES[:cc_dedication])
+         strip(ContentHelper::REGEXES[:cc_wiki])
++        strip(ContentHelper::REGEXES[:cc_preamble]) if _content.include? 'creative commons corporation'
++        strip(ContentHelper::REGEXES[:cc_notice]) if _content.include? 'creative commons is not a party'
+       end
+ 
+       def strip_unlicense_optional
