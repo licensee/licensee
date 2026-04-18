@@ -82,6 +82,8 @@ module Licensee
 
         strip(ContentHelper::REGEXES[:cc_dedication])
         strip(ContentHelper::REGEXES[:cc_wiki])
+        strip(ContentHelper::REGEXES[:cc_preamble]) if _content.include? 'creative commons corporation'
+        strip(ContentHelper::REGEXES[:cc_notice]) if _content.include? 'creative commons is not a party'
       end
 
       def strip_unlicense_optional
