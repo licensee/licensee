@@ -4,7 +4,7 @@
 	name="BSD Zero Clause License" listVersionAdded="2.2">
       <crossRefs>
          <crossRef>http://landley.net/toybox/license.html</crossRef>
-         <crossRef>https://opensource.org/licenses/0BSD</crossRef>
+         <crossRef>https://opensource.org/license/0BSD</crossRef>
       </crossRefs>
     <text>
       <titleText>

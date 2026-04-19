@@ -10,7 +10,7 @@
     <crossRefs>
       <crossRef>https://www.gnu.org/licenses/lgpl-3.0-standalone.html</crossRef>
       <crossRef>https://www.gnu.org/licenses/lgpl+gpl-3.0.txt</crossRef>
-      <crossRef>https://opensource.org/licenses/LGPL-3.0</crossRef>
+      <crossRef>https://opensource.org/license/LGPL-3.0</crossRef>
     </crossRefs>
     <notes>
       The identifier "LGPL-3.0" has been deprecated; LGPL-3.0-only is
