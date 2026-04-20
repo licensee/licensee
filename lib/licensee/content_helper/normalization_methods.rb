@@ -69,6 +69,7 @@ module Licensee
         # Strip opening paragraph only when "All rights reserved." is present — confirms attribution, not license text.
         strip(/\A.*?(?=\n\n)/m) if (p = _content[/\A.*?(?=\n\n)/m]) &&
                                    p =~ copyright_regex && /all rights reserved/i.match?(p)
+        # Strip any remaining copyright lines (e.g. when no blank line is present)
         strip(copyright_regex) while _content =~ copyright_regex
       end
 
