@@ -9,7 +9,7 @@
     </obsoletedBys>
     <crossRefs>
       <crossRef>https://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html</crossRef>
-      <crossRef>https://opensource.org/licenses/LGPL-2.1</crossRef>
+      <crossRef>https://opensource.org/license/LGPL-2.1</crossRef>
     </crossRefs>
     <standardLicenseHeader>
       Copyright (C) <alt name="copyright" match=".+">year name of author</alt>
