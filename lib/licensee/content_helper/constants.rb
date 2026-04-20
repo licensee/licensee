@@ -24,6 +24,8 @@ module Licensee
         developed_by:        /#{START_REGEX}developed by:.*?\n\n/im,
         cc_dedication:       /The\s+text\s+of\s+the\s+Creative\s+Commons.*?Public\s+Domain\s+Dedication\./im,
         cc_wiki:             /wiki\.creativecommons\.org/i,
+        cc_preamble:         /creative\s+commons\s+corporation.*?(?=by\s+exercising\s+the\s+licensed\s+rights)/im,
+        cc_notice:           /creative\s+commons\s+is\s+not\s+a\s+party\s+to\s+its\s+public\s+licenses\..*\z/im,
         cc_legal_code:       /^\s*Creative Commons Legal Code\s*$/i,
         cc0_info:            /For more information, please see\s*\S+zero\S+/im,
         cc0_disclaimer:      /CREATIVE COMMONS CORPORATION.*?\n\n/im,

@@ -28,10 +28,6 @@ bsd-3-authorowner:
   key: bsd-3-clause
   matcher: dice
   hash: 2e6f215833d1a3d10e6194d479dbb2b4be2f64d7
-bsd-3-linebreak-owner:
-  key: bsd-3-clause
-  matcher: dice
-  hash: 9a1ab486a9182629581b5598b415df85b48eb008
 bsd-3-multilinecopyright:
   key: bsd-3-clause
   matcher: exact
@@ -40,6 +36,10 @@ bsd-3-clause_markdown:
   key: bsd-3-clause
   matcher: dice
   hash: 2449fc8ece2fa342f2e82bbbf86f01d19329a531
+bsd-3-linebreak-owner:
+  key: bsd-3-clause
+  matcher: dice
+  hash: 9a1ab486a9182629581b5598b415df85b48eb008
 bsd-3-lists:
   key: bsd-3-clause
   matcher:
@@ -62,28 +62,28 @@ case-sensitive:
   hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
 cc-by-4.0_markdown:
   key: cc-by-4.0
-  matcher: dice
-  hash: b72312bbcd6400de2c6103f2b9981e6239d89f36
+  matcher: exact
+  hash: f2a70fcab522bfb2fbcdefb47b94d2a928e22091
 cc-by-nc-sa:
   key: other
   matcher:
-  hash: c1c5bf7b6f130913568b20ed0441a6dbef5d6f11
+  hash: ec364756344b00a9f6a59cb239a16634f7b40770
 cc-by-nd:
   key: other
   matcher:
-  hash: a006cd136405570d81aafb4cfd19de78012bbbe4
+  hash: b3cd0e6254ff1116ad09860ec03ea871cff30f64
 cc-by-sa-4.0_markdown:
   key: cc-by-sa-4.0
-  matcher: dice
-  hash: 973d41ed4a3fca2a1205ace75835029d66c1e224
+  matcher: exact
+  hash: 33464647bebf0a285d9df642ccb07c8e26b3e268
 cc-by-sa-mdlinks:
   key: cc-by-sa-4.0
-  matcher: dice
-  hash: 4b0a634a0db5015914cbdde602672b2addfd66e9
+  matcher: exact
+  hash: a81c2a3a07b59f58b3c09387874724670122fc90
 cc-by-sa-nocclicensor:
   key: cc-by-sa-4.0
   matcher: dice
-  hash: 9cf238d2d4dd703a149d8b5ae7d3f5a04206f772
+  hash: 6fc6425689d3156be764c8e765ae2553a54e3589
 cc0-1.0_markdown:
   key: cc0-1.0
   matcher: dice

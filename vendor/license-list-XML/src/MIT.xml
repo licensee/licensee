@@ -2,8 +2,7 @@
 <SPDXLicenseCollection xmlns="http://www.spdx.org/license">
    <license isOsiApproved="true" licenseId="MIT" name="MIT License">
       <crossRefs>
-         <crossRef>https://opensource.org/license/mit/</crossRef>
-         <crossRef>http://opensource.org/licenses/MIT</crossRef>
+         <crossRef>https://opensource.org/license/MIT</crossRef>
          <!-- version with optional "on" -->
          <crossRef>https://gitlab.freedesktop.org/xorg/xserver/-/blob/dd5c2595a42d3ff0c4f18d9b53d1f6c3fd934fd4/COPYING#L365-389</crossRef>
       </crossRefs>

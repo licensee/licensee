@@ -3,7 +3,7 @@
    <license isOsiApproved="true" licenseId="PostgreSQL" name="PostgreSQL License">
       <crossRefs>
          <crossRef>http://www.postgresql.org/about/licence</crossRef>
-         <crossRef>https://opensource.org/licenses/PostgreSQL</crossRef>
+         <crossRef>https://opensource.org/license/PostgreSQL</crossRef>
       </crossRefs>
     <text>
       <titleText>
