@@ -390,8 +390,12 @@ RSpec.describe Licensee::ContentHelper do
           'Foo'
       end
 
-      it 'strips only the copyright notice line, leaving the ambiguous continuation' do
+      it 'leaves the ambiguous continuation' do
         expect(normalized_content).to include('subsidiaries')
+      end
+
+      it 'strips the copyright notice line' do
+        expect(normalized_content).not_to include('copyright (c) 2020 by corporation name and')
       end
     end
   end
