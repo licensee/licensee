@@ -1,22 +1,25 @@
 {
-  "run": "2026-04-23T22:49Z",
-  "rid": "24862725882",
+  "run": "2026-04-24T22:49Z",
+  "rid": "24915313259",
   "t1": "2026-04-20",
   "t2": "2026-04-18",
-  "t3": "2026-04-11",
+  "t3": "2026-04-24",
   "t4": "2026-04-19",
   "t5": "2026-04-23",
   "t6": "2026-04-09",
   "t7": "2026-04-21",
   "t8": "2026-04-23",
   "t9": "2026-04-23",
-  "t10": "2026-04-17",
-  "t11": "2026-04-23",
+  "t10": "2026-04-24",
+  "t11": "2026-04-24",
   "cur": 988,
   "mi": "apr2026",
   "rel": "v9.19.0",
   "cmtd": [601, 602, 603, 607, 635, 637, 642, 643, 654, 655, 661, 830, 928, 935, 951, 988],
-  "prs": ["release-v9.19.1-update-2026-04-23"],
+  "prs": ["release-v9.19.1-update-2026-04-23", "fix-bsd3-alt-clause-matching"],
   "closed_prs": ["release-v9.19.1-49bdb2613315acc9"],
-  "n": "2026-04-23: Task 5 - Created new release PR (v9.19.1 updated) based on current main, includes #987 (copyright fix, merged 2026-04-23) and #989 (CC preamble, merged 2026-04-20). PR #982 is superseded and should be closed. Task 11 - Updated monthly summary #974. Next priority: t6 (stale nudges, 2026-04-09), t3 (study codebase, 2026-04-11), t10 (forward, 2026-04-17)."
+  "fix_attempts": {
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR for BSD-3-Clause alt clause fix. Added minimum_matching_confidence to License, minimum_confidence_for to Dice matcher. 2828 tests pass, 0 rubocop offenses."
+  },
+  "n": "2026-04-24: Task 3/10 - Implemented BSD-3-Clause alt clause fix. SPDX allows 'The name of X may not be used' variant in 3rd clause; dice similarity ~96.6% was below 98% threshold. Fix: per-license minimum_matching_confidence reduces threshold by 0.2pp per alt segment (max 2pp, floor 95%). BSD-3 (13 alts) gets 96% threshold. PR created (branch: fix-bsd3-alt-clause-matching). Task 11 - Updated monthly summary #974. Next priority: t6 (stale nudges, 2026-04-09), t1 (triage, 2026-04-20), t4 (deps, 2026-04-19)."
 }
