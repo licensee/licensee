@@ -28,6 +28,20 @@ module Licensee
         @content_for_mustache ||= content.gsub(LicenseField::FIELD_REGEX, '{{{\1}}}')
       end
 
+      # Returns the minimum dice similarity (0–100) required to match this
+      # license.  For highly-templated licenses (those with many SPDX
+      # `<alt>` segments) the threshold is reduced slightly so that valid
+      # textual variations accepted by SPDX still score as matches.
+      # The reduction is 0.2 percentage points per alt segment, capped at 2 pp,
+      # keeping the floor at 95 regardless of the configured threshold.
+      def minimum_matching_confidence
+        alt_count = spdx_alt_segments
+        return Licensee.confidence_threshold if alt_count.zero?
+
+        reduction = [alt_count * 0.2, 2.0].min
+        [Licensee.confidence_threshold - reduction, 95.0].max
+      end
+
       private
 
       # Raw content of license file, including YAML front matter

@@ -367,6 +367,30 @@ RSpec.describe Licensee::License do
     end
   end
 
+  context 'when checking minimum_matching_confidence' do
+    let(:bsd3) { described_class.find('bsd-3-clause') }
+    let(:mit_license) { described_class.find('mit') }
+
+    it 'returns the global threshold for licenses with no SPDX alt segments' do
+      no_alt = described_class.find('apache-2.0')
+      expect(no_alt.minimum_matching_confidence).to eq(Licensee.confidence_threshold)
+    end
+
+    it 'returns a reduced threshold for BSD-3-Clause (13 alt segments)' do
+      expect(bsd3.minimum_matching_confidence).to be < Licensee.confidence_threshold
+    end
+
+    it 'returns at least 96% threshold for BSD-3-Clause' do
+      expect(bsd3.minimum_matching_confidence).to be >= 96.0
+    end
+
+    it 'never reduces the threshold below 95' do
+      described_class.all(hidden: true, pseudo: false).each do |license|
+        expect(license.minimum_matching_confidence).to be >= 95.0
+      end
+    end
+  end
+
   context 'when matching .title_regex' do
     namey = %i[title nickname key]
     described_class.all(hidden: true, pseudo: false).each do |license|

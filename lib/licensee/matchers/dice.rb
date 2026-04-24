@@ -44,7 +44,7 @@ module Licensee
 
       def matches
         @matches ||= matches_by_similarity.select do |license, similarity|
-          similarity >= minimum_confidence &&
+          similarity >= minimum_confidence_for(license) &&
             license.bigram_similarity(file) >= minimum_bigram_confidence
         end
       end
@@ -58,6 +58,17 @@ module Licensee
 
       def minimum_confidence
         Licensee.confidence_threshold
+      end
+
+      # Per-license threshold: honours the license's own minimum if it
+      # advertises one (e.g. to tolerate valid SPDX alt-text variants),
+      # falling back to the global confidence threshold.
+      def minimum_confidence_for(license)
+        if license.respond_to?(:minimum_matching_confidence)
+          license.minimum_matching_confidence
+        else
+          minimum_confidence
+        end
       end
 
       # A floor for bigram similarity, used to reject adversarially scrambled
