@@ -1,25 +1,29 @@
 {
-  "run": "2026-04-25T22:49Z",
-  "rid": "24942510563",
+  "run": "2026-04-26T22:49Z",
+  "rid": "24969021673",
   "t1": "2026-04-20",
   "t2": "2026-04-24",
   "t3": "2026-04-24",
   "t4": "2026-04-19",
-  "t5": "2026-04-25",
+  "t5": "2026-04-26",
   "t6": "2026-04-09",
   "t7": "2026-04-21",
   "t8": "2026-04-23",
   "t9": "2026-04-23",
   "t10": "2026-04-24",
-  "t11": "2026-04-25",
+  "t11": "2026-04-26",
   "cur": 988,
   "mi": "apr2026",
   "rel": "v9.19.0",
-  "cmtd": [601, 602, 603, 607, 635, 637, 642, 643, 654, 655, 661, 830, 928, 935, 951, 988],
+  "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
   "prs": ["fix-bsd3-alt-clause-matching"],
-  "closed_prs": ["release-v9.19.1-49bdb2613315acc9", "release-v9.19.1-update-2026-04-23"],
+  "closed_prs": [
+    "release-v9.19.1-49bdb2613315acc9",
+    "release-v9.19.1-update-2026-04-23"
+  ],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993 for BSD-3-Clause alt clause fix. Added minimum_matching_confidence to License, minimum_confidence_for to Dice matcher. 2828 tests pass, 0 rubocop offenses. CI all green."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-04-26: Rebased on main after LGPL score update (#994). 2828 tests pass, 0 RuboCop offenses. Maintainer checked off 'Review PR #993' in monthly summary - awaiting merge decision."
   },
-  "n": "2026-04-25: Task 11 - Updated monthly summary #974. Cleared checked items (#982 and #992 both closed). PR #993 (BSD-3-Clause fix) still open and CI green. Bundler not in PATH this run - could not run tests. Next priority: t6 (stale nudges, 2026-04-09), t4 (deps, 2026-04-19), t1 (triage, 2026-04-20), t7 (labels, 2026-04-21)."
+  "checked_off_by_maintainer": ["review-pr-993"],
+  "n": "2026-04-26: Task 5 - Rebased PR #993 on main (LGPL score changed in #994, dice_matcher_spec.rb conflict resolved cleanly). Task 11 - Updated monthly summary #974. Next priority: t6 (stale nudges, 2026-04-09), t4 (deps, 2026-04-19), t1 (triage, 2026-04-20), t7 (labels, 2026-04-21)."
 }
