@@ -457,8 +457,11 @@
         `Gnomovision' (which makes passes at compilers) written by James Hacker.
       </p>
       <p>
-	<optional spacing="none">&lt;</optional>signature of Ty Coon<optional spacing="none">&gt;</optional>,
-	1 April 1989 Ty Coon, President of Vice
+	<optional spacing="none">&lt;</optional>
+        signature of <alt match="Ty Coon|Moe Ghoul" name="sample-signee">Ty Coon</alt>
+        <optional spacing="none">&gt;</optional>,
+	1 April 1989 <alt match="Ty Coon|Moe Ghoul" name="sample-signee">Ty Coon</alt>,
+        President of Vice
       </p>
     </optional>
     <optional>

@@ -654,9 +654,12 @@
         by James Random Hacker.
       </p>
       <p>
-	<optional>&lt;</optional>signature of Ty Coon<optional>&gt;</optional>,
+	<optional>&lt;</optional>
+        signature of <alt match="Ty Coon|Moe Ghoul" name="sample-signee">Ty Coon</alt>
+        <optional>&gt;</optional>,
 	1 April 1990<br></br>
-        Ty Coon, President of Vice<br></br>
+        <alt match="Ty Coon|Moe Ghoul" name="sample-signee">Ty Coon</alt>,
+        President of Vice<br></br>
         That's all there is to it!
       </p>
     </optional>
