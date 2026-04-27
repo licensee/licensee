@@ -1,17 +1,17 @@
 {
-  "run": "2026-04-26T22:49Z",
-  "rid": "24969021673",
+  "run": "2026-04-27T22:51Z",
+  "rid": "25023719091",
   "t1": "2026-04-20",
   "t2": "2026-04-24",
   "t3": "2026-04-24",
   "t4": "2026-04-19",
-  "t5": "2026-04-26",
-  "t6": "2026-04-09",
+  "t5": "2026-04-27",
+  "t6": "2026-04-27",
   "t7": "2026-04-21",
   "t8": "2026-04-23",
   "t9": "2026-04-23",
   "t10": "2026-04-24",
-  "t11": "2026-04-26",
+  "t11": "2026-04-27",
   "cur": 988,
   "mi": "apr2026",
   "rel": "v9.19.0",
@@ -22,8 +22,8 @@
     "release-v9.19.1-update-2026-04-23"
   ],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-04-26: Rebased on main after LGPL score update (#994). 2828 tests pass, 0 RuboCop offenses. Maintainer checked off 'Review PR #993' in monthly summary - awaiting merge decision."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-04-27: Rebased on main (2546ffe — SPDX vendor update + LGPL score fix). 2801 tests pass, 0 RuboCop offenses."
   },
   "checked_off_by_maintainer": ["review-pr-993"],
-  "n": "2026-04-26: Task 5 - Rebased PR #993 on main (LGPL score changed in #994, dice_matcher_spec.rb conflict resolved cleanly). Task 11 - Updated monthly summary #974. Next priority: t6 (stale nudges, 2026-04-09), t4 (deps, 2026-04-19), t1 (triage, 2026-04-20), t7 (labels, 2026-04-21)."
+  "n": "2026-04-27: Task 5 - Rebased PR #993 on main (cherry-pick onto 2546ffe). 2801 tests pass. Task 6 - No stale human PRs (only #993 mine, #995 dependabot). Task 11 - Updated monthly summary #974. Next priority: t4 (deps, 2026-04-19), t1 (triage, 2026-04-20), t7 (labels, 2026-04-21). Note: most issues filtered by integrity policy."
 }
