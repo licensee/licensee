@@ -1,17 +1,17 @@
 {
-  "run": "2026-04-27T22:51Z",
-  "rid": "25023719091",
+  "run": "2026-04-28T22:52Z",
+  "rid": "25081717390",
   "t1": "2026-04-20",
   "t2": "2026-04-24",
   "t3": "2026-04-24",
-  "t4": "2026-04-19",
-  "t5": "2026-04-27",
+  "t4": "2026-04-28",
+  "t5": "2026-04-28",
   "t6": "2026-04-27",
   "t7": "2026-04-21",
   "t8": "2026-04-23",
   "t9": "2026-04-23",
   "t10": "2026-04-24",
-  "t11": "2026-04-27",
+  "t11": "2026-04-28",
   "cur": 988,
   "mi": "apr2026",
   "rel": "v9.19.0",
@@ -22,8 +22,8 @@
     "release-v9.19.1-update-2026-04-23"
   ],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-04-27: Rebased on main (2546ffe — SPDX vendor update + LGPL score fix). 2801 tests pass, 0 RuboCop offenses."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-04-28: Rebased on main (3f44ee8 - dep/CI updates). 2828 tests pass, 0 RuboCop offenses."
   },
   "checked_off_by_maintainer": ["review-pr-993"],
-  "n": "2026-04-27: Task 5 - Rebased PR #993 on main (cherry-pick onto 2546ffe). 2801 tests pass. Task 6 - No stale human PRs (only #993 mine, #995 dependabot). Task 11 - Updated monthly summary #974. Next priority: t4 (deps, 2026-04-19), t1 (triage, 2026-04-20), t7 (labels, 2026-04-21). Note: most issues filtered by integrity policy."
+  "n": "2026-04-28: Task 5 - Rebased PR #993 on main (5 commits: vendor/CI updates only; 2828 tests pass, 0 RuboCop offenses). Task 4 - diff-lcs 2.0.0 and parallel 2.1.0 are major bumps constrained by rspec transitive deps, no safe update possible. Task 11 - Updated monthly summary #974. Next priority: t1 (triage, 2026-04-20), t7 (labels, 2026-04-21), t6 (stale PR nudges, 2026-04-27). Note: most issues filtered by integrity policy."
 }
