@@ -24,6 +24,10 @@ bsd-2-author:
   key: bsd-2-clause
   matcher: dice
   hash: 309d3b93b58ad8858d916588206a1fccf2b358f6
+bsd-3-the-name-of:
+  key: bsd-3-clause
+  matcher: dice
+  hash: 38d540d438b1266882b9207e41d7adec10299630
 bsd-3-authorowner:
   key: bsd-3-clause
   matcher: dice

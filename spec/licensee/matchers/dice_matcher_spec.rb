@@ -69,6 +69,26 @@ RSpec.describe Licensee::Matchers::Dice do
     end
   end
 
+  context 'with a BSD-3-Clause SPDX alt clause variant' do
+    def bsd3 = Licensee::License.find('bsd-3-clause')
+
+    let(:content) do
+      File.read(File.expand_path('LICENSE', fixture_path('bsd-3-the-name-of')))
+    end
+
+    it 'matches bsd-3-clause despite using the "The name of" alt clause' do
+      expect(described_class.new(file).match).to eql(bsd3)
+    end
+
+    it 'has confidence below the default threshold' do
+      expect(described_class.new(file).confidence).to be < Licensee.confidence_threshold
+    end
+
+    it 'has confidence above the per-license threshold for bsd-3-clause' do
+      expect(described_class.new(file).confidence).to be > bsd3.minimum_matching_confidence
+    end
+  end
+
   context 'with a CC false positive' do
     context 'with CC-BY' do
       let(:content) { cc_by.content }
