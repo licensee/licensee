@@ -17,6 +17,11 @@ Gem::Specification.new do |gem|
   gem.homepage = 'https://github.com/licensee/licensee'
   gem.license  = 'MIT'
   gem.metadata['rubygems_mfa_required'] = 'true'
+  gem.post_install_message = <<~MSG
+    NOTE: The rugged gem is no longer a required dependency of licensee.
+    If you scan bare Git repositories or Git repos without a working tree,
+    add rugged to your Gemfile or run: gem install rugged
+  MSG
 
   gem.bindir = 'bin'
   gem.executables << 'licensee'
@@ -24,7 +29,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency('dotenv', '>= 2', '< 4')
   gem.add_dependency('octokit', '>= 4.20', '< 11.0')
   gem.add_dependency('reverse_markdown', '>= 1', '< 4')
-  gem.add_dependency('rugged', '>= 0.24', '<2.0')
   gem.add_dependency('thor', '>= 0.19', '< 2.0')
 
   gem.add_development_dependency('gem-release', '~> 2.0')
@@ -34,6 +38,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rubocop', '~> 1.0')
   gem.add_development_dependency('rubocop-performance', '~> 1.5')
   gem.add_development_dependency('rubocop-rspec', '~> 3.0')
+  gem.add_development_dependency('rugged', '>= 0.24', '<2.0')
   gem.add_development_dependency('simplecov', '~> 0.16')
   gem.add_development_dependency('webmock', '~> 3.1')
 
