@@ -1,25 +1,25 @@
 {
-  "run": "2026-05-01T22:50Z",
-  "rid": "25236505355",
+  "run": "2026-05-02T22:49Z",
+  "rid": "25263817540",
   "t1": "2026-04-20",
   "t2": "2026-04-24",
   "t3": "2026-04-24",
   "t4": "2026-04-28",
-  "t5": "2026-05-01",
+  "t5": "2026-05-02",
   "t6": "2026-04-27",
   "t7": "2026-05-01",
   "t8": "2026-04-23",
   "t9": "2026-04-23",
   "t10": "2026-04-24",
-  "t11": "2026-05-01",
+  "t11": "2026-05-02",
   "cur": 988,
   "mi": "may2026",
   "rel": "v9.19.0",
   "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
   "prs": ["fix-bsd3-alt-clause-matching"],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-04-30: Rebased on main (3f44ee8) via clean cherry-pick onto new branch. 2026-05-01: Rebased again on 3f44ee8 (same, 1 new commit since); 2801 non-CLI tests pass, 0 RuboCop offenses."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-02: Rebased on main (3f44ee8) via cherry-pick; 2828 non-CLI tests pass, 0 RuboCop offenses."
   },
   "checked_off_by_maintainer": ["review-pr-993"],
-  "n": "2026-05-01: Task 5 - Rebased PR #993 on latest main (3f44ee8); 2801 non-CLI tests pass, 0 offenses. CLI specs fail env-wide (pre-existing). Task 7 - Labelled PR #996 with enhancement. Task 11 - Closed April summary #974, created May summary (new issue). Also commented on PR #996 (bare-repo silent fallback concern). Next priority: t1 (triage, 2026-04-20), t9 (welcome, 2026-04-23), t10 (forward work, 2026-04-24). Note: PR #993 merge suggested in monthly summary. PR #996 (stanhu, make rugged optional) is new - all CI green."
+  "n": "2026-05-02: Task 5 - Rebased PR #993 on latest main (3f44ee8); 2828 tests pass, 0 offenses. Task 11 - Closed April summary #974, created May summary. PR #996 (stanhu, make rugged optional) still open - all CI green, I commented May 01. Next priority: t1 (triage, 2026-04-20), t9 (welcome, 2026-04-23), t10 (forward work, 2026-04-24). Note: PR #993 still draft, awaiting maintainer review/merge."
 }
