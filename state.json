@@ -1,7 +1,7 @@
 {
-  "run": "2026-05-02T22:49Z",
-  "rid": "25263817540",
-  "t1": "2026-04-20",
+  "run": "2026-05-03T22:49Z",
+  "rid": "25293070683",
+  "t1": "2026-05-03",
   "t2": "2026-04-24",
   "t3": "2026-04-24",
   "t4": "2026-04-28",
@@ -11,7 +11,7 @@
   "t8": "2026-04-23",
   "t9": "2026-04-23",
   "t10": "2026-04-24",
-  "t11": "2026-05-02",
+  "t11": "2026-05-03",
   "cur": 988,
   "mi": "may2026",
   "rel": "v9.19.0",
@@ -21,5 +21,5 @@
     "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-02: Rebased on main (3f44ee8) via cherry-pick; 2828 non-CLI tests pass, 0 RuboCop offenses."
   },
   "checked_off_by_maintainer": ["review-pr-993"],
-  "n": "2026-05-02: Task 5 - Rebased PR #993 on latest main (3f44ee8); 2828 tests pass, 0 offenses. Task 11 - Closed April summary #974, created May summary. PR #996 (stanhu, make rugged optional) still open - all CI green, I commented May 01. Next priority: t1 (triage, 2026-04-20), t9 (welcome, 2026-04-23), t10 (forward work, 2026-04-24). Note: PR #993 still draft, awaiting maintainer review/merge."
+  "n": "2026-05-03: Task 11 - Closed April summary #974, created May summary (new issue aw_may2026). Task 1 - no new visible issues (integrity filter blocks #603,#635,#642,#655,#830; all previously commented). PR #993 draft open, CI green, rebased on 3f44ee8. PR #996 (stanhu, make rugged optional) open, Repo Assist commented 2026-05-01. Next priority: t9 (welcome, 2026-04-23), t10 (forward work, 2026-04-24), t3 (codebase study, 2026-04-24)."
 }
