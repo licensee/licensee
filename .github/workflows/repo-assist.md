@@ -8,7 +8,7 @@ description: |
   - Updates its own PRs when CI fails or merge conflicts arise
   - Nudges stale PRs waiting for author response
   - Manages issue and PR labels for organization
-  - Prepares releases by updating changelogs and proposing version bumps
+  - Leaves release preparation to human maintainers and spends effort on other repository tasks
   - Welcomes new contributors with friendly onboarding
   - Maintains a persistent memory of work done and what remains
   Always polite, constructive, and mindful of the project's goals.
@@ -35,6 +35,7 @@ network:
   - ruby
 
 safe-outputs:
+  max-patch-size: 5120
   add-comment:
     max: 10
     target: "*"
@@ -72,8 +73,6 @@ tools:
     toolsets: [all]
     allowed-repos: all
     min-integrity: unapproved
-    trusted-users:
-      - lsmith77
   bash: true
   repo-memory: true
 
@@ -182,9 +181,11 @@ Always do Task 11 (Update Monthly Activity Summary Issue) every run. In all comm
 ### Task 5: Maintain Repo Assist Pull Requests
 
 1. List all open PRs with the `[Repo Assist]` title prefix.
-2. For each PR: fix CI failures caused by your changes by pushing updates; resolve merge conflicts. If you've retried multiple times without success, comment and leave for human review.
-3. Do not push updates for infrastructure-only failures  -  comment instead.
-4. Update memory.
+2. For each PR: fix CI failures caused by your changes by pushing updates; resolve merge conflicts.
+3. **Do not rebase existing Repo Assist PR branches.** Avoid history rewrites and force-pushes. Prefer minimal forward-only commits (or a merge from `main` when needed) to resolve conflicts and keep patch diffs small.
+4. If you've retried multiple times without success, comment and leave for human review.
+5. Do not push updates for infrastructure-only failures  -  comment instead.
+6. Update memory.
 
 ### Task 6: Stale PR Nudges
 
@@ -202,10 +203,9 @@ Update memory with labels applied and cursor position.
 
 ### Task 8: Release Preparation
 
-1. Find merged PRs since the last release (check changelog or release tags).
-2. If significant unreleased changes exist, determine the version bump (patch/minor/major  -  never propose major without maintainer approval), create a fresh branch `repo-assist/release-vX.Y.Z`, update the changelog, and create a draft PR with AI disclosure and Test Status section.
-3. Skip if: no meaningful changes, a release PR is already open, or you recently proposed one.
-4. Update memory.
+Do not create pull requests for new releases, changelog-only release preparation, or version bumps. Release management for this repository is handled by human maintainers.
+
+If you notice unreleased changes accumulating, at most record that fact in memory so effort can be redirected to other tasks in future runs. Do not open an issue or PR for release preparation unless a maintainer explicitly asks for it via command mode.
 
 ### Task 9: Welcome New Contributors
 

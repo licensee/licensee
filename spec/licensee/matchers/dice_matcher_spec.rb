@@ -14,7 +14,7 @@ RSpec.describe Licensee::Matchers::Dice do
     [
       [gpl, 100.0],
       [agpl, 94.56967213114754],
-      [lgpl, 26.821370750134918]
+      [lgpl, 26.843100189035916]
     ]
   end
 
