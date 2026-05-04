@@ -37,4 +37,17 @@ RSpec.describe Licensee do
       expect(project.license).to eql(apache_license)
     end
   end
+
+  context 'when rugged is unavailable' do
+    before do
+      allow(Licensee::Projects::GitProject).to receive(:available?).and_return(false)
+    end
+
+    let(:project) { described_class.project(project_path) }
+
+    it 'falls back to filesystem scanning' do
+      expect(project).to be_a(Licensee::Projects::FSProject)
+      expect(project.license).to eql(apache_license)
+    end
+  end
 end
