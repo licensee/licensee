@@ -1,25 +1,26 @@
 {
-  "run": "2026-05-03T22:49Z",
-  "rid": "25293070683",
+  "run": "2026-05-04T22:51Z",
+  "rid": "25347831455",
   "t1": "2026-05-03",
-  "t2": "2026-04-24",
-  "t3": "2026-04-24",
+  "t2": "2026-05-04",
+  "t3": "2026-05-04",
   "t4": "2026-04-28",
-  "t5": "2026-05-02",
+  "t5": "2026-05-04",
   "t6": "2026-04-27",
   "t7": "2026-05-01",
   "t8": "2026-04-23",
   "t9": "2026-04-23",
-  "t10": "2026-04-24",
-  "t11": "2026-05-03",
-  "cur": 988,
+  "t10": "2026-05-04",
+  "t11": "2026-05-04",
+  "cur": 997,
   "mi": "may2026",
   "rel": "v9.19.0",
   "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
-  "prs": ["fix-bsd3-alt-clause-matching"],
+  "prs": ["fix-bsd3-alt-clause-matching", "improve-cabal-legacy-or-later-syntax"],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-02: Rebased on main (3f44ee8) via cherry-pick; 2828 non-CLI tests pass, 0 RuboCop offenses."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-02: Rebased on main (3f44ee8) via cherry-pick; 2828 non-CLI tests pass, 0 RuboCop offenses.",
+    "cabal-legacy-or-later": "2026-05-04: Created draft PR for handling GPL-2+ style legacy Cabal identifiers. 22 Cabal tests pass, 0 RuboCop offenses."
   },
-  "checked_off_by_maintainer": ["review-pr-993"],
-  "n": "2026-05-03: Task 11 - Closed April summary #974, created May summary (new issue aw_may2026). Task 1 - no new visible issues (integrity filter blocks #603,#635,#642,#655,#830; all previously commented). PR #993 draft open, CI green, rebased on 3f44ee8. PR #996 (stanhu, make rugged optional) open, Repo Assist commented 2026-05-01. Next priority: t9 (welcome, 2026-04-23), t10 (forward work, 2026-04-24), t3 (codebase study, 2026-04-24)."
+  "checked_off_by_maintainer": ["review-pr-993", "review-pr-996"],
+  "n": "2026-05-04: Task 3/10 - Created PR for Cabal GPL-2+ fix. Task 5 - PR #993 CI green, up to date with main (d8ad0f8). Task 11 - Updated May summary #997: removed [x] items (review-pr-993, review-pr-996), added Merge PR #993 / Re-review PR #996 / new Cabal PR suggested actions. PR #996 stanhu responded to CHANGES_REQUESTED with unit tests on 2026-05-04. Next priority: t9 (welcome, 2026-04-23), t6 (stale PR nudges, 2026-04-27), t4 (deps, 2026-04-28)."
 }
