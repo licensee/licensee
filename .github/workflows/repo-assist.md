@@ -35,6 +35,7 @@ network:
   - ruby
 
 safe-outputs:
+  max-patch-size: 5120
   add-comment:
     max: 10
     target: "*"
@@ -180,9 +181,11 @@ Always do Task 11 (Update Monthly Activity Summary Issue) every run. In all comm
 ### Task 5: Maintain Repo Assist Pull Requests
 
 1. List all open PRs with the `[Repo Assist]` title prefix.
-2. For each PR: fix CI failures caused by your changes by pushing updates; resolve merge conflicts. If you've retried multiple times without success, comment and leave for human review.
-3. Do not push updates for infrastructure-only failures  -  comment instead.
-4. Update memory.
+2. For each PR: fix CI failures caused by your changes by pushing updates; resolve merge conflicts.
+3. **Do not rebase existing Repo Assist PR branches.** Avoid history rewrites and force-pushes. Prefer minimal forward-only commits (or a merge from `main` when needed) to resolve conflicts and keep patch diffs small.
+4. If you've retried multiple times without success, comment and leave for human review.
+5. Do not push updates for infrastructure-only failures  -  comment instead.
+6. Update memory.
 
 ### Task 6: Stale PR Nudges
 
