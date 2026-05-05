@@ -9,5 +9,5 @@ if [[ -z $1 ]] ; then
   exit 1
 fi
 
-bundle exec gem bump --version $1 --tag
-bundle exec gem release --push
+bundle exec gem bump --version $1 --tag --push
+bundle exec gem release
