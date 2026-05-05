@@ -39,6 +39,22 @@ On Windows, the last line needs to include the Ruby interpreter:
 
     bundle exec ruby bin\licensee
 
+### Git repository scanning (optional)
+
+By default, licensee scans projects using the filesystem. If you want to scan bare Git repositories or repositories without a working tree (e.g., on a Git server), install the [rugged](https://github.com/libgit2/rugged) gem, which provides Ruby bindings for libgit2:
+
+    gem install rugged
+
+Or add it to your `Gemfile` alongside licensee:
+
+```ruby
+gem 'rugged'
+```
+
+When rugged is available, `Licensee.project` will use it automatically. If rugged is not installed, licensee falls back to filesystem-based scanning transparently.
+
+Note that rugged is a native extension and requires `cmake` and `openssl` to build. On most systems these are available via a package manager (e.g., `apt install cmake libssl-dev` or `brew install cmake openssl`).
+
 ## Docker
 
 Licensee also comes with a Dockerfile if you prefer to run Licensee within a Docker container:

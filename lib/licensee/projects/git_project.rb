@@ -8,7 +8,11 @@
 #  :name - the file's path relative to the repo root
 #  :oid  - the file's OID
 
-autoload :Rugged, 'rugged'
+begin
+  require 'rugged'
+rescue LoadError
+  # rugged is optional; GitProject will raise RuggedNotAvailable when not installed
+end
 
 module Licensee
   module Projects
@@ -17,8 +21,18 @@ module Licensee
       attr_reader :revision
 
       class InvalidRepository < ArgumentError; end
+      class RuggedNotAvailable < InvalidRepository; end
+
+      def self.available?
+        defined?(Rugged)
+      end
 
       def initialize(repo, revision: nil, **args)
+        unless self.class.available?
+          raise RuggedNotAvailable,
+                'Install the rugged gem to enable Git repository scanning'
+        end
+
         @raw_repo = repo
         @revision = revision
 
