@@ -24,7 +24,7 @@ module Licensee
       class RuggedNotAvailable < InvalidRepository; end
 
       def self.available?
-        defined?(Rugged)
+        !!defined?(Rugged)
       end
 
       def initialize(repo, revision: nil, **args)
