@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Licensee
-  VERSION = '9.19.0'
+  VERSION = '9.20.0'
 end
