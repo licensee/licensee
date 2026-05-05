@@ -122,6 +122,42 @@ RSpec.describe Licensee::Matchers::Cabal do
     end
   end
 
+  context 'with pre-SPDX "or-later" (+) suffix' do
+    let(:content) { "license: #{cabal_license}" }
+
+    context 'with GPL-2+' do
+      let(:cabal_license) { 'GPL-2+' }
+
+      it 'returns GPL-2.0' do
+        expect(matcher.match).to eql(Licensee::License.find('GPL-2.0'))
+      end
+    end
+
+    context 'with GPL-3+' do
+      let(:cabal_license) { 'GPL-3+' }
+
+      it 'returns GPL-3.0' do
+        expect(matcher.match).to eql(Licensee::License.find('GPL-3.0'))
+      end
+    end
+
+    context 'with LGPL-3+' do
+      let(:cabal_license) { 'LGPL-3+' }
+
+      it 'returns LGPL-3.0' do
+        expect(matcher.match).to eql(Licensee::License.find('LGPL-3.0'))
+      end
+    end
+
+    context 'with AGPL-3+' do
+      let(:cabal_license) { 'AGPL-3+' }
+
+      it 'returns AGPL-3.0' do
+        expect(matcher.match).to eql(Licensee::License.find('AGPL-3.0'))
+      end
+    end
+  end
+
   context 'with no license field' do
     let(:content) { 'foo: bar' }
 
