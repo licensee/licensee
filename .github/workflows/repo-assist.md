@@ -181,11 +181,16 @@ Always do Task 11 (Update Monthly Activity Summary Issue) every run. In all comm
 ### Task 5: Maintain Repo Assist Pull Requests
 
 1. List all open PRs with the `[Repo Assist]` title prefix.
-2. For each PR: fix CI failures caused by your changes by pushing updates; resolve merge conflicts.
-3. **Do not rebase existing Repo Assist PR branches.** Avoid history rewrites and force-pushes. Prefer minimal forward-only commits (or a merge from `main` when needed) to resolve conflicts and keep patch diffs small.
-4. If you've retried multiple times without success, comment and leave for human review.
-5. Do not push updates for infrastructure-only failures  -  comment instead.
-6. Update memory.
+2. For each PR, check for **maintainer reviews and inline comments first**:
+   - Fetch all reviews and review comments on the PR. If there are any `CHANGES_REQUESTED` reviews or unresolved inline comments from maintainers, **these take priority over everything else**.
+   - Read the feedback carefully. Attempt to address it by making code changes, pushing a new commit, and posting a PR comment explaining what you changed in response to the review. If you cannot confidently address the feedback, post a comment acknowledging it, explaining your understanding, and asking for clarification — do not leave the review silently unaddressed.
+   - Do **not** push a "rebase" or unrelated update while there is unaddressed maintainer feedback. Focus entirely on the review.
+3. Fix CI failures caused by your changes by pushing updates — but only after review feedback has been addressed.
+4. **Do not rebase or merge main into existing Repo Assist PR branches.** History rewrites, force-pushes, and `git merge main` are all forbidden — they litter the PR with unrelated commits. If the branch is behind main or has a merge conflict, **leave a comment** explaining the situation and let maintainers handle integration.
+5. Only push changes that are strictly your own new fix commits on top of the existing branch tip.
+6. If you've retried fixing CI failures multiple times without success, comment and leave for human review.
+7. Do not push updates for infrastructure-only failures  -  comment instead.
+8. Update memory.
 
 ### Task 6: Stale PR Nudges
 
