@@ -1,25 +1,25 @@
 {
-  "run": "2026-05-06T22:50Z",
-  "rid": "25465510038",
+  "run": "2026-05-07T22:52Z",
+  "rid": "25526377519",
   "t1": "2026-05-03",
   "t2": "2026-05-04",
   "t3": "2026-05-04",
-  "t4": "2026-04-28",
-  "t5": "2026-05-06",
-  "t6": "2026-04-27",
+  "t4": "2026-05-07",
+  "t5": "2026-05-07",
+  "t6": "2026-05-07",
   "t7": "2026-05-01",
   "t8": "2026-04-23",
-  "t9": "2026-04-23",
-  "t10": "2026-05-04",
-  "t11": "2026-05-06",
+  "t9": "2026-05-07",
+  "t10": "2026-05-07",
+  "t11": "2026-05-07",
   "cur": 997,
   "mi": "may2026",
   "rel": "v10.0.0",
   "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
   "prs": [],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-06: Acknowledged CHANGES_REQUESTED (double alt-segment adjustment concern); proposed closing PR. Maintainer should close #993. Alternative approach (SPDX alt regex matching) noted as future work."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-06: Acknowledged CHANGES_REQUESTED; proposed closing. 2026-05-07: PR #993 now closed by maintainer."
   },
   "checked_off_by_maintainer": ["review-pr-993", "review-pr-996", "check-comment-996", "review-cabal-pr"],
-  "n": "2026-05-06: PR #993 has CHANGES_REQUESTED (twice from mlinksva). Acknowledged in comment on PR - approach is double-adjustment of alt segments. Proposed closing. Maintainer needs to close PR #993. Next priority: t9 (welcome, 2026-04-23), t6 (stale PRs, 2026-04-27), t4 (deps, 2026-04-28)."
+  "n": "2026-05-07: No open PRs. No new contributors. Only transitive major-version gems outdated (diff-lcs 1.6.2->2.0.0, parallel 1.28.0->2.1.0) - not actionable. Issues 603,635,642,655,830 filtered by integrity. Code: 2824 tests pass, 0 RuboCop offenses, 99.97% coverage. Next priorities: t7 (label, 2026-05-01), t8 (release check, 2026-04-23)."
 }
