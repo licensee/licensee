@@ -1,26 +1,26 @@
 {
-  "run": "2026-05-08T22:51Z",
-  "rid": "25583354472",
+  "run": "2026-05-09T22:49Z",
+  "rid": "25613786722",
   "t1": "2026-05-03",
   "t2": "2026-05-04",
-  "t3": "2026-05-08",
-  "t4": "2026-05-07",
-  "t5": "2026-05-07",
+  "t3": "2026-05-09",
+  "t4": "2026-05-09",
+  "t5": "2026-05-09",
   "t6": "2026-05-07",
   "t7": "2026-05-01",
   "t8": "2026-05-08",
   "t9": "2026-05-07",
   "t10": "2026-05-07",
-  "t11": "2026-05-08",
+  "t11": "2026-05-09",
   "cur": 997,
   "mi": "may2026",
   "rel": "v10.0.0",
   "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
-  "prs": ["repo-assist/improve-test-rugged-fallback-fsproject"],
+  "prs": ["repo-assist/docs-fix-customizing-typos"],
   "fix_attempts": {
-    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-06: Acknowledged CHANGES_REQUESTED; proposed closing. 2026-05-07: PR #993 now closed by maintainer."
+    "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-06: Acknowledged CHANGES_REQUESTED; proposed closing. 2026-05-07: PR #993 now closed by maintainer.",
+    "docs-customizing-typos": "2026-05-09: Created PR #1002 (docs: fix LICENSEE→Licensee, Licensee::Licensee→Licensee::License)"
   },
-  "checked_off_by_maintainer": ["review-pr-993", "review-pr-996", "check-comment-996", "review-cabal-pr"],
-  "pending_pr": "rugged-fallback-test: branch repo-assist/improve-test-rugged-fallback-fsproject submitted 2026-05-08; check next run for PR number",
-  "n": "2026-05-08: t3 - added FSProject fallback integration test (spec/licensee_spec.rb). t8 - v10.0.0 released 2026-05-05, only README badge update since. 2825 tests pass, 0 RuboCop offenses. Next priorities: t7 (label, 2026-05-01), t1 (triage, 2026-05-03). Get PR number for rugged-fallback-test on next run."
+  "checked_off_by_maintainer": ["review-pr-993", "review-pr-996", "check-comment-996", "review-cabal-pr", "review-pr-1001"],
+  "n": "2026-05-09: t3/t4 - fixed typos in docs/customizing.md (LICENSEE→Licensee, wrong class name), PR #1002. PR #1001 (rugged fallback test) merged by mlinksva. All gems up to date. 2825 tests pass. Next priorities: t7 (label, 2026-05-01), t1 (triage, 2026-05-03). Only 6 open issues - 5 filtered (already commented), 1 is monthly summary."
 }
