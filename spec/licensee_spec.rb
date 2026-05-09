@@ -45,6 +45,14 @@ RSpec.describe Licensee do
         expect { project }.to raise_error(ArgumentError, /Unsupported remote URL/)
       end
     end
+
+    context 'when rugged is not available' do
+      before { allow(Licensee::Projects::GitProject).to receive(:available?).and_return(false) }
+
+      it 'falls back to FSProject' do
+        expect(project).to be_a(Licensee::Projects::FSProject)
+      end
+    end
   end
 
   context 'when using the confidence threshold' do
