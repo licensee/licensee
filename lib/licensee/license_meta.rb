@@ -54,9 +54,14 @@ module Licensee
       alias_method :"#{field}?", field
     end
 
-    # Backward compatibalize `#["spdx-id"]` calls to avoid a breaking change
+    # Backward compatibalize `#["spdx-id"]` calls to avoid a breaking change.
+    # Also ensure computed fields (e.g. "source") route through the instance
+    # method rather than reading the raw nil struct field, keeping hash-style
+    # and method-style access consistent.
     def [](key)
       key = 'spdx_id' if key == 'spdx-id'
+      return source if key.to_s == 'source'
+
       super
     end
 
