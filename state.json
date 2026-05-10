@@ -1,26 +1,27 @@
 {
-  "run": "2026-05-09T22:49Z",
-  "rid": "25613786722",
+  "run": "2026-05-10T22:50Z",
+  "rid": "25641927079",
   "t1": "2026-05-03",
-  "t2": "2026-05-04",
-  "t3": "2026-05-09",
+  "t2": "2026-05-10",
+  "t3": "2026-05-10",
   "t4": "2026-05-09",
-  "t5": "2026-05-09",
+  "t5": "2026-05-10",
   "t6": "2026-05-07",
   "t7": "2026-05-01",
   "t8": "2026-05-08",
   "t9": "2026-05-07",
-  "t10": "2026-05-07",
-  "t11": "2026-05-09",
+  "t10": "2026-05-10",
+  "t11": "2026-05-10",
   "cur": 997,
   "mi": "may2026",
   "rel": "v10.0.0",
   "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
-  "prs": ["repo-assist/docs-fix-customizing-typos"],
+  "prs": ["repo-assist/fix-license-meta-source-hash-access"],
   "fix_attempts": {
     "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-06: Acknowledged CHANGES_REQUESTED; proposed closing. 2026-05-07: PR #993 now closed by maintainer.",
-    "docs-customizing-typos": "2026-05-09: Created PR #1002 (docs: fix LICENSEE→Licensee, Licensee::Licensee→Licensee::License)"
+    "docs-customizing-typos": "2026-05-09: Created PR #1002 (merged by mlinksva 2026-05-10)",
+    "license-meta-source": "2026-05-10: Created PR (branch: repo-assist/fix-license-meta-source-hash-access). Bug: LicenseMeta#['source'] returned nil via Struct#[] bypassing instance method. Fix: intercept 'source' key in #[]. Also fixed stale examples in docs/usage.md."
   },
-  "checked_off_by_maintainer": ["review-pr-993", "review-pr-996", "check-comment-996", "review-cabal-pr", "review-pr-1001"],
-  "n": "2026-05-09: t3/t4 - fixed typos in docs/customizing.md (LICENSEE→Licensee, wrong class name), PR #1002. PR #1001 (rugged fallback test) merged by mlinksva. All gems up to date. 2825 tests pass. Next priorities: t7 (label, 2026-05-01), t1 (triage, 2026-05-03). Only 6 open issues - 5 filtered (already commented), 1 is monthly summary."
+  "checked_off_by_maintainer": ["review-pr-993", "review-pr-996", "check-comment-996", "review-cabal-pr", "review-pr-1001", "review-pr-1002"],
+  "n": "2026-05-10: t2/t10 - found+fixed LicenseMeta#['source'] bug (Struct#[] bypasses instance methods, returned nil instead of SPDX URL). Also updated docs/usage.md with accurate API examples. PR #1004 pending. PR #1002 merged by mlinksva. PR #1003 (vendored licenses) merged. Next priorities: t7 (label, 2026-05-01), t1 (triage, 2026-05-03). 5 open issues filtered; only monthly summary open."
 }
