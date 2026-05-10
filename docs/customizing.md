@@ -5,10 +5,10 @@
 If you'd like, you can make Licensee less stringent in its comparison, but risk getting false positives as a result. The confidence threshold is an integer between 1 and 100, with the default being 98, meaning that License is at least 98% confident that the file represents the matched license.
 
 ```ruby
-LICENSEE.confidence_threshold
+Licensee.confidence_threshold
 => 98
 
-LICENSEE.confidence_threshold = 90
+Licensee.confidence_threshold = 90
 => 90
 ```
 
@@ -19,7 +19,7 @@ Licensee supports the ability to take into account Ruby, Node and CRAN package m
 ```ruby
 project = Licensee.project("path/to/project", detect_packages: true)
 project.license
-=> #<Licensee::Licensee key="mit">
+=> #<Licensee::License key=mit>
 ```
 
 ### Matching project README license references
@@ -29,5 +29,5 @@ Licensee supports the ability to take into account human readable references to 
 ```ruby
 project = Licensee.project("path/to/project", detect_readme: true)
 project.license
-=> #<Licensee::Licensee key="mit">
+=> #<Licensee::License key=mit>
 ```
