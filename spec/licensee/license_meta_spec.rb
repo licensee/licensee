@@ -68,6 +68,20 @@ RSpec.describe Licensee::LicenseMeta do
     end
   end
 
+  context 'when accessing the computed "source" field via #[]' do
+    it 'returns the SPDX URL when spdx_id is set' do
+      expect(meta['source']).to eql('https://spdx.org/licenses/MIT.html')
+    end
+
+    it 'is consistent with the #source method' do
+      expect(meta['source']).to eql(meta.source)
+    end
+
+    it 'is consistent with to_h' do
+      expect(meta['source']).to eql(meta.to_h[:source])
+    end
+  end
+
   describe '#from_yaml' do
     subject(:license_meta) { described_class.from_yaml(yaml) }
 

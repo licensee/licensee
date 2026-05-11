@@ -8,7 +8,7 @@ Licensee has an extensive command line interface. See [the command line document
 
 ```ruby
 license = Licensee.license "/path/to/a/project"
-=> #<Licensee::License name="MIT" match=0.9842154131847726>
+=> #<Licensee::License key=mit>
 
 license.key
 => "mit"
@@ -16,14 +16,14 @@ license.key
 license.name
 => "MIT License"
 
-license.meta["source"]
-=> "https://spdx.org/licenses/MIT.html"
+license.spdx_id
+=> "MIT"
 
 license.meta["description"]
-=> "A permissive license that is short and to the point. It lets people do anything with your code with proper attribution and without warranty."
+=> "A short and simple permissive license with conditions only requiring preservation of copyright and license notices. Licensed works, modifications, and larger works may be distributed under different terms and without source code."
 
 license.meta["permissions"]
-=> ["commercial-use","modifications","distribution","private-use"]
+=> ["commercial-use", "modifications", "distribution", "private-use"]
 
 ```
 
@@ -68,7 +68,7 @@ You can gather more information by working with the project object, and the top 
 
  project.license                                   # The matched license
  project.matched_file                              # Object for the particular file containing the apparent license
- project.matched_file.filename                     #   Its filename
+ project.matched_file.path                         #   Its relative path from the project root
  project.matched_file.confidence                   #   The confidence level in the license matching
  project.matched_file.content                      #   The content of your license file
  project.license.content                           # The Open Source License text it matched against
