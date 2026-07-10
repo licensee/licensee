@@ -368,6 +368,14 @@ RSpec.describe Integration do
           expect(project).to have_attributes(license: license, package_file: have_attributes(path: 'package.json'))
         end
 
+        it 'matches a pyproject.toml file' do
+          write_file.call('pyproject.toml', "[project]\nlicense = \"MIT\"")
+          project = project_type.new(project_path, detect_packages: true)
+
+          license = Licensee::License.find('mit')
+          expect(project).to have_attributes(license: license, package_file: have_attributes(path: 'pyproject.toml'))
+        end
+
         it 'matches a README file' do
           write_file.call('README', "## License\n#{Licensee::License.find('mit').content}")
           project = project_type.new(project_path, detect_readme: true)
