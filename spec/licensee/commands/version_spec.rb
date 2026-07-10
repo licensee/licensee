@@ -15,6 +15,7 @@ RSpec.describe Licensee::Commands::Version do
   end
 
   def stdout = output[0]
+  def stderr = output[1]
   def status = output[2]
 
   it 'returns the version' do
@@ -23,5 +24,9 @@ RSpec.describe Licensee::Commands::Version do
 
   it 'Returns a zero exit code' do
     expect(status.exitstatus).to be(0)
+  end
+
+  it 'does not output warnings to stderr' do
+    expect(stderr).to eq('')
   end
 end
