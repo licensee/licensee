@@ -2,6 +2,7 @@
 
 require 'digest'
 require_relative 'content_helper/constants'
+require_relative 'content_helper/compound_license_methods'
 require_relative 'content_helper/normalization_methods'
 require_relative 'content_helper/similarity_methods'
 

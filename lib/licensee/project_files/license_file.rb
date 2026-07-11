@@ -5,6 +5,7 @@ module Licensee
     # A project file that contains the license text (e.g., LICENSE, COPYING).
     class LicenseFile < Licensee::ProjectFiles::ProjectFile
       include Licensee::ContentHelper
+      include Licensee::ContentHelper::CompoundLicenseMethods
 
       # List of extensions to give preference to
       PREFERRED_EXT = %w[md markdown txt html].freeze
@@ -129,6 +130,14 @@ module Licensee
       # case-insensitive block to determine if the given file is LICENSE.lesser
       def self.lesser_gpl_score(filename)
         filename.casecmp('copying.lesser').zero? ? 1 : 0
+      end
+
+      private
+
+      # Use the primary license section when LICENSE files aggregate many
+      # component licenses (see https://github.com/licensee/licensee/issues/830).
+      def _content
+        @_content ||= content_for_license_matching
       end
     end
   end
