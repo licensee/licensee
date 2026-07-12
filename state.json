@@ -1,27 +1,27 @@
 {
-  "run": "2026-05-10T22:50Z",
-  "rid": "25641927079",
-  "t1": "2026-05-03",
+  "run": "2026-07-12T23:05Z",
+  "rid": "29212702250",
+  "t1": "2026-07-12",
   "t2": "2026-05-10",
   "t3": "2026-05-10",
   "t4": "2026-05-09",
-  "t5": "2026-05-10",
+  "t5": "2026-07-12",
   "t6": "2026-05-07",
-  "t7": "2026-05-01",
+  "t7": "2026-07-12",
   "t8": "2026-05-08",
   "t9": "2026-05-07",
   "t10": "2026-05-10",
-  "t11": "2026-05-10",
+  "t11": "2026-07-12",
   "cur": 997,
-  "mi": "may2026",
+  "mi": "jul2026",
   "rel": "v10.0.0",
   "cmtd": [601,602,603,607,635,637,642,643,654,655,661,830,928,935,951,988],
-  "prs": ["repo-assist/fix-license-meta-source-hash-access"],
+  "prs": ["repo-assist/fix-license-meta-source-hash-access-630da1886e49631c"],
   "fix_attempts": {
     "bsd-3-clause-alt-variant": "2026-04-24: Created draft PR #993. 2026-05-06: Acknowledged CHANGES_REQUESTED; proposed closing. 2026-05-07: PR #993 now closed by maintainer.",
     "docs-customizing-typos": "2026-05-09: Created PR #1002 (merged by mlinksva 2026-05-10)",
-    "license-meta-source": "2026-05-10: Created PR (branch: repo-assist/fix-license-meta-source-hash-access). Bug: LicenseMeta#['source'] returned nil via Struct#[] bypassing instance method. Fix: intercept 'source' key in #[]. Also fixed stale examples in docs/usage.md."
+    "license-meta-source": "2026-05-10: Created PR #1004. 2026-07-12: Fixed typo in comment per Copilot review. PR still open draft."
   },
   "checked_off_by_maintainer": ["review-pr-993", "review-pr-996", "check-comment-996", "review-cabal-pr", "review-pr-1001", "review-pr-1002"],
-  "n": "2026-05-10: t2/t10 - found+fixed LicenseMeta#['source'] bug (Struct#[] bypasses instance methods, returned nil instead of SPDX URL). Also updated docs/usage.md with accurate API examples. PR #1004 pending. PR #1002 merged by mlinksva. PR #1003 (vendored licenses) merged. Next priorities: t7 (label, 2026-05-01), t1 (triage, 2026-05-03). 5 open issues filtered; only monthly summary open."
+  "n": "2026-07-12: t1/t5/t7/t11 - 2 months gap since last run. Major activity: PRs #1023-#1030 merged/closed, PR #1026 (compound license fix) closed by mlinksva (needs more tests). PR #1004 still open draft; fixed typo in comment per Copilot review. Labeled #655 bug. Commented on #830 re: mlinksva clarification. Closed May summary #997, created July #aw_jul2026. Next priorities: t2/t10 (attempt #830 compound license heuristic with fixtures), t9 (welcome), t6 (stale nudges)."
 }
