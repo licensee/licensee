@@ -21,7 +21,9 @@ on:
         default: '{}'
         description: Agent caller context (used internally by Agentic Workflows).
         required: false
-        type: string
+        type: choice
+        options:
+          - '{}'
   slash_command:
     name: repo-assist
   reaction: "eyes"
