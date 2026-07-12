@@ -47,7 +47,7 @@ safe-outputs:
     max: 4
   push-to-pull-request-branch:
     target: "*"
-    title-prefix: "[Repo Assist] "
+    required-title-prefix: "[Repo Assist] "
     max: 4
   create-issue:
     title-prefix: "[Repo Assist] "
