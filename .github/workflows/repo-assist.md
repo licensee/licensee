@@ -16,6 +16,12 @@ description: |
 on:
   schedule: daily
   workflow_dispatch:
+    inputs:
+      aw_context:
+        default: '{}'
+        description: Agent caller context (used internally by Agentic Workflows).
+        required: false
+        type: string
   slash_command:
     name: repo-assist
   reaction: "eyes"
