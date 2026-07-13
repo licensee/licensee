@@ -8,12 +8,6 @@
 #  :name - the file's path relative to the repo root
 #  :oid  - the file's OID
 
-begin
-  require 'rugged'
-rescue LoadError
-  # rugged is optional; GitProject will raise RuggedNotAvailable when not installed
-end
-
 module Licensee
   module Projects
     # Scans a Git repository (via Rugged) for license-related files.
@@ -24,7 +18,12 @@ module Licensee
       class RuggedNotAvailable < InvalidRepository; end
 
       def self.available?
-        !!defined?(Rugged)
+        return true if defined?(Rugged)
+
+        require 'rugged'
+        true
+      rescue LoadError
+        false
       end
 
       def initialize(repo, revision: nil, **args)

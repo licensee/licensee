@@ -15,6 +15,7 @@ module Licensee
     autoload :NpmBower,  'licensee/matchers/npm_bower'
     autoload :NuGet,     'licensee/matchers/nuget'
     autoload :Package,   'licensee/matchers/package'
+    autoload :PyProject, 'licensee/matchers/pyproject'
     autoload :Reference, 'licensee/matchers/reference'
     autoload :Spdx,      'licensee/matchers/spdx'
   end

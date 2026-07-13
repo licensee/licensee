@@ -16,6 +16,14 @@ description: |
 on:
   schedule: daily
   workflow_dispatch:
+    inputs:
+      aw_context:
+        default: '{}'
+        description: Agent caller context (used internally by Agentic Workflows).
+        required: false
+        type: choice
+        options:
+          - '{}'
   slash_command:
     name: repo-assist
   reaction: "eyes"
@@ -47,7 +55,7 @@ safe-outputs:
     max: 4
   push-to-pull-request-branch:
     target: "*"
-    title-prefix: "[Repo Assist] "
+    required-title-prefix: "[Repo Assist] "
     max: 4
   create-issue:
     title-prefix: "[Repo Assist] "
