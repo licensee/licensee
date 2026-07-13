@@ -1,0 +1,36 @@
+{
+  "last_run": "2026-07-13T06:29:00Z",
+  "monthly_summary_issue": 1031,
+  "backlog_cursor": 830,
+  "tasks_last_run": {
+    "task1_triage": "2026-07-13",
+    "task5_maintain_prs": "2026-07-13",
+    "task11_monthly_summary": "2026-07-13"
+  },
+  "comments_made": {
+    "603": null,
+    "635": "2026-07-13",
+    "642": "2026-03-15",
+    "655": "2026-04-09",
+    "830": "2026-07-12"
+  },
+  "prs": {
+    "1004": {
+      "status": "open",
+      "last_action": "2026-07-13",
+      "description": "fix: LicenseMeta#['source'] returns computed SPDX URL",
+      "ci": "passing",
+      "review_addressed": "2026-07-13 - restored meta['source'] in usage.md"
+    }
+  },
+  "fix_attempts": {
+    "655": ["PR #984 (merged, partial fix)", "PR #1004 separate fix"],
+    "635": ["comment only, implementation sketch provided"]
+  },
+  "improvement_ideas_submitted": [
+    "LicenseMeta#[] source fix (PR #1004)",
+    "SPDX template-based matching for #655 (noted in memory, no PR yet)",
+    "line-diff flag for #642 (comment only, no PR)"
+  ],
+  "notes": "PR #1004 had CHANGES_REQUESTED from mlinksva: restore meta['source'] in docs. Addressed 2026-07-13. Issue #635 has new mlinksva comment from March 2026 about incremental SPDX expression parsing - responded 2026-07-13. Issue #603 (scan subfolders) has no Repo Assist comment yet - consider for next run."
+}
