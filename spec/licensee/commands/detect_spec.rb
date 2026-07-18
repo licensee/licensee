@@ -176,4 +176,90 @@ RSpec.describe Licensee::Commands::Detect do
       expect(output[1]).to include('Unsupported remote URL')
     end
   end
+
+  context 'when using --recursive' do
+    let(:fixtures_path) { File.expand_path('../../fixtures', __dir__) }
+
+    context 'when scanning a directory with licensed subdirectories' do
+      let(:arguments) { ['--recursive', fixtures_path] }
+
+      it 'returns a zero exit code' do
+        expect(status.exitstatus).to be(0)
+      end
+
+      it 'outputs at least one result' do
+        expect(stdout).not_to be_empty
+      end
+
+      it 'outputs lines in path: LICENSE format' do
+        expect(stdout.lines).to all(match(/\S+: \S+/))
+      end
+    end
+
+    context 'when scanning an empty directory' do
+      let(:tmpdir) { Dir.mktmpdir }
+      let(:arguments) { ['--recursive', tmpdir] }
+
+      after { FileUtils.rm_rf(tmpdir) }
+
+      it 'returns a non-zero exit code' do
+        expect(status.exitstatus).to be(1)
+      end
+
+      it 'says no licenses detected' do
+        expect(stdout).to include('No licenses detected')
+      end
+    end
+
+    context 'when PATH itself has a license' do
+      let(:mit_path) { File.join(fixtures_path, 'mit') }
+      let(:arguments) { ['--recursive', mit_path] }
+
+      it 'includes the root directory in output' do
+        expect(stdout).to include('.')
+      end
+
+      it 'returns zero exit code' do
+        expect(status.exitstatus).to be(0)
+      end
+    end
+
+    context 'when using --json' do
+      let(:arguments) { ['--recursive', '--json', fixtures_path] }
+
+      it 'returns valid JSON array' do
+        parsed = JSON.parse(stdout)
+        expect(parsed).to be_an(Array)
+      end
+
+      it 'includes path keys in each result' do
+        parsed = JSON.parse(stdout)
+        expect(parsed.all? { |r| r.key?('path') }).to be true
+      end
+    end
+
+    context 'when using --depth' do
+      let(:shallow_path) do
+        dir = Dir.mktmpdir
+        subdir = File.join(dir, 'deep', 'nested', 'project')
+        FileUtils.mkdir_p(subdir)
+        FileUtils.cp(File.join(fixtures_path, 'mit', 'LICENSE.txt'), subdir)
+        dir
+      end
+
+      after { FileUtils.rm_rf(shallow_path) }
+
+      it 'with depth 1 does not find deeply nested licenses' do
+        _, _, s = Open3.capture3(*[command, '--recursive', '--depth', '1', shallow_path].flatten,
+                                 chdir: project_root)
+        expect(s.exitstatus).to be(1)
+      end
+
+      it 'with depth 3 finds the nested license' do
+        out, = Open3.capture3(*[command, '--recursive', '--depth', '3', shallow_path].flatten,
+                              chdir: project_root)
+        expect(out).to include('MIT')
+      end
+    end
+  end
 end
