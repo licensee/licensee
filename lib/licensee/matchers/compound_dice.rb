@@ -31,7 +31,7 @@ module Licensee
     class CompoundDice < Licensee::Matchers::Matcher
       # Minimum fraction of a license's unique words that must appear anywhere in
       # the file before range discovery is attempted.
-      COVERAGE_THRESHOLD = 0.75
+      COVERAGE_THRESHOLD = 0.90
 
       # Maximum size (as a multiple of the license unique wordset) of a candidate
       # window's unique wordset. Windows wider than this are abandoned.
