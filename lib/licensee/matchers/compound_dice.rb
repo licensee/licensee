@@ -7,9 +7,10 @@ module Licensee
     #
     # Algorithm (per candidate license L):
     #
-    # 1. Coverage pre-filter: skip L if fewer than COVERAGE_THRESHOLD of L's
-    #    unique words appear anywhere in the file. This avoids expensive windowing
-    #    for licenses whose vocabulary is largely absent.
+    # 1. Coverage pre-filter: skip L if fewer than minimum_coverage of L's unique
+    #    words appear anywhere in the file. The threshold is derived from
+    #    confidence_threshold so that candidates mathematically unable to satisfy it
+    #    are skipped without wasteful window searches.
     #
     # 2. Anchor-based window search: for each word position where a word from L
     #    appears in the file, expand a window rightward, tracking the unique wordset
@@ -17,8 +18,12 @@ module Licensee
     #    LICENSE_WORDSET_MULTIPLIER × |L.wordset| + WINDOW_SLACK. Record the best
     #    (highest) Dice similarity seen for any window started at this anchor.
     #
-    # 3. Report L as a compound match if any window achieves similarity ≥
-    #    Licensee.confidence_threshold.
+    # 3. Bigram-similarity floor: reject L if its bigram similarity against the
+    #    file is below half the confidence threshold. Mirrors the standard Dice
+    #    matcher to guard against adversarially scrambled content.
+    #
+    # 4. Report L as a compound match if any window achieves similarity ≥
+    #    Licensee.confidence_threshold and the bigram floor is met.
     #
     # This matcher is only invoked when the standard Dice matcher fails to find
     # a match. It is intentionally not run on very large files (> MAX_WORDS words)
@@ -28,11 +33,11 @@ module Licensee
     # an array of [Licensee::License, Float] pairs. +match+ and +confidence+
     # delegate to the top compound match for compatibility with the standard
     # matcher API.
+    #
+    # Like the standard Dice matcher, CompoundDice also applies a bigram-similarity
+    # floor to resist adversarially scrambled content that achieves high wordset
+    # Dice scores by including all the right words in the wrong order.
     class CompoundDice < Licensee::Matchers::Matcher
-      # Minimum fraction of a license's unique words that must appear anywhere in
-      # the file before range discovery is attempted.
-      COVERAGE_THRESHOLD = 0.90
-
       # Maximum size (as a multiple of the license unique wordset) of a candidate
       # window's unique wordset. Windows wider than this are abandoned.
       LICENSE_WORDSET_MULTIPLIER = 1.2
@@ -96,19 +101,45 @@ module Licensee
         end
       end
 
+      # Minimum fraction of a license's unique words that must appear anywhere in
+      # the file before window search is attempted. Derived from confidence_threshold
+      # so that candidates mathematically incapable of passing are skipped: the best
+      # possible window Dice score for a candidate with coverage c is 2c/(1+c), and
+      # for that to reach the confidence threshold t the required coverage is
+      # c >= t/(200-t).
+      def minimum_coverage
+        Licensee.confidence_threshold / (200.0 - Licensee.confidence_threshold)
+      end
+
+      # Bigram-similarity floor mirroring the standard Dice matcher: half the
+      # wordset confidence threshold, so genuine license matches (which score
+      # 90%+ on bigrams) always pass while scrambled content (near 0%) is rejected.
+      def minimum_bigram_confidence
+        Licensee.confidence_threshold / 2.0
+      end
+
       # Evaluate a single license against the file. Returns [license, sim] if the
       # license passes all checks, or nil to be filtered by filter_map.
       def compound_match(license, file_words, file_wordset)
         wordset = license.wordset
         return unless wordset&.any?
 
-        # Step 1: coverage pre-filter
+        # Step 1: coverage pre-filter — skip if fewer than minimum_coverage fraction
+        # of the license's unique words appear anywhere in the file. The threshold is
+        # derived from confidence_threshold so that candidates mathematically unable
+        # to satisfy it are skipped without wasteful window searches.
         coverage = (wordset & file_wordset).size.to_f / wordset.size
-        return if coverage < COVERAGE_THRESHOLD
+        return if coverage < minimum_coverage
 
         # Step 2: anchor-based window search
         sim = best_window_similarity(file_words, wordset)
-        [license, sim] if sim >= Licensee.confidence_threshold
+        return unless sim >= Licensee.confidence_threshold
+
+        # Step 3: bigram-similarity floor — guards against adversarially scrambled
+        # content that achieves high wordset Dice scores with words in the wrong order.
+        return unless license.bigram_similarity(file) >= minimum_bigram_confidence
+
+        [license, sim]
       end
 
       # Returns the highest Dice similarity achieved by any word-anchored window
