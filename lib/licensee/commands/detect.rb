@@ -6,8 +6,6 @@ require_relative 'detect_helpers'
 class LicenseeCLI < Thor
   include Licensee::Commands::DetectCLIHelpers
 
-  RECURSIVE_SKIP_DIRS = %w[.git node_modules vendor .bundle].freeze
-
   desc 'detect [PATH]', 'Detect the license of the given project'
   option :json, type: :boolean, desc: 'Return output as JSON'
   option :packages, type: :boolean, default: true, desc: 'Detect licenses in package manager files'
@@ -58,8 +56,6 @@ class LicenseeCLI < Thor
       []
     end
     entries.each do |entry|
-      next if RECURSIVE_SKIP_DIRS.include?(entry)
-
       full_path = File.join(current, entry)
       next unless File.directory?(full_path)
 
