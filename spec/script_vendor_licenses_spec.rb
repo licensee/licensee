@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable RSpec/DescribeClass
 RSpec.describe 'script/vendor-licenses' do
   let(:script_path) { File.expand_path('script/vendor-licenses', project_root) }
   let(:vendor_data_dir) { File.expand_path('vendor/choosealicense.com/_data', project_root) }
@@ -12,7 +13,7 @@ RSpec.describe 'script/vendor-licenses' do
 
   it 'does not contain Bash-specific syntax' do
     content = File.read(script_path)
-    expect(content).not_to match(/\[\[/)
+    expect(content).not_to include('[[')
   end
 
   it 'uses --no-wildcards-match-slash for GNU tar' do
@@ -34,3 +35,4 @@ RSpec.describe 'script/vendor-licenses' do
     expect(Dir["#{vendor_licenses_dir}/*"]).not_to be_empty
   end
 end
+# rubocop:enable RSpec/DescribeClass
