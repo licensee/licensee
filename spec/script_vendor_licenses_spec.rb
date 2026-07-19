@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe 'script/vendor-licenses' do
-  let(:script_path) { File.expand_path('../script/vendor-licenses', project_root) }
+  let(:script_path) { File.expand_path('script/vendor-licenses', project_root) }
   let(:vendor_data_dir) { File.expand_path('vendor/choosealicense.com/_data', project_root) }
   let(:vendor_licenses_dir) { File.expand_path('vendor/choosealicense.com/_licenses', project_root) }
 
