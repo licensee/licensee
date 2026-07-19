@@ -8,8 +8,11 @@ case "$(tar --version 2>/dev/null | sed -n '1p')" in
   *bsdtar*)
     set --
     ;;
-  *)
+  *GNU\ tar*)
     set -- --wildcards --no-wildcards-match-slash
+    ;;
+  *)
+    set -- --wildcards
     ;;
 esac
 
