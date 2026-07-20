@@ -35,14 +35,16 @@ class LicenseeCLI < Thor
   def handle_recursive_detect
     root = File.expand_path(path || Dir.pwd)
     results = collect_recursive_results(root, root, options[:depth])
+    output_recursive_results(results)
+    exit(results.any? { |r| !r[:project].licenses.empty? })
+  end
 
+  def output_recursive_results(results)
     if options[:json]
       say results.map { |r| r[:project].to_h.merge(path: r[:path]) }.to_json
     else
       print_recursive_results(results)
     end
-
-    exit(results.any? { |r| !r[:project].licenses.empty? })
   end
 
   def collect_recursive_results(root, current, remaining_depth)
@@ -50,18 +52,19 @@ class LicenseeCLI < Thor
     add_recursive_project(root, current, results)
     return results if remaining_depth <= 0
 
-    entries = begin
-      Dir.children(current).sort
-    rescue StandardError
-      []
-    end
-    entries.each do |entry|
-      full_path = File.join(current, entry)
-      next unless File.directory?(full_path)
-
+    subdirectories(current).each do |full_path|
       results.concat(collect_recursive_results(root, full_path, remaining_depth - 1))
     end
     results
+  end
+
+  def subdirectories(path)
+    Dir.children(path).sort.filter_map do |entry|
+      full_path = File.join(path, entry)
+      full_path if File.directory?(full_path)
+    end
+  rescue StandardError
+    []
   end
 
   def add_recursive_project(root, full_path, results)

@@ -63,9 +63,9 @@ Options:
   [--ref=REF]                    # The name of the commit/branch/tag to search (github.com PATHs only)
   [--remote], [--no-remote]      # Assume PATH is a GitHub owner/repo path
   [--filesystem], [--no-filesystem]  # Force looking at the filesystem (ignore git data)
-  [--recursive], [--no-recursive]    # Recursively detect licenses in subdirectories
-  [--depth=N]                        # Maximum directory depth for --recursive
-                                     # Default: 3
+  [--recursive]                  # Recursively detect licenses in subdirectories
+  [--depth=N]                    # Maximum directory depth for --recursive
+                                 # Default: 3
 ```
 
 ### Recursive detection

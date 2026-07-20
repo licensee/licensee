@@ -197,10 +197,13 @@ RSpec.describe Licensee::Commands::Detect do
     end
 
     context 'when scanning an empty directory' do
-      let(:tmpdir) { Dir.mktmpdir }
       let(:arguments) { ['--recursive', tmpdir] }
 
       after { FileUtils.rm_rf(tmpdir) }
+
+      def tmpdir
+        @tmpdir ||= Dir.mktmpdir
+      end
 
       it 'returns a non-zero exit code' do
         expect(status.exitstatus).to be(1)
@@ -212,8 +215,7 @@ RSpec.describe Licensee::Commands::Detect do
     end
 
     context 'when PATH itself has a license' do
-      let(:mit_path) { File.join(fixtures_path, 'mit') }
-      let(:arguments) { ['--recursive', mit_path] }
+      let(:arguments) { ['--recursive', File.join(fixtures_path, 'mit')] }
 
       it 'includes the root directory in output' do
         expect(stdout).to include('.')
@@ -239,15 +241,17 @@ RSpec.describe Licensee::Commands::Detect do
     end
 
     context 'when using --depth' do
-      let(:shallow_path) do
-        dir = Dir.mktmpdir
-        subdir = File.join(dir, 'deep', 'nested', 'project')
-        FileUtils.mkdir_p(subdir)
-        FileUtils.cp(File.join(fixtures_path, 'mit', 'LICENSE.txt'), subdir)
-        dir
-      end
-
       after { FileUtils.rm_rf(shallow_path) }
+
+      def shallow_path
+        @shallow_path ||= begin
+          dir = Dir.mktmpdir
+          subdir = File.join(dir, 'deep', 'nested', 'project')
+          FileUtils.mkdir_p(subdir)
+          FileUtils.cp(File.join(fixtures_path, 'mit', 'LICENSE.txt'), subdir)
+          dir
+        end
+      end
 
       it 'with depth 1 does not find deeply nested licenses' do
         _, _, s = Open3.capture3(*[command, '--recursive', '--depth', '1', shallow_path].flatten,
