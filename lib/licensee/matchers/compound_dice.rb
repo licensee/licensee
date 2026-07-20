@@ -18,12 +18,8 @@ module Licensee
     #    LICENSE_WORDSET_MULTIPLIER × |L.wordset| + WINDOW_SLACK. Record the best
     #    (highest) Dice similarity seen for any window started at this anchor.
     #
-    # 3. Bigram-similarity floor: reject L if its bigram similarity against the
-    #    file is below half the confidence threshold. Mirrors the standard Dice
-    #    matcher to guard against adversarially scrambled content.
-    #
-    # 4. Report L as a compound match if any window achieves similarity ≥
-    #    Licensee.confidence_threshold and the bigram floor is met.
+    # 3. Report L as a compound match if any window achieves similarity ≥
+    #    Licensee.confidence_threshold.
     #
     # This matcher is only invoked when the standard Dice matcher fails to find
     # a match. It is intentionally not run on very large files (> MAX_WORDS words)
@@ -34,9 +30,10 @@ module Licensee
     # delegate to the top compound match for compatibility with the standard
     # matcher API.
     #
-    # Like the standard Dice matcher, CompoundDice also applies a bigram-similarity
-    # floor to resist adversarially scrambled content that achieves high wordset
-    # Dice scores by including all the right words in the wrong order.
+    # Note: unlike the standard Dice matcher, CompoundDice does NOT apply a
+    # bigram-similarity floor against the whole file. In a compound file the
+    # target license occupies only a fraction of the content, so its bigrams score
+    # poorly against the full text. The window-search already enforces locality.
     class CompoundDice < Licensee::Matchers::Matcher
       # Maximum size (as a multiple of the license unique wordset) of a candidate
       # window's unique wordset. Windows wider than this are abandoned.
@@ -111,13 +108,6 @@ module Licensee
         Licensee.confidence_threshold / (200.0 - Licensee.confidence_threshold)
       end
 
-      # Bigram-similarity floor mirroring the standard Dice matcher: half the
-      # wordset confidence threshold, so genuine license matches (which score
-      # 90%+ on bigrams) always pass while scrambled content (near 0%) is rejected.
-      def minimum_bigram_confidence
-        Licensee.confidence_threshold / 2.0
-      end
-
       # Evaluate a single license against the file. Returns [license, sim] if the
       # license passes all checks, or nil to be filtered by filter_map.
       def compound_match(license, file_words, file_wordset)
@@ -134,10 +124,6 @@ module Licensee
         # Step 2: anchor-based window search
         sim = best_window_similarity(file_words, wordset)
         return unless sim >= Licensee.confidence_threshold
-
-        # Step 3: bigram-similarity floor — guards against adversarially scrambled
-        # content that achieves high wordset Dice scores with words in the wrong order.
-        return unless license.bigram_similarity(file) >= minimum_bigram_confidence
 
         [license, sim]
       end

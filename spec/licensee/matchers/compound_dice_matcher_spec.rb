@@ -154,4 +154,29 @@ RSpec.describe Licensee::Matchers::CompoundDice do
       expect(matcher.compound_matches).to be_empty
     end
   end
+
+  # ── Real-world: Tor compound license file ────────────────────────────────
+
+  context 'with the real-world Tor compound license file' do
+    let(:content) { File.read(File.expand_path('../../fixtures/compound-tor-bsd3/LICENSE', __dir__)) }
+    let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
+
+    it 'returns a match' do
+      expect(matcher.match).not_to be_nil
+    end
+
+    it 'detects BSD-3-Clause as a compound match' do
+      detected_keys = matcher.compound_matches.map { |l, _| l.key }
+      expect(detected_keys).to include('bsd-3-clause')
+    end
+
+    it 'detects all matches above the confidence threshold' do
+      expect(matcher.compound_matches.map(&:last)).to all(be >= Licensee.confidence_threshold)
+    end
+
+    it 'is not matched by the standard Dice matcher' do
+      dice = Licensee::Matchers::Dice.new(file)
+      expect(dice.match).to be_nil
+    end
+  end
 end

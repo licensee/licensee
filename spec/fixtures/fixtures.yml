@@ -28,6 +28,10 @@ compound-mit-bsd3:
   key: mit
   matcher: compound_dice
   hash: dd2ec9c86aca2e385da73c38c9816ce9d08f1dde
+compound-tor-bsd3:
+  key: mit
+  matcher: compound_dice
+  hash: e8d9c6e223cce9ef3d0930c26e154202ddf91435
 bsd-2-author:
   key: bsd-2-clause
   matcher: dice
