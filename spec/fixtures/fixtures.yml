@@ -20,6 +20,18 @@ bom:
   key: mit
   matcher: exact
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
+compound-mit-apache:
+  key: apache-2.0
+  matcher: compound_dice
+  hash: 4e128cdc5c1d269764f3f7ec0b5c8dfaa28784a9
+compound-mit-bsd3:
+  key: mit
+  matcher: compound_dice
+  hash: dd2ec9c86aca2e385da73c38c9816ce9d08f1dde
+compound-tor-bsd3:
+  key: mit
+  matcher: compound_dice
+  hash: e8d9c6e223cce9ef3d0930c26e154202ddf91435
 bsd-2-author:
   key: bsd-2-clause
   matcher: dice
