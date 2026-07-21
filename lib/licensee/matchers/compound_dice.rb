@@ -30,6 +30,11 @@ module Licensee
     # delegate to the top compound match for compatibility with the standard
     # matcher API.
     #
+    # Like the standard Dice matcher, CompoundDice uses wordset_fieldless (the
+    # license wordset minus template field placeholders such as [year] and
+    # [fullname]) when computing window similarity. This ensures that rendered
+    # files (with real copyright info) score correctly.
+    #
     # Note: unlike the standard Dice matcher, CompoundDice does NOT apply a
     # bigram-similarity floor against the whole file. In a compound file the
     # target license occupies only a fraction of the content, so its bigrams score
@@ -110,8 +115,17 @@ module Licensee
 
       # Evaluate a single license against the file. Returns [license, sim] if the
       # license passes all checks, or nil to be filtered by filter_map.
+      #
+      # Uses wordset_fieldless (excluding template field placeholders such as
+      # [year] and [fullname]) to match the behaviour of the standard Dice
+      # matcher, which also excludes field words from similarity computation.
+      # Without this, field words in the license wordset inflate the denominator
+      # while never appearing in rendered files, lowering similarity below the
+      # confidence threshold even for exact-match license sections.
       def compound_match(license, file_words, file_wordset)
-        wordset = license.wordset
+        # Use fieldless wordset (strips template fields like [year]/[fullname])
+        # so that rendered files (with real copyright info) score correctly.
+        wordset = license.send(:wordset_fieldless)
         return unless wordset&.any?
 
         # Step 1: coverage pre-filter — skip if fewer than minimum_coverage fraction
