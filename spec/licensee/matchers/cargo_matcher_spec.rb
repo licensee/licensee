@@ -27,9 +27,9 @@ RSpec.describe Licensee::Matchers::Cargo do
     'no whitespace'            => ["license='mit'", 'mit'],
     'leading whitespace'       => [" license = 'mit'", 'mit'],
     'other license'            => ['license = "Foo"', 'other'],
-    'multiple licenses /'      => ['license = "Apache-2.0/MIT"', 'other'],
-    'multiple licenses OR'     => ['license = "Apache-2.0 OR MIT"', 'other'],
-    'multiple licenses parens' => ['license = "(Apache-2.0 OR MIT)"', 'other']
+    'multiple licenses /'      => ['license = "Apache-2.0/MIT"', 'apache-2.0'],
+    'multiple licenses OR'     => ['license = "Apache-2.0 OR MIT"', 'apache-2.0'],
+    'multiple licenses parens' => ['license = "(Apache-2.0 OR MIT)"', 'apache-2.0']
   }.each do |description, license_declaration_and_key|
     context "with a #{description}" do
       let(:content) { license_declaration_and_key[0] }

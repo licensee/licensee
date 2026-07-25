@@ -51,8 +51,8 @@ RSpec.describe Licensee::Matchers::NuGet do
   context 'with a license expression' do
     let(:content) { '<license type="expression">BSD-2-Clause OR MIT</license>' }
 
-    it 'returns other' do
-      expect(matcher.match).to eql(other)
+    it 'returns the first recognised license from the expression' do
+      expect(matcher.match).to eql(Licensee::License.find('bsd-2-clause'))
     end
   end
 

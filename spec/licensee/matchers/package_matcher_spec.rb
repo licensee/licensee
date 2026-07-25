@@ -66,6 +66,46 @@ RSpec.describe Licensee::Matchers::Package do
     end
   end
 
+  context 'with an OR compound SPDX expression' do
+    let(:license_property) { 'mit or apache-2.0' }
+
+    it 'returns the first recognised license' do
+      expect(matcher.match).to eql(Licensee::License.find('mit'))
+    end
+  end
+
+  context 'with a parenthesised OR compound SPDX expression' do
+    let(:license_property) { '(mit or apache-2.0)' }
+
+    it 'returns the first recognised license' do
+      expect(matcher.match).to eql(Licensee::License.find('mit'))
+    end
+  end
+
+  context 'with an AND compound SPDX expression' do
+    let(:license_property) { 'mit and apache-2.0' }
+
+    it 'returns the first recognised license' do
+      expect(matcher.match).to eql(Licensee::License.find('mit'))
+    end
+  end
+
+  context 'with a compound expression where only the second ID is known' do
+    let(:license_property) { 'unknown-id or mit' }
+
+    it 'returns the first recognised license' do
+      expect(matcher.match).to eql(Licensee::License.find('mit'))
+    end
+  end
+
+  context 'with a compound expression of entirely unknown IDs' do
+    let(:license_property) { 'unknown-id or another-unknown' }
+
+    it 'returns other' do
+      expect(matcher.match).to eql(Licensee::License.find('other'))
+    end
+  end
+
   context 'when calling abstract methods on the base class' do
     let(:base_matcher) { described_class.new(file) }
 

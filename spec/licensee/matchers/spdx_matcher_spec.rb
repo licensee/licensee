@@ -37,8 +37,8 @@ RSpec.describe Licensee::Matchers::Spdx do
   context 'with a license expression' do
     let(:content) { 'PackageLicenseDeclared: (MIT OR Apache-2.0)' }
 
-    it 'returns other' do
-      expect(matcher.match).to eql(other)
+    it 'returns the first recognised license from the expression' do
+      expect(matcher.match).to eql(Licensee::License.find('mit'))
     end
   end
 end

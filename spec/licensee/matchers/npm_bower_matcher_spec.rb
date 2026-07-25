@@ -53,8 +53,8 @@ RSpec.describe Licensee::Matchers::NpmBower do
   context 'with a license expression' do
     let(:content) { "'license': '(MIT OR Apache-2.0 OR AGPL-3.0+)'" }
 
-    it 'returns other' do
-      expect(matcher.match).to eql(other)
+    it 'returns the first recognised license from the expression' do
+      expect(matcher.match).to eql(mit)
     end
   end
 
