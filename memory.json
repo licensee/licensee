@@ -1,15 +1,15 @@
 {
-  "last_run": "2026-08-01T06:17:00Z",
-  "monthly_summary_issue": "aw_aug26",
+  "last_run": "2026-08-02T06:19:00Z",
+  "monthly_summary_issue": 1047,
   "backlog_cursor": 830,
   "tasks_last_run": {
     "task1_triage": "2026-07-24",
     "task2_fix_issues": "2026-07-16",
     "task3_improvements": "2026-07-27",
-    "task5_maintain_prs": "2026-08-01",
-    "task7_labels": "2026-07-24",
+    "task5_maintain_prs": "2026-08-02",
+    "task7_labels": "2026-08-02",
     "task10_take_forward": "2026-07-27",
-    "task11_monthly_summary": "2026-08-01"
+    "task11_monthly_summary": "2026-08-02"
   },
   "comments_made": {
     "603": "2026-07-16",
@@ -26,7 +26,8 @@
       "title": "[Repo Assist] feat: compound license detection for multi-license files",
       "closes_issue": 830,
       "last_maintainer_review": "2026-07-20_changes_requested",
-      "last_repo_assist_update": "2026-07-21_fixed_wordset_fieldless_for_MIT"
+      "last_repo_assist_update": "2026-07-21_fixed_wordset_fieldless_for_MIT",
+      "ci_status": "all_green_as_of_2026-07-21"
     },
     "1034": {
       "status": "open_draft",
@@ -35,7 +36,8 @@
       "title": "[Repo Assist] feat: add licensee detect --recursive for recursive license detection",
       "closes_issue": 603,
       "last_maintainer_review": "2026-07-20_changes_requested",
-      "last_repo_assist_update": "2026-07-20_fixed_rubocop_offenses"
+      "last_repo_assist_update": "2026-07-20_fixed_rubocop_offenses",
+      "ci_status": "all_green_as_of_2026-07-20"
     },
     "1042": {
       "status": "open_draft",
@@ -44,11 +46,12 @@
     },
     "1046": {
       "status": "open_draft",
-      "branch": "repo-assist/improve-spdx-expression-parsing-635-f56f86a581b663af",
+      "branch": "repo-assist/improve-spdx-expression-all-licenses-635-d8e064fe1512c34e",
       "created_at": "2026-07-27",
       "title": "[Repo Assist] feat: add spdx_expression_licenses to Package matcher",
       "closes_issue": 635,
-      "no_reviews_yet": true
+      "no_reviews_yet": true,
+      "ci_note": "no CI check runs visible (draft PR); tests passed locally per PR description"
     }
   },
   "fix_attempts": {
@@ -69,5 +72,5 @@
     "Check comment #830 (checked 2026-07-18)",
     "Check comment #603 (checked 2026-07-18)"
   ],
-  "notes": "2026-08-01: Closed July summary #1031, created August 2026 monthly summary (#aw_aug26). PRs #1033/#1034 have all CI green, last reviews from 2026-07-20 (feedback addressed). PR #1046 no reviews yet. PR #1042 superseded by #1046. All 5 open issues have Repo Assist comments. Next: task1 triage (oldest issues), task2/task7 if new issues appear, task4 dep bundle when network available."
+  "notes": "2026-08-02: All 5 open issues have Repo Assist comments. All Repo Assist PRs awaiting maintainer review: #1033/#1034 CI green, #1046 no CI check runs (created as draft). #1042 superseded. Added enhancement label to #603. Next: task2 (no new fixable issues), task1 (all issues commented), task10 forward progress, task3 improvements."
 }
