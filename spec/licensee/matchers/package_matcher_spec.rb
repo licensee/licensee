@@ -73,4 +73,83 @@ RSpec.describe Licensee::Matchers::Package do
       expect { base_matcher.send(:license_property) }.to raise_error(NotImplementedError, /Package#license_property/)
     end
   end
+
+  describe '#spdx_expression_licenses' do
+    context 'with a plain single license key' do
+      let(:license_property) { 'mit' }
+
+      it 'returns nil (not a compound expression)' do
+        expect(matcher.spdx_expression_licenses).to be_nil
+      end
+    end
+
+    context 'with a nil license property' do
+      let(:license_property) { nil }
+
+      it 'returns nil' do
+        expect(matcher.spdx_expression_licenses).to be_nil
+      end
+    end
+
+    context 'with an "MIT OR Apache-2.0" expression' do
+      let(:license_property) { 'MIT OR Apache-2.0' }
+
+      it 'does not include the OR operator as a license' do
+        expect(matcher.spdx_expression_licenses.size).to eq(2)
+      end
+
+      it 'includes MIT' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('mit'))
+      end
+
+      it 'includes Apache-2.0' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('apache-2.0'))
+      end
+    end
+
+    context 'with an "MIT AND Apache-2.0" expression' do
+      let(:license_property) { 'MIT AND Apache-2.0' }
+
+      it 'includes MIT' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('mit'))
+      end
+
+      it 'includes Apache-2.0' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('apache-2.0'))
+      end
+    end
+
+    context 'with a compound expression containing an unknown identifier' do
+      let(:license_property) { 'UnknownFoo OR MIT' }
+
+      it 'returns other for the unknown identifier' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('other'))
+      end
+
+      it 'returns MIT for the known identifier' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('mit'))
+      end
+    end
+
+    context 'with a compound expression where all identifiers are unknown' do
+      let(:license_property) { 'UnknownFoo OR AnotherUnknown' }
+
+      it 'returns other for all tokens' do
+        result = matcher.spdx_expression_licenses
+        expect(result).to all(eq(Licensee::License.find('other')))
+      end
+    end
+
+    context 'with -or-later suffix tokens in compound expression' do
+      let(:license_property) { 'LGPL-2.1-or-later OR GPL-3.0-or-later' }
+
+      it 'strips -or-later and returns LGPL-2.1' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('lgpl-2.1'))
+      end
+
+      it 'strips -or-later and returns GPL-3.0' do
+        expect(matcher.spdx_expression_licenses).to include(Licensee::License.find('gpl-3.0'))
+      end
+    end
+  end
 end
