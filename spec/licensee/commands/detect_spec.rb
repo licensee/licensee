@@ -191,8 +191,8 @@ RSpec.describe Licensee::Commands::Detect do
         expect(stdout).not_to be_empty
       end
 
-      it 'outputs lines in path: LICENSE format' do
-        expect(stdout.lines).to all(match(/\S+: \S+/))
+      it 'outputs lines in path (file): LICENSE format' do
+        expect(stdout.lines).to all(match(/\S+ \(.+\): \S+/))
       end
     end
 

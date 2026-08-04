@@ -85,8 +85,10 @@ class LicenseeCLI < Thor
     end
 
     results.each do |result|
-      license_ids = result[:project].licenses.map(&:spdx_id).join(', ')
-      say "#{result[:path]}: #{license_ids}"
+      proj = result[:project]
+      license_ids = proj.licenses.map(&:spdx_id).join(', ')
+      matched_files = proj.matched_files.map(&:path).join(', ')
+      say "#{result[:path]} (#{matched_files}): #{license_ids}"
     end
   end
 end
