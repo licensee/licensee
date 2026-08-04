@@ -63,7 +63,23 @@ Options:
   [--ref=REF]                    # The name of the commit/branch/tag to search (github.com PATHs only)
   [--remote], [--no-remote]      # Assume PATH is a GitHub owner/repo path
   [--filesystem], [--no-filesystem]  # Force looking at the filesystem (ignore git data)
+  [--recursive]                  # Recursively detect licenses in subdirectories
+  [--depth=N]                    # Maximum directory depth for --recursive
+                                 # Default: 3
 ```
+
+### Recursive detection
+
+Use `--recursive` to scan a directory tree and detect licenses in each subdirectory:
+
+```
+$ licensee detect ~/path/to/checkouts/ --recursive
+./: MIT
+vendor/some-lib: Apache-2.0
+vendor/another-lib: MIT
+```
+
+The `--depth` option limits how deep the directory walk descends (default: 3). Combine with `--json` for machine-readable output covering all detected sub-projects.
 
 *Note: If you want to parse the command line output for use in another language or tool, it's highly recommended that you use the more stable `--json` output then attempting to parse the human-readable output.*
 
