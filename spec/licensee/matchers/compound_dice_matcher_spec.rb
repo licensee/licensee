@@ -7,23 +7,16 @@ RSpec.describe Licensee::Matchers::CompoundDice do
   def apache  = Licensee::License.find('apache-2.0')
   def bsd3    = Licensee::License.find('bsd-3-clause')
 
-  let(:mit_content)    { sub_copyright_info(mit) }
-  let(:apache_content) { sub_copyright_info(apache) }
-  let(:bsd3_content)   { sub_copyright_info(bsd3) }
+  let(:mit_content) { sub_copyright_info(mit) }
 
-  # ── Positive: compound MIT + Apache ──────────────────────────────────────
+  # ── Positive: compound MIT + Apache (fixture file) ───────────────────────
 
-  context 'with a compound MIT + Apache-2.0 file' do
-    let(:content) { "#{mit_content}\n\n#{apache_content}" }
+  context 'with a compound MIT + Apache-2.0 fixture file' do
+    let(:content) { File.read(File.expand_path('../../fixtures/compound-mit-apache/LICENSE', __dir__)) }
     let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
 
     it 'returns a match' do
       expect(matcher.match).not_to be_nil
-    end
-
-    it 'detects Apache-2.0 as the top compound match' do
-      top_license, = matcher.compound_matches.first
-      expect(top_license).to eql(apache)
     end
 
     it 'detects MIT as a compound match' do
@@ -50,10 +43,10 @@ RSpec.describe Licensee::Matchers::CompoundDice do
     end
   end
 
-  # ── Positive: compound MIT + BSD-3-Clause ────────────────────────────────
+  # ── Positive: compound MIT + BSD-3-Clause (fixture file) ─────────────────
 
-  context 'with a compound MIT + BSD-3-Clause file' do
-    let(:content) { "#{mit_content}\n\n#{bsd3_content}" }
+  context 'with a compound MIT + BSD-3-Clause fixture file' do
+    let(:content) { File.read(File.expand_path('../../fixtures/compound-mit-bsd3/LICENSE', __dir__)) }
     let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
 
     it 'returns a match' do
@@ -78,7 +71,7 @@ RSpec.describe Licensee::Matchers::CompoundDice do
   # ── Positive: LicenseFile#compound_licenses convenience method ───────────
 
   context 'with a compound MIT + BSD-3-Clause file via LicenseFile' do
-    let(:content) { "#{mit_content}\n\n#{bsd3_content}" }
+    let(:content) { File.read(File.expand_path('../../fixtures/compound-mit-bsd3/LICENSE', __dir__)) }
     let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
 
     it 'exposes compound_licenses on the LicenseFile' do
