@@ -9,9 +9,9 @@ RSpec.describe Licensee::Matchers::CompoundDice do
 
   let(:mit_content) { sub_copyright_info(mit) }
 
-  # ── Positive: compound MIT + Apache (fixture file) ───────────────────────
+  # ── Positive: compound MIT + Apache (synthetic fixture file) ────────────
 
-  context 'with a compound MIT + Apache-2.0 fixture file' do
+  context 'with a synthetic compound MIT + Apache-2.0 fixture file' do
     let(:content) { File.read(File.expand_path('../../fixtures/compound-mit-apache/LICENSE', __dir__)) }
     let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
 
@@ -43,9 +43,9 @@ RSpec.describe Licensee::Matchers::CompoundDice do
     end
   end
 
-  # ── Positive: compound MIT + BSD-3-Clause (fixture file) ─────────────────
+  # ── Positive: compound MIT + BSD-3-Clause (synthetic fixture file) ──────
 
-  context 'with a compound MIT + BSD-3-Clause fixture file' do
+  context 'with a synthetic compound MIT + BSD-3-Clause fixture file' do
     let(:content) { File.read(File.expand_path('../../fixtures/compound-mit-bsd3/LICENSE', __dir__)) }
     let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
 
@@ -68,9 +68,9 @@ RSpec.describe Licensee::Matchers::CompoundDice do
     end
   end
 
-  # ── Positive: LicenseFile#compound_licenses convenience method ───────────
+  # ── Positive: compound MIT + BSD-3-Clause (synthetic) via LicenseFile ──
 
-  context 'with a compound MIT + BSD-3-Clause file via LicenseFile' do
+  context 'with a synthetic compound MIT + BSD-3-Clause file via LicenseFile' do
     let(:content) { File.read(File.expand_path('../../fixtures/compound-mit-bsd3/LICENSE', __dir__)) }
     let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
 
@@ -149,6 +149,10 @@ RSpec.describe Licensee::Matchers::CompoundDice do
   end
 
   # ── Real-world: Tor compound license file ────────────────────────────────
+  # Source: https://gitweb.torproject.org/tor.git/plain/LICENSE
+  # The Tor LICENSE file combines BSD-3-Clause (Tor itself), MIT (some components),
+  # and ISC (other components) in a single file — a well-known real-world example
+  # of compound licensing from the Tor Project (https://www.torproject.org/).
 
   context 'with the real-world Tor compound license file' do
     let(:content) { File.read(File.expand_path('../../fixtures/compound-tor-bsd3/LICENSE', __dir__)) }
@@ -161,6 +165,36 @@ RSpec.describe Licensee::Matchers::CompoundDice do
     it 'detects BSD-3-Clause as a compound match' do
       detected_keys = matcher.compound_matches.map { |l, _| l.key }
       expect(detected_keys).to include('bsd-3-clause')
+    end
+
+    it 'detects all matches above the confidence threshold' do
+      expect(matcher.compound_matches.map(&:last)).to all(be >= Licensee.confidence_threshold)
+    end
+
+    it 'is not matched by the standard Dice matcher' do
+      dice = Licensee::Matchers::Dice.new(file)
+      expect(dice.match).to be_nil
+    end
+  end
+
+  # ── Real-world: TypeScript NOTICE compound license file ──────────────────
+  # Source: https://github.com/microsoft/TypeScript/blob/main/NOTICE.txt
+  # The TypeScript NOTICE.txt file bundles license notices for all vendored
+  # dependencies, including MIT (DefinitelyTyped, many npm packages) and
+  # CC-BY-4.0 (WHATWG standards). This is a well-known real-world example
+  # of a compound license NOTICE file from a major open-source project.
+
+  context 'with the real-world TypeScript NOTICE compound license file' do
+    let(:content) { File.read(File.expand_path('../../fixtures/compound-typescript-notice/LICENSE', __dir__)) }
+    let(:file)    { Licensee::ProjectFiles::LicenseFile.new(content, 'LICENSE') }
+
+    it 'returns a match' do
+      expect(matcher.match).not_to be_nil
+    end
+
+    it 'detects MIT as a compound match' do
+      detected_keys = matcher.compound_matches.map { |l, _| l.key }
+      expect(detected_keys).to include('mit')
     end
 
     it 'detects all matches above the confidence threshold' do
