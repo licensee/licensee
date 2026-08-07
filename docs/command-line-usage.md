@@ -125,8 +125,9 @@ Usage:
   licensee diff [PATH]
 
 Options:
-  [--license=LICENSE]        # The SPDX ID or key of the license to compare
-  [--remote], [--no-remote]  # Assume PATH is a GitHub owner/repo path
+  [--license=LICENSE]              # The SPDX ID or key of the license to compare
+  [--remote], [--no-remote]        # Assume PATH is a GitHub owner/repo path
+  [--line-diff]  # Use line-based diff instead of word-based diff
 
 Compare the given license text to a known license
 ```

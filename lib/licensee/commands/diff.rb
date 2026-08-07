@@ -6,11 +6,12 @@ require 'tmpdir'
 class LicenseeCLI < Thor
   desc 'diff [PATH]', 'Compare the given license text to a known license'
   option :license, type: :string, desc: 'The SPDX ID or key of the license to compare'
+  option :line_diff, type: :boolean, desc: 'Use line-based diff instead of word-based diff'
   def diff(_path = nil)
     say "Comparing to #{expected_license.name}:"
     print_table diff_summary_rows
     exit_on_exact_match
-    say word_diff
+    say diff_output
   end
 
   private
@@ -43,13 +44,15 @@ class LicenseeCLI < Thor
     @input_text ||= license_to_diff.content_normalized(wrap: 80)
   end
 
-  def word_diff
-    Dir.mktmpdir { |dir| word_diff_in_dir(dir) }
+  def diff_output
+    Dir.mktmpdir { |dir| diff_output_in_dir(dir) }
   end
 
-  def word_diff_in_dir(dir)
+  def diff_output_in_dir(dir)
     path = File.expand_path 'LICENSE', dir
-    Dir.chdir(dir) { git_word_diff(path) }
+    Dir.chdir(dir) do
+      options[:line_diff] ? git_line_diff(path) : git_word_diff(path)
+    end
   end
 
   def git_word_diff(path)
@@ -59,6 +62,15 @@ class LicenseeCLI < Thor
     `git commit -m 'left'`
     File.write(path, input_text)
     `git diff --word-diff`
+  end
+
+  def git_line_diff(path)
+    `git init`
+    File.write(path, expected_text)
+    `git add LICENSE`
+    `git commit -m 'left'`
+    File.write(path, input_text)
+    `git diff`
   end
 
   def license_to_diff
