@@ -79,7 +79,20 @@ module Licensee
       /ix
 
       def possible_matchers
-        [Matchers::Copyright, Matchers::Exact, Matchers::Dice]
+        [Matchers::Copyright, Matchers::Exact, Matchers::Dice, Matchers::CompoundDice]
+      end
+
+      # When this file is matched by the CompoundDice matcher, returns all
+      # detected licenses as an array of [Licensee::License, Float] pairs sorted
+      # by descending similarity.  Returns an empty array for non-compound files
+      # or when compound detection finds nothing.
+      def compound_licenses
+        @compound_licenses ||=
+          if matcher.is_a?(Matchers::CompoundDice)
+            matcher.compound_matches
+          else
+            []
+          end
       end
 
       def attribution
