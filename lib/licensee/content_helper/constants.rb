@@ -89,6 +89,16 @@ module Licensee
         'copyright owner' => 'copyright holder'
       }.freeze
 
+      BSD_ATTR_PATTERNS = [
+        [/\bneither\s+the\s+name\s+of\s+(?!the\s+copyright\s+holder\b).+?\s+nor\s+the\s+names?\s+of
+          \s+\w+\s+contributors\b/mx,
+         'neither the name of the copyright holder nor the names of its contributors'],
+        [/\bthis\s+\w+\s+is\s+provided\s+by\s+(?!the\s+copyright\s+holders?\s+and\s+contributors\b).+?'as\s+is'/m,
+         "this software is provided by the copyright holders and contributors 'as is'"],
+        [/\bin\s+no\s+event\s+shall\s+(?!the\s+copyright\s+holders?\b|the\s+authors?\b|anyone\b).+?\s+be\s+liable\b/m,
+         'in no event shall the copyright holder or contributors be liable']
+      ].freeze
+
       STRIP_METHODS = %i[
         bom
         cc_optional
