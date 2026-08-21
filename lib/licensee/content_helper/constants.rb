@@ -95,7 +95,9 @@ module Licensee
          'neither the name of the copyright holder nor the names of its contributors'],
         [/\bthis\s+\w+\s+is\s+provided\s+by\s+(?!the\s+copyright\s+holders?\s+and\s+contributors\b).+?'as\s+is'/m,
          "this software is provided by the copyright holders and contributors 'as is'"],
-        [/\bin\s+no\s+event\s+shall\s+(?!the\s+copyright\s+holders?\b|the\s+authors?\b|anyone\b).+?\s+be\s+liable\b/m,
+        [/\bin\s+no\s+event\s+shall\s+
+          (?!the\s+copyright\s+holders?\b|the\s+contributors?\b|the\s+authors?\b|anyone\b)
+          .+?\s+be\s+liable\b/mx,
          'in no event shall the copyright holder or contributors be liable']
       ].freeze
 
