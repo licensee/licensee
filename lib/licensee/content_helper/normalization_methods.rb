@@ -24,7 +24,7 @@ module Licensee
 
       def normalize_content
         @_content = content_without_title_and_version.downcase
-        (ContentHelper::NORMALIZATIONS.keys + %i[spelling span_markup bullets]).each { |op| normalize(op) }
+        (ContentHelper::NORMALIZATIONS.keys + %i[spelling span_markup bullets spdx_license_attribution]).each { |op| normalize(op) }
         ContentHelper::STRIP_METHODS.each { |op| strip(op) }
         _content
       end
@@ -143,6 +143,10 @@ module Licensee
       def normalize_bullets
         normalize(ContentHelper::REGEXES[:bullet], "\n\n- ")
         normalize(/\)\s+\(/, ')(')
+      end
+
+      def normalize_spdx_license_attribution
+        ContentHelper::BSD_ATTR_PATTERNS.each { |pat, rep| @_content = _content.gsub(pat, rep) }
       end
     end
   end
