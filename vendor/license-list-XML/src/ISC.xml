@@ -14,7 +14,7 @@
          <p><alt name="title" match="(The )?ISC License( \(ISC[L]?\))?:?">ISC License</alt></p>
       </titleText>
       <copyrightText>
-         <p>&lt;copyright notice&gt;</p>
+         <p>Copyright &lt;YEAR&gt; &lt;OWNER&gt;</p>
       </copyrightText>
 
       <p>Permission to use, copy, modify, and<optional>/or</optional> distribute this software for any purpose with or without fee is
