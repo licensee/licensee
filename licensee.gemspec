@@ -17,6 +17,11 @@ Gem::Specification.new do |gem|
   gem.homepage = 'https://github.com/licensee/licensee'
   gem.license  = 'MIT'
   gem.metadata['rubygems_mfa_required'] = 'true'
+  gem.metadata['homepage_uri'] = 'https://github.com/licensee/licensee'
+  gem.metadata['source_code_uri'] = 'https://github.com/licensee/licensee'
+  gem.metadata['bug_tracker_uri'] = 'https://github.com/licensee/licensee/issues'
+  gem.metadata['changelog_uri'] = 'https://github.com/licensee/licensee/releases'
+  gem.metadata['documentation_uri'] = 'https://github.com/licensee/licensee/tree/main/docs'
   gem.post_install_message = <<~MSG
     NOTE: The rugged gem is no longer a required dependency of licensee.
     If you scan bare Git repositories or Git repos without a working tree,
