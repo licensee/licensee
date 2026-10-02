@@ -27,6 +27,8 @@ where `[PATH]` is:
 
 If you don't specify any arguments, `licensee detect` will just scan the current directory.
 
+Paths are literal. Quote paths containing spaces or shell glob characters, for example `licensee detect 'checkout[1]'`. When given a file, Licensee uses that filename literally rather than expanding it as a glob.
+
 In all cases, you'll get an output that looks like:
 
 ```
