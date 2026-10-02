@@ -13,10 +13,9 @@ module Licensee
     class FSProject < Licensee::Projects::Project
       def initialize(path, **args)
         if ::File.file?(path)
-          @pattern = File.basename(path)
+          @filename = File.basename(path)
           @dir = File.expand_path File.dirname(path)
         else
-          @pattern = '*'
           @dir = File.expand_path(path)
         end
 
@@ -35,10 +34,11 @@ module Licensee
       def files
         @files ||= search_directories.flat_map do |dir|
           relative_dir = Pathname.new(dir).relative_path_from(dir_path).to_s
-          Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).filter_map do |file|
-            next unless ::File.file?(file)
+          names = @filename ? [@filename] : Dir.glob('*', base: dir)
+          names.filter_map do |name|
+            next unless ::File.file?(::File.join(dir, name))
 
-            { name: ::File.basename(file), dir: relative_dir }
+            { name: name, dir: relative_dir }
           end
         end
       end
@@ -59,7 +59,8 @@ module Licensee
 
       # Returns true if @dir is @root or it's descendant
       def valid_search_root?
-        dir_path.fnmatch?(@root) || dir_path.fnmatch?(::File.join(@root, '**'))
+        root = Pathname.new(@root)
+        dir_path.ascend.any?(root)
       end
 
       # Returns the set of unique paths to search for project files
