@@ -25,6 +25,8 @@ where `[PATH]` is:
 * A file, for example: `licensee detect LICENSE.txt`
 * A GitHub repository, for example: `licensee detect https://github.com/facebook/react`
 
+Paths are literal. Quote paths containing spaces or shell glob characters, for example `licensee detect 'checkout[1]'`.
+
 If you don't specify any arguments, `licensee detect` will just scan the current directory.
 
 In all cases, you'll get an output that looks like:
