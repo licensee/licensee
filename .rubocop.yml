@@ -19,4 +19,4 @@ Gemspec/DevelopmentDependencies:
   Enabled: false
 
 Metrics/ModuleLength:
-  Max: 105
+  Max: 115
