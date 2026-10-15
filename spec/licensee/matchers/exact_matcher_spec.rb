@@ -11,7 +11,8 @@ RSpec.describe Licensee::Matchers::Exact do
     expect(matcher.file).to eql(file)
   end
 
-  it 'matches' do
+  it 'matches', :aggregate_failures do
+    expect(matcher.match).to eql(mit)
     expect(content).to be_detected_as(mit)
   end
 
@@ -23,6 +24,24 @@ RSpec.describe Licensee::Matchers::Exact do
     let(:content) { add_random_words(mit.content) }
 
     it "doesn't match" do
+      expect(matcher.match).to be_nil
+    end
+  end
+
+  context 'with the same words in a different order' do
+    let(:content) { mit.content_normalized.split.reverse.join(' ') }
+
+    it 'does not call a wordset match exact', :aggregate_failures do
+      expect(file.wordset).to eq(mit.wordset)
+      expect(matcher.match).to be_nil
+    end
+  end
+
+  context 'with repeated words' do
+    let(:content) { "#{mit.content_normalized} permission" }
+
+    it 'does not call a wordset match exact', :aggregate_failures do
+      expect(file.wordset).to eq(mit.wordset)
       expect(matcher.match).to be_nil
     end
   end

@@ -104,7 +104,7 @@ module Licensee
     # Ordered array of words extracted from the normalized content.
     # Memoized so that both wordset and bigrams share the same scan result.
     def words
-      @words ||= content_normalized&.scan(%r{(?:[\w/-](?:'s|(?<=s)')?)+})
+      @words ||= content_normalized&.scan(WORD_REGEX)
     end
 
     def _content
