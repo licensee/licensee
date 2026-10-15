@@ -31,24 +31,6 @@ Files in `LICENSES/` are scored separately from files in the project root: the f
 
 Licensee relies on the crowdsourced license content and metadata from [`choosealicense.com`](https://choosealicense.com).
 
-### Comparing license text
-
-An exact match requires equality of the complete normalized text, not just its
-distinct words. Otherwise, Licensee compares distinct words and adjacent word
-pairs, with a length-difference penalty on the word score.
-Formatting differences that survive normalization can therefore produce a
-similarity match rather than an exact match.
-
-Han characters and Japanese kana are tokenized individually, so Chinese and
-Japanese prose contributes to both scores even without spaces between words.
-Other Unicode scripts, including Korean, are tokenized as words. Line breaks
-between Han/kana characters or East Asian punctuation are removed during
-normalization; explicit spaces and Korean word boundaries are preserved.
-This normalization changes the content hash of the bundled Mulan PSL v2 license.
-
-Similarity matching tolerates small differences and is not proof of legal
-equivalence. In particular, a short change can materially alter license terms.
-
 ### What it doesn't look at by default
 
 * The licensing of a project's dependencies
