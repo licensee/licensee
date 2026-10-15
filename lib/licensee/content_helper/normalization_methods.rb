@@ -35,14 +35,13 @@ module Licensee
         return unless _content
 
         if regex_or_sym.is_a?(Symbol)
+          normalize(ContentHelper::REGEXES[:cjk_lines], '') if regex_or_sym == :whitespace
           meth = "strip_#{regex_or_sym}"
           return send(meth) if respond_to?(meth, true)
 
-          unless ContentHelper::REGEXES[regex_or_sym]
+          regex_or_sym = ContentHelper::REGEXES.fetch(regex_or_sym) do
             raise ArgumentError, "#{regex_or_sym} is an invalid regex reference"
           end
-
-          regex_or_sym = ContentHelper::REGEXES[regex_or_sym]
         end
 
         @_content = _content.gsub(regex_or_sym, ' ').squeeze(' ').strip

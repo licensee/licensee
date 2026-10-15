@@ -2,14 +2,13 @@
 
 module Licensee
   module Matchers
-    # Exact matcher that succeeds when the license file's normalized wordset
-    # exactly matches a known license's normalized wordset.
+    # Exact matcher that compares the complete normalized license text.
     class Exact < Licensee::Matchers::Matcher
       def match
         return @match if defined? @match
 
         @match = potential_matches.find do |potential_match|
-          potential_match.wordset == file.wordset
+          potential_match.content_normalized == file.content_normalized
         end
       end
 
