@@ -62,7 +62,7 @@ case-sensitive:
   hash: da39a3ee5e6b4b0d3255bfef95601890afd80709
 cc-by-4.0_markdown:
   key: cc-by-4.0
-  matcher: exact
+  matcher: dice
   hash: f2a70fcab522bfb2fbcdefb47b94d2a928e22091
 cc-by-nc-sa:
   key: other
@@ -74,11 +74,11 @@ cc-by-nd:
   hash: b3cd0e6254ff1116ad09860ec03ea871cff30f64
 cc-by-sa-4.0_markdown:
   key: cc-by-sa-4.0
-  matcher: exact
+  matcher: dice
   hash: 33464647bebf0a285d9df642ccb07c8e26b3e268
 cc-by-sa-mdlinks:
   key: cc-by-sa-4.0
-  matcher: exact
+  matcher: dice
   hash: a81c2a3a07b59f58b3c09387874724670122fc90
 cc-by-sa-nocclicensor:
   key: cc-by-sa-4.0
@@ -118,7 +118,7 @@ epl-1.0_markdown:
   hash: bae4ee4c336e237f3693b1ba153fc144364e683b
 eupl-cal2017:
   key: eupl-1.2
-  matcher: exact
+  matcher: dice
   hash: d8debddd73476c481fc6ceed37c75f0ae97a6e81
 fcpl-modified-mpl:
   key: other
@@ -134,11 +134,11 @@ gfdl-1.3_markdown:
   hash: fccaacd02277c1aff3ec015192f7c7a2fb7d0e0e
 gpl-2.0_markdown:
   key: gpl-2.0
-  matcher: exact
+  matcher: dice
   hash: 32d258b04aadb94f8762547b9f26ac1c61a1b1f7
 gpl-2.0_markdown_headings:
   key: gpl-2.0
-  matcher: exact
+  matcher: dice
   hash: 74e2c1e8b8ff13e284dd222f214b79e9f4d3590b
 gpl-3.0_markdown:
   key: gpl-3.0
@@ -162,7 +162,7 @@ lgpl-2.1_markdown:
   hash: ad731153900d95393a8c718ccf9c35de074b8e4c
 lgpl-3.0_markdown:
   key: lgpl-3.0
-  matcher: exact
+  matcher: dice
   hash: f91734065bdeeefeb8541cb57724030eea2cc544
 license-folder:
   key:
@@ -210,7 +210,7 @@ mit_markdown:
   hash: 4c2c763d64bbc7ef2e58b0ec6d06d90cee9755c9
 mpl-2.0_markdown:
   key: mpl-2.0
-  matcher: exact
+  matcher: dice
   hash: 9d898bc8e265a13ed09bd9e09d64f66f8976fffe
 mpl-without-hrs:
   key: mpl-2.0

@@ -72,6 +72,20 @@ RSpec.describe Licensee::ContentHelper do
     expect(helper.bigrams).to eql(expected_bigrams)
   end
 
+  context 'with text in multiple scripts' do
+    let(:content) { "permission\u8BB8\u53EF\u3059\u308B\u30BD\u30FC\u30B9 granted caf\u00E9 \uD55C\uAD6D\uC5B4" }
+
+    it 'tokenizes Han and kana characters individually and other scripts as words' do
+      expect(helper.wordset.to_a).to eq(
+        %W[permission \u8BB8 \u53EF \u3059 \u308B \u30BD \u30FC \u30B9 granted caf\u00E9 \uD55C\uAD6D\uC5B4]
+      )
+    end
+
+    it 'compares adjacent Han characters as bigrams' do
+      expect(helper.bigrams).to include("\u8BB8 \u53EF")
+    end
+  end
+
   it 'returns empty set for content with fewer than two words' do
     single_word = ContentHelperTestHelper.new('word', filename: 'LICENSE')
     expect(single_word.bigrams).to eql(Set.new)
@@ -223,6 +237,22 @@ RSpec.describe Licensee::ContentHelper do
   end
 
   context 'when normalizing' do
+    context 'with line-wrapped Chinese and Japanese text' do
+      let(:content) { "\u8BB8 \t\r\n  \u53EF\u3001\n\u30BD\u30FC\n\u30B9 permission\ngranted" }
+
+      it 'joins East Asian line breaks but retains English word boundaries' do
+        expect(normalized_content).to eq("\u8BB8\u53EF\u3001\u30BD\u30FC\u30B9 permission granted")
+      end
+    end
+
+    context 'with spaces in Chinese and Korean text' do
+      let(:content) { "\u8BB8 \u53EF \uD55C\uAD6D\n\uC5B4" }
+
+      it 'preserves explicit spaces and Korean word boundaries' do
+        expect(normalized_content).to eq("\u8BB8 \u53EF \uD55C\uAD6D \uC5B4")
+      end
+    end
+
     context 'when normalizing http to https' do
       let(:content) { 'http://example.com' }
 
