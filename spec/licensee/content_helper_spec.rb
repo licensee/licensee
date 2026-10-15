@@ -245,6 +245,25 @@ RSpec.describe Licensee::ContentHelper do
       end
     end
 
+    %W[\u5F20\u4E09 \u30BF\u30CA\u30AB].each do |name|
+      context "with a copyright notice ending in #{name}" do
+        let(:prose) { "\u672C\u8F6F\u4EF6\u53EF\u4EE5\u81EA\u7531\u4F7F\u7528\u3002" }
+        let(:content) { "Copyright (c) 2026 #{name}\n#{prose}" }
+
+        it 'retains the CJK license prose on the next line' do
+          expect(normalized_content).to eq(prose)
+        end
+      end
+    end
+
+    context 'with CJK line breaks next to quotation marks' do
+      let(:content) { "\u8BB8\u53EF\u201C\n\u8F6F\u4EF6\u201D\n\u4F7F\u7528" }
+
+      it 'joins lines after quote normalization' do
+        expect(normalized_content).to eq("\u8BB8\u53EF'\u8F6F\u4EF6'\u4F7F\u7528")
+      end
+    end
+
     context 'with spaces in Chinese and Korean text' do
       let(:content) { "\u8BB8 \u53EF \uD55C\uAD6D\n\uC5B4" }
 

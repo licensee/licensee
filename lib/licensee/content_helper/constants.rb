@@ -7,13 +7,14 @@ module Licensee
       START_REGEX = /\A\s*/
       END_OF_TERMS_REGEX = /^[\s#*_]*end of (the )?terms and conditions[\s#*_]*$/i
       CJK_CHARACTER_REGEX = /[\p{Han}\p{Hiragana}\p{Katakana}\u30FC]/
-      CJK_LINE_BOUNDARY_REGEX = /#{CJK_CHARACTER_REGEX}|[\u3001-\u303F\uFF01-\uFF60\u2018-\u201D]/
+      CJK_LINE_BOUNDARY_REGEX = /#{CJK_CHARACTER_REGEX}|['\u3001-\u303F\uFF01-\uFF60\u2018-\u201D]/
       WORD_REGEX = %r{#{CJK_CHARACTER_REGEX}|(?:(?!#{CJK_CHARACTER_REGEX})[\p{Word}/-](?:'s|(?<=s)')?)+}
       REGEXES = {
         bom:                 /#{START_REGEX}\xEF\xBB\xBF/,
         hrs:                 /^\s*[=\-*]{3,}\s*$/,
         all_rights_reserved: /#{START_REGEX}all rights reserved\.?$/i,
         whitespace:          /\s+/,
+        cjk_lines:           /(?<=#{CJK_LINE_BOUNDARY_REGEX})[ \t]*\r?\n[ \t]*(?=#{CJK_LINE_BOUNDARY_REGEX})/,
         markdown_headings:   /^\s*#+/,
         version:             /#{START_REGEX}version.*$/i,
         span_markup:         /[_*~]+(.*?)[_*~]+/,
@@ -37,10 +38,6 @@ module Licensee
       }.freeze
 
       NORMALIZATIONS = {
-        cjk_lines:  {
-          from: /(?<=#{CJK_LINE_BOUNDARY_REGEX})[ \t]*\r?\n[ \t]*(?=#{CJK_LINE_BOUNDARY_REGEX})/,
-          to:   ''
-        },
         lists:      { from: /^\s*(?:\d\.|[*-])(?: [*_]{0,2}\(?[\da-z]\)[*_]{0,2})?\s+([^\n])/, to: '- \1' },
         https:      { from: /http:/, to: 'https:' },
         ampersands: { from: '&', to: 'and' },
